@@ -62,6 +62,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= objectMoveSpeed;
         }
 
+        if (key == GLFW_KEY_Q) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale += objectMoveSpeed;
+        }
+
+
+        if (key == GLFW_KEY_E) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale -= objectMoveSpeed;
+        }
 
 	    if (key == GLFW_KEY_P && action == GLFW_RELEASE)
 	    {
