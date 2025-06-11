@@ -3,6 +3,9 @@
 #include <glm/vec3.hpp>
 #include <vector>
 #include "cMeshObject.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 extern glm::vec3 g_cameraEye;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
@@ -78,20 +81,102 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 ::g_selectedObjectIndex = g_pMeshesToDraw.size() - 1;
             }
         }
+        if (key == GLFW_KEY_BACKSPACE && action == GLFW_RELEASE) {
+            g_pMeshesToDraw.clear();
+            std::cout << "Scene Cleared";
+        }
     }
 
-    if (key == GLFW_KEY_K) {
+    // Save scene
+    if (key == GLFW_KEY_K && action == GLFW_RELEASE) {
+        // Create file
+        std::ofstream sceneFile("scene.txt");
+
+        // Save data to file
         for (cMeshObject* pCM : ::g_pMeshesToDraw) {
-	        
+            sceneFile << pCM->meshFileName << "\n";
+            sceneFile << pCM->position.x << "," << pCM->position.y << "," << pCM->position.z << "\n";
+            sceneFile << pCM->orientation.x << "," << pCM->orientation.y << "," << pCM->orientation.z << "\n";
+            sceneFile << pCM->scale << "\n";
+            sceneFile << pCM->colourRGB.r << "," << pCM->colourRGB.b << "," << pCM->colourRGB.g << "\n";
+            sceneFile << pCM->bOverrideVertexModelColour << "\n";
+            sceneFile << pCM->bIsWireframe << "\n";
+            sceneFile << pCM->bIsVisible << "\n\n";
         }
+        // Close the file
+        sceneFile.close();
+        std::cout << "Scene saved";
     }
 
-    if (key == GLFW_KEY_L) {
-        unsigned int meshesToDraw;
+    // Load scene
+    if (key == GLFW_KEY_L && action == GLFW_RELEASE) {
+        std::ifstream sceneFile("scene.txt");
+        std::string meshData;
 
-        for (int index = 0; index != meshesToDraw; index++) {
-	        
+        g_pMeshesToDraw.clear();
+
+        while (std::getline(sceneFile, meshData)) {
+            // Skip empty line
+            if (meshData.empty()) {continue;}
+
+            // New mesh
+            cMeshObject* pCM = new cMeshObject();
+
+            // File name
+            pCM->meshFileName = meshData;
+
+            // Position
+            std::getline(sceneFile, meshData);
+            std::stringstream meshPos(meshData);
+            meshPos >> pCM->position.x;
+            meshPos.ignore(1);
+            meshPos >> pCM->position.y;
+            meshPos.ignore(1);
+            meshPos >> pCM->position.z;
+
+            // Orientation
+            std::getline(sceneFile, meshData);
+            std::stringstream meshOri(meshData);
+            meshOri >> pCM->orientation.x;
+            meshOri.ignore(1);
+            meshOri >> pCM->orientation.y;
+            meshOri.ignore(1);
+            meshOri >> pCM->orientation.z;
+
+            // Scale
+            std::getline(sceneFile, meshData);
+            pCM->scale = std::stof(meshData);
+
+            // Colour
+            std::getline(sceneFile, meshData);
+            std::stringstream meshCol(meshData);
+            meshCol >> pCM->colourRGB.r;
+            meshCol.ignore(1);
+            meshCol >> pCM->colourRGB.b;
+            meshCol.ignore(1);
+            meshCol >> pCM->colourRGB.g;
+
+            // Override colour
+            std::getline(sceneFile, meshData);
+            pCM->bOverrideVertexModelColour = std::stoi(meshData);
+
+            // Wireframe
+            std::getline(sceneFile, meshData);
+            pCM->bIsWireframe = std::stoi(meshData);
+
+            // Visible
+            std::getline(sceneFile, meshData);
+            pCM->bIsVisible = std::stoi(meshData);
+
+            // Skip
+            std::getline(sceneFile, meshData);
+
+            // Push to array
+            g_pMeshesToDraw.push_back(pCM);
         }
+        // Close the file
+        sceneFile.close();
+        std::cout << "Scene Loaded";
     }
 
 	if (!isAnyModDown(mods)) {
