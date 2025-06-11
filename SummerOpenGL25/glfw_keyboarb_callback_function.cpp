@@ -43,6 +43,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
     const float camera_speed = 0.5f;
     const float objectMoveSpeed = 0.7f;
+    const float objectScaleSpeed = 0.1f;
 
     if (isShiftDown(mods)) {
 	    if (key == GLFW_KEY_A) {
@@ -63,12 +64,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_Q) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale += objectMoveSpeed;
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale += objectScaleSpeed;
         }
 
 
         if (key == GLFW_KEY_E) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale -= objectMoveSpeed;
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale -= objectScaleSpeed;
         }
 
 	    if (key == GLFW_KEY_P && action == GLFW_RELEASE)
