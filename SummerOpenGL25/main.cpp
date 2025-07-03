@@ -6,7 +6,7 @@
 #include <glm/vec3.hpp> // glm::vec3
 #include <glm/vec4.hpp> // glm::vec4
 #include <glm/mat4x4.hpp> // glm::mat4
-#include <glm/gtc/matrix_transform.hpp> 
+#include <glm/gtc/matrix_transform.hpp>
 // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
@@ -23,7 +23,6 @@
 #include "cLightManager.h"
 #include "cMeshObject.h"
 #include "cLightHelper/cLightHelper.h"
-
 
 
 cShaderManager* g_pTheShaderManager = NULL;
@@ -45,16 +44,14 @@ void LoadModelsIntoScene();
 
 void DrawMesh(cMeshObject* pCurrentMesh, GLint program);
 
-static void error_callback(int error, const char* description)
-{
+static void error_callback(int error, const char* description) {
     fprintf(stderr, "Error: %s\n", description);
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 
-int main(void)
-{
+int main(void) {
     GLFWwindow* window;
 
 
@@ -62,8 +59,7 @@ int main(void)
     GLint mvp_location;
 
     glfwSetErrorCallback(error_callback);
-    if (!glfwInit())
-    {
+    if (!glfwInit()) {
         exit(EXIT_FAILURE);
     }
 
@@ -71,8 +67,7 @@ int main(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
     window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
-    if (!window)
-    {
+    if (!window) {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
@@ -82,7 +77,6 @@ int main(void)
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glfwSwapInterval(1);
 
-    
 
     ::g_pTheShaderManager = new cShaderManager();
 
@@ -95,12 +89,9 @@ int main(void)
     frag_shader.fileName = "fragment_shader.glsl";
 
 
-    if (::g_pTheShaderManager->createProgramFromFile("shader1", vert_shader, frag_shader))
-    {
+    if (::g_pTheShaderManager->createProgramFromFile("shader1", vert_shader, frag_shader)) {
         std::cout << "Shaders succesfully created!" << std::endl;
-    }
-    else
-    {
+    } else {
         std::cout << ::g_pTheShaderManager->getLastError() << std::endl;
     }
 
@@ -148,8 +139,7 @@ int main(void)
     ::g_pLights->theLights[2].atten.z = 0.001f; // quadratic
 
 
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)) {
         float ratio;
         int width, height;
         //       mat4x4 m, p, mvp;
@@ -167,9 +157,9 @@ int main(void)
 
         //mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
         matProj = glm::perspective(0.6f,
-            ratio,
-            0.1f,
-            1000.0f);
+                                   ratio,
+                                   0.1f,
+                                   1000.0f);
 
         matView = glm::mat4(1.0f);
 
@@ -177,21 +167,20 @@ int main(void)
         glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 
         matView = glm::lookAt(g_cameraEye,
-            cameraTarget,
-            upVector);
+                              cameraTarget,
+                              upVector);
 
         GLint eyeLocation_UL = glGetUniformLocation(program, "eyeLocation");
 
         glUniform3f(eyeLocation_UL,
-            ::g_cameraEye.x, ::g_cameraEye.y, ::g_cameraEye.z);
+                    ::g_cameraEye.x, ::g_cameraEye.y, ::g_cameraEye.z);
 
         glUniformMatrix4fv(proj_location, 1, GL_FALSE, glm::value_ptr(matProj));
         glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(matView));
 
         ::g_pLights->UpdateShaderUniforms(program);
 
-        for (unsigned int index = 0; index != ::g_pMeshesToDraw.size(); index++)
-        {
+        for (unsigned int index = 0; index != ::g_pMeshesToDraw.size(); index++) {
             cMeshObject* pCurrentMesh = ::g_pMeshesToDraw[index];
             DrawMesh(pCurrentMesh, program);
         }
@@ -230,35 +219,43 @@ int main(void)
         DrawMesh(g_pSmoothSphere, program);
 
         float distanceAt75Percent = lightHelper.calcApproxDistFromAtten(0.75f,
-            errorValueforLightLevelGuess, infiniteDistance,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.x,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.y,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.z);
+                                                                        errorValueforLightLevelGuess, infiniteDistance,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.x,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.y,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.z);
 
         ::g_pSmoothSphere->scale = distanceAt75Percent;
         ::g_pSmoothSphere->colourRGB = glm::vec3(1.0f, 0.0f, 0.0f);
         DrawMesh(g_pSmoothSphere, program);
 
         float distanceAt50Percent = lightHelper.calcApproxDistFromAtten(0.5f,
-            errorValueforLightLevelGuess, infiniteDistance,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.x,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.y,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.z);
+                                                                        errorValueforLightLevelGuess, infiniteDistance,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.x,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.y,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.z);
 
         ::g_pSmoothSphere->scale = distanceAt50Percent;
         ::g_pSmoothSphere->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
         DrawMesh(g_pSmoothSphere, program);
 
         float distanceAt25Percent = lightHelper.calcApproxDistFromAtten(0.25f,
-            errorValueforLightLevelGuess, infiniteDistance,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.x,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.y,
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.z);
+                                                                        errorValueforLightLevelGuess, infiniteDistance,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.x,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.y,
+                                                                        ::g_pLights->theLights[::g_selectedLightIndex].
+                                                                        atten.z);
 
         ::g_pSmoothSphere->scale = distanceAt25Percent;
         ::g_pSmoothSphere->colourRGB = glm::vec3(0.0f, 0.0f, 1.0f);
         DrawMesh(g_pSmoothSphere, program);
-
 
 
         std::stringstream ssWindowTitle;
@@ -268,33 +265,32 @@ int main(void)
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 
-       /* if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/cow.ply",
-            modelToDraw))
-        {
-            glBindVertexArray(modelToDraw.VAO_ID);
-            glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices, 
-                GL_UNSIGNED_INT, (void*)0);
-            glBindVertexArray(0);
-        }
+        /* if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/cow.ply",
+             modelToDraw))
+         {
+             glBindVertexArray(modelToDraw.VAO_ID);
+             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
+                 GL_UNSIGNED_INT, (void*)0);
+             glBindVertexArray(0);
+         }
 
-        if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/Utah_Teapot.ply",
-            modelToDraw))
-        {
-            glBindVertexArray(modelToDraw.VAO_ID);
-            glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-                GL_UNSIGNED_INT, (void*)0);
-            glBindVertexArray(0);
-        }
+         if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/Utah_Teapot.ply",
+             modelToDraw))
+         {
+             glBindVertexArray(modelToDraw.VAO_ID);
+             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
+                 GL_UNSIGNED_INT, (void*)0);
+             glBindVertexArray(0);
+         }
 
-        if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/dolphin.ply",
-            modelToDraw))
-        {
-            glBindVertexArray(modelToDraw.VAO_ID);
-            glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-                GL_UNSIGNED_INT, (void*)0);
-            glBindVertexArray(0);
-        }*/
-
+         if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/dolphin.ply",
+             modelToDraw))
+         {
+             glBindVertexArray(modelToDraw.VAO_ID);
+             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
+                 GL_UNSIGNED_INT, (void*)0);
+             glBindVertexArray(0);
+         }*/
 
 
         glfwSwapBuffers(window);
@@ -305,22 +301,19 @@ int main(void)
     exit(EXIT_SUCCESS);
 }
 
-void LoadFilesIntoVAOManager(GLuint program)
-{
+void LoadFilesIntoVAOManager(GLuint program) {
     ::g_pMeshManager = new cVAOManager();
     sModelDrawInfo meshInfoCow;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba.ply",
-        meshInfoCow, program, true, true))
-    {
+                                            meshInfoCow, program, true, true)) {
         std::cout << "Cow not loaded into VAO!" << std::endl;
     }
 
     sModelDrawInfo meshInfoCar;
 
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/de--lorean_xyz_n_rgba.ply",
-        meshInfoCar, program, true, true))
-    {
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba.ply",
+                                            meshInfoCar, program, true, true)) {
         std::cout << "Homer not loaded into VAO!" << std::endl;
     }
 
@@ -328,37 +321,33 @@ void LoadFilesIntoVAOManager(GLuint program)
     sModelDrawInfo dolphinMeshInfo;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba.ply",
-        dolphinMeshInfo, program, true, true))
-    {
+                                            dolphinMeshInfo, program, true, true)) {
         std::cout << "Dolphin NOT loaded into VAO!" << std::endl;
     }
 
     sModelDrawInfo WarehouseMeshInfo;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Warehouse_xyz_n_rgba.ply",
-        WarehouseMeshInfo, program, true, true))
-    {
+                                            WarehouseMeshInfo, program, true, true)) {
         std::cout << "Warehouse NOT loaded into VAO!" << std::endl;
     }
 
     sModelDrawInfo SmoothSphereMeshInfo;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply",
-        SmoothSphereMeshInfo, program, true, true))
-    {
+                                            SmoothSphereMeshInfo, program, true, true)) {
         std::cout << "SmoothSphere NOT loaded into VAO!" << std::endl;
     }
 }
 
-void LoadModelsIntoScene()
-{
+void LoadModelsIntoScene() {
     cMeshObject* pCar = new cMeshObject();
     pCar->bOverrideVertexModelColour = true;
     pCar->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
     pCar->position.x = -10.f;
     pCar->orientation.z = 90.0f;
     pCar->scale = 0.25f;
-    pCar->meshFileName = "assets/models/de--lorean_xyz_n_rgba.ply";
+    pCar->meshFileName = "assets/models/cow_xyz_n_rgba.ply";
 
     cMeshObject* pCow2 = new cMeshObject();
     pCow2->bIsWireframe = false;
@@ -395,10 +384,8 @@ void LoadModelsIntoScene()
     ::g_pMeshesToDraw.push_back(pWarehouse);
 }
 
-void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
-{
-    if (!pCurrentMesh->bIsVisible)
-    {
+void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
+    if (!pCurrentMesh->bIsVisible) {
         return;
     }
 
@@ -407,19 +394,14 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
     GLint useOverrideColor_location = glGetUniformLocation(program, "bUseOverrideColor");
     GLint overrideColor_location = glGetUniformLocation(program, "colorOverride");
 
-    if (pCurrentMesh->bOverrideVertexModelColour)
-    {
+    if (pCurrentMesh->bOverrideVertexModelColour) {
         glUniform3f(overrideColor_location, pCurrentMesh->colourRGB.r,
-            pCurrentMesh->colourRGB.g, pCurrentMesh->colourRGB.b);
+                    pCurrentMesh->colourRGB.g, pCurrentMesh->colourRGB.b);
 
         glUniform1f(useOverrideColor_location, GL_TRUE); // 1.0f
-
-    }
-    else
-    {
+    } else {
         glUniform1f(useOverrideColor_location, GL_FALSE);
     }
-
 
 
     //         mat4x4_identity(m);
@@ -429,23 +411,22 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
 
     //mat4x4_rotate_Z(m, m, (float) glfwGetTime());
     glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
-        pCurrentMesh->orientation.x,
-        glm::vec3(1.0f, 0.0f, 0.0f));
+                                    pCurrentMesh->orientation.x,
+                                    glm::vec3(1.0f, 0.0f, 0.0f));
 
     glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
-        pCurrentMesh->orientation.y,
-        glm::vec3(0.0f, 1.0f, 0.0f));
+                                    pCurrentMesh->orientation.y,
+                                    glm::vec3(0.0f, 1.0f, 0.0f));
 
     glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
-        pCurrentMesh->orientation.z,
-        glm::vec3(0.0f, 0.0f, 1.0f));
+                                    pCurrentMesh->orientation.z,
+                                    glm::vec3(0.0f, 0.0f, 1.0f));
 
     float uniformScale = pCurrentMesh->scale;
     glm::mat4 scaleXYZ = glm::scale(glm::mat4(1.0f),
-        glm::vec3(uniformScale, uniformScale, uniformScale));
+                                    glm::vec3(uniformScale, uniformScale, uniformScale));
 
     matModel = matModel * translation * rotateX * rotateY * rotateZ * scaleXYZ;
-
 
 
     //m = m * rotateZ;
@@ -453,12 +434,9 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
     //mat4x4_mul(mvp, p, m);
     //mvp = matProj * matView * matModel;
 
-    if (pCurrentMesh->bIsWireframe)
-    {
+    if (pCurrentMesh->bIsWireframe) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    }
-    else
-    {
+    } else {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
@@ -476,11 +454,10 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
     sModelDrawInfo modelToDraw;
 
     if (::g_pMeshManager->FindDrawInfoByModelName(pCurrentMesh->meshFileName,
-        modelToDraw))
-    {
+                                                  modelToDraw)) {
         glBindVertexArray(modelToDraw.VAO_ID);
         glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-            GL_UNSIGNED_INT, (void*)0);
+                       GL_UNSIGNED_INT, (void*)0);
         glBindVertexArray(0);
     }
 }
