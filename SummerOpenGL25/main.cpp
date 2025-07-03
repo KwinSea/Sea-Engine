@@ -1,5 +1,6 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+//#include <glad/glad.h>
+//#include <GLFW/glfw3.h>
+#include "GlobalOpenGL.h"
 //#include "linmath.h"
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp> // glm::vec3
@@ -8,7 +9,6 @@
 #include <glm/gtc/matrix_transform.hpp> 
 // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
-#include "GlobalOpenGL.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,19 +20,30 @@
 
 #include "cShaderManager/cShaderManager.h"
 #include "cVAOManager/cVAOManager.h"
+#include "cLightManager.h"
 #include "cMeshObject.h"
+#include "cLightHelper/cLightHelper.h"
+
 
 
 cShaderManager* g_pTheShaderManager = NULL;
 cVAOManager* g_pMeshManager = NULL;
+cLightManager* g_pLights = NULL;
 
-std::vector<cMeshObject*> g_pMeshesToDraw;
+cMeshObject* g_pSmoothSphere = NULL;
+
+extern unsigned int g_selectedLightIndex;
 
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
 glm::vec3 g_cameraEye = glm::vec3(0.0, 0.0, -30.0f);
 
+void LoadFilesIntoVAOManager(GLuint program);
 
+std::vector<cMeshObject*> g_pMeshesToDraw;
+void LoadModelsIntoScene();
+
+void DrawMesh(cMeshObject* pCurrentMesh, GLint program);
 
 static void error_callback(int error, const char* description)
 {
@@ -40,6 +51,7 @@ static void error_callback(int error, const char* description)
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 
 int main(void)
 {
@@ -94,96 +106,46 @@ int main(void)
 
     program = ::g_pTheShaderManager->getIDFromFriendlyName("shader1");
 
-
-
-
     mvp_location = glGetUniformLocation(program, "MVP");
 
-   
-    ::g_pMeshManager = new cVAOManager();
-    sModelDrawInfo meshInfoCow;
+    LoadFilesIntoVAOManager(program);
 
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow.ply",
-        meshInfoCow, program, false, true))
-    {
-        std::cout << "Cow not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshTeapot;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Utah_Teapot.ply",
-        meshTeapot, program, false, true))
-    {
-        std::cout << "Teapot NOT loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo dolphinMeshInfo;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/dolphin.ply",
-        dolphinMeshInfo, program, false, true))
-    {
-        std::cout << "Teapot NOT loaded into VAO!" << std::endl;
-    }
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Warehouse_xyz_rgba.ply",
-        dolphinMeshInfo, program, false, true)) {
-        std::cout << "Warehouse NOT loaded into VAO!" << std::endl;
-    }
-
-    cMeshObject* pWarehouse = new cMeshObject();
-    pWarehouse->meshFileName = "assets/models/Warehouse_xyz_rgba.ply";
-    pWarehouse->position.y = -20.0f;
-    pWarehouse->orientation.y = 90.0f;
-    ::g_pMeshesToDraw.push_back(pWarehouse);
-
-    cMeshObject* pCow = new cMeshObject();
-    pCow->bIsWireframe = true;
-    pCow->bOverrideVertexModelColour = true;
-    pCow->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
-    pCow->position.x = -10.f;
-    pCow->orientation.z = 90.0f;
-    pCow->meshFileName = "assets/models/cow.ply";
-
-    cMeshObject* pCow2 = new cMeshObject();
-    pCow2->bIsWireframe = false;
-    pCow2->bOverrideVertexModelColour = true;
-    pCow2->colourRGB = glm::vec3(1.0f, 0.0f, 0.0f);
-    pCow2->position.x = 10.f;
-    pCow2->scale = 0.5f;
-    pCow2->meshFileName = "assets/models/cow.ply";
-
-    ::g_pMeshesToDraw.push_back(pCow);
-    ::g_pMeshesToDraw.push_back(pCow2);
-
-    cMeshObject* pTeapot = new cMeshObject();
-    pTeapot->bIsVisible = false;
-    pTeapot->bIsWireframe = true;
-    pTeapot->scale = 0.2f;
-    pTeapot->orientation.x = 90.0f;
-    pTeapot->meshFileName = "assets/models/Utah_Teapot.ply";
-
-
-    ::g_pMeshesToDraw.push_back(pTeapot);
-
-    cMeshObject* pDolphin = new cMeshObject();
-    pDolphin->meshFileName = "assets/models/dolphin.ply";
-    pDolphin->scale = 0.02f;
-    pDolphin->position.y = 10.0f;
-    pDolphin->orientation.z = 45.0f;
-
-    ::g_pMeshesToDraw.push_back(pDolphin);
-
-    cMeshObject* pDolphin2 = new cMeshObject();
-    pDolphin2->meshFileName = "assets/models/dolphin.ply";
-    pDolphin2->scale = 0.02f;
-    pDolphin2->position.y = -10.0f;
-    pDolphin2->orientation.z = -45.0f;
-
-    ::g_pMeshesToDraw.push_back(pDolphin2);
+    LoadModelsIntoScene();
 
     glEnable(GL_DEPTH_TEST);
     glCullFace(GL_BACK);
 
+    ::g_pLights = new cLightManager();
+    ::g_pLights->GetUniformLocations(program);
+
+    // Light 1
+    ::g_pLights->theLights[0].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[0].param1.x = 0.0f; // light type = point light
+    ::g_pLights->theLights[0].position = glm::vec4(0.0f, 1.0f, 0.0f, 0.5f);
+    ::g_pLights->theLights[0].diffuse = glm::vec4(1.0f);
+
+    ::g_pLights->theLights[0].atten.x = 0.0f; // constant
+    ::g_pLights->theLights[0].atten.y = 0.1f; // linear
+    ::g_pLights->theLights[0].atten.z = 0.01f; // quadratic
+
+    // Light 2
+    ::g_pLights->theLights[1].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
+    ::g_pLights->theLights[1].position = glm::vec4(10.0f, 10.0f, 50.0f, 1.0f);
+    ::g_pLights->theLights[1].diffuse = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+
+    ::g_pLights->theLights[1].atten.x = 0.0f; // constant
+    ::g_pLights->theLights[1].atten.y = 0.01f; // linear
+    ::g_pLights->theLights[1].atten.z = 0.005f; // quadratic
+    // Light 2
+    ::g_pLights->theLights[2].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
+    ::g_pLights->theLights[2].position = glm::vec4(-10.0f, -10.0f, -50.0f, 1.0f);
+    ::g_pLights->theLights[2].diffuse = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+
+    ::g_pLights->theLights[2].atten.x = 0.0f; // constant
+    ::g_pLights->theLights[2].atten.y = 0.001f; // linear
+    ::g_pLights->theLights[2].atten.z = 0.001f; // quadratic
 
 
     while (!glfwWindowShouldClose(window))
@@ -191,7 +153,7 @@ int main(void)
         float ratio;
         int width, height;
         //       mat4x4 m, p, mvp;
-        glm::mat4 matModel, matProj, matView;
+        glm::mat4 matProj, matView;
         glfwGetFramebufferSize(window, &width, &height);
         ratio = width / (float)height;
         glViewport(0, 0, width, height);
@@ -201,7 +163,7 @@ int main(void)
 
         GLint proj_location = glGetUniformLocation(program, "mProj");
         GLint view_location = glGetUniformLocation(program, "mView");
-        GLint Model_location = glGetUniformLocation(program, "mModel");
+
 
         //mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
         matProj = glm::perspective(0.6f,
@@ -218,87 +180,87 @@ int main(void)
             cameraTarget,
             upVector);
 
+        GLint eyeLocation_UL = glGetUniformLocation(program, "eyeLocation");
+
+        glUniform3f(eyeLocation_UL,
+            ::g_cameraEye.x, ::g_cameraEye.y, ::g_cameraEye.z);
+
         glUniformMatrix4fv(proj_location, 1, GL_FALSE, glm::value_ptr(matProj));
         glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(matView));
+
+        ::g_pLights->UpdateShaderUniforms(program);
 
         for (unsigned int index = 0; index != ::g_pMeshesToDraw.size(); index++)
         {
             cMeshObject* pCurrentMesh = ::g_pMeshesToDraw[index];
-            if (!pCurrentMesh->bIsVisible)
-            {
-                continue;
-            }
-
-            GLint useOverrideColor_location = glGetUniformLocation(program, "bUseOverrideColor");
-            GLint overrideColor_location = glGetUniformLocation(program, "colorOverride");
-
-            if (pCurrentMesh->bOverrideVertexModelColour)
-            {
-                glUniform3f(overrideColor_location, pCurrentMesh->colourRGB.r,
-                    pCurrentMesh->colourRGB.g, pCurrentMesh->colourRGB.b);
-
-                glUniform1f(useOverrideColor_location, GL_TRUE); // 1.0f
-
-            }
-            else
-            {
-                glUniform1f(useOverrideColor_location, GL_FALSE);
-            }
-
-            //         mat4x4_identity(m);
-            matModel = glm::mat4(1.0f);
-
-            glm::mat4 translation = glm::translate(glm::mat4(1.0f), pCurrentMesh->position);
-
-            //mat4x4_rotate_Z(m, m, (float) glfwGetTime());
-            glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
-                pCurrentMesh->orientation.x,
-                glm::vec3(1.0f, 0.0f, 0.0f));
-
-            glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
-                pCurrentMesh->orientation.y,
-                glm::vec3(0.0f, 1.0f, 0.0f));
-
-            glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
-                pCurrentMesh->orientation.z,
-                glm::vec3(0.0f, 0.0f, 1.0f));
-
-            float uniformScale = pCurrentMesh->scale;
-            glm::mat4 scaleXYZ = glm::scale(glm::mat4(1.0f), 
-                glm::vec3(uniformScale, uniformScale, uniformScale));
-
-            matModel = matModel * translation * rotateX * rotateY * rotateZ * scaleXYZ;
-
-            //m = m * rotateZ;
-
-            //mat4x4_mul(mvp, p, m);
-            //mvp = matProj * matView * matModel;
-
-            if (pCurrentMesh->bIsWireframe)
-            {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            }
-            else
-            {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            }
-            
-
-            //glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*) mvp);
-            glUniformMatrix4fv(Model_location, 1, GL_FALSE, glm::value_ptr(matModel));
-
-            //glDrawArrays(GL_TRIANGLES, 0, g_NumVerticiesToDraw);
-            sModelDrawInfo modelToDraw;
-
-            if (::g_pMeshManager->FindDrawInfoByModelName(pCurrentMesh->meshFileName,
-                modelToDraw))
-            {
-                glBindVertexArray(modelToDraw.VAO_ID);
-                glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-                    GL_UNSIGNED_INT, (void*)0);
-                glBindVertexArray(0);
-            }
+            DrawMesh(pCurrentMesh, program);
         }
+
+        /*::g_pSmoothSphere = new cMeshObject();
+        ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
+        ::g_pSmoothSphere->bIsWireframe = true;
+        ::g_pSmoothSphere->bOverrideVertexModelColour = true;
+        ::g_pSmoothSphere->colourRGB = glm::vec4(1.0f);
+        ::g_pSmoothSphere->scale = 0.2f;
+
+        ::g_pSmoothSphere->position = glm::vec3(
+            ::g_pLights->theLights[::g_selectedLightIndex].position.x,
+            ::g_pLights->theLights[::g_selectedLightIndex].position.y,
+            ::g_pLights->theLights[::g_selectedLightIndex].position.z);
+
+        DrawMesh(g_pSmoothSphere, program);*/
+        ::g_pSmoothSphere = new cMeshObject();
+        ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
+        ::g_pSmoothSphere->bIsWireframe = true;
+        ::g_pSmoothSphere->bOverrideVertexModelColour = true;
+        ::g_pSmoothSphere->bIsVisible = false;
+        ::g_pSmoothSphere->position = glm::vec3(
+            ::g_pLights->theLights[::g_selectedLightIndex].position.x,
+            ::g_pLights->theLights[::g_selectedLightIndex].position.y,
+            ::g_pLights->theLights[::g_selectedLightIndex].position.z);
+
+        cLightHelper lightHelper;
+
+        const float errorValueforLightLevelGuess = 0.01f;
+        const float infiniteDistance = 10000.0f;
+
+        // where the light located
+        ::g_pSmoothSphere->scale = 0.1f;
+        ::g_pSmoothSphere->colourRGB = glm::vec3(1.0f);
+        DrawMesh(g_pSmoothSphere, program);
+
+        float distanceAt75Percent = lightHelper.calcApproxDistFromAtten(0.75f,
+            errorValueforLightLevelGuess, infiniteDistance,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.x,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.y,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.z);
+
+        ::g_pSmoothSphere->scale = distanceAt75Percent;
+        ::g_pSmoothSphere->colourRGB = glm::vec3(1.0f, 0.0f, 0.0f);
+        DrawMesh(g_pSmoothSphere, program);
+
+        float distanceAt50Percent = lightHelper.calcApproxDistFromAtten(0.5f,
+            errorValueforLightLevelGuess, infiniteDistance,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.x,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.y,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.z);
+
+        ::g_pSmoothSphere->scale = distanceAt50Percent;
+        ::g_pSmoothSphere->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
+        DrawMesh(g_pSmoothSphere, program);
+
+        float distanceAt25Percent = lightHelper.calcApproxDistFromAtten(0.25f,
+            errorValueforLightLevelGuess, infiniteDistance,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.x,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.y,
+            ::g_pLights->theLights[::g_selectedLightIndex].atten.z);
+
+        ::g_pSmoothSphere->scale = distanceAt25Percent;
+        ::g_pSmoothSphere->colourRGB = glm::vec3(0.0f, 0.0f, 1.0f);
+        DrawMesh(g_pSmoothSphere, program);
+
+
+
         std::stringstream ssWindowTitle;
 
         ssWindowTitle << "Camera (XYZ)" << ::g_cameraEye.x << ","
@@ -341,4 +303,184 @@ int main(void)
     glfwDestroyWindow(window);
     glfwTerminate();
     exit(EXIT_SUCCESS);
+}
+
+void LoadFilesIntoVAOManager(GLuint program)
+{
+    ::g_pMeshManager = new cVAOManager();
+    sModelDrawInfo meshInfoCow;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba.ply",
+        meshInfoCow, program, true, true))
+    {
+        std::cout << "Cow not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoCar;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/de--lorean_xyz_n_rgba.ply",
+        meshInfoCar, program, true, true))
+    {
+        std::cout << "Homer not loaded into VAO!" << std::endl;
+    }
+
+
+    sModelDrawInfo dolphinMeshInfo;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba.ply",
+        dolphinMeshInfo, program, true, true))
+    {
+        std::cout << "Dolphin NOT loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo WarehouseMeshInfo;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Warehouse_xyz_n_rgba.ply",
+        WarehouseMeshInfo, program, true, true))
+    {
+        std::cout << "Warehouse NOT loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo SmoothSphereMeshInfo;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply",
+        SmoothSphereMeshInfo, program, true, true))
+    {
+        std::cout << "SmoothSphere NOT loaded into VAO!" << std::endl;
+    }
+}
+
+void LoadModelsIntoScene()
+{
+    cMeshObject* pCar = new cMeshObject();
+    pCar->bOverrideVertexModelColour = true;
+    pCar->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
+    pCar->position.x = -10.f;
+    pCar->orientation.z = 90.0f;
+    pCar->scale = 0.25f;
+    pCar->meshFileName = "assets/models/de--lorean_xyz_n_rgba.ply";
+
+    cMeshObject* pCow2 = new cMeshObject();
+    pCow2->bIsWireframe = false;
+    //pCow2->bOverrideVertexModelColour = true;
+    //pCow2->colourRGB = glm::vec3(1.0f, 0.0f, 0.0f);
+    pCow2->position.x = 10.f;
+    pCow2->scale = 0.5f;
+    pCow2->meshFileName = "assets/models/cow_xyz_n_rgba.ply";
+
+    ::g_pMeshesToDraw.push_back(pCar);
+    ::g_pMeshesToDraw.push_back(pCow2);
+
+    cMeshObject* pDolphin = new cMeshObject();
+    pDolphin->meshFileName = "assets/models/dolphin_xyz_n_rgba.ply";
+    pDolphin->scale = 0.02f;
+    pDolphin->position.y = 10.0f;
+    pDolphin->orientation.z = 45.0f;
+
+    ::g_pMeshesToDraw.push_back(pDolphin);
+
+    cMeshObject* pDolphin2 = new cMeshObject();
+    pDolphin2->meshFileName = "assets/models/dolphin_xyz_n_rgba.ply";
+    pDolphin2->scale = 0.02f;
+    pDolphin2->position.y = -10.0f;
+    pDolphin2->orientation.z = -45.0f;
+
+    ::g_pMeshesToDraw.push_back(pDolphin2);
+
+    cMeshObject* pWarehouse = new cMeshObject();
+    pWarehouse->meshFileName = "assets/models/Warehouse_xyz_n_rgba.ply";
+    pWarehouse->position.y = -20.0f;
+    pWarehouse->orientation.y = 90.0f;
+
+    ::g_pMeshesToDraw.push_back(pWarehouse);
+}
+
+void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
+{
+    if (!pCurrentMesh->bIsVisible)
+    {
+        return;
+    }
+
+    glm::mat4 matModel;
+    GLint Model_location = glGetUniformLocation(program, "mModel");
+    GLint useOverrideColor_location = glGetUniformLocation(program, "bUseOverrideColor");
+    GLint overrideColor_location = glGetUniformLocation(program, "colorOverride");
+
+    if (pCurrentMesh->bOverrideVertexModelColour)
+    {
+        glUniform3f(overrideColor_location, pCurrentMesh->colourRGB.r,
+            pCurrentMesh->colourRGB.g, pCurrentMesh->colourRGB.b);
+
+        glUniform1f(useOverrideColor_location, GL_TRUE); // 1.0f
+
+    }
+    else
+    {
+        glUniform1f(useOverrideColor_location, GL_FALSE);
+    }
+
+
+
+    //         mat4x4_identity(m);
+    matModel = glm::mat4(1.0f);
+
+    glm::mat4 translation = glm::translate(glm::mat4(1.0f), pCurrentMesh->position);
+
+    //mat4x4_rotate_Z(m, m, (float) glfwGetTime());
+    glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
+        pCurrentMesh->orientation.x,
+        glm::vec3(1.0f, 0.0f, 0.0f));
+
+    glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
+        pCurrentMesh->orientation.y,
+        glm::vec3(0.0f, 1.0f, 0.0f));
+
+    glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
+        pCurrentMesh->orientation.z,
+        glm::vec3(0.0f, 0.0f, 1.0f));
+
+    float uniformScale = pCurrentMesh->scale;
+    glm::mat4 scaleXYZ = glm::scale(glm::mat4(1.0f),
+        glm::vec3(uniformScale, uniformScale, uniformScale));
+
+    matModel = matModel * translation * rotateX * rotateY * rotateZ * scaleXYZ;
+
+
+
+    //m = m * rotateZ;
+
+    //mat4x4_mul(mvp, p, m);
+    //mvp = matProj * matView * matModel;
+
+    if (pCurrentMesh->bIsWireframe)
+    {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+    else
+    {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
+
+    //glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*) mvp);
+    glUniformMatrix4fv(Model_location, 1, GL_FALSE, glm::value_ptr(matModel));
+
+    GLint mModelIt_location = glGetUniformLocation(program, "mModel_InverseTranpose");
+
+    // gets rid of any translation (movement) and scaling. leaves only roation
+    glm::mat4 matModelIt = glm::inverse(glm::transpose(matModel));
+    glUniformMatrix4fv(mModelIt_location, 1, GL_FALSE, glm::value_ptr(matModelIt));
+
+    //glDrawArrays(GL_TRIANGLES, 0, g_NumVerticiesToDraw);
+    sModelDrawInfo modelToDraw;
+
+    if (::g_pMeshManager->FindDrawInfoByModelName(pCurrentMesh->meshFileName,
+        modelToDraw))
+    {
+        glBindVertexArray(modelToDraw.VAO_ID);
+        glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
+            GL_UNSIGNED_INT, (void*)0);
+        glBindVertexArray(0);
+    }
 }

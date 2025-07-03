@@ -13,9 +13,9 @@
 //  vertex structure will also need to change (usually). 
 struct sVert
 {
-	float x, y, z;
-	float nx, ny, nz;
-	float r, g, b;
+	float x, y, z, w;
+	float nx, ny, nz, nw;
+	float r, g, b, a;
 };
 
 

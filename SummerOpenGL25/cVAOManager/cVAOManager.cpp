@@ -107,19 +107,26 @@ bool cVAOManager::LoadModelIntoVAO(
 
 	GLint vpos_location = glGetAttribLocation(shaderProgramID, "vPos");	// program
 	GLint vcol_location = glGetAttribLocation(shaderProgramID, "vCol");	// program;
+	GLint vnorm_location = glGetAttribLocation(shaderProgramID, "vNorm");
 
 	// Set the vertex attributes for this shader
 	glEnableVertexAttribArray(vpos_location);	// vPos
-	glVertexAttribPointer( vpos_location, 3,		// vPos
+	glVertexAttribPointer( vpos_location, 4,		// vPos
 						   GL_FLOAT, GL_FALSE,
-						   sizeof(float) * 9, 
-						   ( void* )0);
+						   sizeof(sVert), 
+						   ( void* )offsetof(sVert, x));
+
+	glEnableVertexAttribArray(vnorm_location);	// vNorm
+	glVertexAttribPointer(vnorm_location, 4,		// vNorm
+		GL_FLOAT, GL_FALSE,
+		sizeof(sVert),
+		(void*)offsetof(sVert, nx));
 
 	glEnableVertexAttribArray(vcol_location);	// vCol
-	glVertexAttribPointer( vcol_location, 3,		// vCol
+	glVertexAttribPointer( vcol_location, 4,		// vCol
 						   GL_FLOAT, GL_FALSE,
-						   sizeof(float) * 9, 
-						   ( void* )( sizeof(float) * 6));
+							sizeof(sVert),
+						   ( void* )offsetof(sVert,r));
 
 	// Now that all the parts are set up, set the VAO to zero
 	glBindVertexArray(0);
@@ -128,6 +135,7 @@ bool cVAOManager::LoadModelIntoVAO(
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glDisableVertexAttribArray(vpos_location);
+	glDisableVertexAttribArray(vnorm_location);
 	glDisableVertexAttribArray(vcol_location);
 
 
@@ -251,7 +259,7 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 			tempVert.colour.x /= 255.0f;
 			tempVert.colour.y /= 255.0f;
 			tempVert.colour.z /= 255.0f;
-
+			tempVert.colour.a /= 255.0f;
 		}
 	
 
@@ -273,14 +281,17 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 			drawInfo.pVertices[index].x = vecTempPlyVerts[index].pos.x;
 			drawInfo.pVertices[index].y = vecTempPlyVerts[index].pos.y;
 			drawInfo.pVertices[index].z = vecTempPlyVerts[index].pos.z;
+			drawInfo.pVertices[index].w = 1.0f; // when in doubt, set to 1.0f
 
 			drawInfo.pVertices[index].nx = vecTempPlyVerts[index].norm.x;
 			drawInfo.pVertices[index].ny = vecTempPlyVerts[index].norm.y;
 			drawInfo.pVertices[index].nz = vecTempPlyVerts[index].norm.z;
+			drawInfo.pVertices[index].nw = 1.0f; // when in doubt, set to 1.0f
 
 			drawInfo.pVertices[index].r = vecTempPlyVerts[index].colour.r;
 			drawInfo.pVertices[index].g = vecTempPlyVerts[index].colour.g;
 			drawInfo.pVertices[index].b = vecTempPlyVerts[index].colour.b;
+			drawInfo.pVertices[index].a = vecTempPlyVerts[index].colour.a;
 		}// for ( unsigned int index...
 	}
 	else if (hasNormals)
@@ -290,14 +301,17 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 			drawInfo.pVertices[index].x = vecTempPlyVerts[index].pos.x;
 			drawInfo.pVertices[index].y = vecTempPlyVerts[index].pos.y;
 			drawInfo.pVertices[index].z = vecTempPlyVerts[index].pos.z;
+			drawInfo.pVertices[index].w = 1.0f; // when in doubt, set to 1.0f
 
 			drawInfo.pVertices[index].nx = vecTempPlyVerts[index].norm.x;
 			drawInfo.pVertices[index].ny = vecTempPlyVerts[index].norm.y;
 			drawInfo.pVertices[index].nz = vecTempPlyVerts[index].norm.z;
+			drawInfo.pVertices[index].nw = 1.0f; // when in doubt, set to 1.0f
 
 			drawInfo.pVertices[index].r = 0.0f;
 			drawInfo.pVertices[index].g = 1.0f;
 			drawInfo.pVertices[index].b = 0.0f;
+			drawInfo.pVertices[index].a = 1.0f;
 		}// for ( unsigned int index...
 	}
 	else if (hasColours)
@@ -307,14 +321,18 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 			drawInfo.pVertices[index].x = vecTempPlyVerts[index].pos.x;
 			drawInfo.pVertices[index].y = vecTempPlyVerts[index].pos.y;
 			drawInfo.pVertices[index].z = vecTempPlyVerts[index].pos.z;
+			drawInfo.pVertices[index].w = 1.0f; // when in doubt, set to 1.0f
 
 			drawInfo.pVertices[index].nx = 0.0f;
 			drawInfo.pVertices[index].ny = 0.0f;
 			drawInfo.pVertices[index].nz = 0.0f;
+			drawInfo.pVertices[index].nw = 1.0f; // when in doubt, set to 1.0f
 
 			drawInfo.pVertices[index].r = vecTempPlyVerts[index].colour.r;
 			drawInfo.pVertices[index].g = vecTempPlyVerts[index].colour.g;
 			drawInfo.pVertices[index].b = vecTempPlyVerts[index].colour.b;
+			drawInfo.pVertices[index].a = vecTempPlyVerts[index].colour.a;
+
 		}// for ( unsigned int index...
 	}
 	else
@@ -324,14 +342,17 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 			drawInfo.pVertices[index].x = vecTempPlyVerts[index].pos.x;
 			drawInfo.pVertices[index].y = vecTempPlyVerts[index].pos.y;
 			drawInfo.pVertices[index].z = vecTempPlyVerts[index].pos.z;
+			drawInfo.pVertices[index].w = 1.0f; // when in doubt, set to 1.0f
 
 			drawInfo.pVertices[index].nx = 0.0f;
 			drawInfo.pVertices[index].ny = 0.0f;
 			drawInfo.pVertices[index].nz = 0.0f;
+			drawInfo.pVertices[index].nw = 1.0f; // when in doubt, set to 1.0f
 
 			drawInfo.pVertices[index].r = 0.0f;
 			drawInfo.pVertices[index].g = 1.0f;
 			drawInfo.pVertices[index].b = 0.0f;
+			drawInfo.pVertices[index].a = 1.0f;
 		}// for ( unsigned int index...
 	}
 	

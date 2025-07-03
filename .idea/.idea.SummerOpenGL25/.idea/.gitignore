@@ -2,9 +2,9 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.SummerOpenGL25.iml
 /modules.xml
 /contentModel.xml
+/.idea.SummerOpenGL25.iml
 /projectSettingsUpdater.xml
 # Editor-based HTTP Client requests
 /httpRequests/

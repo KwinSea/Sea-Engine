@@ -19,6 +19,9 @@
     <Filter Include="MeshManager">
       <UniqueIdentifier>{40a843aa-c0cb-4a0f-acc2-afb8c854d0df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lights">
+      <UniqueIdentifier>{f0827cf4-acbb-4092-ad49-17642dd8c4f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,8 +45,14 @@
     <ClCompile Include="old-loading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glfw_keyboarb_callback_function.cpp">
+    <ClCompile Include="glfw_keyboard_callback_function.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cLightHelper\cLightHelper.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="cLightManager.cpp">
+      <Filter>Lights</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="cMeshObject.h">
       <Filter>MeshManager</Filter>
+    </ClInclude>
+    <ClInclude Include="cLightHelper\cLightHelper.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="cLightManager.h">
+      <Filter>Lights</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
