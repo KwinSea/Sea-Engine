@@ -13,7 +13,7 @@ extern cLightManager* g_pLights;
 
 unsigned int g_selectedObjectIndex = 0;
 unsigned int g_selectedLightIndex = 0;
-
+bool lightDebug = false;
 
 bool isShiftDown(int mods) {
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
@@ -51,7 +51,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
 
-    const float camera_speed = 0.5f;
+    float camera_speed = 0.5f;
     const float object_move_speed = 0.7f;
 
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
@@ -80,19 +80,53 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_1) {
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.y *= 0.99;
+            g_pLights->theLights[g_selectedLightIndex].atten.y *= 0.98;
         }
 
         if (key == GLFW_KEY_2) {
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.y *= 1.01;
+            g_pLights->theLights[g_selectedLightIndex].atten.y *= 1.02;
         }
 
         if (key == GLFW_KEY_3) {
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.z *= 0.99;
+            g_pLights->theLights[g_selectedLightIndex].atten.z *= 0.98;
         }
 
         if (key == GLFW_KEY_4) {
-            ::g_pLights->theLights[::g_selectedLightIndex].atten.z *= 1.01;
+            g_pLights->theLights[g_selectedLightIndex].atten.z *= 1.02;
+        }
+
+        if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
+            if (g_selectedLightIndex >= g_pLights->NUMBEROFLIGHTS - 1) {
+                g_selectedLightIndex = 0;
+            } else {
+                ++g_selectedLightIndex;
+            }
+        }
+
+        if (key == GLFW_KEY_O && action == GLFW_RELEASE) {
+            if (g_selectedLightIndex == 0) {
+                g_selectedLightIndex = g_pLights->NUMBEROFLIGHTS - 1;
+            } else {
+                --g_selectedLightIndex;
+            }
+        }
+
+        if (key == GLFW_KEY_T && action == GLFW_RELEASE) {
+            if (lightDebug) {
+                lightDebug = false;
+            } else {
+                lightDebug = true;
+            }
+        }
+    }
+
+    if ((mods & GLFW_MOD_ALT) == GLFW_MOD_ALT) {
+        if (key == GLFW_KEY_W) {
+            camera_speed += 0.5;
+        }
+
+        if (key == GLFW_KEY_S) {
+            camera_speed -= 0.5;
         }
     }
 

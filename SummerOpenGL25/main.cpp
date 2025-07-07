@@ -32,6 +32,7 @@ cLightManager* g_pLights = NULL;
 cMeshObject* g_pSmoothSphere = NULL;
 
 extern unsigned int g_selectedLightIndex;
+extern bool lightDebug;
 
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
@@ -112,31 +113,31 @@ int main(void) {
     // Light 1
     ::g_pLights->theLights[0].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[0].param1.x = 0.0f; // light type = point light
-    ::g_pLights->theLights[0].position = glm::vec4(0.0f, 1.0f, 0.0f, 0.5f);
-    ::g_pLights->theLights[0].diffuse = glm::vec4(1.0f);
+    g_pLights->theLights[0].position = glm::vec4(-10.0f, -10.0f, -10.0f, 0.5f);
+    g_pLights->theLights[0].diffuse = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
     ::g_pLights->theLights[0].atten.x = 0.0f; // constant
     ::g_pLights->theLights[0].atten.y = 0.1f; // linear
     ::g_pLights->theLights[0].atten.z = 0.01f; // quadratic
 
     // Light 2
-    ::g_pLights->theLights[1].param2.x = 1.0f; // turn on
+    g_pLights->theLights[1].param2.x = 0.0f; // turn on
     ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
     ::g_pLights->theLights[1].position = glm::vec4(10.0f, 10.0f, 50.0f, 1.0f);
     ::g_pLights->theLights[1].diffuse = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 
     ::g_pLights->theLights[1].atten.x = 0.0f; // constant
-    ::g_pLights->theLights[1].atten.y = 0.01f; // linear
-    ::g_pLights->theLights[1].atten.z = 0.005f; // quadratic
+    g_pLights->theLights[1].atten.y = 0.1f; // linear
+    g_pLights->theLights[1].atten.z = 0.05f; // quadratic
     // Light 2
-    ::g_pLights->theLights[2].param2.x = 1.0f; // turn on
+    g_pLights->theLights[2].param2.x = 0.0f; // turn on
     ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
-    ::g_pLights->theLights[2].position = glm::vec4(-10.0f, -10.0f, -50.0f, 1.0f);
-    ::g_pLights->theLights[2].diffuse = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+    g_pLights->theLights[2].position = glm::vec4(100.0f, 100.0f, 100.0f, 1.0f);
+    g_pLights->theLights[2].diffuse = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
     ::g_pLights->theLights[2].atten.x = 0.0f; // constant
-    ::g_pLights->theLights[2].atten.y = 0.001f; // linear
-    ::g_pLights->theLights[2].atten.z = 0.001f; // quadratic
+    g_pLights->theLights[2].atten.y = 0.01f; // linear
+    g_pLights->theLights[2].atten.z = 0.005f; // quadratic
 
 
     while (!glfwWindowShouldClose(window)) {
@@ -202,7 +203,7 @@ int main(void) {
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
         ::g_pSmoothSphere->bIsWireframe = true;
         ::g_pSmoothSphere->bOverrideVertexModelColour = true;
-        ::g_pSmoothSphere->bIsVisible = false;
+        g_pSmoothSphere->bIsVisible = lightDebug;
         ::g_pSmoothSphere->position = glm::vec3(
             ::g_pLights->theLights[::g_selectedLightIndex].position.x,
             ::g_pLights->theLights[::g_selectedLightIndex].position.y,
@@ -312,8 +313,8 @@ void LoadFilesIntoVAOManager(GLuint program) {
 
     sModelDrawInfo meshInfoCar;
 
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba.ply",
-                                            meshInfoCar, program, true, true)) {
+    if (!g_pMeshManager->LoadModelIntoVAO("assets/models/homer_xyz_n_rgba.ply",
+                                          meshInfoCar, program, true, true)) {
         std::cout << "Homer not loaded into VAO!" << std::endl;
     }
 
@@ -346,8 +347,8 @@ void LoadModelsIntoScene() {
     pCar->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
     pCar->position.x = -10.f;
     pCar->orientation.z = 90.0f;
-    pCar->scale = 0.25f;
-    pCar->meshFileName = "assets/models/cow_xyz_n_rgba.ply";
+    pCar->scale = 10.25f;
+    pCar->meshFileName = "assets/models/homer_xyz_n_rgba.ply";
 
     cMeshObject* pCow2 = new cMeshObject();
     pCow2->bIsWireframe = false;
