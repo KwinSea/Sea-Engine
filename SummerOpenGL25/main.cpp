@@ -37,6 +37,7 @@ extern bool lightDebug;
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
 glm::vec3 g_cameraEye = glm::vec3(0.0, 0.0, -30.0f);
+glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 
 void LoadFilesIntoVAOManager(GLuint program);
 
@@ -164,7 +165,6 @@ int main(void) {
 
         matView = glm::mat4(1.0f);
 
-        glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
         glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 
         matView = glm::lookAt(g_cameraEye,
