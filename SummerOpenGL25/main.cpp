@@ -36,7 +36,7 @@ extern bool lightDebug;
 
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
-glm::vec3 g_cameraEye = glm::vec3(0.0, 0.0, -30.0f);
+auto g_cameraEye = glm::vec3(0.0, 0.0, -1.0f);
 glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 
 void LoadFilesIntoVAOManager(GLuint program);
@@ -122,7 +122,7 @@ int main(void) {
     ::g_pLights->theLights[0].atten.z = 0.01f; // quadratic
 
     // Light 2
-    g_pLights->theLights[1].param2.x = 0.0f; // turn on
+    g_pLights->theLights[1].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
     ::g_pLights->theLights[1].position = glm::vec4(10.0f, 10.0f, 50.0f, 1.0f);
     ::g_pLights->theLights[1].diffuse = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -131,7 +131,7 @@ int main(void) {
     g_pLights->theLights[1].atten.y = 0.1f; // linear
     g_pLights->theLights[1].atten.z = 0.05f; // quadratic
     // Light 2
-    g_pLights->theLights[2].param2.x = 0.0f; // turn on
+    g_pLights->theLights[2].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[2].position = glm::vec4(100.0f, 100.0f, 100.0f, 1.0f);
     g_pLights->theLights[2].diffuse = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
@@ -381,6 +381,9 @@ void LoadModelsIntoScene() {
     pWarehouse->meshFileName = "assets/models/Warehouse_xyz_n_rgba.ply";
     pWarehouse->position.y = -20.0f;
     pWarehouse->orientation.y = 90.0f;
+    pWarehouse->specularHighLightRGB = glm::vec3(1.0f, 1.0f, 1.0f);
+    pWarehouse->specularPower = 1.0f;
+
 
     ::g_pMeshesToDraw.push_back(pWarehouse);
 }
@@ -404,6 +407,14 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
         glUniform1f(useOverrideColor_location, GL_FALSE);
     }
 
+    // ste specular value
+    GLint vertSpecular_UL = glGetUniformLocation(program, "vertSpecular");
+
+    glUniform4f(vertSpecular_UL,
+                pCurrentMesh->specularHighLightRGB.r,
+                pCurrentMesh->specularHighLightRGB.g,
+                pCurrentMesh->specularHighLightRGB.b,
+                pCurrentMesh->specularPower);
 
     //         mat4x4_identity(m);
     matModel = glm::mat4(1.0f);

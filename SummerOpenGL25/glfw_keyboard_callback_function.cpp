@@ -183,11 +183,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             for (size_t index = 0; index < ::g_pMeshesToDraw.size(); index++) {
                 mySaveFile << ::g_pMeshesToDraw[index]->meshFileName << std::endl;
                 mySaveFile << ::g_pMeshesToDraw[index]->position.x << " "
-                           << ::g_pMeshesToDraw[index]->position.y << " "
-                           << ::g_pMeshesToDraw[index]->position.z << std::endl;
+                    << g_pMeshesToDraw[index]->position.y << " "
+                    << g_pMeshesToDraw[index]->position.z << std::endl;
                 mySaveFile << ::g_pMeshesToDraw[index]->orientation.x << " "
-                           << ::g_pMeshesToDraw[index]->orientation.y << " "
-                           << ::g_pMeshesToDraw[index]->orientation.z << std::endl;
+                    << g_pMeshesToDraw[index]->orientation.y << " "
+                    << g_pMeshesToDraw[index]->orientation.z << std::endl;
                 mySaveFile << ::g_pMeshesToDraw[index]->scale << std::endl;
             }
 
@@ -197,33 +197,33 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             // Save lights
             for (int index = 0; index < ::g_pLights->NUMBEROFLIGHTS; index++) {
                 mySaveFile << ::g_pLights->theLights[index].position.x << " "
-                           << ::g_pLights->theLights[index].position.y << " "
-                           << ::g_pLights->theLights[index].position.z << " "
-                           << ::g_pLights->theLights[index].position.w << std::endl;
+                    << g_pLights->theLights[index].position.y << " "
+                    << g_pLights->theLights[index].position.z << " "
+                    << g_pLights->theLights[index].position.w << std::endl;
                 mySaveFile << ::g_pLights->theLights[index].diffuse.x << " "
-                           << ::g_pLights->theLights[index].diffuse.y << " "
-                           << ::g_pLights->theLights[index].diffuse.z << " "
-                           << ::g_pLights->theLights[index].diffuse.w << std::endl;
+                    << g_pLights->theLights[index].diffuse.y << " "
+                    << g_pLights->theLights[index].diffuse.z << " "
+                    << g_pLights->theLights[index].diffuse.w << std::endl;
                 mySaveFile << ::g_pLights->theLights[index].specular.x << " "
-                           << ::g_pLights->theLights[index].specular.y << " "
-                           << ::g_pLights->theLights[index].specular.z << " "
-                           << ::g_pLights->theLights[index].specular.w << std::endl;
+                    << g_pLights->theLights[index].specular.y << " "
+                    << g_pLights->theLights[index].specular.z << " "
+                    << g_pLights->theLights[index].specular.w << std::endl;
                 mySaveFile << ::g_pLights->theLights[index].atten.x << " "
-                           << ::g_pLights->theLights[index].atten.y << " "
-                           << ::g_pLights->theLights[index].atten.z << " "
-                           << ::g_pLights->theLights[index].atten.w << std::endl;
+                    << g_pLights->theLights[index].atten.y << " "
+                    << g_pLights->theLights[index].atten.z << " "
+                    << g_pLights->theLights[index].atten.w << std::endl;
                 mySaveFile << ::g_pLights->theLights[index].direction.x << " "
-                           << ::g_pLights->theLights[index].direction.y << " "
-                           << ::g_pLights->theLights[index].direction.z << " "
-                           << ::g_pLights->theLights[index].direction.w << std::endl;
+                    << g_pLights->theLights[index].direction.y << " "
+                    << g_pLights->theLights[index].direction.z << " "
+                    << g_pLights->theLights[index].direction.w << std::endl;
                 mySaveFile << ::g_pLights->theLights[index].param1.x << " "
-                           << ::g_pLights->theLights[index].param1.y << " "
-                           << ::g_pLights->theLights[index].param1.z << " "
-                           << ::g_pLights->theLights[index].param1.w << std::endl;
+                    << g_pLights->theLights[index].param1.y << " "
+                    << g_pLights->theLights[index].param1.z << " "
+                    << g_pLights->theLights[index].param1.w << std::endl;
                 mySaveFile << ::g_pLights->theLights[index].param2.x << " "
-                           << ::g_pLights->theLights[index].param2.y << " "
-                           << ::g_pLights->theLights[index].param2.z << " "
-                           << ::g_pLights->theLights[index].param2.w << std::endl;
+                    << g_pLights->theLights[index].param2.y << " "
+                    << g_pLights->theLights[index].param2.z << " "
+                    << g_pLights->theLights[index].param2.w << std::endl;
             }
 
             std::cout << "Scene Saved";
@@ -263,33 +263,33 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             mySaveFile >> lightsInScene;
             for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {
                 mySaveFile >> g_pLights->theLights[i].position.x
-                           >> g_pLights->theLights[i].position.y
-                           >> g_pLights->theLights[i].position.z
-                           >> g_pLights->theLights[i].position.w;
+                    >> g_pLights->theLights[i].position.y
+                    >> g_pLights->theLights[i].position.z
+                    >> g_pLights->theLights[i].position.w;
                 mySaveFile >> g_pLights->theLights[i].diffuse.x
-                           >> g_pLights->theLights[i].diffuse.y
-                           >> g_pLights->theLights[i].diffuse.z
-                           >> g_pLights->theLights[i].diffuse.w;
+                    >> g_pLights->theLights[i].diffuse.y
+                    >> g_pLights->theLights[i].diffuse.z
+                    >> g_pLights->theLights[i].diffuse.w;
                 mySaveFile >> g_pLights->theLights[i].specular.x
-                           >> g_pLights->theLights[i].specular.y
-                           >> g_pLights->theLights[i].specular.z
-                           >> g_pLights->theLights[i].specular.w;
+                    >> g_pLights->theLights[i].specular.y
+                    >> g_pLights->theLights[i].specular.z
+                    >> g_pLights->theLights[i].specular.w;
                 mySaveFile >> g_pLights->theLights[i].atten.x
-                           >> g_pLights->theLights[i].atten.y
-                           >> g_pLights->theLights[i].atten.z
-                           >> g_pLights->theLights[i].atten.w;
+                    >> g_pLights->theLights[i].atten.y
+                    >> g_pLights->theLights[i].atten.z
+                    >> g_pLights->theLights[i].atten.w;
                 mySaveFile >> g_pLights->theLights[i].direction.x
-                           >> g_pLights->theLights[i].direction.y
-                           >> g_pLights->theLights[i].direction.z
-                           >> g_pLights->theLights[i].direction.w;
+                    >> g_pLights->theLights[i].direction.y
+                    >> g_pLights->theLights[i].direction.z
+                    >> g_pLights->theLights[i].direction.w;
                 mySaveFile >> g_pLights->theLights[i].param1.x
-                           >> g_pLights->theLights[i].param1.y
-                           >> g_pLights->theLights[i].param1.z
-                           >> g_pLights->theLights[i].param1.w;
+                    >> g_pLights->theLights[i].param1.y
+                    >> g_pLights->theLights[i].param1.z
+                    >> g_pLights->theLights[i].param1.w;
                 mySaveFile >> g_pLights->theLights[i].param2.x
-                           >> g_pLights->theLights[i].param2.y
-                           >> g_pLights->theLights[i].param2.z
-                           >> g_pLights->theLights[i].param2.w;
+                    >> g_pLights->theLights[i].param2.y
+                    >> g_pLights->theLights[i].param2.z
+                    >> g_pLights->theLights[i].param2.w;
             }
 
             std::cout << "Scene Loaded";
@@ -304,24 +304,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw.clear();
 
             std::cout << "Scene Cleared";
-        }
-    }
-
-    if ((mods & GLFW_MOD_ALT) == GLFW_MOD_ALT) {
-        if (key == GLFW_KEY_A) {
-            ::g_cameraEye.x += camera_speed;
-        }
-
-        if (key == GLFW_KEY_D) {
-            ::g_cameraEye.x -= camera_speed;
-        }
-
-        if (key == GLFW_KEY_Q) {
-            ::g_cameraEye.y += camera_speed;
-        }
-
-        if (key == GLFW_KEY_E) {
-            ::g_cameraEye.y -= camera_speed;
         }
     }
 
@@ -354,6 +336,30 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         if (key == GLFW_KEY_E) {
             ::cameraTarget.y -= camera_move_speed;
             ::g_cameraEye.y -= camera_speed;
+        }
+
+        if (key == GLFW_KEY_LEFT) {
+            g_cameraEye.x += camera_speed;
+        }
+
+        if (key == GLFW_KEY_RIGHT) {
+            g_cameraEye.x -= camera_speed;
+        }
+
+        if (key == GLFW_KEY_UP) {
+            g_cameraEye.z += camera_speed;
+        }
+
+        if (key == GLFW_KEY_DOWN) {
+            g_cameraEye.z -= camera_speed;
+        }
+
+        if (key == GLFW_KEY_COMMA) {
+            g_cameraEye.y += camera_speed;
+        }
+
+        if (key == GLFW_KEY_PERIOD) {
+            g_cameraEye.y -= camera_speed;
         }
     }
 }

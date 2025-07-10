@@ -8,6 +8,8 @@ in vec4 vertWorldPosition;
 
 out vec4 pixelColour;
 
+uniform vec4 vertSpecular;
+
 vec4 calculateLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal, 
                             vec3 vertexWorldPos, vec4 vertexSpecular);
 							
@@ -36,7 +38,7 @@ void main()
 {
     //gl_FragColor = vec4(vertColor, 1.0);
 	
-	vec4 vertSpecular = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	// vec4 vertSpecular = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	
 	pixelColour = vec4(vertColor);
 	

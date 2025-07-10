@@ -2,6 +2,7 @@
 #include "GlobalOpenGL.h"
 #include "glm/glm.hpp"
 #include "glm/vec4.hpp"
+#include <sstream>
 
 class cLight {
 public:
