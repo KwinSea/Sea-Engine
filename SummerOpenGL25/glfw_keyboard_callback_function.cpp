@@ -52,8 +52,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
 
-    float camera_speed = 0.5f;
-    float camera_move_speed = 0.5f;
+    float camera_speed = 0.125f;
+    float camera_move_speed = 0.25f;
     const float object_move_speed = 0.7f;
 
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
@@ -157,6 +157,21 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
         }
 
+        if (key == GLFW_KEY_M) {
+            cMeshObject* pNewObject = new cMeshObject();
+
+            pNewObject->meshFileName =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
+            pNewObject->position.x = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x;
+            pNewObject->position.y = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y;
+            pNewObject->position.z = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z;
+            pNewObject->orientation.x = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x;
+            pNewObject->orientation.y = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y;
+            pNewObject->orientation.z = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z;
+            pNewObject->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale;
+
+            ::g_pMeshesToDraw.push_back(pNewObject);
+        }
+
         if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
             if (::g_selectedObjectIndex >= ::g_pMeshesToDraw.size() - 1) {
                 ::g_selectedObjectIndex = 0;
@@ -188,6 +203,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 mySaveFile << ::g_pMeshesToDraw[index]->orientation.x << " "
                     << g_pMeshesToDraw[index]->orientation.y << " "
                     << g_pMeshesToDraw[index]->orientation.z << std::endl;
+                mySaveFile << ::g_pMeshesToDraw[index]->specularHighLightRGB.r << " "
+                    << g_pMeshesToDraw[index]->specularHighLightRGB.g << " "
+                    << g_pMeshesToDraw[index]->specularHighLightRGB.b << std::endl;
+                mySaveFile << ::g_pMeshesToDraw[index]->specularPower << std::endl;
                 mySaveFile << ::g_pMeshesToDraw[index]->scale << std::endl;
             }
 
@@ -247,12 +266,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             int meshesInScene = 0;
             mySaveFile >> meshesInScene;
 
+            // Load meshs
             for (int index = 0; index < meshesInScene; index++) {
                 cMeshObject* pNewObject = new cMeshObject();
 
                 mySaveFile >> pNewObject->meshFileName;
                 mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
                 mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
+                mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
+                mySaveFile >> pNewObject->specularPower;
                 mySaveFile >> pNewObject->scale;
 
                 ::g_pMeshesToDraw.push_back(pNewObject);
@@ -310,32 +332,32 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (!areAnyModifiersDown(mods)) {
         if (key == GLFW_KEY_A) {
             ::cameraTarget.x += camera_move_speed;
-            ::g_cameraEye.x += camera_speed;
+            ::g_cameraEye.x += camera_move_speed;
         }
 
         if (key == GLFW_KEY_D) {
             ::cameraTarget.x -= camera_move_speed;
-            ::g_cameraEye.x -= camera_speed;
+            ::g_cameraEye.x -= camera_move_speed;
         }
 
         if (key == GLFW_KEY_W) {
             ::cameraTarget.z += camera_move_speed;
-            ::g_cameraEye.z += camera_speed;
+            ::g_cameraEye.z += camera_move_speed;
         }
 
         if (key == GLFW_KEY_S) {
             ::cameraTarget.z -= camera_move_speed;
-            ::g_cameraEye.z -= camera_speed;
+            ::g_cameraEye.z -= camera_move_speed;
         }
 
         if (key == GLFW_KEY_Q) {
             ::cameraTarget.y += camera_move_speed;
-            ::g_cameraEye.y += camera_speed;
+            ::g_cameraEye.y += camera_move_speed;
         }
 
         if (key == GLFW_KEY_E) {
             ::cameraTarget.y -= camera_move_speed;
-            ::g_cameraEye.y -= camera_speed;
+            ::g_cameraEye.y -= camera_move_speed;
         }
 
         if (key == GLFW_KEY_LEFT) {
