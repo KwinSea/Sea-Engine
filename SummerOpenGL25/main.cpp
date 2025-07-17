@@ -307,14 +307,14 @@ void LoadFilesIntoVAOManager(GLuint program) {
     sModelDrawInfo meshInfoCow;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba.ply",
-                                            meshInfoCow, program, true, true)) {
+                                            meshInfoCow, program, true, true, false, 1.0f)) {
         std::cout << "Cow not loaded into VAO!" << std::endl;
     }
 
     sModelDrawInfo meshInfoCar;
 
     if (!g_pMeshManager->LoadModelIntoVAO("assets/models/homer_xyz_n_rgba.ply",
-                                          meshInfoCar, program, true, true)) {
+                                          meshInfoCar, program, true, true, false, 1.0f)) {
         std::cout << "Homer not loaded into VAO!" << std::endl;
     }
 
@@ -322,21 +322,21 @@ void LoadFilesIntoVAOManager(GLuint program) {
     sModelDrawInfo dolphinMeshInfo;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba.ply",
-                                            dolphinMeshInfo, program, true, true)) {
+                                            dolphinMeshInfo, program, true, true, false, 1.0f)) {
         std::cout << "Dolphin NOT loaded into VAO!" << std::endl;
     }
 
     sModelDrawInfo WarehouseMeshInfo;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Warehouse_xyz_n_rgba.ply",
-                                            WarehouseMeshInfo, program, true, true)) {
+                                            WarehouseMeshInfo, program, true, true, false, 1.0f)) {
         std::cout << "Warehouse NOT loaded into VAO!" << std::endl;
     }
 
     sModelDrawInfo SmoothSphereMeshInfo;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply",
-                                            SmoothSphereMeshInfo, program, true, true)) {
+                                            SmoothSphereMeshInfo, program, true, true, false, 1.0f)) {
         std::cout << "SmoothSphere NOT loaded into VAO!" << std::endl;
     }
 }

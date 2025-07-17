@@ -160,14 +160,39 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         if (key == GLFW_KEY_M) {
             cMeshObject* pNewObject = new cMeshObject();
 
+            // Mesh name
             pNewObject->meshFileName =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
+
+            // Position
             pNewObject->position.x = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x;
             pNewObject->position.y = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y;
             pNewObject->position.z = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z;
+
+            // Orientation
             pNewObject->orientation.x = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x;
             pNewObject->orientation.y = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y;
             pNewObject->orientation.z = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z;
+
+            // Scale
             pNewObject->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale;
+
+            // Color
+            pNewObject->colourRGB.r = ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.r;
+            pNewObject->colourRGB.g = ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.g;
+            pNewObject->colourRGB.b = ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.b;
+
+            // Specular highlight
+            pNewObject->specularHighLightRGB.r = ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.r;
+            pNewObject->specularHighLightRGB.g = ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.g;
+            pNewObject->specularHighLightRGB.b = ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.b;
+
+            // Specular power
+            pNewObject->specularPower = ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularPower;
+
+            // Attributes
+            pNewObject->bOverrideVertexModelColour = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bOverrideVertexModelColour; // Override color
+            pNewObject->bIsVisible = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsVisible; // is Visible
+            pNewObject->bIsWireframe = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsWireframe; // is Wireframe
 
             ::g_pMeshesToDraw.push_back(pNewObject);
         }
@@ -196,18 +221,40 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
             // Save scene objects
             for (size_t index = 0; index < ::g_pMeshesToDraw.size(); index++) {
+
+                // Mesh name
                 mySaveFile << ::g_pMeshesToDraw[index]->meshFileName << std::endl;
+
+                // Position
                 mySaveFile << ::g_pMeshesToDraw[index]->position.x << " "
                     << g_pMeshesToDraw[index]->position.y << " "
                     << g_pMeshesToDraw[index]->position.z << std::endl;
+
+                // Orientation
                 mySaveFile << ::g_pMeshesToDraw[index]->orientation.x << " "
                     << g_pMeshesToDraw[index]->orientation.y << " "
                     << g_pMeshesToDraw[index]->orientation.z << std::endl;
+
+                // Scale
+                mySaveFile << ::g_pMeshesToDraw[index]->scale << std::endl;
+
+                // Color
+                mySaveFile << ::g_pMeshesToDraw[index]->colourRGB.r << " "
+                   << g_pMeshesToDraw[index]->colourRGB.g << " "
+                   << g_pMeshesToDraw[index]->colourRGB.b << std::endl;
+
+                // Specular highlight
                 mySaveFile << ::g_pMeshesToDraw[index]->specularHighLightRGB.r << " "
                     << g_pMeshesToDraw[index]->specularHighLightRGB.g << " "
                     << g_pMeshesToDraw[index]->specularHighLightRGB.b << std::endl;
+
+                // Specular power
                 mySaveFile << ::g_pMeshesToDraw[index]->specularPower << std::endl;
-                mySaveFile << ::g_pMeshesToDraw[index]->scale << std::endl;
+
+                // Attitudes
+                mySaveFile << ::g_pMeshesToDraw[index]->bOverrideVertexModelColour << std::endl; // Override color
+                mySaveFile << ::g_pMeshesToDraw[index]->bIsVisible << std::endl; // is Visible
+                mySaveFile << ::g_pMeshesToDraw[index]->bIsWireframe << std::endl; // is Wireframe
             }
 
             // Save number of lights
@@ -215,30 +262,44 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
             // Save lights
             for (int index = 0; index < ::g_pLights->NUMBEROFLIGHTS; index++) {
+
+                // Position
                 mySaveFile << ::g_pLights->theLights[index].position.x << " "
                     << g_pLights->theLights[index].position.y << " "
                     << g_pLights->theLights[index].position.z << " "
                     << g_pLights->theLights[index].position.w << std::endl;
+
+                // Diffuse
                 mySaveFile << ::g_pLights->theLights[index].diffuse.x << " "
                     << g_pLights->theLights[index].diffuse.y << " "
                     << g_pLights->theLights[index].diffuse.z << " "
                     << g_pLights->theLights[index].diffuse.w << std::endl;
+
+                // Spucular
                 mySaveFile << ::g_pLights->theLights[index].specular.x << " "
                     << g_pLights->theLights[index].specular.y << " "
                     << g_pLights->theLights[index].specular.z << " "
                     << g_pLights->theLights[index].specular.w << std::endl;
+
+                // Attenuation
                 mySaveFile << ::g_pLights->theLights[index].atten.x << " "
                     << g_pLights->theLights[index].atten.y << " "
                     << g_pLights->theLights[index].atten.z << " "
                     << g_pLights->theLights[index].atten.w << std::endl;
+
+                // Direction
                 mySaveFile << ::g_pLights->theLights[index].direction.x << " "
                     << g_pLights->theLights[index].direction.y << " "
                     << g_pLights->theLights[index].direction.z << " "
                     << g_pLights->theLights[index].direction.w << std::endl;
+
+                // Light type
                 mySaveFile << ::g_pLights->theLights[index].param1.x << " "
                     << g_pLights->theLights[index].param1.y << " "
                     << g_pLights->theLights[index].param1.z << " "
                     << g_pLights->theLights[index].param1.w << std::endl;
+
+                // Light state
                 mySaveFile << ::g_pLights->theLights[index].param2.x << " "
                     << g_pLights->theLights[index].param2.y << " "
                     << g_pLights->theLights[index].param2.z << " "
@@ -264,7 +325,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw.clear();
 
             int meshesInScene = 0;
-            mySaveFile >> meshesInScene;
+            mySaveFile >> meshesInScene;\
 
             // Load meshs
             for (int index = 0; index < meshesInScene; index++) {
@@ -273,9 +334,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 mySaveFile >> pNewObject->meshFileName;
                 mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
                 mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
+                mySaveFile >> pNewObject->scale;
+                mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
                 mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
                 mySaveFile >> pNewObject->specularPower;
-                mySaveFile >> pNewObject->scale;
+                mySaveFile >> pNewObject->bOverrideVertexModelColour;
+                mySaveFile >> pNewObject->bIsVisible;
+                mySaveFile >> pNewObject->bIsWireframe;
+
 
                 ::g_pMeshesToDraw.push_back(pNewObject);
             }
@@ -283,31 +349,45 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             // Load number of lights
             int lightsInScene = 0;
             mySaveFile >> lightsInScene;
-            for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {
+            for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {\
+
+                // Position
                 mySaveFile >> g_pLights->theLights[i].position.x
                     >> g_pLights->theLights[i].position.y
                     >> g_pLights->theLights[i].position.z
                     >> g_pLights->theLights[i].position.w;
+
+                // Diffuse
                 mySaveFile >> g_pLights->theLights[i].diffuse.x
                     >> g_pLights->theLights[i].diffuse.y
                     >> g_pLights->theLights[i].diffuse.z
                     >> g_pLights->theLights[i].diffuse.w;
+
+                // Specular
                 mySaveFile >> g_pLights->theLights[i].specular.x
                     >> g_pLights->theLights[i].specular.y
                     >> g_pLights->theLights[i].specular.z
                     >> g_pLights->theLights[i].specular.w;
+
+                // Attenuation
                 mySaveFile >> g_pLights->theLights[i].atten.x
                     >> g_pLights->theLights[i].atten.y
                     >> g_pLights->theLights[i].atten.z
                     >> g_pLights->theLights[i].atten.w;
+
+                // Direction
                 mySaveFile >> g_pLights->theLights[i].direction.x
                     >> g_pLights->theLights[i].direction.y
                     >> g_pLights->theLights[i].direction.z
                     >> g_pLights->theLights[i].direction.w;
+
+                // Light type
                 mySaveFile >> g_pLights->theLights[i].param1.x
                     >> g_pLights->theLights[i].param1.y
                     >> g_pLights->theLights[i].param1.z
                     >> g_pLights->theLights[i].param1.w;
+
+                // Light state
                 mySaveFile >> g_pLights->theLights[i].param2.x
                     >> g_pLights->theLights[i].param2.y
                     >> g_pLights->theLights[i].param2.z

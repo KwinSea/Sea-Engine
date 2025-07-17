@@ -19,14 +19,14 @@ struct sVert
 };
 
 
-// This represents a single mesh (3D object) structure in 'indexed' format. 
+// This represents a single mesh (3D object) structure in 'indexed' format.
 // Its layout is set up to match how the GPU sees the mesh, rather
-//  than how the file was, etc. 
+//  than how the file was, etc.
 // It's also storing the infomation that we need to tell the GPU
-//  which model we want to draw. 
+//  which model we want to draw.
 struct sModelDrawInfo
 {
-	sModelDrawInfo(); 
+	sModelDrawInfo();
 
 	std::string meshName;
 
@@ -56,7 +56,9 @@ public:
 		sModelDrawInfo& drawInfo,
 		unsigned int shaderProgramID,
 		bool hasNormals,
-		bool hasColours);
+		bool hasColours,
+		bool hasTextureCoords,				// TODO:
+		float scaling);			// Keep at 1.0 for no change
 
 	// We don't want to return an int, likely
 	bool FindDrawInfoByModelName(std::string filename,
@@ -67,14 +69,16 @@ public:
 private:
 
 	std::map< std::string /*model name*/,
-		      sModelDrawInfo /* info needed to draw*/ >
+			  sModelDrawInfo /* info needed to draw*/ >
 		m_map_ModelName_to_VAOID;
 
 	// Loads the ply model file into a temporary array
-	bool m_LoadTheModel( std::string fileName, 
+	bool m_LoadTheModel( std::string fileName,
 						 sModelDrawInfo &drawInfo,
 						 bool hasNormals,
-						 bool hasColours);
+						 bool hasColours,
+						 bool hasTextureCoords,
+						 float scaling);
 
 	std::string m_lastErrorString;
 	void m_AppendTextToLastError(std::string text, bool addNewLineBefore = true);

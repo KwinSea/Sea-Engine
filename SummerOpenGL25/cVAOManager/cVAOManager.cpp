@@ -41,31 +41,35 @@ sModelDrawInfo::sModelDrawInfo()
 
 
 bool cVAOManager::LoadModelIntoVAO(
-		std::string fileName, 
+		std::string fileName,
 		sModelDrawInfo &drawInfo,
 	    unsigned int shaderProgramID,
 		bool hasNormals,
-		bool hasColours)
+		bool hasColours,
+		bool hasTextureCoords,
+	    float scaling)	// Set scaling to 1.0 for no change
 
 {
 	// Load the model from file
-	// (We do this here, since if we can't load it, there's 
+	// (We do this here, since if we can't load it, there's
 	//	no point in doing anything else, right?)
 
 	drawInfo.meshName = fileName;
 
-	if ( ! this->m_LoadTheModel( fileName, drawInfo, hasNormals, hasColours))
+	if ( ! this->m_LoadTheModel( fileName, drawInfo,
+		                         hasNormals, hasColours,
+		                         hasTextureCoords, scaling))
 	{
 		this->m_AppendTextToLastError( "Didn't load model", true );
 		return false;
 	}
 
-	// 
+	//
 	// Model is loaded and the vertices and indices are in the drawInfo struct
-	// 
+	//
 
-	// Create a VAO (Vertex Array Object), which will 
-	//	keep track of all the 'state' needed to draw 
+	// Create a VAO (Vertex Array Object), which will
+	//	keep track of all the 'state' needed to draw
 	//	from this buffer...
 
 	// Ask OpenGL for a new buffer ID...
@@ -75,8 +79,8 @@ bool cVAOManager::LoadModelIntoVAO(
 	glBindVertexArray(drawInfo.VAO_ID);
 
 	// Now ANY state that is related to vertex or index buffer
-	//	and vertex attribute layout, is stored in the 'state' 
-	//	of the VAO... 
+	//	and vertex attribute layout, is stored in the 'state'
+	//	of the VAO...
 
 
 	// NOTE: OpenGL error checks have been omitted for brevity
@@ -86,9 +90,9 @@ bool cVAOManager::LoadModelIntoVAO(
 //	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, drawInfo.VertexBufferID);
 	// sVert vertices[3]
-	glBufferData( GL_ARRAY_BUFFER, 
-				  sizeof(sVert) * drawInfo.numberOfVertices,	// ::g_NumberOfVertsToDraw,	// sizeof(vertices), 
-				  (GLvoid*) drawInfo.pVertices,							// pVertices,			//vertices, 
+	glBufferData( GL_ARRAY_BUFFER,
+				  sizeof(sVert) * drawInfo.numberOfVertices,	// ::g_NumberOfVertsToDraw,	// sizeof(vertices),
+				  (GLvoid*) drawInfo.pVertices,							// pVertices,			//vertices,
 				  GL_STATIC_DRAW );
 
 
@@ -99,7 +103,7 @@ bool cVAOManager::LoadModelIntoVAO(
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, drawInfo.IndexBufferID);
 
 	glBufferData( GL_ELEMENT_ARRAY_BUFFER,			// Type: Index element array
-	              sizeof( unsigned int ) * drawInfo.numberOfIndices, 
+	              sizeof( unsigned int ) * drawInfo.numberOfIndices,
 	              (GLvoid*) drawInfo.pIndices,
                   GL_STATIC_DRAW );
 
@@ -113,7 +117,7 @@ bool cVAOManager::LoadModelIntoVAO(
 	glEnableVertexAttribArray(vpos_location);	// vPos
 	glVertexAttribPointer( vpos_location, 4,		// vPos
 						   GL_FLOAT, GL_FALSE,
-						   sizeof(sVert), 
+						   sizeof(sVert),
 						   ( void* )offsetof(sVert, x));
 
 	glEnableVertexAttribArray(vnorm_location);	// vNorm
@@ -151,13 +155,13 @@ bool cVAOManager::LoadModelIntoVAO(
 // We don't want to return an int, likely
 bool cVAOManager::FindDrawInfoByModelName(
 		std::string filename,
-		sModelDrawInfo &drawInfo) 
+		sModelDrawInfo &drawInfo)
 {
 	std::map< std::string /*model name*/,
-			sModelDrawInfo /* info needed to draw*/ >::iterator 
+			sModelDrawInfo /* info needed to draw*/ >::iterator
 		itDrawInfo = this->m_map_ModelName_to_VAOID.find( filename );
 
-	// Find it? 
+	// Find it?
 	if ( itDrawInfo == this->m_map_ModelName_to_VAOID.end() )
 	{
 		// Nope
@@ -174,9 +178,11 @@ bool cVAOManager::FindDrawInfoByModelName(
 bool cVAOManager::m_LoadTheModel(std::string fileName,
 								 sModelDrawInfo &drawInfo,
 								 bool hasNormals,
-								 bool hasColours )
+								 bool hasColours,
+	                             bool hasTextures,
+	                             float scaling)
 {
-	// Open the file. 
+	// Open the file.
 	// Read until we hit the word "vertex"
 	// Read until we hit the word "face"
 	// Read until we hit the word "end_header"
@@ -190,40 +196,40 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 		return false;
 	}
 
-	std::string temp; 
+	std::string temp;
 	while ( thePlyFile >> temp )
 	{
-		if ( temp == "vertex" ) 
+		if ( temp == "vertex" )
 		{
 			break;
 		}
-	}; 
+	};
 	// read the number of vertices...
 	thePlyFile >> drawInfo.numberOfVertices;	//::g_NumberOfVertices;
 
 	while ( thePlyFile >> temp )
 	{
-		if ( temp == "face" ) 
+		if ( temp == "face" )
 		{
 			break;
 		}
-	}; 
+	};
 	// read the number of triangles...
 	thePlyFile >> drawInfo.numberOfTriangles;		// ::g_NumberOfTriangles;
 
 
 	while ( thePlyFile >> temp )
 	{
-		if ( temp == "end_header" ) 
+		if ( temp == "end_header" )
 		{
 			break;
 		}
-	}; 
+	};
 
 	// And now, we start reading vertices... Hazzah!
-	
-	// This is set up to match the ply (3d model) file. 
-	// NOT the shader. 
+
+	// This is set up to match the ply (3d model) file.
+	// NOT the shader.
 	struct sVertPly
 	{
 		glm::vec3 pos;
@@ -235,19 +241,25 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 
 	sVertPly tempVert;
 	// Load the vertices...
-	for ( unsigned int index = 0; index != drawInfo.numberOfVertices; // ::g_NumberOfVertices; 
-		  index++ )
+	for (unsigned int index = 0; index != drawInfo.numberOfVertices; // ::g_NumberOfVertices;
+		index++)
 	{
-		thePlyFile >> tempVert.pos.x >> tempVert.pos.y >> tempVert.pos.z;
-		
+		thePlyFile
+			>> tempVert.pos.x
+			>> tempVert.pos.y
+			>> tempVert.pos.z;
 
-//		tempVert.pos.x *= 10.0f;
-//		tempVert.pos.y *= 10.0f;
-//		tempVert.pos.z *= 10.0f;
+
+		//		tempVert.pos.x *= 10.0f;
+		//		tempVert.pos.y *= 10.0f;
+		//		tempVert.pos.z *= 10.0f;
 
 		if (hasNormals)
 		{
-			thePlyFile >> tempVert.norm.x >> tempVert.norm.y >> tempVert.norm.z;
+			thePlyFile
+				>> tempVert.norm.x
+				>> tempVert.norm.y
+				>> tempVert.norm.z;
 		}
 
 		if (hasColours)
@@ -261,11 +273,25 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 			tempVert.colour.z /= 255.0f;
 			tempVert.colour.a /= 255.0f;
 		}
-	
 
-		// Add too... what? 
+		//if (hasTextueCoords)
+		//{
+
+		//}
+
+		// Add too... what?
 		vecTempPlyVerts.push_back(tempVert);
 	}
+
+	// Apply scaling
+	for (sVertPly &curVertex : vecTempPlyVerts)
+	{
+		curVertex.pos.x *= scaling;
+		curVertex.pos.y *= scaling;
+		curVertex.pos.z *= scaling;
+	}
+
+
 
 	// Create a local vertex array
 	// Note: The format the file (ply) is DIFFERENT from this array:
