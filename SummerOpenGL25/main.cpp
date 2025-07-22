@@ -41,8 +41,8 @@ unsigned int screenHeight = 720;
 unsigned int g_LightingType = 0;
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
-glm::vec3 g_cameraEye = glm::vec3(0.0, 0.0, -1.0f);
-glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+
+Camera camera (screenWidth, screenHeight, glm::vec3(0.0f, 0.0f, 2.0f));
 
 void LoadFilesIntoVAOManager(GLuint program);
 
@@ -145,44 +145,20 @@ int main(void) {
     g_pLights->theLights[2].atten.y = 0.01f; // linear
     g_pLights->theLights[2].atten.z = 0.005f; // quadratic
 
-
     while (!glfwWindowShouldClose(window)) {
-        float ratio;
         int width, height;
-        //       mat4x4 m, p, mvp;
-        glm::mat4 matProj, matView;
         glfwGetFramebufferSize(window, &width, &height);
-        ratio = width / (float)height;
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glUseProgram(program);
 
-        GLint proj_location = glGetUniformLocation(program, "mProj");
-        GLint view_location = glGetUniformLocation(program, "mView");
-
-
-        //mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
-        matProj = glm::perspective(0.6f,
-                                   ratio,
-                                   0.1f,
-                                   1000.0f);
-
-        matView = glm::mat4(1.0f);
-
-        glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
-
-        matView = glm::lookAt(g_cameraEye,
-                              cameraTarget,
-                              upVector);
+        camera.InputHandler(window);
+        camera.Matrix(60.0f, 0.1f, 100.0f, *g_pTheShaderManager, "camMatrix");
 
         GLint eyeLocation_UL = glGetUniformLocation(program, "eyeLocation");
 
-        glUniform3f(eyeLocation_UL,
-                    ::g_cameraEye.x, ::g_cameraEye.y, ::g_cameraEye.z);
-
-        glUniformMatrix4fv(proj_location, 1, GL_FALSE, glm::value_ptr(matProj));
-        glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(matView));
+        glUniform3f(eyeLocation_UL, camera.Position.x, camera.Position.y, camera.Position.z);
 
         // Lighting type
         GLint lightingType_UL = glGetUniformLocation(program, "lightingType");
@@ -270,8 +246,8 @@ int main(void) {
 
         std::stringstream ssWindowTitle;
 
-        ssWindowTitle << "Camera (XYZ)" << ::g_cameraEye.x << ","
-            << ::g_cameraEye.y << ", " << ::g_cameraEye.z << std::endl;
+        ssWindowTitle << "Session info [ Camera X:" << camera.Position.x << " | Camera Y:"
+            << camera.Position.y << " | Camera Z:" << camera.Position.z << " | Camera Speed: " << camera.speed << " ]" << std::endl;
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 

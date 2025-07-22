@@ -1,10 +1,15 @@
-﻿// Credit to Victor Gordan for operation
+﻿// Credit to Victor Gordan for insperation
 // https://youtu.be/86_pQCKOIPk?si=DE5egKig4sAK8XnP
 #pragma once
+#define GLM_ENABLE_EXPERIMENTAL
 
 #include "GlobalOpenGL.h"
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include<glm/gtc/matrix_transform.hpp>
+#include<glm/gtc/type_ptr.hpp>
+#include<glm/gtx/rotate_vector.hpp>
+#include<glm/gtx/vector_angle.hpp>
 #include  "cShaderManager/cShaderManager.h"
 
 class Camera {
@@ -16,11 +21,13 @@ public:
     int viewWidth;
     int viewHeight;
 
+    bool firstClick = true;
+
     float speed = 0.15f;
-    float sensitivity = 100.0f;
+    float sensitivity = 25.5f;
 
     Camera(int viewWidth, int viewHeight, glm::vec3 position);
 
     void Matrix(float FOVdeg, float zNear, float zFar, cShaderManager& shader, const char* uniform);
-    void InputManger(GLFWwindow* window);
+    void InputHandler(GLFWwindow* window);
 };

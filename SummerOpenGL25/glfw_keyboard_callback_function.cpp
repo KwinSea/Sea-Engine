@@ -5,21 +5,21 @@
 #include <iostream>
 #include <fstream>
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/quaternion_trigonometric.hpp>
 
+#include "Camera.h"
 #include "cMeshObject.h"
 #include "cLightManager.h"
 
-extern glm::vec3 g_cameraEye;
+extern Camera camera;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 extern cLightManager* g_pLights;
-extern glm::vec3 cameraTarget;
 extern unsigned int g_LightingType;
 extern unsigned int screenWidth;
 extern unsigned int screenHeight;
 
 unsigned int g_selectedObjectIndex = 0;
 unsigned int g_selectedLightIndex = 0;
-float sensitivity = 1.0f;
 bool lightDebug = false;
 
 bool isShiftDown(int mods) {
@@ -58,8 +58,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
 
-    float camera_speed = 0.125f;
-    float camera_move_speed = 0.25f;
     const float object_move_speed = 0.7f;
 
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
@@ -125,16 +123,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             } else {
                 lightDebug = true;
             }
-        }
-    }
-
-    if ((mods & GLFW_MOD_ALT) == GLFW_MOD_ALT) {
-        if (key == GLFW_KEY_W) {
-            camera_speed += 0.5;
-        }
-
-        if (key == GLFW_KEY_S) {
-            camera_speed -= 0.5;
         }
     }
 
@@ -417,57 +405,35 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
     if (!areAnyModifiersDown(mods)) {
         if (key == GLFW_KEY_A) {
-            ::cameraTarget.x += camera_move_speed;
-            ::g_cameraEye.x += camera_move_speed;
+            camera.Position += camera.speed * -glm::normalize(glm::cross(camera.Orientation, camera.Up));
         }
 
         if (key == GLFW_KEY_D) {
-            ::cameraTarget.x -= camera_move_speed;
-            ::g_cameraEye.x -= camera_move_speed;
+             camera.Position += camera.speed * glm::normalize(glm::cross(camera.Orientation, camera.Up));
         }
 
         if (key == GLFW_KEY_W) {
-            ::cameraTarget.z += camera_move_speed;
-            ::g_cameraEye.z += camera_move_speed;
+             camera.Position += camera.speed * camera.Orientation;
         }
 
         if (key == GLFW_KEY_S) {
-            ::cameraTarget.z -= camera_move_speed;
-            ::g_cameraEye.z -= camera_move_speed;
+             camera.Position += camera.speed * -camera.Orientation;
         }
 
         if (key == GLFW_KEY_Q) {
-            ::cameraTarget.y += camera_move_speed;
-            ::g_cameraEye.y += camera_move_speed;
+             camera.Position += camera.speed * -camera.Up;
         }
 
         if (key == GLFW_KEY_E) {
-            ::cameraTarget.y -= camera_move_speed;
-            ::g_cameraEye.y -= camera_move_speed;
+             camera.Position += camera.speed * camera.Up;
         }
 
-        if (key == GLFW_KEY_LEFT) {
-            g_cameraEye.x += camera_speed;
+        if (key == GLFW_KEY_UP && action == GLFW_RELEASE) {
+            camera.speed += 0.05f;
         }
 
-        if (key == GLFW_KEY_RIGHT) {
-            g_cameraEye.x -= camera_speed;
-        }
-
-        if (key == GLFW_KEY_UP) {
-            g_cameraEye.z += camera_speed;
-        }
-
-        if (key == GLFW_KEY_DOWN) {
-            g_cameraEye.z -= camera_speed;
-        }
-
-        if (key == GLFW_KEY_COMMA) {
-            g_cameraEye.y += camera_speed;
-        }
-
-        if (key == GLFW_KEY_PERIOD) {
-            g_cameraEye.y -= camera_speed;
+        if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE) {
+            camera.speed -= 0.05f;
         }
 
         if (key == GLFW_KEY_T && action == GLFW_RELEASE) {
@@ -476,23 +442,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             } else {
                 ++g_LightingType;
             }
-        }
-
-        // if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-        //     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); // Hides cursor
-        //
-        //     double mouseX;
-        //     double mouseY;
-        //     glfwGetCursorPos(window, &mouseX, &mouseY);
-        //
-        //     float rotX = sensitivity * (float)(mouseY - (screenHeight / 2)) / screenHeight;
-        //     float rotY = sensitivity * (float)(mouseX - (screenHeight / 2)) / screenHeight;
-        //
-        //     glm::vec3 newRotation = glm::rotate(g_cameraEye.)
-        // }
-
-        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); // Shows cursor
         }
     }
 }
