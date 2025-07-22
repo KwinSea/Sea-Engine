@@ -23,6 +23,7 @@
 #include "cLightManager.h"
 #include "cMeshObject.h"
 #include "cLightHelper/cLightHelper.h"
+#include "Camera.h"
 
 
 cShaderManager* g_pTheShaderManager = NULL;
@@ -34,9 +35,13 @@ cMeshObject* g_pSmoothSphere = NULL;
 extern unsigned int g_selectedLightIndex;
 extern bool lightDebug;
 
+unsigned int screenWidth = 1280;
+unsigned int screenHeight = 720;
+
+unsigned int g_LightingType = 0;
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
-auto g_cameraEye = glm::vec3(0.0, 0.0, -1.0f);
+glm::vec3 g_cameraEye = glm::vec3(0.0, 0.0, -1.0f);
 glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 
 void LoadFilesIntoVAOManager(GLuint program);
@@ -68,7 +73,7 @@ int main(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-    window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+    window = glfwCreateWindow(screenWidth, screenHeight, "Simple example", NULL, NULL);
     if (!window) {
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -178,6 +183,10 @@ int main(void) {
 
         glUniformMatrix4fv(proj_location, 1, GL_FALSE, glm::value_ptr(matProj));
         glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(matView));
+
+        // Lighting type
+        GLint lightingType_UL = glGetUniformLocation(program, "lightingType");
+        glUniform1i(lightingType_UL, g_LightingType);
 
         ::g_pLights->UpdateShaderUniforms(program);
 

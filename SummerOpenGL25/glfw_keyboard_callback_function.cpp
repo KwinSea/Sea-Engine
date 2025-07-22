@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <glm/ext/matrix_transform.hpp>
+
 #include "cMeshObject.h"
 #include "cLightManager.h"
 
@@ -11,9 +13,13 @@ extern glm::vec3 g_cameraEye;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 extern cLightManager* g_pLights;
 extern glm::vec3 cameraTarget;
+extern unsigned int g_LightingType;
+extern unsigned int screenWidth;
+extern unsigned int screenHeight;
 
 unsigned int g_selectedObjectIndex = 0;
 unsigned int g_selectedLightIndex = 0;
+float sensitivity = 1.0f;
 bool lightDebug = false;
 
 bool isShiftDown(int mods) {
@@ -462,6 +468,31 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
         if (key == GLFW_KEY_PERIOD) {
             g_cameraEye.y -= camera_speed;
+        }
+
+        if (key == GLFW_KEY_T && action == GLFW_RELEASE) {
+            if (g_LightingType >= 2) {
+                g_LightingType = 0;
+            } else {
+                ++g_LightingType;
+            }
+        }
+
+        // if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+        //     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); // Hides cursor
+        //
+        //     double mouseX;
+        //     double mouseY;
+        //     glfwGetCursorPos(window, &mouseX, &mouseY);
+        //
+        //     float rotX = sensitivity * (float)(mouseY - (screenHeight / 2)) / screenHeight;
+        //     float rotY = sensitivity * (float)(mouseX - (screenHeight / 2)) / screenHeight;
+        //
+        //     glm::vec3 newRotation = glm::rotate(g_cameraEye.)
+        // }
+
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); // Shows cursor
         }
     }
 }

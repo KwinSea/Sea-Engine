@@ -1,6 +1,9 @@
 #version 420
 
 uniform vec3 eyeLocation;
+uniform int lightingType; // 0 = Lit
+						  // 1 = Semi Lit
+						  // 2 = Unlit
 
 in vec4 vertColor;
 in vec4 vertNormal;
@@ -41,10 +44,19 @@ void main()
 	// vec4 vertSpecular = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	
 	pixelColour = vec4(vertColor);
-	
-	vec4 lightContrib = calculateLightContrib(vertColor.rgb, vertNormal.xyz, vertWorldPosition.xyz, vertSpecular);
-	
-	pixelColour.rgb = lightContrib.rgb;
+
+	// Check if lighting sould be handeld
+	if (lightingType != 2) {
+		vec4 lightContrib = calculateLightContrib(vertColor.rgb, vertNormal.xyz, vertWorldPosition.xyz, vertSpecular);
+
+		if (lightingType == 0) {
+			pixelColour.rgb = lightContrib.rgb; // Lit
+		} else if (lightingType == 1){
+			pixelColour.rgb = lightContrib.rgb + 0.075; // Semi Lit
+		}
+	} else if (lightingType == 2) {
+		pixelColour.rgb = vertColor.rgb; // Unlit
+	}
 };
 
 // Feeney gave you this (it's inspired by the basic shader in Mike Bailey's Graphic Shaders book)
