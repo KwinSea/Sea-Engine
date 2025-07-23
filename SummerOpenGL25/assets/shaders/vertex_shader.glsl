@@ -19,7 +19,7 @@ out vec4 vertWorldPosition;
 
 void main()
 {
-	mat4 MVP = camMatrix;
+	mat4 MVP = camMatrix * mModel;
 
     gl_Position = MVP * vec4(vPos.xyz, 1.0f);
 

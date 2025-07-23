@@ -42,7 +42,7 @@ unsigned int g_LightingType = 0;
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
 
-Camera camera (screenWidth, screenHeight, glm::vec3(0.0f, 0.0f, 2.0f));
+Camera camera (screenWidth, screenHeight, glm::vec3(0.0f, 20.0f, 2.0f));
 
 void LoadFilesIntoVAOManager(GLuint program);
 
