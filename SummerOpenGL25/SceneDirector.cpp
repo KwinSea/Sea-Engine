@@ -19,7 +19,7 @@ void EditLight(
     g_pLights->theLights[lightIndex].diffuse = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void AddObject (
+void AddMeshObject (
     std::string meshFileName,
     std::string uniqueName,
     glm::vec3 position,

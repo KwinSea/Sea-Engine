@@ -31,9 +31,12 @@ cVAOManager* g_pMeshManager = NULL;
 cLightManager* g_pLights = NULL;
 
 cMeshObject* g_pSmoothSphere = NULL;
+cMeshObject* g_pSelectedMeshIndicator = NULL;
 
 extern unsigned int g_selectedLightIndex;
+extern unsigned int g_selectedObjectIndex;
 extern bool lightDebug;
+extern bool meshDebug;
 
 unsigned int screenWidth = 1280;
 unsigned int screenHeight = 720;
@@ -188,11 +191,33 @@ int main(void) {
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
         ::g_pSmoothSphere->bIsWireframe = true;
         ::g_pSmoothSphere->bOverrideVertexModelColour = true;
-        g_pSmoothSphere->bIsVisible = lightDebug;
+        ::g_pSmoothSphere->bIsVisible = lightDebug;
         ::g_pSmoothSphere->position = glm::vec3(
             ::g_pLights->theLights[::g_selectedLightIndex].position.x,
             ::g_pLights->theLights[::g_selectedLightIndex].position.y,
             ::g_pLights->theLights[::g_selectedLightIndex].position.z);
+
+        // Selected Mesh Indicator
+        ::g_pSelectedMeshIndicator = new cMeshObject();
+        ::g_pSelectedMeshIndicator->meshFileName = ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
+        ::g_pSelectedMeshIndicator->bIsWireframe = true;
+        ::g_pSelectedMeshIndicator->bOverrideVertexModelColour = true;
+        ::g_pSelectedMeshIndicator->bIsVisible = meshDebug;
+        ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale * 1.01f;
+        ::g_pSelectedMeshIndicator->colourRGB = glm::vec3(1.0f);
+        ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec3(1.0f);
+        ::g_pSelectedMeshIndicator->specularPower = 0.0f;
+        ::g_pSelectedMeshIndicator->position = glm::vec3(
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x,
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y,
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z);
+        ::g_pSelectedMeshIndicator->orientation = glm::vec3(
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x,
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y,
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z);
+
+        DrawMesh(g_pSelectedMeshIndicator, program);
+
 
         cLightHelper lightHelper;
 

@@ -7,7 +7,7 @@
 class SceneDirector {
 };
 
-void AddObject (
+void AddMeshObject (
     std::string meshFileName,
     std::string uniqueName = "",
     glm::vec3 position = glm::vec3(0.0, 0.0, 0.0),

@@ -22,6 +22,7 @@ extern unsigned int screenHeight;
 unsigned int g_selectedObjectIndex = 0;
 unsigned int g_selectedLightIndex = 0;
 bool lightDebug = false;
+bool meshDebug = false;
 
 bool isShiftDown(int mods) {
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
@@ -152,6 +153,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
         }
 
+        if (key == GLFW_KEY_T && action == GLFW_RELEASE) {
+            if (meshDebug) {
+                meshDebug = false;
+            } else {
+                meshDebug = true;
+            }
+        }
+
         if (key == GLFW_KEY_M) {
             cMeshObject* pNewObject = new cMeshObject();
 
@@ -197,7 +206,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             std::string input;
             std::cin >> input;
 
-            AddObject(input);
+            AddMeshObject(input);
         }
 
         if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
