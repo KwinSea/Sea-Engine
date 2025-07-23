@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "cMeshObject.h"
 #include "cLightManager.h"
+#include "SceneDirector.h"
 
 extern Camera camera;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
@@ -189,6 +190,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             pNewObject->bIsWireframe = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsWireframe; // is Wireframe
 
             ::g_pMeshesToDraw.push_back(pNewObject);
+        }
+
+        if (key == GLFW_KEY_INSERT && action == GLFW_RELEASE) {
+            std::cout << "Enter mesh object name: ";
+            std::string input;
+            std::cin >> input;
+
+            AddObject(input);
         }
 
         if (key == GLFW_KEY_P && action == GLFW_RELEASE) {

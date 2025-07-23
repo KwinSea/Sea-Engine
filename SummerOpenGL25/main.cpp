@@ -120,7 +120,7 @@ int main(void) {
     ::g_pLights->theLights[0].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[0].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[0].position = glm::vec4(-10.0f, -10.0f, -10.0f, 0.5f);
-    g_pLights->theLights[0].diffuse = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    g_pLights->theLights[0].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     ::g_pLights->theLights[0].atten.x = 0.0f; // constant
     ::g_pLights->theLights[0].atten.y = 0.1f; // linear
@@ -139,7 +139,7 @@ int main(void) {
     g_pLights->theLights[2].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[2].position = glm::vec4(100.0f, 100.0f, 100.0f, 1.0f);
-    g_pLights->theLights[2].diffuse = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    g_pLights->theLights[2].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
     ::g_pLights->theLights[2].atten.x = 0.0f; // constant
     g_pLights->theLights[2].atten.y = 0.01f; // linear
@@ -327,23 +327,25 @@ void LoadFilesIntoVAOManager(GLuint program) {
 }
 
 void LoadModelsIntoScene() {
-    cMeshObject* pCar = new cMeshObject();
-    pCar->bOverrideVertexModelColour = true;
-    pCar->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
-    pCar->position.x = -10.f;
-    pCar->orientation.z = 90.0f;
-    pCar->scale = 10.25f;
-    pCar->meshFileName = "assets/models/homer_xyz_n_rgba.ply";
+    cMeshObject* pHomer = new cMeshObject();
+    pHomer->bOverrideVertexModelColour = true;
+    pHomer->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
+    pHomer->position.x = -10.f;
+    pHomer->orientation.z = 90.0f;
+    pHomer->scale = 10.25f;
+    pHomer->specularPower = 1.0f;
+    pHomer->specularHighLightRGB = glm::vec3(1.0, 1.0, 1.0);
+    pHomer->meshFileName = "assets/models/homer_xyz_n_rgba.ply";
 
     cMeshObject* pCow2 = new cMeshObject();
     pCow2->bIsWireframe = false;
-    //pCow2->bOverrideVertexModelColour = true;
-    //pCow2->colourRGB = glm::vec3(1.0f, 0.0f, 0.0f);
+    pCow2->bOverrideVertexModelColour = true;
+    pCow2->colourRGB = glm::vec3(1.0f, 0.0f, 0.0f);
     pCow2->position.x = 10.f;
     pCow2->scale = 0.5f;
     pCow2->meshFileName = "assets/models/cow_xyz_n_rgba.ply";
 
-    ::g_pMeshesToDraw.push_back(pCar);
+    ::g_pMeshesToDraw.push_back(pHomer);
     ::g_pMeshesToDraw.push_back(pCow2);
 
     cMeshObject* pDolphin = new cMeshObject();

@@ -6,8 +6,12 @@ cMeshObject::cMeshObject()
 	this->uniqueName = "";
 	this->position = glm::vec3(0.0f);
 	this->orientation = glm::vec3(0.0f);
+
 	this->scale = 1.0f;
 	this->colourRGB = glm::vec3(1.0f);
+
+	this->specularHighLightRGB = glm::vec3(1.0f);
+	this->specularPower = 1.0f;
 
 	this->bOverrideVertexModelColour = false;
 	this->bIsWireframe = false;
