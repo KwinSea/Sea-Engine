@@ -74,47 +74,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pLights->theLights[::g_selectedLightIndex].position.x -= light_move_speed;
         }
 
-        if (key == GLFW_KEY_D) {
+        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
             ::g_pLights->theLights[::g_selectedLightIndex].position.x += light_move_speed;
         }
 
-        if (key == GLFW_KEY_Q) {
+        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
             ::g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed;
         }
 
-        if (key == GLFW_KEY_E) {
+        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
             ::g_pLights->theLights[::g_selectedLightIndex].position.y -= light_move_speed;
         }
 
-        if (key == GLFW_KEY_W) {
+        if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
             ::g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed;
         }
 
-        if (key == GLFW_KEY_S) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed;
-        }
-
-        if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.x -= light_move_speed;
-        }
-
-        if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.x += light_move_speed;
-        }
-
-        if (key == GLFW_KEY_PERIOD && action == GLFW_PRESS) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed;
-        }
-
-        if (key == GLFW_KEY_COMMA && action == GLFW_PRESS) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.y -= light_move_speed;
-        }
-
-        if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed;
-        }
-
-        if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
             ::g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed;
         }
 
@@ -277,51 +253,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }
 
     if ((mods & GLFW_MOD_ALT) == GLFW_MOD_ALT) {
-        if (key == GLFW_KEY_A) {
+        if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y += object_rotate_speed;
         }
 
-        if (key == GLFW_KEY_D) {
+        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y -= object_rotate_speed;
         }
 
-        if (key == GLFW_KEY_Q) {
+        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x += object_rotate_speed;
         }
 
-        if (key == GLFW_KEY_E) {
+        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x -= object_rotate_speed;
         }
 
-        if (key == GLFW_KEY_W) {
+        if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z += object_rotate_speed;
         }
 
-        if (key == GLFW_KEY_S) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z -= object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y -= object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y += object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_PERIOD && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x += object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_COMMA && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x -= object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z += object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z -= object_rotate_speed;
         }
 
@@ -335,51 +287,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }
 
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
-        if (key == GLFW_KEY_D) {
+        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed;
         }
 
-        if (key == GLFW_KEY_A) {
+        if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_Q) {
+        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y += object_move_speed;
         }
 
-        if (key == GLFW_KEY_E) {
+        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_S) {
+        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed;
         }
 
-        if (key == GLFW_KEY_W) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
-        }
-
-        if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
-        }
-
-        if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed;
-        }
-
-        if (key == GLFW_KEY_PERIOD && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y += object_move_speed;
-        }
-
-        if (key == GLFW_KEY_COMMA && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
-        }
-
-        if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed;
-        }
-
-        if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
         }
 
@@ -908,23 +836,25 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             camera.Position += camera.speed * -glm::normalize(glm::cross(camera.Orientation, camera.Up));
         }
 
-        if (key == GLFW_KEY_D) {
+        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
              camera.Position += camera.speed * glm::normalize(glm::cross(camera.Orientation, camera.Up));
         }
 
-        if (key == GLFW_KEY_W) {
-             camera.Position += camera.speed * camera.Orientation;
+
+        if (key == GLFW_KEY_W && action != GLFW_RELEASE) {
+         camera.Position += camera.speed * glm::normalize(glm::vec3(camera.Orientation.x, 0.0, camera.Orientation.z));
         }
 
-        if (key == GLFW_KEY_S) {
-             camera.Position += camera.speed * -camera.Orientation;
+
+        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
+             camera.Position += camera.speed * glm::normalize(glm::vec3(-camera.Orientation.x, 0.0, -camera.Orientation.z));
         }
 
-        if (key == GLFW_KEY_Q) {
+        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
              camera.Position += camera.speed * -camera.Up;
         }
 
-        if (key == GLFW_KEY_E) {
+        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
              camera.Position += camera.speed * camera.Up;
         }
 
