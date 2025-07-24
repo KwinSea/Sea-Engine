@@ -150,6 +150,9 @@ bool cVAOManager::LoadModelIntoVAO(
 	return true;
 }
 
+std::map<std::string, sModelDrawInfo> cVAOManager::GetMapOfMesh() {
+	return this->m_map_ModelName_to_VAOID;
+}
 
 
 // We don't want to return an int, likely
@@ -274,10 +277,12 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 			tempVert.colour.a /= 255.0f;
 		}
 
-		//if (hasTextueCoords)
-		//{
-
-		//}
+		if (hasTextures)
+		{
+			float texture_u;
+			float texture_v;
+			thePlyFile >> texture_u >> texture_v;
+		}
 
 		// Add too... what?
 		vecTempPlyVerts.push_back(tempVert);

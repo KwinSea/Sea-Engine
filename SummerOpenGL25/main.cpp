@@ -316,11 +316,19 @@ int main(void) {
 
 void LoadFilesIntoVAOManager(GLuint program) {
     ::g_pMeshManager = new cVAOManager();
+
     sModelDrawInfo meshInfoCow;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba.ply",
                                             meshInfoCow, program, true, true, false, 1.0f)) {
         std::cout << "Cow not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshGate;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/SM_Env_Floor_Grate_01.ply",
+                                            meshGate, program, true, true, true, 1.0f)) {
+        std::cout << "Gate not loaded into VAO!" << std::endl;
     }
 
     sModelDrawInfo meshInfoCar;

@@ -66,6 +66,8 @@ public:
 
 	std::string getLastError(bool bAndClear = true);
 
+	std::map< std::string, sModelDrawInfo> GetMapOfMesh();
+
 private:
 
 	std::map< std::string /*model name*/,

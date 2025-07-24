@@ -11,10 +11,14 @@
 #include "cMeshObject.h"
 #include "cLightManager.h"
 #include "SceneDirector.h"
+#include "cVAOManager/cVAOManager.h"
 
 extern Camera camera;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 extern cLightManager* g_pLights;
+
+extern cVAOManager* g_pMeshManager;
+
 extern unsigned int g_LightingType;
 extern unsigned int screenWidth;
 extern unsigned int screenHeight;
@@ -61,6 +65,10 @@ bool areAnyModifiersDown(int mods) {
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+
+    if ((mods & GLFW_MOD_ALT) == GLFW_MOD_CONTROL) {
+
+    }
 
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
         if (key == GLFW_KEY_A) {
@@ -135,7 +143,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             light_move_speed -= 0.05f;
         }
 
-        if (key == GLFW_KEY_P && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_RIGHT_BRACKET && action == GLFW_PRESS) {
             if (g_selectedLightIndex >= g_pLights->NUMBEROFLIGHTS - 1) {
                 g_selectedLightIndex = 0;
             } else {
@@ -143,7 +151,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
         }
 
-        if (key == GLFW_KEY_O && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_LEFT_BRACKET && action == GLFW_PRESS) {
             if (g_selectedLightIndex == 0) {
                 g_selectedLightIndex = g_pLights->NUMBEROFLIGHTS - 1;
             } else {
@@ -249,6 +257,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                     g_pLights->theLights[g_selectedLightIndex].atten.z = inputZ;
                 }
             }
+            std::cout << "Light Edited\n";
         }
     }
 
@@ -358,6 +367,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_I && action == GLFW_RELEASE) {
+
             std::cout << "Editing Selected Object\nEnter object new position (x y z, press Enter to skip): ";
             std::string input;
             std::getline(std::cin, input);
@@ -464,15 +474,26 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                     ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsVisible = false;
                 }
             }
+            std::cout << "Object Edited\n";
         }
 
         if (key == GLFW_KEY_INSERT && action == GLFW_RELEASE) {
             cMeshObject* pNewObject = new cMeshObject();
 
-            std::cout << "Adding New Object\nEnter new object mesh file name: ";
+            std::cout << "Adding New Object\n";
+            std::vector<std::string> currentVAOMeshs;
+            for (const std::pair<const std::string, sModelDrawInfo>& pair : g_pMeshManager->GetMapOfMesh()) {
+                currentVAOMeshs.push_back(pair.first);
+            }
+
+            for (int i = 0; i < currentVAOMeshs.size(); i++) {
+                std::cout << "[" << i << "] - " << currentVAOMeshs[i] << std::endl;
+            }
+
+            std::cout << "\nSelect new object mesh from above: ";
             std::string input;
             std::getline(std::cin, input);
-            pNewObject->meshFileName = input;
+            pNewObject->meshFileName = currentVAOMeshs[std::stof(input)];
 
             std::cout << "Enter new object position (x y z, press Enter to skip): ";
             std::getline(std::cin, input);
@@ -581,9 +602,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
 
             ::g_pMeshesToDraw.push_back(pNewObject);
+            std::cout << "Object Added\n";
         }
 
-        if (key == GLFW_KEY_P && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_RIGHT_BRACKET && action == GLFW_PRESS) {
             if (::g_selectedObjectIndex >= ::g_pMeshesToDraw.size() - 1) {
                 ::g_selectedObjectIndex = 0;
             } else {
@@ -591,7 +613,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
         }
 
-        if (key == GLFW_KEY_O && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_LEFT_BRACKET && action == GLFW_PRESS) {
             if (::g_selectedObjectIndex == 0) {
                 ::g_selectedObjectIndex = ::g_pMeshesToDraw.size() - 1;
             } else {
