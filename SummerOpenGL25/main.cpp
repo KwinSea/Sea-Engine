@@ -35,6 +35,8 @@ cMeshObject* g_pSelectedMeshIndicator = NULL;
 
 extern unsigned int g_selectedLightIndex;
 extern unsigned int g_selectedObjectIndex;
+extern float object_move_speed;
+extern float light_move_speed;
 extern bool lightDebug;
 extern bool meshDebug;
 
@@ -272,7 +274,7 @@ int main(void) {
         std::stringstream ssWindowTitle;
 
         ssWindowTitle << "Session info [ Camera X:" << camera.Position.x << " | Camera Y:"
-            << camera.Position.y << " | Camera Z:" << camera.Position.z << " | Camera Speed: " << camera.speed << " ]" << std::endl;
+            << camera.Position.y << " | Camera Z:" << camera.Position.z << " ]   [ Camera Speed: " << camera.speed << " | Object Speed: " << object_move_speed << " | Light Speed: " << light_move_speed << " ]"<< std::endl;
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 
