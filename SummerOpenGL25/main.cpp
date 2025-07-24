@@ -322,97 +322,19 @@ int main(void) {
 void LoadFilesIntoVAOManager(GLuint program) {
     ::g_pMeshManager = new cVAOManager();
 
-    sModelDrawInfo meshInfoCow;
+    sModelDrawInfo meshInfoFloor_1;
 
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba.ply",
-                                            meshInfoCow, program, true, true, false, 1.0f)) {
-        std::cout << "Cow not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshGate;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/SM_Env_Floor_Grate_01.ply",
-                                            meshGate, program, true, true, true, 1.0f)) {
-        std::cout << "Gate not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoCar;
-
-    if (!g_pMeshManager->LoadModelIntoVAO("assets/models/homer_xyz_n_rgba.ply",
-                                          meshInfoCar, program, true, true, false, 1.0f)) {
-        std::cout << "Homer not loaded into VAO!" << std::endl;
-    }
-
-
-    sModelDrawInfo dolphinMeshInfo;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba.ply",
-                                            dolphinMeshInfo, program, true, true, false, 1.0f)) {
-        std::cout << "Dolphin NOT loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo WarehouseMeshInfo;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Warehouse_xyz_n_rgba.ply",
-                                            WarehouseMeshInfo, program, true, true, false, 1.0f)) {
-        std::cout << "Warehouse NOT loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo SmoothSphereMeshInfo;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply",
-                                            SmoothSphereMeshInfo, program, true, true, false, 1.0f)) {
-        std::cout << "SmoothSphere NOT loaded into VAO!" << std::endl;
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply",
+                                            meshInfoFloor_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Floor_01.ply not loaded into VAO!" << std::endl;
     }
 }
 
 void LoadModelsIntoScene() {
     cMeshObject* pHomer = new cMeshObject();
-    pHomer->bOverrideVertexModelColour = true;
-    pHomer->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
-    pHomer->position.x = -10.f;
-    pHomer->orientation.z = 90.0f;
-    pHomer->scale = 10.25f;
-    pHomer->specularPower = 1.0f;
-    pHomer->specularHighLightRGB = glm::vec3(1.0, 1.0, 1.0);
-    pHomer->meshFileName = "assets/models/homer_xyz_n_rgba.ply";
-
-    cMeshObject* pCow2 = new cMeshObject();
-    pCow2->bIsWireframe = false;
-    pCow2->bOverrideVertexModelColour = true;
-    pCow2->colourRGB = glm::vec3(1.0f, 0.0f, 0.0f);
-    pCow2->position.x = 10.f;
-    pCow2->scale = 0.5f;
-    pCow2->meshFileName = "assets/models/cow_xyz_n_rgba.ply";
+    pHomer->meshFileName = "assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply";
 
     ::g_pMeshesToDraw.push_back(pHomer);
-    ::g_pMeshesToDraw.push_back(pCow2);
-
-    cMeshObject* pDolphin = new cMeshObject();
-    pDolphin->meshFileName = "assets/models/dolphin_xyz_n_rgba.ply";
-    pDolphin->scale = 0.02f;
-    pDolphin->position.y = 10.0f;
-    pDolphin->orientation.z = 45.0f;
-
-    ::g_pMeshesToDraw.push_back(pDolphin);
-
-    cMeshObject* pDolphin2 = new cMeshObject();
-    pDolphin2->meshFileName = "assets/models/dolphin_xyz_n_rgba.ply";
-    pDolphin2->scale = 0.02f;
-    pDolphin2->position.y = -10.0f;
-    pDolphin2->orientation.z = -45.0f;
-
-    ::g_pMeshesToDraw.push_back(pDolphin2);
-
-    cMeshObject* pWarehouse = new cMeshObject();
-    pWarehouse->meshFileName = "assets/models/Warehouse_xyz_n_rgba.ply";
-    pWarehouse->position.y = -20.0f;
-    pWarehouse->orientation.y = 90.0f;
-    pWarehouse->specularHighLightRGB = glm::vec3(1.0f, 1.0f, 1.0f);
-    pWarehouse->specularPower = 1.0f;
-
-
-    ::g_pMeshesToDraw.push_back(pWarehouse);
 }
 
 void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {

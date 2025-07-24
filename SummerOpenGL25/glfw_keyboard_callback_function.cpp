@@ -26,9 +26,9 @@ extern unsigned int screenHeight;
 unsigned int g_selectedObjectIndex = 0;
 unsigned int g_selectedLightIndex = 0;
 
-float object_move_speed = 0.75f;
-float light_move_speed = 0.75f;
-float object_rotate_speed = 0.05f;
+float object_move_speed = 500.f;
+float light_move_speed = 1.f;
+float object_rotate_speed = glm::radians(90.0f);
 
 bool lightDebug = false;
 bool meshDebug = false;
@@ -135,11 +135,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            light_move_speed += 0.05f;
+            light_move_speed += 0.5f;
         }
 
         if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            light_move_speed -= 0.05f;
+            light_move_speed -= 0.5f;
         }
 
         if (key == GLFW_KEY_RIGHT_BRACKET && action == GLFW_PRESS) {
@@ -310,11 +310,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            object_rotate_speed += 0.05f;
+            object_rotate_speed += 5.0f;
         }
 
         if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            object_rotate_speed -= 0.05f;
+            object_rotate_speed -= 5.0f;
         }
     }
 
@@ -368,11 +368,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            object_move_speed += 0.05f;
+            object_move_speed += 0.5f;
         }
 
         if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            object_move_speed -= 0.05f;
+            object_move_speed -= 0.5f;
         }
 
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
@@ -900,11 +900,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            camera.speed += 0.05f;
+            camera.speed += 0.5f;
         }
 
         if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            camera.speed -= 0.05f;
+            camera.speed -= 0.5f;
         }
 
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
@@ -920,9 +920,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // Scroll wheel
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
     if (yoffset > 0) {
-        camera.speed += 0.05f;
+        camera.speed += 0.5f;
     }
     else if (yoffset < 0) {
-        camera.speed -= 0.05f;
+        camera.speed -= 0.5f;
     }
 }
