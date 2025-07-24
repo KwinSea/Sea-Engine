@@ -36,6 +36,6 @@ public:
     void GetUniformLocations(GLuint shaderProgram);
     void UpdateShaderUniforms(GLuint shaderProgram);
 
-    static const int NUMBEROFLIGHTS = 10;
+    static const int NUMBEROFLIGHTS = 20;
     cLight theLights[NUMBEROFLIGHTS];
 };

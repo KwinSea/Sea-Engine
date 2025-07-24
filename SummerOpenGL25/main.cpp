@@ -50,7 +50,7 @@ unsigned int g_LightingType = 0;
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
 
-Camera camera (screenWidth, screenHeight, glm::vec3(0.0f, 20.0f, 2.0f));
+Camera camera (screenWidth, screenHeight, glm::vec3(2000.0f, 2000.0f, 2000.0f));
 
 void LoadFilesIntoVAOManager(GLuint program);
 
@@ -66,6 +66,7 @@ static void error_callback(int error, const char* description) {
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
+glm::vec3 RGBify (int red, int green, int blue) {return glm::vec3(red / 255.0f, green / 255.0f, blue / 255.0f);}
 
 int main(void) {
     GLFWwindow* window;
@@ -129,31 +130,62 @@ int main(void) {
     // Light 1
     ::g_pLights->theLights[0].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[0].param1.x = 0.0f; // light type = point light
-    g_pLights->theLights[0].position = glm::vec4(-10.0f, -10.0f, -10.0f, 0.5f);
-    g_pLights->theLights[0].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    g_pLights->theLights[0].position = glm::vec4(13000.0f, 1000.0f, 13000.0f, 0.5f);
+    g_pLights->theLights[0].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
 
-    ::g_pLights->theLights[0].atten.x = 0.0f; // constant
-    ::g_pLights->theLights[0].atten.y = 0.1f; // linear
-    ::g_pLights->theLights[0].atten.z = 0.01f; // quadratic
+    g_pLights->theLights[0].atten.x = 0.0f; // constant
+    g_pLights->theLights[0].atten.y = 0.0001f; // linear
+    g_pLights->theLights[0].atten.z = 0.00001f; // quadratic
 
     // Light 2
-    g_pLights->theLights[1].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[1].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
-    ::g_pLights->theLights[1].position = glm::vec4(10.0f, 10.0f, 50.0f, 1.0f);
-    ::g_pLights->theLights[1].diffuse = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+    g_pLights->theLights[1].position = glm::vec4(-500.0f, 1000.0f, 13000.0f, 0.5f);
+    g_pLights->theLights[1].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
 
-    ::g_pLights->theLights[1].atten.x = 0.0f; // constant
-    g_pLights->theLights[1].atten.y = 0.1f; // linear
-    g_pLights->theLights[1].atten.z = 0.05f; // quadratic
-    // Light 2
-    g_pLights->theLights[2].param2.x = 1.0f; // turn on
+    g_pLights->theLights[1].atten.x = 0.0f; // constant
+    g_pLights->theLights[1].atten.y = 0.0001f; // linear
+    g_pLights->theLights[1].atten.z = 0.00001f; // quadratic
+
+    // Light 3
+    ::g_pLights->theLights[2].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
-    g_pLights->theLights[2].position = glm::vec4(100.0f, 100.0f, 100.0f, 1.0f);
-    g_pLights->theLights[2].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    g_pLights->theLights[2].position = glm::vec4(13000.0f, 1000.0f, 0.0f, 0.5f);
+    g_pLights->theLights[2].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
 
-    ::g_pLights->theLights[2].atten.x = 0.0f; // constant
-    g_pLights->theLights[2].atten.y = 0.01f; // linear
-    g_pLights->theLights[2].atten.z = 0.005f; // quadratic
+    g_pLights->theLights[2].atten.x = 0.0f; // constant
+    g_pLights->theLights[2].atten.y = 0.0001f; // linear
+    g_pLights->theLights[2].atten.z = 0.00001f; // quadratic
+
+    // Light 4
+    ::g_pLights->theLights[3].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[3].param1.x = 0.0f; // light type = point light
+    g_pLights->theLights[3].position = glm::vec4(-500.0f, 1000.0f, -500.0f, 0.5f);
+    g_pLights->theLights[3].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
+
+    g_pLights->theLights[3].atten.x = 0.0f; // constant
+    g_pLights->theLights[3].atten.y = 0.0001f; // linear
+    g_pLights->theLights[3].atten.z = 0.00001f; // quadratic
+
+    // Light 5
+    ::g_pLights->theLights[4].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[4].param1.x = 0.0f; // light type = point light
+    g_pLights->theLights[4].position = glm::vec4(7000, 3000.0f, 7000.0f, 0.5f);
+    g_pLights->theLights[4].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
+
+    g_pLights->theLights[4].atten.x = 0.0f; // constant
+    g_pLights->theLights[4].atten.y = 0.0000001f; // linear
+    g_pLights->theLights[4].atten.z = 0.00000001f; // quadratic
+
+    // Camera Light
+    g_pLights->theLights[19].param2.x = 1.0f; // turn on
+    g_pLights->theLights[19].param1.x = 0.0f;
+    g_pLights->theLights[19].position = glm::vec4(camera.Position, 1.0f);
+    g_pLights->theLights[19].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+    g_pLights->theLights[19].atten.x = 0.0f; // constant
+    g_pLights->theLights[19].atten.y = 0.001f; // linear
+    g_pLights->theLights[19].atten.z = 0.00001f; // quadratic
 
     while (!glfwWindowShouldClose(window)) {
         int width, height;
@@ -181,19 +213,35 @@ int main(void) {
             DrawMesh(pCurrentMesh, program);
         }
 
-        /*::g_pSmoothSphere = new cMeshObject();
-        ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
-        ::g_pSmoothSphere->bIsWireframe = true;
-        ::g_pSmoothSphere->bOverrideVertexModelColour = true;
-        ::g_pSmoothSphere->colourRGB = glm::vec4(1.0f);
-        ::g_pSmoothSphere->scale = 0.2f;
+        // Camera Light
+        g_pLights->theLights[19].position = glm::vec4(camera.Position, 1.0f);
+        g_pLights->theLights[19].direction = glm::vec4(camera.Orientation, 1.0f);
 
-        ::g_pSmoothSphere->position = glm::vec3(
-            ::g_pLights->theLights[::g_selectedLightIndex].position.x,
-            ::g_pLights->theLights[::g_selectedLightIndex].position.y,
-            ::g_pLights->theLights[::g_selectedLightIndex].position.z);
+        // Torch Flicker
+        g_pLights->theLights[11].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
+        g_pLights->theLights[11].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
 
-        DrawMesh(g_pSmoothSphere, program);*/
+        g_pLights->theLights[12].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
+        g_pLights->theLights[12].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+
+        g_pLights->theLights[13].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
+        g_pLights->theLights[13].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+
+        g_pLights->theLights[14].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
+        g_pLights->theLights[14].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+
+        g_pLights->theLights[15].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
+        g_pLights->theLights[15].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+
+        g_pLights->theLights[16].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
+        g_pLights->theLights[16].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+
+        g_pLights->theLights[17].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
+        g_pLights->theLights[17].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+
+        g_pLights->theLights[18].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
+        g_pLights->theLights[18].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+
         ::g_pSmoothSphere = new cMeshObject();
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
         ::g_pSmoothSphere->bIsWireframe = true;
@@ -204,27 +252,29 @@ int main(void) {
             ::g_pLights->theLights[::g_selectedLightIndex].position.y,
             ::g_pLights->theLights[::g_selectedLightIndex].position.z);
 
-        // Selected Mesh Indicator
-        ::g_pSelectedMeshIndicator = new cMeshObject();
-        ::g_pSelectedMeshIndicator->meshFileName = ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
-        ::g_pSelectedMeshIndicator->bIsWireframe = true;
-        ::g_pSelectedMeshIndicator->bOverrideVertexModelColour = true;
-        ::g_pSelectedMeshIndicator->bIsVisible = meshDebug;
-        ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale * 1.01f;
-        ::g_pSelectedMeshIndicator->colourRGB = glm::vec3(1.0f);
-        ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec3(1.0f);
-        ::g_pSelectedMeshIndicator->specularPower = 0.0f;
-        ::g_pSelectedMeshIndicator->position = glm::vec3(
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x,
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y,
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z);
-        ::g_pSelectedMeshIndicator->orientation = glm::vec3(
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x,
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y,
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z);
 
-        DrawMesh(g_pSelectedMeshIndicator, program);
+        if (!g_pMeshesToDraw.empty()) {
+            // Selected Mesh Indicator
+            ::g_pSelectedMeshIndicator = new cMeshObject();
+            ::g_pSelectedMeshIndicator->meshFileName = ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
+            ::g_pSelectedMeshIndicator->bIsWireframe = true;
+            ::g_pSelectedMeshIndicator->bOverrideVertexModelColour = true;
+            ::g_pSelectedMeshIndicator->bIsVisible = meshDebug;
+            ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale * 1.01f;
+            ::g_pSelectedMeshIndicator->colourRGB = glm::vec3(1.0f);
+            ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec3(1.0f);
+            ::g_pSelectedMeshIndicator->specularPower = 0.0f;
+            ::g_pSelectedMeshIndicator->position = glm::vec3(
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x,
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y,
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z);
+            ::g_pSelectedMeshIndicator->orientation = glm::vec3(
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x,
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y,
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z);
 
+            DrawMesh(g_pSelectedMeshIndicator, program);
+        }
 
         cLightHelper lightHelper;
 
@@ -278,38 +328,9 @@ int main(void) {
 
         std::stringstream ssWindowTitle;
 
-        ssWindowTitle << "Session info [ Camera X:" << camera.Position.x << " | Camera Y:"
-            << camera.Position.y << " | Camera Z:" << camera.Position.z << " ]   [ Camera Speed: " << camera.speed << " | Object Speed: " << object_move_speed << " | Rotation Speed: " << object_rotate_speed << " | Light Speed: " << light_move_speed << " ]"<< std::endl;
+        ssWindowTitle << "Session info [ Camera Speed: " << camera.speed << " | Object Speed: " << object_move_speed << " | Rotation Speed: " << object_rotate_speed << " | Light Speed: " << light_move_speed << " ]   [ Camera X:" << camera.Position.x << " | Camera Y:" << camera.Position.y << " | Camera Z:" << camera.Position.z << " ]"<< std::endl;
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
-
-        /* if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/cow.ply",
-             modelToDraw))
-         {
-             glBindVertexArray(modelToDraw.VAO_ID);
-             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-                 GL_UNSIGNED_INT, (void*)0);
-             glBindVertexArray(0);
-         }
-
-         if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/Utah_Teapot.ply",
-             modelToDraw))
-         {
-             glBindVertexArray(modelToDraw.VAO_ID);
-             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-                 GL_UNSIGNED_INT, (void*)0);
-             glBindVertexArray(0);
-         }
-
-         if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/dolphin.ply",
-             modelToDraw))
-         {
-             glBindVertexArray(modelToDraw.VAO_ID);
-             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-                 GL_UNSIGNED_INT, (void*)0);
-             glBindVertexArray(0);
-         }*/
-
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -322,19 +343,301 @@ int main(void) {
 void LoadFilesIntoVAOManager(GLuint program) {
     ::g_pMeshManager = new cVAOManager();
 
+    // Light debug
+
+    sModelDrawInfo SmoothSphereMeshInfo;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply",
+                                           SmoothSphereMeshInfo, program, true, true, false, 1.0f)) {
+        std::cout << "Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply not loaded into VAO!" << std::endl;
+    }
+
+    // Floors
     sModelDrawInfo meshInfoFloor_1;
 
     if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply",
                                             meshInfoFloor_1, program, true, true, true, 1.0f)) {
         std::cout << "SM_Env_Dwarf_Floor_01.ply not loaded into VAO!" << std::endl;
     }
+
+    sModelDrawInfo meshInfoFloor_2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_02.ply",
+                                            meshInfoFloor_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Floor_02.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoFloor_3;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply",
+                                            meshInfoFloor_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Floor_03.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoFloor_4;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_04.ply",
+                                            meshInfoFloor_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Floor_04.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoFloor_5;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_05.ply",
+                                            meshInfoFloor_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Floor_05.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoFloor_6;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_06.ply",
+                                            meshInfoFloor_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Floor_06.ply not loaded into VAO!" << std::endl;
+    }
+
+    // Walls
+    sModelDrawInfo meshInfoWall_1;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Wall_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoWall_2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_02.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Wall_02.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoWall_3;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_03.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Wall_03.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoWall_4;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_04.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Wall_04.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoWall_5;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_05.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Wall_05.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoWall_6;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_06.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Wall_06.ply not loaded into VAO!" << std::endl;
+    }
+
+    // Gates
+    sModelDrawInfo meshInfoGate_1;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_Archway_01.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Wall_Archway_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoGate_2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_Archway_02.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Dwarf_Wall_Archway_02.ply not loaded into VAO!" << std::endl;
+    }
+
+    // Props
+    sModelDrawInfo meshInfoTorch;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Torches/SM_Prop_Dwarf_Torch_01.ply",
+                                            meshInfoWall_1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_Dwarf_Torch_01.ply not loaded into VAO!" << std::endl;
+    }
+
 }
 
 void LoadModelsIntoScene() {
-    cMeshObject* pHomer = new cMeshObject();
-    pHomer->meshFileName = "assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply";
 
-    ::g_pMeshesToDraw.push_back(pHomer);
+    // Floor
+    int z = 500;
+    int x = 0;
+    for (int i = 1; i < 27; i++) {
+        x = 0;
+        for (int j = 1; j < 28; j++) {
+            std::ostringstream ss;
+            ss << "assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_0" << rand() % 6 + 1 << ".ply";
+            cMeshObject* pFloor = new cMeshObject();
+            pFloor->meshFileName = ss.str();
+            pFloor->position.x = x;
+            pFloor->position.z = z;
+            pFloor->colourRGB = RGBify(48, 48, 45);
+            pFloor->bOverrideVertexModelColour = true;
+
+            ::g_pMeshesToDraw.push_back(pFloor);
+            x += 500;
+        }
+        z += 500;
+    }
+
+    // North outer wall
+    x = -500;
+    for (int i = 1; i < 28; i++) {
+        std::ostringstream ss;
+        ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_0" << rand() % 6 + 1 << ".ply";
+        cMeshObject* pWall = new cMeshObject();
+        pWall->meshFileName = ss.str();
+        g_pMeshesToDraw.push_back(pWall);
+        pWall->position.x = x;
+        pWall->position.z = 0;
+        pWall->orientation.y = glm::radians(-180.0f);
+        pWall->colourRGB = RGBify(77, 75, 60);
+        pWall->bOverrideVertexModelColour = true;
+        x += 500;
+    }
+
+    // East outer wall
+    z = 0;
+    for (int i = 1; i < 27; i++) {
+        std::ostringstream ss;
+
+        if (i != 6) {
+            ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_0" << rand() % 6 + 1 << ".ply";
+        } else {
+            ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_Archway_02.ply";
+        }
+
+        cMeshObject* pWall = new cMeshObject();
+        pWall->meshFileName = ss.str();
+        g_pMeshesToDraw.push_back(pWall);
+        pWall->position.z = z;
+        pWall->position.x = 13000;
+        pWall->orientation.y = glm::radians(90.0f);
+        pWall->colourRGB = RGBify(77, 75, 60);
+        pWall->bOverrideVertexModelColour = true;
+        z += 500;
+    }
+
+    // South outer wall
+    x = 0;
+    for (int i = 1; i < 28; i++) {
+        std::ostringstream ss;
+
+        if (i != 23) {
+            ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_0" << rand() % 6 + 1 << ".ply";
+        } else {
+            ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_Archway_01.ply";
+        }
+
+        cMeshObject* pWall = new cMeshObject();
+        pWall->meshFileName = ss.str();
+        g_pMeshesToDraw.push_back(pWall);
+        pWall->position.x = x;
+        pWall->position.z = 13000;
+        pWall->colourRGB = RGBify(77, 75, 60);
+        pWall->bOverrideVertexModelColour = true;
+        x += 500;
+    }
+
+    // West outer wall
+    z = 500;
+    for (int i = 1; i < 27; i++) {
+        std::ostringstream ss;
+        ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_0" << rand() % 6 + 1 << ".ply";
+        cMeshObject* pWall = new cMeshObject();
+        pWall->meshFileName = ss.str();
+        g_pMeshesToDraw.push_back(pWall);
+        pWall->position.z = z;
+        pWall->position.x = -500;
+        pWall->orientation.y = glm::radians(-90.0f);
+        pWall->colourRGB = RGBify(77, 75, 60);
+        pWall->bOverrideVertexModelColour = true;
+        z += 500;
+    }
+
+    std::ifstream file("assets/maze.txt");
+
+    std::string line;
+    std::getline(file, line);
+
+    char letter;
+    std::string currentLine;
+    bool isFirstChar = true;
+
+    z = 0;
+    int count = 1;
+    while (file.get(letter)) {
+        if (letter == '\n') {
+            for (int i = 0; i < 2; i++){
+                x = 0;
+                for (int j = 1; j < currentLine.length() - 1; j++) {
+                    if (currentLine[j] == 'X') {
+                        std::ostringstream ss;
+
+                        ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_0" << rand() % 6 + 1 << ".ply";
+                        cMeshObject* pWall1 = new cMeshObject();
+                        pWall1->meshFileName = ss.str();
+                        g_pMeshesToDraw.push_back(pWall1);
+                        pWall1->position.x = x;
+                        pWall1->position.z = z;
+                        pWall1->colourRGB = RGBify(168, 164, 133);
+                        pWall1->bOverrideVertexModelColour = true;
+                        ss.str("");
+
+                        ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_0" << rand() % 6 + 1 << ".ply";
+                        cMeshObject* pWall2 = new cMeshObject();
+                        pWall2->meshFileName = ss.str();
+                        g_pMeshesToDraw.push_back(pWall2);
+                        pWall2->position.x = x - 500;
+                        pWall2->position.z = z + 500;
+                        pWall2->orientation.y = glm::radians(180.0f);
+                        pWall2->colourRGB = RGBify(168, 164, 133);
+                        pWall2->bOverrideVertexModelColour = true;
+                        ss.str("");
+
+                        ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_0" << rand() % 6 + 1 << ".ply";
+                        cMeshObject* pWall3 = new cMeshObject();
+                        pWall3->meshFileName = ss.str();
+                        g_pMeshesToDraw.push_back(pWall3);
+                        pWall3->position.x = x - 500;
+                        pWall3->position.z = z;
+                        pWall3->orientation.y = glm::radians(90.0f);
+                        pWall3->colourRGB = RGBify(168, 164, 133);
+                        pWall3->bOverrideVertexModelColour = true;
+                        ss.str("");
+
+                        ss << "assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_0" << rand() % 6 + 1 << ".ply";
+                        cMeshObject* pWall4 = new cMeshObject();
+                        pWall4->meshFileName = ss.str();
+                        g_pMeshesToDraw.push_back(pWall4);
+                        pWall4->position.x = x;
+                        pWall4->position.z = z + 500;
+                        pWall4->orientation.y = glm::radians(-90.0f);
+                        pWall4->colourRGB = RGBify(168, 164, 133);
+                        pWall4->bOverrideVertexModelColour = true;
+                        ss.str("");
+                    }
+                    x += 500;
+                }
+                z += 500;
+            }
+            currentLine.clear();
+            count++;
+            if (count > 13) {
+                break;
+            }
+        } else {
+            currentLine += letter;
+        }
+    }
+
+    file.close();
 }
 
 void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {

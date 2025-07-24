@@ -27,7 +27,7 @@ unsigned int g_selectedObjectIndex = 0;
 unsigned int g_selectedLightIndex = 0;
 
 float object_move_speed = 500.f;
-float light_move_speed = 1.f;
+float light_move_speed = 100.f;
 float object_rotate_speed = glm::radians(90.0f);
 
 bool lightDebug = false;
@@ -135,11 +135,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            light_move_speed += 0.5f;
+            light_move_speed += 5.0f;
         }
 
         if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            light_move_speed -= 0.5f;
+            light_move_speed -= 5.0f;
         }
 
         if (key == GLFW_KEY_RIGHT_BRACKET && action == GLFW_PRESS) {
@@ -191,7 +191,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                          g_pLights->theLights[g_selectedLightIndex].param1.z = std::stof(input);
                      }
 
-                     std::cout << "Enter light new direction (r g b, press Enter to skip): ";
+                     std::cout << "Enter light new direction (x y z, press Enter to skip): ";
                      std::getline(std::cin, input);
                      if (!input.empty()) {
                          std::istringstream ss(input);
@@ -235,13 +235,29 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 float inputZ;
 
                 if (ss >> inputX >> inputY >> inputZ) {
-                    g_pLights->theLights[g_selectedLightIndex].diffuse.x = inputX;
-                    g_pLights->theLights[g_selectedLightIndex].diffuse.y = inputY;
-                    g_pLights->theLights[g_selectedLightIndex].diffuse.z = inputZ;
+                    g_pLights->theLights[g_selectedLightIndex].diffuse.r = inputX / 255;
+                    g_pLights->theLights[g_selectedLightIndex].diffuse.g = inputY / 255;
+                    g_pLights->theLights[g_selectedLightIndex].diffuse.b = inputZ / 255;
                 }
             }
 
-            std::cout << "Enter light new attention (r g b, press Enter to skip): ";
+            std::cout << "Enter light new specular (x y z, press Enter to skip): ";
+            std::getline(std::cin, input);
+            if (!input.empty()) {
+                std::istringstream ss(input);
+
+                float inputX;
+                float inputY;
+                float inputZ;
+
+                if (ss >> inputX >> inputY >> inputZ) {
+                    g_pLights->theLights[g_selectedLightIndex].specular.r = inputX / 255;
+                    g_pLights->theLights[g_selectedLightIndex].specular.g = inputY / 255;
+                    g_pLights->theLights[g_selectedLightIndex].specular.b = inputZ / 255;
+                }
+            }
+
+            std::cout << "Enter light new attention (constant linear quadratic, press Enter to skip): ";
             std::getline(std::cin, input);
             if (!input.empty()) {
                 std::istringstream ss(input);
@@ -310,20 +326,20 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            object_rotate_speed += 5.0f;
+            object_rotate_speed += glm::radians(5.0f);
         }
 
         if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            object_rotate_speed -= 5.0f;
+            object_rotate_speed -= glm::radians(5.0f);
         }
     }
 
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
-        if (key == GLFW_KEY_A) {
+        if (key == GLFW_KEY_D) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed;
         }
 
-        if (key == GLFW_KEY_D) {
+        if (key == GLFW_KEY_A) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
         }
 
@@ -335,19 +351,19 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_W) {
+        if (key == GLFW_KEY_S) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed;
         }
 
-        if (key == GLFW_KEY_S) {
+        if (key == GLFW_KEY_W) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed;
         }
 
@@ -359,20 +375,20 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed;
         }
 
-        if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
         }
 
         if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            object_move_speed += 0.5f;
+            object_move_speed += 5.0f;
         }
 
         if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            object_move_speed -= 0.5f;
+            object_move_speed -= 5.0f;
         }
 
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
@@ -383,7 +399,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
         }
 
-        if (key == GLFW_KEY_M) {
+        if (key == GLFW_KEY_M && action == GLFW_RELEASE) {
             cMeshObject* pNewObject = new cMeshObject();
 
             // Mesh name
@@ -474,9 +490,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 float inputZ;
 
                 if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.x = inputX;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.y = inputY;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.z = inputZ;
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.x = inputX / 255;
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.y = inputY / 255;
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.z = inputZ / 255;
                 }
             }
 
@@ -600,9 +616,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 float inputZ;
 
                 if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->colourRGB.x = inputX;
-                    pNewObject->colourRGB.y = inputY;
-                    pNewObject->colourRGB.z = inputZ;
+                    pNewObject->colourRGB.x = inputX / 255;
+                    pNewObject->colourRGB.y = inputY / 255;
+                    pNewObject->colourRGB.z = inputZ / 255;
                 }
             }
 
@@ -735,15 +751,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                     << g_pLights->theLights[index].position.w << std::endl;
 
                 // Diffuse
-                mySaveFile << ::g_pLights->theLights[index].diffuse.x << " "
-                    << g_pLights->theLights[index].diffuse.y << " "
-                    << g_pLights->theLights[index].diffuse.z << " "
+                mySaveFile << ::g_pLights->theLights[index].diffuse.r << " "
+                    << g_pLights->theLights[index].diffuse.g << " "
+                    << g_pLights->theLights[index].diffuse.b << " "
                     << g_pLights->theLights[index].diffuse.w << std::endl;
 
                 // Spucular
-                mySaveFile << ::g_pLights->theLights[index].specular.x << " "
-                    << g_pLights->theLights[index].specular.y << " "
-                    << g_pLights->theLights[index].specular.z << " "
+                mySaveFile << ::g_pLights->theLights[index].specular.r << " "
+                    << g_pLights->theLights[index].specular.g << " "
+                    << g_pLights->theLights[index].specular.b << " "
                     << g_pLights->theLights[index].specular.w << std::endl;
 
                 // Attenuation
@@ -771,7 +787,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                     << g_pLights->theLights[index].param2.w << std::endl;
             }
 
-            std::cout << "Scene Saved";
+            std::cout << "Scene Saved\n";
             mySaveFile.close();
         }
 
@@ -830,9 +846,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
                 // Specular
                 mySaveFile >> g_pLights->theLights[i].specular.x
-                    >> g_pLights->theLights[i].specular.y
-                    >> g_pLights->theLights[i].specular.z
-                    >> g_pLights->theLights[i].specular.w;
+                    >> g_pLights->theLights[i].specular.r
+                    >> g_pLights->theLights[i].specular.g
+                    >> g_pLights->theLights[i].specular.b;
 
                 // Attenuation
                 mySaveFile >> g_pLights->theLights[i].atten.x
@@ -863,6 +879,19 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             mySaveFile.close();
         }
 
+        if (key == GLFW_KEY_DELETE && action == GLFW_RELEASE) {
+            delete g_pMeshesToDraw[g_selectedObjectIndex];
+            g_pMeshesToDraw.erase(g_pMeshesToDraw.begin() + g_selectedObjectIndex);
+
+            if (g_selectedObjectIndex >= g_pMeshesToDraw.size() && !g_pMeshesToDraw.empty()) {
+                g_selectedObjectIndex = g_pMeshesToDraw.size() - 1;
+            } else if (g_pMeshesToDraw.empty()) {
+                g_selectedObjectIndex = 0;
+            }
+
+            std::cout << "Object deleted\n";
+        }
+
         if (key == GLFW_KEY_BACKSPACE && action == GLFW_RELEASE) {
             // Delets mesh in vector
             for (cMeshObject* ptr : ::g_pMeshesToDraw) {
@@ -870,7 +899,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             ::g_pMeshesToDraw.clear();
 
-            std::cout << "Scene Cleared";
+            std::cout << "Scene Cleared\n";
         }
     }
 
@@ -900,11 +929,19 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            camera.speed += 0.5f;
+            camera.speed += 1.0f;
         }
 
         if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            camera.speed -= 0.5f;
+            camera.speed -= 1.0f;
+        }
+
+        if (key == GLFW_KEY_F && action == GLFW_PRESS) {
+            if (g_pLights->theLights[19].param2.x == 0.0f) {
+                g_pLights->theLights[19].param2.x = 1.0f;
+            } else {
+                g_pLights->theLights[19].param2.x = 0.0f;
+            }
         }
 
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
@@ -920,9 +957,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // Scroll wheel
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
     if (yoffset > 0) {
-        camera.speed += 0.5f;
+        camera.speed += 5.0f;
     }
     else if (yoffset < 0) {
-        camera.speed -= 0.5f;
+        camera.speed -= 5.0f;
     }
 }

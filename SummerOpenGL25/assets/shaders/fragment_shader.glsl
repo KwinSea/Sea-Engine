@@ -33,7 +33,7 @@ struct sLight
 const int SPOT_LIGHT_TYPE = 1;
 const int DIRECTIONAL_LIGHT_TYPE = 2;
 
-const int NUMBEROFLIGHTS = 10;
+const int NUMBEROFLIGHTS = 20;
 uniform sLight theLights[NUMBEROFLIGHTS];
 
 
