@@ -25,8 +25,11 @@ extern unsigned int screenHeight;
 
 unsigned int g_selectedObjectIndex = 0;
 unsigned int g_selectedLightIndex = 0;
-float object_move_speed = 0.7f;
-float light_move_speed = 0.7f;
+
+float object_move_speed = 0.75f;
+float light_move_speed = 0.75f;
+float object_rotate_speed = 0.05f;
+
 bool lightDebug = false;
 bool meshDebug = false;
 
@@ -65,10 +68,6 @@ bool areAnyModifiersDown(int mods) {
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
-
-    if ((mods & GLFW_MOD_ALT) == GLFW_MOD_CONTROL) {
-
-    }
 
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
         if (key == GLFW_KEY_A) {
@@ -258,6 +257,64 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 }
             }
             std::cout << "Light Edited\n";
+        }
+    }
+
+    if ((mods & GLFW_MOD_ALT) == GLFW_MOD_ALT) {
+        if (key == GLFW_KEY_A) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y += object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_D) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y -= object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_Q) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x += object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_E) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x -= object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_W) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z += object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_S) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z -= object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y -= object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y += object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_PERIOD && action == GLFW_PRESS) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x += object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_COMMA && action == GLFW_PRESS) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x -= object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z += object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z -= object_rotate_speed;
+        }
+
+        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
+            object_rotate_speed += 0.05f;
+        }
+
+        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
+            object_rotate_speed -= 0.05f;
         }
     }
 
