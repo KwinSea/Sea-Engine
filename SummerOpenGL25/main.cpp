@@ -35,8 +35,11 @@ cMeshObject* g_pSelectedMeshIndicator = NULL;
 
 extern unsigned int g_selectedLightIndex;
 extern unsigned int g_selectedObjectIndex;
+
 extern float object_move_speed;
+extern float object_rotate_speed;
 extern float light_move_speed;
+
 extern bool lightDebug;
 extern bool meshDebug;
 
@@ -61,6 +64,7 @@ static void error_callback(int error, const char* description) {
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 
 int main(void) {
@@ -85,6 +89,7 @@ int main(void) {
     }
 
     glfwSetKeyCallback(window, key_callback);
+    glfwSetScrollCallback(window, scroll_callback);
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glfwSwapInterval(1);
@@ -274,7 +279,7 @@ int main(void) {
         std::stringstream ssWindowTitle;
 
         ssWindowTitle << "Session info [ Camera X:" << camera.Position.x << " | Camera Y:"
-            << camera.Position.y << " | Camera Z:" << camera.Position.z << " ]   [ Camera Speed: " << camera.speed << " | Object Speed: " << object_move_speed << " | Light Speed: " << light_move_speed << " ]"<< std::endl;
+            << camera.Position.y << " | Camera Z:" << camera.Position.z << " ]   [ Camera Speed: " << camera.speed << " | Object Speed: " << object_move_speed << " | Rotation Speed: " << object_rotate_speed << " | Light Speed: " << light_move_speed << " ]"<< std::endl;
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 

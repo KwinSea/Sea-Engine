@@ -916,3 +916,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
     }
 }
+
+// Scroll wheel
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+    if (yoffset > 0) {
+        camera.speed += 0.05f;
+    }
+    else if (yoffset < 0) {
+        camera.speed -= 0.05f;
+    }
+}
