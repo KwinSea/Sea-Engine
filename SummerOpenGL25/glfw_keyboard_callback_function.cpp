@@ -295,11 +295,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
+        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y += object_move_speed;
         }
 
-        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
+        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
         }
 
@@ -842,12 +842,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 
         if (key == GLFW_KEY_W && action != GLFW_RELEASE) {
-         camera.Position += camera.speed * glm::normalize(glm::vec3(camera.Orientation.x, 0.0, camera.Orientation.z));
+         camera.Position += camera.speed * glm::normalize(glm::vec3(camera.Orientation));
         }
 
 
         if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * glm::normalize(glm::vec3(-camera.Orientation.x, 0.0, -camera.Orientation.z));
+             camera.Position += camera.speed * glm::normalize(glm::vec3(-camera.Orientation));
         }
 
         if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
@@ -880,6 +880,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             } else {
                 ++g_LightingType;
             }
+        }
+
+        if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
+            camera.Position = glm::vec3(-684, 900, -234);
+            camera.Orientation = glm::vec4(glm::radians(-45.0), glm::radians(225.0), glm::radians(0.0), 1);
         }
     }
 }

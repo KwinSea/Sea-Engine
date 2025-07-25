@@ -128,7 +128,7 @@ int main(void) {
     ::g_pLights->GetUniformLocations(program);
 
     // Light 1
-    ::g_pLights->theLights[0].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[0].param2.x = 0.0f; // turn on
     ::g_pLights->theLights[0].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[0].position = glm::vec4(13000.0f, 1000.0f, 13000.0f, 0.5f);
     g_pLights->theLights[0].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
@@ -138,7 +138,7 @@ int main(void) {
     g_pLights->theLights[0].atten.z = 0.00001f; // quadratic
 
     // Light 2
-    ::g_pLights->theLights[1].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[1].param2.x = 0.0f; // turn on
     ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[1].position = glm::vec4(-500.0f, 1000.0f, 13000.0f, 0.5f);
     g_pLights->theLights[1].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
@@ -148,7 +148,7 @@ int main(void) {
     g_pLights->theLights[1].atten.z = 0.00001f; // quadratic
 
     // Light 3
-    ::g_pLights->theLights[2].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[2].param2.x = 0.0f; // turn on
     ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[2].position = glm::vec4(13000.0f, 1000.0f, 0.0f, 0.5f);
     g_pLights->theLights[2].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
@@ -158,7 +158,7 @@ int main(void) {
     g_pLights->theLights[2].atten.z = 0.00001f; // quadratic
 
     // Light 4
-    ::g_pLights->theLights[3].param2.x = 1.0f; // turn on
+    ::g_pLights->theLights[3].param2.x = 0.0f; // turn on
     ::g_pLights->theLights[3].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[3].position = glm::vec4(-500.0f, 1000.0f, -500.0f, 0.5f);
     g_pLights->theLights[3].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
@@ -167,21 +167,12 @@ int main(void) {
     g_pLights->theLights[3].atten.y = 0.0001f; // linear
     g_pLights->theLights[3].atten.z = 0.00001f; // quadratic
 
-    // Light 5
-    ::g_pLights->theLights[4].param2.x = 1.0f; // turn on
-    ::g_pLights->theLights[4].param1.x = 0.0f; // light type = point light
-    g_pLights->theLights[4].position = glm::vec4(7000, 3000.0f, 7000.0f, 0.5f);
-    g_pLights->theLights[4].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-
-    g_pLights->theLights[4].atten.x = 0.0f; // constant
-    g_pLights->theLights[4].atten.y = 0.0000001f; // linear
-    g_pLights->theLights[4].atten.z = 0.00000001f; // quadratic
-
     // Camera Light
-    g_pLights->theLights[19].param2.x = 1.0f; // turn on
-    g_pLights->theLights[19].param1.x = 0.0f;
+    g_pLights->theLights[19].param2.x = 0.0f; // turn on
+    g_pLights->theLights[19].param1.x = 1.0f;
     g_pLights->theLights[19].position = glm::vec4(camera.Position, 1.0f);
     g_pLights->theLights[19].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    g_pLights->theLights[19].param1.z = 10.0f;
 
     g_pLights->theLights[19].atten.x = 0.0f; // constant
     g_pLights->theLights[19].atten.y = 0.001f; // linear
@@ -212,10 +203,6 @@ int main(void) {
             cMeshObject* pCurrentMesh = ::g_pMeshesToDraw[index];
             DrawMesh(pCurrentMesh, program);
         }
-
-        // Camera Light
-        g_pLights->theLights[19].position = glm::vec4(camera.Position, 1.0f);
-        g_pLights->theLights[19].direction = glm::vec4(camera.Orientation, 1.0f);
 
         // Torch Flicker
         g_pLights->theLights[11].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
@@ -461,6 +448,195 @@ void LoadFilesIntoVAOManager(GLuint program) {
         std::cout << "SM_Prop_Dwarf_Torch_01.ply not loaded into VAO!" << std::endl;
     }
 
+    sModelDrawInfo meshInfoCompass;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply",
+                                            meshInfoCompass, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Compass_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoAnvil;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Anvil_01.ply",
+                                            meshInfoCompass, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_Anvil_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoBottle1;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bottle_01.ply",
+                                            meshInfoBottle1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Bottle_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoBottle2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bottle_02.ply",
+                                            meshInfoBottle2, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Bottle_02.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoBottle3;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bottle_03.ply",
+                                            meshInfoBottle3, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Bottle_03.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoBottle4;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bottle_04.ply",
+                                            meshInfoBottle4, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Bottle_04.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoTankard;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Tankard_01.ply",
+                                            meshInfoTankard, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_Tankard_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoCup;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Cup_01.ply",
+                                            meshInfoCup, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Cup_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoBag;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bag_02.ply",
+                                            meshInfoBag, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Bag_02.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoDead1;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Dwarf_01.ply",
+                                            meshInfoDead1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_DeadBody_Dwarf_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoDead2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Nomad_01.ply",
+                                            meshInfoDead2, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_DeadBody_Nomad_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoDead3;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Dwarf_04.ply",
+                                            meshInfoDead3, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_DeadBody_Dwarf_04.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoDead4;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Nomad_02.ply",
+                                            meshInfoDead4, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_DeadBody_Nomad_02.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoCandelabra1;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Candelabra_01.ply",
+                                            meshInfoDead4, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Candelabra_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoCandelabra2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Candelabra_02.ply",
+                                            meshInfoDead4, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Item_Candelabra_02.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoBarrel1;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Barrel_01.ply",
+                                            meshInfoBarrel1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_Barrel_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoBarrel2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Barrel_02.ply",
+                                            meshInfoBarrel2, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_Barrel_02.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoBarrel3;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Barrel_03.ply",
+                                            meshInfoBarrel3, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_Barrel_03.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoMagicRockLG;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Crystals/SM_Env_Crystals_Cluster_Large_01.ply",
+                                            meshInfoMagicRockLG, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_Barrel_03.ply not loaded into VAO!" << std::endl;
+                                            }
+
+    sModelDrawInfo meshInfoMagicRockSM;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Crystals/SM_Prop_Crystal_Rock_A_01.ply",
+                                            meshInfoMagicRockSM, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Prop_Barrel_03.ply not loaded into VAO!" << std::endl;
+                                            }
+
+    // Plants
+    sModelDrawInfo meshInfoTree1;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Generic_Tree_01.ply",
+                                            meshInfoTree1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Generic_Tree_01.ply not loaded into VAO!" << std::endl;
+                                            }
+
+    sModelDrawInfo meshInfoTree2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_Mangrove_Tree_01.ply",
+                                            meshInfoTree1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Mangrove_Tree_01.ply not loaded into VAO!" << std::endl;
+                                            }
+
+    sModelDrawInfo meshInfoTree3;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_PalmTree_01.ply",
+                                            meshInfoTree3, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_PalmTree_01.ply not loaded into VAO!" << std::endl;
+                                            }
+
+    sModelDrawInfo meshInfoPlants1;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_Flowers_01.ply",
+                                            meshInfoPlants1, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Flowers_01.ply not loaded into VAO!" << std::endl;
+                                            }
+
+    sModelDrawInfo meshInfoPlants2;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_GrassPatch_01.ply",
+                                            meshInfoPlants2, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_GrassPatch_01.ply not loaded into VAO!" << std::endl;
+                                            }
+
+    sModelDrawInfo meshInfoPlants3;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_Plant_01.ply",
+                                            meshInfoPlants3, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Plant_01.ply not loaded into VAO!" << std::endl;
+                                            }
+
+    sModelDrawInfo meshInfoWell;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Env_Camp_Well_01.ply",
+                                            meshInfoPlants3, program, true, true, true, 1.0f)) {
+        std::cout << "SM_Env_Camp_Well_01.ply not loaded into VAO!" << std::endl;
+                                            }
 }
 
 void LoadModelsIntoScene() {
@@ -638,6 +814,10 @@ void LoadModelsIntoScene() {
     }
 
     file.close();
+
+    cMeshObject* pCompass = new cMeshObject();
+    pCompass->meshFileName = "assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply";
+    g_pMeshesToDraw.push_back(pCompass);
 }
 
 void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
