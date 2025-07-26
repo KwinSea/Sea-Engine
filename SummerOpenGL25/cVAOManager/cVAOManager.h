@@ -54,10 +54,7 @@ public:
 
 	bool LoadModelIntoVAO(std::string fileName,
 		sModelDrawInfo& drawInfo,
-		unsigned int shaderProgramID,
-		bool hasNormals,
-		bool hasColours,
-		bool hasTextureCoords,				// TODO:
+		unsigned int shaderProgramID,				// TODO:
 		float scaling);			// Keep at 1.0 for no change
 
 	// We don't want to return an int, likely
@@ -75,12 +72,7 @@ private:
 		m_map_ModelName_to_VAOID;
 
 	// Loads the ply model file into a temporary array
-	bool m_LoadTheModel( std::string fileName,
-						 sModelDrawInfo &drawInfo,
-						 bool hasNormals,
-						 bool hasColours,
-						 bool hasTextureCoords,
-						 float scaling);
+	bool m_LoadTheModel( std::string fileName, sModelDrawInfo &drawInfo, float scaling);
 
 	std::string m_lastErrorString;
 	void m_AppendTextToLastError(std::string text, bool addNewLineBefore = true);

@@ -44,9 +44,6 @@ bool cVAOManager::LoadModelIntoVAO(
 		std::string fileName,
 		sModelDrawInfo &drawInfo,
 	    unsigned int shaderProgramID,
-		bool hasNormals,
-		bool hasColours,
-		bool hasTextureCoords,
 	    float scaling)	// Set scaling to 1.0 for no change
 
 {
@@ -56,9 +53,7 @@ bool cVAOManager::LoadModelIntoVAO(
 
 	drawInfo.meshName = fileName;
 
-	if ( ! this->m_LoadTheModel( fileName, drawInfo,
-		                         hasNormals, hasColours,
-		                         hasTextureCoords, scaling))
+	if ( ! this->m_LoadTheModel( fileName, drawInfo, scaling))
 	{
 		this->m_AppendTextToLastError( "Didn't load model", true );
 		return false;
@@ -178,17 +173,16 @@ bool cVAOManager::FindDrawInfoByModelName(
 }
 
 
-bool cVAOManager::m_LoadTheModel(std::string fileName,
-								 sModelDrawInfo &drawInfo,
-								 bool hasNormals,
-								 bool hasColours,
-	                             bool hasTextures,
-	                             float scaling)
+bool cVAOManager::m_LoadTheModel(std::string fileName, sModelDrawInfo &drawInfo, float scaling)
 {
 	// Open the file.
 	// Read until we hit the word "vertex"
 	// Read until we hit the word "face"
 	// Read until we hit the word "end_header"
+
+	bool hasNormals = false;
+	bool hasColours = false;
+	bool hasTextures = false;
 
 	std::ifstream thePlyFile( fileName.c_str() );
 	if ( ! thePlyFile.is_open() )
@@ -215,6 +209,20 @@ bool cVAOManager::m_LoadTheModel(std::string fileName,
 		if ( temp == "face" )
 		{
 			break;
+		}
+
+		// Check for file attributes;
+		if ( temp == "nx" )
+		{
+			hasNormals = true;
+		}
+		if ( temp == "red" )
+		{
+			hasColours = true;
+		}
+		if ( temp == "texture_u" )
+		{
+			hasTextures = true;
 		}
 	};
 	// read the number of triangles...

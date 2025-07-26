@@ -1,11 +1,10 @@
 ﻿#pragma once
+
 #include <vector>
+#include <fstream>
 
 #include "cLightManager.h"
 #include "cMeshObject.h"
-
-class SceneDirector {
-};
 
 void AddMeshObject (
     std::string meshFileName,
@@ -21,3 +20,9 @@ void AddMeshObject (
     bool bIsWireframe = false,
     bool bIsVisible = true
 );
+
+glm::vec3 RGBify(int red, int green, int blue);
+
+void LoadMaze(std::string file_name);
+
+

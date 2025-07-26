@@ -140,7 +140,7 @@
     <ClCompile Include="cShaderManager\cShader.cpp" />
     <ClCompile Include="cShaderManager\cShaderManager.cpp" />
     <ClCompile Include="cVAOManager\cVAOManager.cpp" />
-    <ClCompile Include="SceneDirector.cpp" />
+    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="glfw_keyboard_callback_function.cpp" />
     <ClCompile Include="main.cpp" />
@@ -153,7 +153,7 @@
     <ClInclude Include="cMeshObject.h" />
     <ClInclude Include="cShaderManager\cShaderManager.h" />
     <ClInclude Include="cVAOManager\cVAOManager.h" />
-    <ClInclude Include="SceneDirector.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="GlobalOpenGL.h" />
   </ItemGroup>
   <ItemGroup>

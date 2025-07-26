@@ -10,7 +10,7 @@
 #include "Camera.h"
 #include "cMeshObject.h"
 #include "cLightManager.h"
-#include "SceneDirector.h"
+#include "Functions.h"
 #include "cVAOManager/cVAOManager.h"
 
 extern Camera camera;
@@ -211,9 +211,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 float inputZ;
 
                 if (ss >> inputX >> inputY >> inputZ) {
-                    g_pLights->theLights[g_selectedLightIndex].diffuse.r = inputX / 255;
-                    g_pLights->theLights[g_selectedLightIndex].diffuse.g = inputY / 255;
-                    g_pLights->theLights[g_selectedLightIndex].diffuse.b = inputZ / 255;
+                    g_pLights->theLights[g_selectedLightIndex].diffuse = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
                 }
             }
 
@@ -227,9 +225,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 float inputZ;
 
                 if (ss >> inputX >> inputY >> inputZ) {
-                    g_pLights->theLights[g_selectedLightIndex].specular.r = inputX / 255;
-                    g_pLights->theLights[g_selectedLightIndex].specular.g = inputY / 255;
-                    g_pLights->theLights[g_selectedLightIndex].specular.b = inputZ / 255;
+                    g_pLights->theLights[g_selectedLightIndex].specular = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
                 }
             }
 
@@ -418,9 +414,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 float inputZ;
 
                 if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.x = inputX / 255;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.y = inputY / 255;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.z = inputZ / 255;
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
                 }
             }
 
@@ -544,9 +538,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                 float inputZ;
 
                 if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->colourRGB.x = inputX / 255;
-                    pNewObject->colourRGB.y = inputY / 255;
-                    pNewObject->colourRGB.z = inputZ / 255;
+                    pNewObject->colourRGB = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
                 }
             }
 
