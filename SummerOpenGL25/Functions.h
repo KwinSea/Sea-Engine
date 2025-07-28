@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <fstream>
+#include <iostream>
+#include <filesystem>
 
 #include "cLightManager.h"
 #include "cMeshObject.h"

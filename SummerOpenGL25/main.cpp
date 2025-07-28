@@ -17,6 +17,7 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
+#include <filesystem>
 
 #include "cShaderManager/cShaderManager.h"
 #include "cVAOManager/cVAOManager.h"
@@ -331,313 +332,28 @@ int main(void) {
 void LoadFilesIntoVAOManager(GLuint program) {
     ::g_pMeshManager = new cVAOManager();
 
-    // Light debug
+    std::string AssetsFolder = "assets/";
+    std::vector<std::string> modelFiles;
 
-    sModelDrawInfo SmoothSphereMeshInfo;
+    std::cout << "Searching for models in assets folder...\n";
+    std::vector<sModelDrawInfo> meshObjects;
 
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply",
-                                           SmoothSphereMeshInfo, program, 1.0f)) {
-        std::cout << "Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply not loaded into VAO!" << std::endl;
+    try {
+        for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(AssetsFolder)) {
+            if (file.is_regular_file() && file.path().extension() == ".ply") {
+                sModelDrawInfo meshObject;
+                std::string meshFile = file.path().generic_string();
+                if (!::g_pMeshManager->LoadModelIntoVAO(meshFile, meshObject, program, 1.0f)) {
+                    std::cout << "Model at: " << meshFile << " not loaded into VAO!" << std::endl;
+                } else {
+                    meshObjects.push_back(meshObject);
+                }
+            }
+        }
+    } catch (const std::filesystem::filesystem_error& ex) {
+        std::cerr << ex.what() << '\n';
     }
-
-    // Floors
-    sModelDrawInfo meshInfoFloor_1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply",
-                                            meshInfoFloor_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Floor_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoFloor_2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_02.ply",
-                                            meshInfoFloor_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Floor_02.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoFloor_3;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply",
-                                            meshInfoFloor_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Floor_03.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoFloor_4;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_04.ply",
-                                            meshInfoFloor_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Floor_04.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoFloor_5;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_05.ply",
-                                            meshInfoFloor_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Floor_05.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoFloor_6;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_06.ply",
-                                            meshInfoFloor_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Floor_06.ply not loaded into VAO!" << std::endl;
-    }
-
-    // Walls
-    sModelDrawInfo meshInfoWall_1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Wall_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoWall_2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_02.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Wall_02.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoWall_3;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_03.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Wall_03.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoWall_4;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_04.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Wall_04.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoWall_5;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_05.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Wall_05.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoWall_6;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_06.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Wall_06.ply not loaded into VAO!" << std::endl;
-    }
-
-    // Gates
-    sModelDrawInfo meshInfoGate_1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_Archway_01.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Wall_Archway_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoGate_2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_Archway_02.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Env_Dwarf_Wall_Archway_02.ply not loaded into VAO!" << std::endl;
-    }
-
-    // Props
-    sModelDrawInfo meshInfoTorch;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Torches/SM_Prop_Dwarf_Torch_01.ply",
-                                            meshInfoWall_1, program, 1.0f)) {
-        std::cout << "SM_Prop_Dwarf_Torch_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoCompass;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply",
-                                            meshInfoCompass, program, 1.0f)) {
-        std::cout << "SM_Item_Compass_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoAnvil;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Anvil_01.ply",
-                                            meshInfoCompass, program, 1.0f)) {
-        std::cout << "SM_Prop_Anvil_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoBottle1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bottle_01.ply",
-                                            meshInfoBottle1, program, 1.0f)) {
-        std::cout << "SM_Item_Bottle_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoBottle2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bottle_02.ply",
-                                            meshInfoBottle2, program, 1.0f)) {
-        std::cout << "SM_Item_Bottle_02.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoBottle3;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bottle_03.ply",
-                                            meshInfoBottle3, program, 1.0f)) {
-        std::cout << "SM_Item_Bottle_03.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoBottle4;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bottle_04.ply",
-                                            meshInfoBottle4, program, 1.0f)) {
-        std::cout << "SM_Item_Bottle_04.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoTankard;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Tankard_01.ply",
-                                            meshInfoTankard, program, 1.0f)) {
-        std::cout << "SM_Prop_Tankard_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoCup;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Cup_01.ply",
-                                            meshInfoCup, program, 1.0f)) {
-        std::cout << "SM_Item_Cup_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoBag;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Bag_02.ply",
-                                            meshInfoBag, program, 1.0f)) {
-        std::cout << "SM_Item_Bag_02.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoDead1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Dwarf_01.ply",
-                                            meshInfoDead1, program, 1.0f)) {
-        std::cout << "SM_Prop_DeadBody_Dwarf_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoDead2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Nomad_01.ply",
-                                            meshInfoDead2, program, 1.0f)) {
-        std::cout << "SM_Prop_DeadBody_Nomad_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoDead3;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Dwarf_04.ply",
-                                            meshInfoDead3, program, 1.0f)) {
-        std::cout << "SM_Prop_DeadBody_Dwarf_04.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoDead4;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Nomad_02.ply",
-                                            meshInfoDead4, program, 1.0f)) {
-        std::cout << "SM_Prop_DeadBody_Nomad_02.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoCandelabra1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Candelabra_01.ply",
-                                            meshInfoDead4, program, 1.0f)) {
-        std::cout << "SM_Item_Candelabra_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoCandelabra2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Item_Candelabra_02.ply",
-                                            meshInfoDead4, program, 1.0f)) {
-        std::cout << "SM_Item_Candelabra_02.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoBarrel1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Barrel_01.ply",
-                                            meshInfoBarrel1, program, 1.0f)) {
-        std::cout << "SM_Prop_Barrel_01.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoBarrel2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Barrel_02.ply",
-                                            meshInfoBarrel2, program, 1.0f)) {
-        std::cout << "SM_Prop_Barrel_02.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoBarrel3;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Prop_Barrel_03.ply",
-                                            meshInfoBarrel3, program, 1.0f)) {
-        std::cout << "SM_Prop_Barrel_03.ply not loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo meshInfoMagicRockLG;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Crystals/SM_Env_Crystals_Cluster_Large_01.ply",
-                                            meshInfoMagicRockLG, program, 1.0f)) {
-        std::cout << "SM_Prop_Barrel_03.ply not loaded into VAO!" << std::endl;
-                                            }
-
-    sModelDrawInfo meshInfoMagicRockSM;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Crystals/SM_Prop_Crystal_Rock_A_01.ply",
-                                            meshInfoMagicRockSM, program, 1.0f)) {
-        std::cout << "SM_Prop_Barrel_03.ply not loaded into VAO!" << std::endl;
-                                            }
-
-    // Plants
-    sModelDrawInfo meshInfoTree1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Generic_Tree_01.ply",
-                                            meshInfoTree1, program, 1.0f)) {
-        std::cout << "SM_Generic_Tree_01.ply not loaded into VAO!" << std::endl;
-                                            }
-
-    sModelDrawInfo meshInfoTree2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_Mangrove_Tree_01.ply",
-                                            meshInfoTree1, program, 1.0f)) {
-        std::cout << "SM_Env_Mangrove_Tree_01.ply not loaded into VAO!" << std::endl;
-                                            }
-
-    sModelDrawInfo meshInfoTree3;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_PalmTree_01.ply",
-                                            meshInfoTree3, program, 1.0f)) {
-        std::cout << "SM_Env_PalmTree_01.ply not loaded into VAO!" << std::endl;
-                                            }
-
-    sModelDrawInfo meshInfoPlants1;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_Flowers_01.ply",
-                                            meshInfoPlants1, program, 1.0f)) {
-        std::cout << "SM_Env_Flowers_01.ply not loaded into VAO!" << std::endl;
-                                            }
-
-    sModelDrawInfo meshInfoPlants2;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_GrassPatch_01.ply",
-                                            meshInfoPlants2, program, 1.0f)) {
-        std::cout << "SM_Env_GrassPatch_01.ply not loaded into VAO!" << std::endl;
-                                            }
-
-    sModelDrawInfo meshInfoPlants3;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Plants/SM_Env_Plant_01.ply",
-                                            meshInfoPlants3, program, 1.0f)) {
-        std::cout << "SM_Env_Plant_01.ply not loaded into VAO!" << std::endl;
-                                            }
-
-    sModelDrawInfo meshInfoWell;
-
-    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Props/SM_Env_Camp_Well_01.ply",
-                                            meshInfoPlants3, program, 1.0f)) {
-        std::cout << "SM_Env_Camp_Well_01.ply not loaded into VAO!" << std::endl;
-                                            }
+    std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
 }
 
 void LoadModelsIntoScene() {

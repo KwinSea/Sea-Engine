@@ -1,7 +1,5 @@
 ﻿#include "Functions.h"
 
-#include <iostream>
-
 extern cLightManager* g_pLights;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 
@@ -22,6 +20,25 @@ void EditLight(
 }
 
 void SaveScene() {
+
+    std::ifstream checkFile("my_scene.scene");
+    if (checkFile.good()) {
+        checkFile.close();
+
+        std::filesystem::create_directory("scene_backups");
+
+        std::chrono::time_point time = std::chrono::system_clock::now();
+        std::time_t time_t = std::chrono::system_clock::to_time_t(time);
+
+        std::tm timeInfo;
+        localtime_s(&timeInfo, &time_t);
+
+        std::ostringstream backupName;
+        backupName << "scene_backups/my_scene_" << std::put_time(&timeInfo, "%Y-%m-%d_%H-%M-%S") << ".scene";
+
+        std::filesystem::copy_file("my_scene.scene", backupName.str());
+    }
+
     std::ofstream mySaveFile("my_scene.scene");
 
             // Save num of mesh in scene
