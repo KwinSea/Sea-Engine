@@ -1,11 +1,11 @@
-﻿// Functions that add or edit aspects of the scene
+﻿#include "Functions.h"
 
-#include "Functions.h"
+#include <iostream>
 
 extern cLightManager* g_pLights;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 
-glm::vec3 RGBify (int red, int green, int blue) {return glm::vec3(red / 255.0f, green / 255.0f, blue / 255.0f);}
+glm::vec3 RGBify (int const red, int const green, int const blue) {return glm::vec3(red / 255.0f, green / 255.0f, blue / 255.0f);}
 
 void EditLight(
     unsigned int lightIndex,
@@ -19,6 +19,191 @@ void EditLight(
     g_pLights->theLights[lightIndex].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[lightIndex].position = glm::vec4(-10.0f, -10.0f, -10.0f, 0.5f);
     g_pLights->theLights[lightIndex].diffuse = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void SaveScene() {
+    std::ofstream mySaveFile("my_scene.scene");
+
+            // Save num of mesh in scene
+            mySaveFile << ::g_pMeshesToDraw.size() << std::endl;
+
+            // Save scene objects
+            for (size_t index = 0; index < ::g_pMeshesToDraw.size(); index++) {
+
+                // Mesh name
+                mySaveFile << ::g_pMeshesToDraw[index]->meshFileName << std::endl;
+
+                // Position
+                mySaveFile << ::g_pMeshesToDraw[index]->position.x << " "
+                    << g_pMeshesToDraw[index]->position.y << " "
+                    << g_pMeshesToDraw[index]->position.z << std::endl;
+
+                // Orientation
+                mySaveFile << ::g_pMeshesToDraw[index]->orientation.x << " "
+                    << g_pMeshesToDraw[index]->orientation.y << " "
+                    << g_pMeshesToDraw[index]->orientation.z << std::endl;
+
+                // Scale
+                mySaveFile << ::g_pMeshesToDraw[index]->scale << std::endl;
+
+                // Color
+                mySaveFile << ::g_pMeshesToDraw[index]->colourRGB.r << " "
+                   << g_pMeshesToDraw[index]->colourRGB.g << " "
+                   << g_pMeshesToDraw[index]->colourRGB.b << std::endl;
+
+                // Specular highlight
+                mySaveFile << ::g_pMeshesToDraw[index]->specularHighLightRGB.r << " "
+                    << g_pMeshesToDraw[index]->specularHighLightRGB.g << " "
+                    << g_pMeshesToDraw[index]->specularHighLightRGB.b << std::endl;
+
+                // Specular power
+                mySaveFile << ::g_pMeshesToDraw[index]->specularPower << std::endl;
+
+                // Attitudes
+                mySaveFile << ::g_pMeshesToDraw[index]->bOverrideVertexModelColour << std::endl; // Override color
+                mySaveFile << ::g_pMeshesToDraw[index]->bIsVisible << std::endl; // is Visible
+                mySaveFile << ::g_pMeshesToDraw[index]->bIsWireframe << std::endl; // is Wireframe
+            }
+
+            // Save number of lights
+            mySaveFile << ::g_pLights->NUMBEROFLIGHTS << std::endl;
+
+            // Save lights
+            for (int index = 0; index < ::g_pLights->NUMBEROFLIGHTS; index++) {
+
+                // Position
+                mySaveFile << ::g_pLights->theLights[index].position.x << " "
+                    << g_pLights->theLights[index].position.y << " "
+                    << g_pLights->theLights[index].position.z << " "
+                    << g_pLights->theLights[index].position.w << std::endl;
+
+                // Diffuse
+                mySaveFile << ::g_pLights->theLights[index].diffuse.r << " "
+                    << g_pLights->theLights[index].diffuse.g << " "
+                    << g_pLights->theLights[index].diffuse.b << " "
+                    << g_pLights->theLights[index].diffuse.w << std::endl;
+
+                // Spucular
+                mySaveFile << ::g_pLights->theLights[index].specular.r << " "
+                    << g_pLights->theLights[index].specular.g << " "
+                    << g_pLights->theLights[index].specular.b << " "
+                    << g_pLights->theLights[index].specular.w << std::endl;
+
+                // Attenuation
+                mySaveFile << ::g_pLights->theLights[index].atten.x << " "
+                    << g_pLights->theLights[index].atten.y << " "
+                    << g_pLights->theLights[index].atten.z << " "
+                    << g_pLights->theLights[index].atten.w << std::endl;
+
+                // Direction
+                mySaveFile << ::g_pLights->theLights[index].direction.x << " "
+                    << g_pLights->theLights[index].direction.y << " "
+                    << g_pLights->theLights[index].direction.z << " "
+                    << g_pLights->theLights[index].direction.w << std::endl;
+
+                // Light type
+                mySaveFile << ::g_pLights->theLights[index].param1.x << " "
+                    << g_pLights->theLights[index].param1.y << " "
+                    << g_pLights->theLights[index].param1.z << " "
+                    << g_pLights->theLights[index].param1.w << std::endl;
+
+                // Light state
+                mySaveFile << ::g_pLights->theLights[index].param2.x << " "
+                    << g_pLights->theLights[index].param2.y << " "
+                    << g_pLights->theLights[index].param2.z << " "
+                    << g_pLights->theLights[index].param2.w << std::endl;
+            }
+
+            std::cout << "Scene Saved\n";
+            mySaveFile.close();
+}
+
+void LoadScene() {
+     std::ifstream mySaveFile("my_scene.scene");
+
+            if (!mySaveFile.is_open()) {
+                std::cout << "Did not open scene file!" << std::endl;
+                return;
+            }
+
+            // Delets mesh in vector
+            for (cMeshObject* ptr : ::g_pMeshesToDraw) {
+                delete ptr;
+            }
+            ::g_pMeshesToDraw.clear();
+
+            int meshesInScene = 0;
+            mySaveFile >> meshesInScene;\
+
+            // Load meshs
+            for (int index = 0; index < meshesInScene; index++) {
+                cMeshObject* pNewObject = new cMeshObject();
+
+                mySaveFile >> pNewObject->meshFileName;
+                mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
+                mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
+                mySaveFile >> pNewObject->scale;
+                mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
+                mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
+                mySaveFile >> pNewObject->specularPower;
+                mySaveFile >> pNewObject->bOverrideVertexModelColour;
+                mySaveFile >> pNewObject->bIsVisible;
+                mySaveFile >> pNewObject->bIsWireframe;
+
+
+                ::g_pMeshesToDraw.push_back(pNewObject);
+            }
+
+            // Load number of lights
+            int lightsInScene = 0;
+            mySaveFile >> lightsInScene;
+            for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {\
+
+                // Position
+                mySaveFile >> g_pLights->theLights[i].position.x
+                    >> g_pLights->theLights[i].position.y
+                    >> g_pLights->theLights[i].position.z
+                    >> g_pLights->theLights[i].position.w;
+
+                // Diffuse
+                mySaveFile >> g_pLights->theLights[i].diffuse.x
+                    >> g_pLights->theLights[i].diffuse.y
+                    >> g_pLights->theLights[i].diffuse.z
+                    >> g_pLights->theLights[i].diffuse.w;
+
+                // Specular
+                mySaveFile >> g_pLights->theLights[i].specular.x
+                    >> g_pLights->theLights[i].specular.r
+                    >> g_pLights->theLights[i].specular.g
+                    >> g_pLights->theLights[i].specular.b;
+
+                // Attenuation
+                mySaveFile >> g_pLights->theLights[i].atten.x
+                    >> g_pLights->theLights[i].atten.y
+                    >> g_pLights->theLights[i].atten.z
+                    >> g_pLights->theLights[i].atten.w;
+
+                // Direction
+                mySaveFile >> g_pLights->theLights[i].direction.x
+                    >> g_pLights->theLights[i].direction.y
+                    >> g_pLights->theLights[i].direction.z
+                    >> g_pLights->theLights[i].direction.w;
+
+                // Light type
+                mySaveFile >> g_pLights->theLights[i].param1.x
+                    >> g_pLights->theLights[i].param1.y
+                    >> g_pLights->theLights[i].param1.z
+                    >> g_pLights->theLights[i].param1.w;
+
+                // Light state
+                mySaveFile >> g_pLights->theLights[i].param2.x
+                    >> g_pLights->theLights[i].param2.y
+                    >> g_pLights->theLights[i].param2.z
+                    >> g_pLights->theLights[i].param2.w;
+            }
+
+            std::cout << "Scene Loaded\n";
+            mySaveFile.close();
 }
 
 void AddMeshObject (

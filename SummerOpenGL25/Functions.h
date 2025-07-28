@@ -6,6 +6,10 @@
 #include "cLightManager.h"
 #include "cMeshObject.h"
 
+void SaveScene();
+
+void LoadScene();
+
 void AddMeshObject (
     std::string meshFileName,
     std::string uniqueName = "",

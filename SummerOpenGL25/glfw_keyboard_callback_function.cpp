@@ -33,6 +33,13 @@ float object_rotate_speed = glm::radians(90.0f);
 bool lightDebug = false;
 bool meshDebug = false;
 
+static std::pair<glm::vec3, glm::vec3> cameraAngles[4] = {
+    std::make_pair(glm::vec3(0.0), glm::vec3(0.0)),
+    std::make_pair(glm::vec3(0.0), glm::vec3(0.0)),
+    std::make_pair(glm::vec3(0.0), glm::vec3(0.0)),
+    std::make_pair(glm::vec3(0.0), glm::vec3(0.0))
+};
+
 bool isShiftDown(int mods) {
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
         return true;
@@ -615,188 +622,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_ENTER && action == GLFW_RELEASE) {
-            std::ofstream mySaveFile("my_scene.scene");
-
-            // Save num of mesh in scene
-            mySaveFile << ::g_pMeshesToDraw.size() << std::endl;
-
-            // Save scene objects
-            for (size_t index = 0; index < ::g_pMeshesToDraw.size(); index++) {
-
-                // Mesh name
-                mySaveFile << ::g_pMeshesToDraw[index]->meshFileName << std::endl;
-
-                // Position
-                mySaveFile << ::g_pMeshesToDraw[index]->position.x << " "
-                    << g_pMeshesToDraw[index]->position.y << " "
-                    << g_pMeshesToDraw[index]->position.z << std::endl;
-
-                // Orientation
-                mySaveFile << ::g_pMeshesToDraw[index]->orientation.x << " "
-                    << g_pMeshesToDraw[index]->orientation.y << " "
-                    << g_pMeshesToDraw[index]->orientation.z << std::endl;
-
-                // Scale
-                mySaveFile << ::g_pMeshesToDraw[index]->scale << std::endl;
-
-                // Color
-                mySaveFile << ::g_pMeshesToDraw[index]->colourRGB.r << " "
-                   << g_pMeshesToDraw[index]->colourRGB.g << " "
-                   << g_pMeshesToDraw[index]->colourRGB.b << std::endl;
-
-                // Specular highlight
-                mySaveFile << ::g_pMeshesToDraw[index]->specularHighLightRGB.r << " "
-                    << g_pMeshesToDraw[index]->specularHighLightRGB.g << " "
-                    << g_pMeshesToDraw[index]->specularHighLightRGB.b << std::endl;
-
-                // Specular power
-                mySaveFile << ::g_pMeshesToDraw[index]->specularPower << std::endl;
-
-                // Attitudes
-                mySaveFile << ::g_pMeshesToDraw[index]->bOverrideVertexModelColour << std::endl; // Override color
-                mySaveFile << ::g_pMeshesToDraw[index]->bIsVisible << std::endl; // is Visible
-                mySaveFile << ::g_pMeshesToDraw[index]->bIsWireframe << std::endl; // is Wireframe
-            }
-
-            // Save number of lights
-            mySaveFile << ::g_pLights->NUMBEROFLIGHTS << std::endl;
-
-            // Save lights
-            for (int index = 0; index < ::g_pLights->NUMBEROFLIGHTS; index++) {
-
-                // Position
-                mySaveFile << ::g_pLights->theLights[index].position.x << " "
-                    << g_pLights->theLights[index].position.y << " "
-                    << g_pLights->theLights[index].position.z << " "
-                    << g_pLights->theLights[index].position.w << std::endl;
-
-                // Diffuse
-                mySaveFile << ::g_pLights->theLights[index].diffuse.r << " "
-                    << g_pLights->theLights[index].diffuse.g << " "
-                    << g_pLights->theLights[index].diffuse.b << " "
-                    << g_pLights->theLights[index].diffuse.w << std::endl;
-
-                // Spucular
-                mySaveFile << ::g_pLights->theLights[index].specular.r << " "
-                    << g_pLights->theLights[index].specular.g << " "
-                    << g_pLights->theLights[index].specular.b << " "
-                    << g_pLights->theLights[index].specular.w << std::endl;
-
-                // Attenuation
-                mySaveFile << ::g_pLights->theLights[index].atten.x << " "
-                    << g_pLights->theLights[index].atten.y << " "
-                    << g_pLights->theLights[index].atten.z << " "
-                    << g_pLights->theLights[index].atten.w << std::endl;
-
-                // Direction
-                mySaveFile << ::g_pLights->theLights[index].direction.x << " "
-                    << g_pLights->theLights[index].direction.y << " "
-                    << g_pLights->theLights[index].direction.z << " "
-                    << g_pLights->theLights[index].direction.w << std::endl;
-
-                // Light type
-                mySaveFile << ::g_pLights->theLights[index].param1.x << " "
-                    << g_pLights->theLights[index].param1.y << " "
-                    << g_pLights->theLights[index].param1.z << " "
-                    << g_pLights->theLights[index].param1.w << std::endl;
-
-                // Light state
-                mySaveFile << ::g_pLights->theLights[index].param2.x << " "
-                    << g_pLights->theLights[index].param2.y << " "
-                    << g_pLights->theLights[index].param2.z << " "
-                    << g_pLights->theLights[index].param2.w << std::endl;
-            }
-
-            std::cout << "Scene Saved\n";
-            mySaveFile.close();
+            SaveScene();
         }
 
         if (key == GLFW_KEY_L && action == GLFW_RELEASE) {
-            std::ifstream mySaveFile("my_scene.scene");
-
-            if (!mySaveFile.is_open()) {
-                std::cout << "Did not open scene file!" << std::endl;
-                return;
-            }
-
-            // Delets mesh in vector
-            for (cMeshObject* ptr : ::g_pMeshesToDraw) {
-                delete ptr;
-            }
-            ::g_pMeshesToDraw.clear();
-
-            int meshesInScene = 0;
-            mySaveFile >> meshesInScene;\
-
-            // Load meshs
-            for (int index = 0; index < meshesInScene; index++) {
-                cMeshObject* pNewObject = new cMeshObject();
-
-                mySaveFile >> pNewObject->meshFileName;
-                mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
-                mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
-                mySaveFile >> pNewObject->scale;
-                mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
-                mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
-                mySaveFile >> pNewObject->specularPower;
-                mySaveFile >> pNewObject->bOverrideVertexModelColour;
-                mySaveFile >> pNewObject->bIsVisible;
-                mySaveFile >> pNewObject->bIsWireframe;
-
-
-                ::g_pMeshesToDraw.push_back(pNewObject);
-            }
-
-            // Load number of lights
-            int lightsInScene = 0;
-            mySaveFile >> lightsInScene;
-            for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {\
-
-                // Position
-                mySaveFile >> g_pLights->theLights[i].position.x
-                    >> g_pLights->theLights[i].position.y
-                    >> g_pLights->theLights[i].position.z
-                    >> g_pLights->theLights[i].position.w;
-
-                // Diffuse
-                mySaveFile >> g_pLights->theLights[i].diffuse.x
-                    >> g_pLights->theLights[i].diffuse.y
-                    >> g_pLights->theLights[i].diffuse.z
-                    >> g_pLights->theLights[i].diffuse.w;
-
-                // Specular
-                mySaveFile >> g_pLights->theLights[i].specular.x
-                    >> g_pLights->theLights[i].specular.r
-                    >> g_pLights->theLights[i].specular.g
-                    >> g_pLights->theLights[i].specular.b;
-
-                // Attenuation
-                mySaveFile >> g_pLights->theLights[i].atten.x
-                    >> g_pLights->theLights[i].atten.y
-                    >> g_pLights->theLights[i].atten.z
-                    >> g_pLights->theLights[i].atten.w;
-
-                // Direction
-                mySaveFile >> g_pLights->theLights[i].direction.x
-                    >> g_pLights->theLights[i].direction.y
-                    >> g_pLights->theLights[i].direction.z
-                    >> g_pLights->theLights[i].direction.w;
-
-                // Light type
-                mySaveFile >> g_pLights->theLights[i].param1.x
-                    >> g_pLights->theLights[i].param1.y
-                    >> g_pLights->theLights[i].param1.z
-                    >> g_pLights->theLights[i].param1.w;
-
-                // Light state
-                mySaveFile >> g_pLights->theLights[i].param2.x
-                    >> g_pLights->theLights[i].param2.y
-                    >> g_pLights->theLights[i].param2.z
-                    >> g_pLights->theLights[i].param2.w;
-            }
-
-            std::cout << "Scene Loaded";
-            mySaveFile.close();
+            LoadScene();
         }
 
         if (key == GLFW_KEY_DELETE && action == GLFW_RELEASE) {
@@ -820,6 +650,30 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw.clear();
 
             std::cout << "Scene Cleared\n";
+        }
+
+        // Save camera angle 1
+        if (key == GLFW_KEY_F1 && action == GLFW_RELEASE) {
+            cameraAngles[0] = std::make_pair(camera.Position, camera.Orientation);
+            std::cout << "Camera Angle 1 Saved";
+        }
+
+        // Save camera angle 2
+        if (key == GLFW_KEY_F2 && action == GLFW_RELEASE) {
+            cameraAngles[1] = std::make_pair(camera.Position, camera.Orientation);
+            std::cout << "Camera Angle 2 Saved";
+        }
+
+        // Save camera angle 3
+        if (key == GLFW_KEY_F3 && action == GLFW_RELEASE) {
+            cameraAngles[2] = std::make_pair(camera.Position, camera.Orientation);
+            std::cout << "Camera Angle 3 Saved";
+        }
+
+        // Save camera angle 4
+        if (key == GLFW_KEY_F4 && action == GLFW_RELEASE) {
+            cameraAngles[3] = std::make_pair(camera.Position, camera.Orientation);
+            std::cout << "Camera Angle 4 Saved";
         }
     }
 
@@ -874,9 +728,32 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
         }
 
-        if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
-            camera.Position = glm::vec3(-684, 900, -234);
-            camera.Orientation = glm::vec4(glm::radians(-45.0), glm::radians(225.0), glm::radians(0.0), 1);
+        // Load camera angle 1
+        if (key == GLFW_KEY_F1 && action == GLFW_RELEASE) {
+            camera.Position = cameraAngles[0].first;
+            camera.Orientation = cameraAngles[0].second;
+            std::cout << "Camera Angle 1 loaded";
+        }
+
+        // Load camera angle 2
+        if (key == GLFW_KEY_F2 && action == GLFW_RELEASE) {
+            camera.Position = cameraAngles[1].first;
+            camera.Orientation = cameraAngles[1].second;
+            std::cout << "Camera Angle 2 loaded";
+        }
+
+        // Load camera angle 3
+        if (key == GLFW_KEY_F3 && action == GLFW_RELEASE) {
+            camera.Position = cameraAngles[2].first;
+            camera.Orientation = cameraAngles[2].second;
+            std::cout << "Camera Angle 3 loaded";
+        }
+
+        // Load camera angle 4
+        if (key == GLFW_KEY_F4 && action == GLFW_RELEASE) {
+            camera.Position = cameraAngles[3].first;
+            camera.Orientation = cameraAngles[3].second;
+            std::cout << "Camera Angle 4 loaded";
         }
     }
 }
