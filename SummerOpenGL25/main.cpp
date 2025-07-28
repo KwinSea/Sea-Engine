@@ -180,6 +180,8 @@ int main(void) {
     g_pLights->theLights[19].atten.y = 0.001f; // linear
     g_pLights->theLights[19].atten.z = 0.00001f; // quadratic
 
+    ::g_pSelectedMeshIndicator = new cMeshObject();
+    ::g_pSmoothSphere = new cMeshObject();
     while (!glfwWindowShouldClose(window)) {
         int width, height;
         glfwGetFramebufferSize(window, &width, &height);
@@ -231,7 +233,6 @@ int main(void) {
         g_pLights->theLights[18].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
         g_pLights->theLights[18].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
 
-        ::g_pSmoothSphere = new cMeshObject();
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
         ::g_pSmoothSphere->bIsWireframe = true;
         ::g_pSmoothSphere->bOverrideVertexModelColour = true;
@@ -242,25 +243,18 @@ int main(void) {
             ::g_pLights->theLights[::g_selectedLightIndex].position.z);
 
 
-        if (!g_pMeshesToDraw.empty()) {
+        if (!g_pMeshesToDraw.empty() && g_selectedObjectIndex < g_pMeshesToDraw.size()) {
             // Selected Mesh Indicator
-            ::g_pSelectedMeshIndicator = new cMeshObject();
             ::g_pSelectedMeshIndicator->meshFileName = ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
             ::g_pSelectedMeshIndicator->bIsWireframe = true;
             ::g_pSelectedMeshIndicator->bOverrideVertexModelColour = true;
             ::g_pSelectedMeshIndicator->bIsVisible = meshDebug;
             ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale * 1.01f;
-            ::g_pSelectedMeshIndicator->colourRGB = glm::vec3(1.0f);
+            ::g_pSelectedMeshIndicator->colourRGB = RGBify(255, 165, 0);
             ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec3(1.0f);
             ::g_pSelectedMeshIndicator->specularPower = 0.0f;
-            ::g_pSelectedMeshIndicator->position = glm::vec3(
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x,
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y,
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z);
-            ::g_pSelectedMeshIndicator->orientation = glm::vec3(
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x,
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y,
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z);
+            ::g_pSelectedMeshIndicator->position = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position;
+            ::g_pSelectedMeshIndicator->orientation = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation;
 
             DrawMesh(g_pSelectedMeshIndicator, program);
         }
