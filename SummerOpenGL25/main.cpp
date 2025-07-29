@@ -383,8 +383,8 @@ int main(void) {
                         editSpecular[3] = g_pLights->theLights[g_selectedLightIndex].specular.a;
 
                         editParam1 = g_pLights->theLights[g_selectedLightIndex].param1.x;
-                        editParamAngle[0] = glm::degrees(g_pLights->theLights[g_selectedLightIndex].param1.y);
-                        editParamAngle[1] = glm::degrees(g_pLights->theLights[g_selectedLightIndex].param1.z);
+                        editParamAngle[0] = g_pLights->theLights[g_selectedLightIndex].param1.y;
+                        editParamAngle[1] = g_pLights->theLights[g_selectedLightIndex].param1.z;
                         editParam2 = g_pLights->theLights[g_selectedLightIndex].param2.x;
                     }
 
@@ -398,18 +398,17 @@ int main(void) {
                         ImGui::SetTooltip("0 = Point Light\n1 = Spot Light\n2 = Directional Light");
                     }
                     if (editParam1 == 1) {
-                        ImGui::InputFloat2("Edit Spot Light Angle", editParamAngle);
+                        ImGui::SliderFloat("Edit Spot Inner Angle", &editParamAngle[0], 0.0f, 90.0f);
+                        ImGui::SliderFloat("Edit Spot Outer Angle", &editParamAngle[1], 0.0f, 90.0f);
                     }
                     ImGui::SliderInt("Edit Light State", &editParam2, 0, 1);
 
-                    if (ImGui::Button("Edit Light")) {
-                        g_pLights->theLights[g_selectedLightIndex].position = glm::vec4(editPosition[0], editPosition[1], editPosition[2], g_pLights->theLights[g_selectedLightIndex].position.w);
-                        g_pLights->theLights[g_selectedLightIndex].direction = glm::vec4(editDirection[0], editDirection[1], editDirection[2], g_pLights->theLights[g_selectedLightIndex].direction.w);
-                        g_pLights->theLights[g_selectedLightIndex].diffuse = glm::vec4(editDiffuse[0], editDiffuse[1], editDiffuse[2], editDiffuse[3]);
-                        g_pLights->theLights[g_selectedLightIndex].specular = glm::vec4(editSpecular[0], editSpecular[1], editSpecular[2], editSpecular[3]);
-                        g_pLights->theLights[g_selectedLightIndex].param1 = glm::vec4(editParam1, glm::radians(editParamAngle[0]), glm::radians(editParamAngle[1]), g_pLights->theLights[g_selectedLightIndex].param1.w);
-                        g_pLights->theLights[g_selectedLightIndex].param2.x = editParam2;
-                    }
+                    g_pLights->theLights[g_selectedLightIndex].position = glm::vec4(editPosition[0], editPosition[1], editPosition[2], g_pLights->theLights[g_selectedLightIndex].position.w);
+                    g_pLights->theLights[g_selectedLightIndex].direction = glm::vec4(editDirection[0], editDirection[1], editDirection[2], g_pLights->theLights[g_selectedLightIndex].direction.w);
+                    g_pLights->theLights[g_selectedLightIndex].diffuse = glm::vec4(editDiffuse[0], editDiffuse[1], editDiffuse[2], editDiffuse[3]);
+                    g_pLights->theLights[g_selectedLightIndex].specular = glm::vec4(editSpecular[0], editSpecular[1], editSpecular[2], editSpecular[3]);
+                    g_pLights->theLights[g_selectedLightIndex].param1 = glm::vec4(editParam1, editParamAngle[0], editParamAngle[1], g_pLights->theLights[g_selectedLightIndex].param1.w);
+                    g_pLights->theLights[g_selectedLightIndex].param2.x = editParam2;
 
                     ImGui::Separator();
 
@@ -458,7 +457,7 @@ int main(void) {
                                 cMeshObject* pNewObject = new cMeshObject();
                                 pNewObject->meshFileName = currentVAOMeshs[selectedMeshIndex];
                                 pNewObject->position = glm::vec3(addPosition[0], addPosition[1], addPosition[2]);
-                                pNewObject->orientation = glm::vec3(glm::radians(addRot[0]), glm::radians(addRot[1]), glm::radians(addRot[2]));
+                                pNewObject->orientation = glm::vec3(addRot[0], addRot[1], addRot[2]);
                                 pNewObject->scale = addScale;
                                 pNewObject->colourRGB = glm::vec3(addColour[0], addColour[1], addColour[2]);
                                 pNewObject->specularHighLightRGB = glm::vec3(addSpecularHighlight[0], addSpecularHighlight[1], addSpecularHighlight[2]);
@@ -539,21 +538,16 @@ int main(void) {
                             ImGui::Checkbox("Edit Wireframe", &editWireframe);
                             ImGui::Checkbox("Edit Visible", &editVisible);
 
-                        if (ImGui::Button("Edit")) {
-                            g_pMeshesToDraw[g_selectedObjectIndex]->meshFileName = currentVAOMeshs[selectedMeshIndex];
-                            g_pMeshesToDraw[g_selectedObjectIndex]->position = glm::vec3(editPosition[0], editPosition[1], editPosition[2]);
-                            g_pMeshesToDraw[g_selectedObjectIndex]->orientation = glm::vec3(glm::radians(editRot[0]), glm::radians(editRot[1]), glm::radians(editRot[2]));
-                            g_pMeshesToDraw[g_selectedObjectIndex]->scale = editScale;
-                            g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB = glm::vec3(editColour[0], editColour[1], editColour[2]);
-                            g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB = glm::vec3(editSpecularHighlight[0], editSpecularHighlight[1], editSpecularHighlight[2]);
-                            g_pMeshesToDraw[g_selectedObjectIndex]->specularPower = editSpecularPower;
-                            g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour = editOverrideColor;
-                            g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe = editWireframe;
-                            g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible = editVisible;
-
-                            ::g_pMeshesToDraw.push_back(g_pMeshesToDraw[g_selectedObjectIndex]);
-
-                        }
+                        g_pMeshesToDraw[g_selectedObjectIndex]->meshFileName = currentVAOMeshs[selectedMeshIndex];
+                        g_pMeshesToDraw[g_selectedObjectIndex]->position = glm::vec3(editPosition[0], editPosition[1], editPosition[2]);
+                        g_pMeshesToDraw[g_selectedObjectIndex]->orientation = glm::vec3(editRot[0], editRot[1], editRot[2]);
+                        g_pMeshesToDraw[g_selectedObjectIndex]->scale = editScale;
+                        g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB = glm::vec3(editColour[0], editColour[1], editColour[2]);
+                        g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB = glm::vec3(editSpecularHighlight[0], editSpecularHighlight[1], editSpecularHighlight[2]);
+                        g_pMeshesToDraw[g_selectedObjectIndex]->specularPower = editSpecularPower;
+                        g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour = editOverrideColor;
+                        g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe = editWireframe;
+                        g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible = editVisible;
                     }
 
                     ImGui::EndTabItem();
