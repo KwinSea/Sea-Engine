@@ -389,7 +389,7 @@ int main(void) {
                     }
 
                     ImGui::InputFloat3("Edit Position", editPosition);
-                    ImGui::InputFloat3("Edit Direction", editDirection);
+                    ImGui::SliderFloat3("Edit Direction", editDirection, -1.0f, 1.0f);
                     ImGui::ColorEdit4("Edit Diffuse", editDiffuse);
                     ImGui::ColorEdit4("Edit Specular", editSpecular);
                     ImGui::SliderInt("Edit Light Type", &editParam1, 0, 2);
@@ -440,7 +440,9 @@ int main(void) {
                         static bool addVisible = true;
 
                         ImGui::InputFloat3("Position", addPosition);
-                        ImGui::InputFloat3("Orientation", addRot);
+                        ImGui::SliderAngle("Orientation X", &addRot[0]);
+                        ImGui::SliderAngle("Orientation Y", &addRot[1]);
+                        ImGui::SliderAngle("Orientation Z", &addRot[2]);
                         ImGui::InputFloat("Scale", &addScale);
                         ImGui::ColorEdit3("Colour RGB", addColour);
                         ImGui::ColorEdit3("Specular Highlight", addSpecularHighlight);
@@ -488,20 +490,47 @@ int main(void) {
                     if (!g_pMeshesToDraw.empty() && g_selectedObjectIndex < g_pMeshesToDraw.size()) {
                         static int lastSelectedIndex = -1;
 
-                        float editPosition[3] = {g_pMeshesToDraw[g_selectedObjectIndex]->position.x, g_pMeshesToDraw[g_selectedObjectIndex]->position.y, g_pMeshesToDraw[g_selectedObjectIndex]->position.z};
-                        float editRot[3] = {g_pMeshesToDraw[g_selectedObjectIndex]->orientation.x, g_pMeshesToDraw[g_selectedObjectIndex]->orientation.y, g_pMeshesToDraw[g_selectedObjectIndex]->orientation.z};
-                        float editScale = g_pMeshesToDraw[g_selectedObjectIndex]->scale;
-                        float editColour[3] = {g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB.r, g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB.g, g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB.b};
-                        float editSpecularHighlight[3] = {g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB.r, g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB.g, g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB.b};
-                        float editSpecularPower = g_pMeshesToDraw[g_selectedObjectIndex]->specularPower;
-                        static bool editOverrideColor = g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour;
-                        static bool editWireframe = g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe;
-                        static bool editVisible = g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible;
+                        static float editPosition[3];
+                        static float editRot[3];
+                        static float editScale;
+                        static float editColour[3];
+                        static float editSpecularHighlight[3];
+                        static float editSpecularPower;
+                        static bool editOverrideColor;
+                        static bool editWireframe;
+                        static bool editVisible;
 
-                        if (lastSelectedIndex == g_selectedObjectIndex) {
+                        if (lastSelectedIndex != g_selectedObjectIndex) {
+                            lastSelectedIndex = g_selectedObjectIndex;
+
+                            editPosition[0] = g_pMeshesToDraw[g_selectedObjectIndex]->position.x;
+                            editPosition[1] = g_pMeshesToDraw[g_selectedObjectIndex]->position.y;
+                            editPosition[2] = g_pMeshesToDraw[g_selectedObjectIndex]->position.z;
+
+                            editRot[0] = g_pMeshesToDraw[g_selectedObjectIndex]->orientation.x;
+                            editRot[1] = g_pMeshesToDraw[g_selectedObjectIndex]->orientation.y;
+                            editRot[2] = g_pMeshesToDraw[g_selectedObjectIndex]->orientation.z;
+
+                            editScale = g_pMeshesToDraw[g_selectedObjectIndex]->scale;
+
+                            editColour[0] = g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB.r;
+                            editColour[1] = g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB.g;
+                            editColour[2] = g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB.b;
+
+                            editSpecularHighlight[0] = g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB.r;
+                            editSpecularHighlight[1] = g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB.g;
+                            editSpecularHighlight[2] = g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB.b;
+
+                            editSpecularPower = g_pMeshesToDraw[g_selectedObjectIndex]->specularPower;
+                            editOverrideColor = g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour;
+                            editWireframe = g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe;
+                            editVisible = g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible;
+                        }
 
                             ImGui::InputFloat3("Edit Position", editPosition);
-                            ImGui::InputFloat3("Edit Orientation", editRot);
+                            ImGui::SliderAngle("Edit Orientation X", &editRot[0]);
+                            ImGui::SliderAngle("Edit Orientation Y", &editRot[1]);
+                            ImGui::SliderAngle("Edit Orientation Z", &editRot[2]);
                             ImGui::InputFloat("Edit Scale", &editScale);
                             ImGui::ColorEdit3("Edit Colour RGB", editColour);
                             ImGui::ColorEdit3("Edit Specular Highlight", editSpecularHighlight);
@@ -510,22 +539,20 @@ int main(void) {
                             ImGui::Checkbox("Edit Wireframe", &editWireframe);
                             ImGui::Checkbox("Edit Visible", &editVisible);
 
-                            if (ImGui::Button("Edit")) {
-                                g_pMeshesToDraw[g_selectedObjectIndex]->meshFileName = currentVAOMeshs[selectedMeshIndex];
-                                g_pMeshesToDraw[g_selectedObjectIndex]->position = glm::vec3(editPosition[0], editPosition[1], editPosition[2]);
-                                g_pMeshesToDraw[g_selectedObjectIndex]->orientation = glm::vec3(glm::radians(editRot[0]), glm::radians(editRot[1]), glm::radians(editRot[2]));
-                                g_pMeshesToDraw[g_selectedObjectIndex]->scale = editScale;
-                                g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB = glm::vec3(editColour[0], editColour[1], editColour[2]);
-                                g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB = glm::vec3(editSpecularHighlight[0], editSpecularHighlight[1], editSpecularHighlight[2]);
-                                g_pMeshesToDraw[g_selectedObjectIndex]->specularPower = editSpecularPower;
-                                g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour = editOverrideColor;
-                                g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe = editWireframe;
-                                g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible = editVisible;
+                        if (ImGui::Button("Edit")) {
+                            g_pMeshesToDraw[g_selectedObjectIndex]->meshFileName = currentVAOMeshs[selectedMeshIndex];
+                            g_pMeshesToDraw[g_selectedObjectIndex]->position = glm::vec3(editPosition[0], editPosition[1], editPosition[2]);
+                            g_pMeshesToDraw[g_selectedObjectIndex]->orientation = glm::vec3(glm::radians(editRot[0]), glm::radians(editRot[1]), glm::radians(editRot[2]));
+                            g_pMeshesToDraw[g_selectedObjectIndex]->scale = editScale;
+                            g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB = glm::vec3(editColour[0], editColour[1], editColour[2]);
+                            g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB = glm::vec3(editSpecularHighlight[0], editSpecularHighlight[1], editSpecularHighlight[2]);
+                            g_pMeshesToDraw[g_selectedObjectIndex]->specularPower = editSpecularPower;
+                            g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour = editOverrideColor;
+                            g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe = editWireframe;
+                            g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible = editVisible;
 
-                                ::g_pMeshesToDraw.push_back(g_pMeshesToDraw[g_selectedObjectIndex]);
-                            }
-                        } else {
-                            lastSelectedIndex = g_selectedObjectIndex;
+                            ::g_pMeshesToDraw.push_back(g_pMeshesToDraw[g_selectedObjectIndex]);
+
                         }
                     }
 
