@@ -19,7 +19,7 @@ extern cLightManager* g_pLights;
 
 extern cVAOManager* g_pMeshManager;
 
-extern unsigned int g_LightingType;
+extern int g_LightingType;
 extern unsigned int screenWidth;
 extern unsigned int screenHeight;
 
