@@ -330,6 +330,16 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
         }
 
+        if (key == GLFW_KEY_H && action == GLFW_PRESS && !g_pMeshesToDraw.empty() && g_pMeshesToDraw[32] != nullptr) {
+            g_pMeshesToDraw[32]->colourRGB = glm::vec3(0.0f);
+            g_pLights->theLights[0].param2.x = 0.0f;
+        }
+
+        if (key == GLFW_KEY_G && action == GLFW_PRESS && !g_pMeshesToDraw.empty() && g_pMeshesToDraw[32] != nullptr) {
+            g_pMeshesToDraw[32]->colourRGB = glm::vec3(RGBify(0, 112, 255));
+            g_pLights->theLights[0].param2.x = 1.0f;
+        }
+
         if (key == GLFW_KEY_M && action == GLFW_RELEASE) {
             cMeshObject* pNewObject = new cMeshObject();
 

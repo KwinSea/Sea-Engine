@@ -142,46 +142,46 @@ int main(void) {
     g_pLights->theLights[0].atten.y = 0.0001f; // linear
     g_pLights->theLights[0].atten.z = 0.00001f; // quadratic
 
-    // Light 2
-    ::g_pLights->theLights[1].param2.x = 0.0f; // turn on
-    ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
-    g_pLights->theLights[1].position = glm::vec4(-500.0f, 1000.0f, 13000.0f, 0.5f);
-    g_pLights->theLights[1].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-
-    g_pLights->theLights[1].atten.x = 0.0f; // constant
-    g_pLights->theLights[1].atten.y = 0.0001f; // linear
-    g_pLights->theLights[1].atten.z = 0.00001f; // quadratic
-
-    // Light 3
-    ::g_pLights->theLights[2].param2.x = 0.0f; // turn on
-    ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
-    g_pLights->theLights[2].position = glm::vec4(13000.0f, 1000.0f, 0.0f, 0.5f);
-    g_pLights->theLights[2].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-
-    g_pLights->theLights[2].atten.x = 0.0f; // constant
-    g_pLights->theLights[2].atten.y = 0.0001f; // linear
-    g_pLights->theLights[2].atten.z = 0.00001f; // quadratic
-
-    // Light 4
-    ::g_pLights->theLights[3].param2.x = 0.0f; // turn on
-    ::g_pLights->theLights[3].param1.x = 0.0f; // light type = point light
-    g_pLights->theLights[3].position = glm::vec4(-500.0f, 1000.0f, -500.0f, 0.5f);
-    g_pLights->theLights[3].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-
-    g_pLights->theLights[3].atten.x = 0.0f; // constant
-    g_pLights->theLights[3].atten.y = 0.0001f; // linear
-    g_pLights->theLights[3].atten.z = 0.00001f; // quadratic
-
-    // Camera Light
-    g_pLights->theLights[19].param2.x = 0.0f; // turn on
-    g_pLights->theLights[19].param1.x = 1.0f;
-    g_pLights->theLights[19].position = glm::vec4(camera.Position, 1.0f);
-    g_pLights->theLights[19].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    g_pLights->theLights[19].param1.z = 10.0f;
-
-    g_pLights->theLights[19].atten.x = 0.0f; // constant
-    g_pLights->theLights[19].atten.y = 0.001f; // linear
-    g_pLights->theLights[19].atten.z = 0.00001f; // quadratic
+    // // Light 2
+    // ::g_pLights->theLights[1].param2.x = 0.0f; // turn on
+    // ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
+    // g_pLights->theLights[1].position = glm::vec4(-500.0f, 1000.0f, 13000.0f, 0.5f);
+    // g_pLights->theLights[1].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
+    //
+    // g_pLights->theLights[1].atten.x = 0.0f; // constant
+    // g_pLights->theLights[1].atten.y = 0.0001f; // linear
+    // g_pLights->theLights[1].atten.z = 0.00001f; // quadratic
+    //
+    // // Light 3
+    // ::g_pLights->theLights[2].param2.x = 0.0f; // turn on
+    // ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
+    // g_pLights->theLights[2].position = glm::vec4(13000.0f, 1000.0f, 0.0f, 0.5f);
+    // g_pLights->theLights[2].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
+    //
+    // g_pLights->theLights[2].atten.x = 0.0f; // constant
+    // g_pLights->theLights[2].atten.y = 0.0001f; // linear
+    // g_pLights->theLights[2].atten.z = 0.00001f; // quadratic
+    //
+    // // Light 4
+    // ::g_pLights->theLights[3].param2.x = 0.0f; // turn on
+    // ::g_pLights->theLights[3].param1.x = 0.0f; // light type = point light
+    // g_pLights->theLights[3].position = glm::vec4(-500.0f, 1000.0f, -500.0f, 0.5f);
+    // g_pLights->theLights[3].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
+    //
+    // g_pLights->theLights[3].atten.x = 0.0f; // constant
+    // g_pLights->theLights[3].atten.y = 0.0001f; // linear
+    // g_pLights->theLights[3].atten.z = 0.00001f; // quadratic
+    //
+    // // Camera Light
+    // g_pLights->theLights[19].param2.x = 0.0f; // turn on
+    // g_pLights->theLights[19].param1.x = 1.0f;
+    // g_pLights->theLights[19].position = glm::vec4(camera.Position, 1.0f);
+    // g_pLights->theLights[19].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    // g_pLights->theLights[19].param1.z = 10.0f;
+    //
+    // g_pLights->theLights[19].atten.x = 0.0f; // constant
+    // g_pLights->theLights[19].atten.y = 0.001f; // linear
+    // g_pLights->theLights[19].atten.z = 0.00001f; // quadratic
 
     // Initialize ImGui
     ImGui::CreateContext();
@@ -221,30 +221,105 @@ int main(void) {
             DrawMesh(pCurrentMesh, program);
         }
 
-        // Torch Flicker
-        g_pLights->theLights[11].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
-        g_pLights->theLights[11].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+        // Firefly Flicker
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[9].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[9].param2.x = 0.0f; // turn off
+        }
 
-        g_pLights->theLights[12].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
-        g_pLights->theLights[12].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[10].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[10].param2.x = 0.0f; // turn off
+        }
 
-        g_pLights->theLights[13].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
-        g_pLights->theLights[13].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[11].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[11].param2.x = 0.0f; // turn off
+        }
 
-        g_pLights->theLights[14].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
-        g_pLights->theLights[14].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[12].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[12].param2.x = 0.0f; // turn off
+        }
 
-        g_pLights->theLights[15].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
-        g_pLights->theLights[15].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[13].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[13].param2.x = 0.0f; // turn off
+        }
 
-        g_pLights->theLights[16].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
-        g_pLights->theLights[16].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[14].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[14].param2.x = 0.0f; // turn off
+        }
 
-        g_pLights->theLights[17].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
-        g_pLights->theLights[17].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[15].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[15].param2.x = 0.0f; // turn off
+        }
 
-        g_pLights->theLights[18].atten.y = 0.001f + (rand() / (float)RAND_MAX) * 0.0012f; // linear
-        g_pLights->theLights[18].atten.z = 0.0001f + (rand() / (float)RAND_MAX) * 0.00012f; // quadratic
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[16].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[16].param2.x = 0.0f; // turn off
+        }
+
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[17].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[17].param2.x = 0.0f; // turn off
+        }
+
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[18].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[18].param2.x = 0.0f; // turn off
+        }
+
+        if (rand() % 20 + 1 > 5) {
+            g_pLights->theLights[19].param2.x = 1.0f; // turn on
+        } else {
+            g_pLights->theLights[19].param2.x = 0.0f; // turn off
+        }
+
+        g_pLights->theLights[9].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[9].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[10].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[10].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[11].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[11].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[12].atten.y = 0.1f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[12].atten.z = 0.01f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[13].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[13].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[14].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[14].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[15].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[15].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[16].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[16].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[17].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[17].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[18].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[18].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+
+        g_pLights->theLights[19].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        g_pLights->theLights[19].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
 
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
         ::g_pSmoothSphere->bIsWireframe = true;
@@ -340,7 +415,7 @@ int main(void) {
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
                     if (ImGui::MenuItem("Load")) {LoadScene();}
-                    if (ImGui::MenuItem("Save")) {LoadScene();}
+                    if (ImGui::MenuItem("Save")) {SaveScene();}
                     ImGui::EndMenu();
                 }
                 ImGui::EndMenuBar();
@@ -360,6 +435,7 @@ int main(void) {
                     static int editParam1;
                     static float editParamAngle[2];
                     static int editParam2;
+                    static bool liveUpdate = false;
 
                     if (lastSelectedIndex != g_selectedLightIndex) {
                         lastSelectedIndex = g_selectedLightIndex;
@@ -402,14 +478,16 @@ int main(void) {
                         ImGui::SliderFloat("Edit Spot Outer Angle", &editParamAngle[1], 0.0f, 90.0f);
                     }
                     ImGui::SliderInt("Edit Light State", &editParam2, 0, 1);
+                    ImGui::Checkbox("Live Light Update", &liveUpdate);
 
-                    g_pLights->theLights[g_selectedLightIndex].position = glm::vec4(editPosition[0], editPosition[1], editPosition[2], g_pLights->theLights[g_selectedLightIndex].position.w);
-                    g_pLights->theLights[g_selectedLightIndex].direction = glm::vec4(editDirection[0], editDirection[1], editDirection[2], g_pLights->theLights[g_selectedLightIndex].direction.w);
-                    g_pLights->theLights[g_selectedLightIndex].diffuse = glm::vec4(editDiffuse[0], editDiffuse[1], editDiffuse[2], editDiffuse[3]);
-                    g_pLights->theLights[g_selectedLightIndex].specular = glm::vec4(editSpecular[0], editSpecular[1], editSpecular[2], editSpecular[3]);
-                    g_pLights->theLights[g_selectedLightIndex].param1 = glm::vec4(editParam1, editParamAngle[0], editParamAngle[1], g_pLights->theLights[g_selectedLightIndex].param1.w);
-                    g_pLights->theLights[g_selectedLightIndex].param2.x = editParam2;
-
+                    if (ImGui::Button("Edit Light") || liveUpdate) {
+                        g_pLights->theLights[g_selectedLightIndex].position = glm::vec4(editPosition[0], editPosition[1], editPosition[2], g_pLights->theLights[g_selectedLightIndex].position.w);
+                        g_pLights->theLights[g_selectedLightIndex].direction = glm::vec4(editDirection[0], editDirection[1], editDirection[2], g_pLights->theLights[g_selectedLightIndex].direction.w);
+                        g_pLights->theLights[g_selectedLightIndex].diffuse = glm::vec4(editDiffuse[0], editDiffuse[1], editDiffuse[2], editDiffuse[3]);
+                        g_pLights->theLights[g_selectedLightIndex].specular = glm::vec4(editSpecular[0], editSpecular[1], editSpecular[2], editSpecular[3]);
+                        g_pLights->theLights[g_selectedLightIndex].param1 = glm::vec4(editParam1, editParamAngle[0], editParamAngle[1], g_pLights->theLights[g_selectedLightIndex].param1.w);
+                        g_pLights->theLights[g_selectedLightIndex].param2.x = editParam2;
+                    }
                     ImGui::Separator();
 
                     ImGui::SliderInt("Lighting mode", &g_LightingType, 0, 2);
@@ -498,6 +576,7 @@ int main(void) {
                         static bool editOverrideColor;
                         static bool editWireframe;
                         static bool editVisible;
+                        static bool liveUpdate;
 
                         if (lastSelectedIndex != g_selectedObjectIndex) {
                             lastSelectedIndex = g_selectedObjectIndex;
@@ -537,17 +616,19 @@ int main(void) {
                             ImGui::Checkbox("Edit Override Color", &editOverrideColor);
                             ImGui::Checkbox("Edit Wireframe", &editWireframe);
                             ImGui::Checkbox("Edit Visible", &editVisible);
+                            ImGui::Checkbox("Live Object Update", &liveUpdate);
 
-                        g_pMeshesToDraw[g_selectedObjectIndex]->meshFileName = currentVAOMeshs[selectedMeshIndex];
-                        g_pMeshesToDraw[g_selectedObjectIndex]->position = glm::vec3(editPosition[0], editPosition[1], editPosition[2]);
-                        g_pMeshesToDraw[g_selectedObjectIndex]->orientation = glm::vec3(editRot[0], editRot[1], editRot[2]);
-                        g_pMeshesToDraw[g_selectedObjectIndex]->scale = editScale;
-                        g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB = glm::vec3(editColour[0], editColour[1], editColour[2]);
-                        g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB = glm::vec3(editSpecularHighlight[0], editSpecularHighlight[1], editSpecularHighlight[2]);
-                        g_pMeshesToDraw[g_selectedObjectIndex]->specularPower = editSpecularPower;
-                        g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour = editOverrideColor;
-                        g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe = editWireframe;
-                        g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible = editVisible;
+                        if (ImGui::Button("Edit Object") || liveUpdate) {
+                             g_pMeshesToDraw[g_selectedObjectIndex]->position = glm::vec3(editPosition[0], editPosition[1], editPosition[2]);
+                             g_pMeshesToDraw[g_selectedObjectIndex]->orientation = glm::vec3(editRot[0], editRot[1], editRot[2]);
+                             g_pMeshesToDraw[g_selectedObjectIndex]->scale = editScale;
+                             g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB = glm::vec3(editColour[0], editColour[1], editColour[2]);
+                             g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB = glm::vec3(editSpecularHighlight[0], editSpecularHighlight[1], editSpecularHighlight[2]);
+                             g_pMeshesToDraw[g_selectedObjectIndex]->specularPower = editSpecularPower;
+                             g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour = editOverrideColor;
+                             g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe = editWireframe;
+                             g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible = editVisible;
+                        }
                     }
 
                     ImGui::EndTabItem();
@@ -556,6 +637,8 @@ int main(void) {
             } //End tab bar
 
             ImGuiIO& io = ImGui::GetIO();
+            ImGui::Text("Current Object: %d", g_selectedObjectIndex);
+            ImGui::Text("Current Light: %d", g_selectedLightIndex);
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }

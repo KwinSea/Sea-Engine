@@ -1,6 +1,6 @@
-133
+111
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
-1000 0 -1000
+500 0 -1000
 0 0 0
 1
 0.323529 0.323529 0.323529
@@ -1080,9 +1080,9 @@ assets/models/Dungeon_models/Plants/SM_Env_Grass_Tuft_04.ply
 1
 0
 assets/models/Dungeon_models/Plants/SM_Env_Fern_01.ply
+800 0 -1400
 0 0 0
--0.628319 1.20428 -2.70526
-300
+400
 0.435986 0.411765 0.617647
 1 1 1
 1
@@ -1109,240 +1109,13 @@ assets/models/Dungeon_models/Plants/SM_Env_Fern_01.ply
 1
 1
 0
-assets/models/Dungeon_models/Plants/SM_Env_Bramble_03.ply
-800 -100 -1200
--0.610865 0.506145 -0.0174533
-1
-0.715686 0.252595 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Plants/SM_Env_Bramble_03.ply
-1600 0 600
-0 0 0
-1
-0.715686 0.252595 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Plants/SM_Env_Bramble_03.ply
-2400 0 2800
--0.610865 0 0.680678
-1
-0.715686 0.252595 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Plants/SM_Env_Plant_Spikey_01.ply
-0 -5 2800
-0.139626 0 -0.226893
-1
-0 1 0.558823
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Plants/SM_Env_Plant_Spikey_01.ply
-3800 0 800
-0 0 0
-1
-0 1 0.558823
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Plants/SM_Env_Plant_Spikey_01.ply
-1000 -25 -1200
-0.802851 0 -6.28319
-1
-0 1 0.558823
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Plants/SM_Env_Tree_Dead_01.ply
-2600 -200 800
--0.541052 0 -0.366519
-50
-0.277656 0.308824 0.233131
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Plants/SM_Env_Tree_Dead_01.ply
-1800 -50 -1000
-0 0 0.296706
-50
-0.277656 0.308824 0.233131
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Plants/SM_Env_Tree_Dead_01.ply
-0 -90 1800
-0.0174533 0 -0.767945
-50
-0.277656 0.308824 0.233131
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-2800 100 1800
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-0 100 200
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
--200 100 -500
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
--200 100 -1100
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
--100 100 -1200
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
--300 100 -1200
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-800 100 400
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-1700 100 600
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-1800 100 -200
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-1800 100 -600
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-2500 100 -1500
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-2200 100 1800
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
-assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
-1500 100 1800
-0 0 0
-25
-0.941177 1 0
-1 1 1
-1
-1
-1
-0
 20
-13000 1000 13000 0.5
+0 1000 0 0.5
 1 1 1 1
 1 1 1 1
 0 0.00010404 1.06193e-06 1
-0.246 -1 0 1
-2 1 45 0
-1 0 0 0
-1600 2800 0 1
-0 0.352941 1 1
-1 1 1 1
-0 3.03308e-05 1.28266e-06 1
-0 0 0 1
-0 1 45 0
+1 -1 0.4 1
+2 90 90 0
 1 0 0 0
 0 0 0 1
 1 1 1 1
@@ -1393,80 +1166,87 @@ assets/models/Dungeon_models/Props/SM_Item_Compass_01.ply
 0 0 0 1
 0 1 45 0
 0 0 0 0
-2800 100 1800 1
+0 0 0 1
 1 1 1 1
 1 1 1 1
-0 0.12302 0.0112626 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
 0 0 0 0
-1500 100 1900 1
-0.970588 1 0 1
+0 0 0 1
 1 1 1 1
-0 0.117596 0.00352364 1
+1 1 1 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
-1 0 0 0
-2200 100 1800 1
-1 0.882353 0 1
+0 0 0 0
+0 0 0 1
 1 1 1 1
-0 0.0228764 0.0123587 1
+1 1 1 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
-1 0 0 0
-1600 200 600 1
-1 0.911765 0 1
+0 0 0 0
+0 0 0 1
 1 1 1 1
-0 0.124581 0.0160233 1
+1 1 1 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
-1 0 0 0
-1800 100 -200 1
-1 0.794118 0 1
+0 0 0 0
+0 0 0 1
 1 1 1 1
-0 0.0933961 0.00654424 1
+1 1 1 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
-1 0 0 0
-1600 100 1800 1
+0 0 0 0
+0 0 0 1
 1 1 1 1
 1 1 1 1
-0 0.109015 0.00262163 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
-1 0 0 0
-800 100 400 1
-0.970588 1 0 1
+0 0 0 0
+0 0 0 1
 1 1 1 1
-0 0.0497131 0.0117365 1
+1 1 1 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
-1 0 0 0
--200 100 -1100 1
-1 0.852941 0 1
+0 0 0 0
+0 0 0 1
 1 1 1 1
-0 0.0896277 0.00982962 1
+1 1 1 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
-1 0 0 0
--200 100 -600 1
-1 1 0 1
+0 0 0 0
+0 0 0 1
 1 1 1 1
-0 0.0825852 0.00788498 1
+1 1 1 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
-1 0 0 0
-0 100 200 1
-1 0.911765 0 1
-1 1 1 1
-0 0.122591 0.00739644 1
-0 -1 0 1
-0 90 90 0
-1 0 0 0
-2400 100 -1400 1
+0 0 0 0
+0 0 0 1
 1 1 1 1
 1 1 1 1
-0 0.0915357 0.0125316 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
 0 0 0 1
 0 1 45 0
 0 0 0 0
