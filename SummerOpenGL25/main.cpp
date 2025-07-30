@@ -17,18 +17,12 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
-#include <filesystem>
 
 #include "cShaderManager/cShaderManager.h"
 #include "cVAOManager/cVAOManager.h"
 #include "cLightManager.h"
 #include "cMeshObject.h"
 #include "cLightHelper/cLightHelper.h"
-#include "Camera.h"
-#include "Functions.h"
-#include "imgui/imgui.h"
-#include "imgui/backends/imgui_impl_glfw.h"
-#include "imgui/backends/imgui_impl_opengl3.h"
 
 
 cShaderManager* g_pTheShaderManager = NULL;
@@ -36,26 +30,14 @@ cVAOManager* g_pMeshManager = NULL;
 cLightManager* g_pLights = NULL;
 
 cMeshObject* g_pSmoothSphere = NULL;
-cMeshObject* g_pSelectedMeshIndicator = NULL;
 
 extern unsigned int g_selectedLightIndex;
-extern unsigned int g_selectedObjectIndex;
-
-extern float object_move_speed;
-extern float object_rotate_speed;
-extern float light_move_speed;
-
 extern bool lightDebug;
-extern bool meshDebug;
 
-unsigned int screenWidth = 1280;
-unsigned int screenHeight = 720;
-
-int g_LightingType = 0;
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
-
-Camera camera (screenWidth, screenHeight, glm::vec3(2000.0f, 2000.0f, 2000.0f));
+glm::vec3 g_cameraEye = glm::vec3(8.0, -4.5f, -1.5f);
+glm::vec3 cameraTarget = glm::vec3(8.0f, -4.5f, -2.5f);
 
 void LoadFilesIntoVAOManager(GLuint program);
 
@@ -69,8 +51,6 @@ static void error_callback(int error, const char* description) {
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-
 
 
 int main(void) {
@@ -88,14 +68,13 @@ int main(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-    window = glfwCreateWindow(screenWidth, screenHeight, "Simple example", NULL, NULL);
+    window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
     if (!window) {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
 
     glfwSetKeyCallback(window, key_callback);
-    glfwSetScrollCallback(window, scroll_callback);
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glfwSwapInterval(1);
@@ -133,86 +112,55 @@ int main(void) {
     ::g_pLights->GetUniformLocations(program);
 
     // Light 1
-    ::g_pLights->theLights[0].param2.x = 0.0f; // turn on
+
+    ::g_pLights->theLights[0].param2.x = 1.0f; // turn on
     ::g_pLights->theLights[0].param1.x = 0.0f; // light type = point light
-    g_pLights->theLights[0].position = glm::vec4(13000.0f, 1000.0f, 13000.0f, 0.5f);
-    g_pLights->theLights[0].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
+    g_pLights->theLights[0].position = glm::vec4(0.0f, 300.0f, -10.0f, 0.0f);
+    g_pLights->theLights[0].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
-    g_pLights->theLights[0].atten.x = 0.0f; // constant
-    g_pLights->theLights[0].atten.y = 0.0001f; // linear
-    g_pLights->theLights[0].atten.z = 0.00001f; // quadratic
+    ::g_pLights->theLights[0].atten.x = 0.0f; // constant
+    ::g_pLights->theLights[0].atten.y = 0.0005f; // linear
+    ::g_pLights->theLights[0].atten.z = 0.00005f; // quadratic
+    ::g_pLights->theLights[0].atten.w = 100000.0f;
 
-    // // Light 2
-    // ::g_pLights->theLights[1].param2.x = 0.0f; // turn on
-    // ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
-    // g_pLights->theLights[1].position = glm::vec4(-500.0f, 1000.0f, 13000.0f, 0.5f);
-    // g_pLights->theLights[1].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-    //
-    // g_pLights->theLights[1].atten.x = 0.0f; // constant
-    // g_pLights->theLights[1].atten.y = 0.0001f; // linear
-    // g_pLights->theLights[1].atten.z = 0.00001f; // quadratic
-    //
-    // // Light 3
-    // ::g_pLights->theLights[2].param2.x = 0.0f; // turn on
-    // ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
-    // g_pLights->theLights[2].position = glm::vec4(13000.0f, 1000.0f, 0.0f, 0.5f);
-    // g_pLights->theLights[2].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-    //
-    // g_pLights->theLights[2].atten.x = 0.0f; // constant
-    // g_pLights->theLights[2].atten.y = 0.0001f; // linear
-    // g_pLights->theLights[2].atten.z = 0.00001f; // quadratic
-    //
-    // // Light 4
-    // ::g_pLights->theLights[3].param2.x = 0.0f; // turn on
-    // ::g_pLights->theLights[3].param1.x = 0.0f; // light type = point light
-    // g_pLights->theLights[3].position = glm::vec4(-500.0f, 1000.0f, -500.0f, 0.5f);
-    // g_pLights->theLights[3].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-    //
-    // g_pLights->theLights[3].atten.x = 0.0f; // constant
-    // g_pLights->theLights[3].atten.y = 0.0001f; // linear
-    // g_pLights->theLights[3].atten.z = 0.00001f; // quadratic
-    //
-    // // Camera Light
-    // g_pLights->theLights[19].param2.x = 0.0f; // turn on
-    // g_pLights->theLights[19].param1.x = 1.0f;
-    // g_pLights->theLights[19].position = glm::vec4(camera.Position, 1.0f);
-    // g_pLights->theLights[19].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    // g_pLights->theLights[19].param1.z = 10.0f;
-    //
-    // g_pLights->theLights[19].atten.x = 0.0f; // constant
-    // g_pLights->theLights[19].atten.y = 0.001f; // linear
-    // g_pLights->theLights[19].atten.z = 0.00001f; // quadratic
 
-    // Initialize ImGui
-    ImGui::CreateContext();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 420");
-    ImGui::StyleColorsDark();
-
-    ::g_pSelectedMeshIndicator = new cMeshObject();
-    ::g_pSmoothSphere = new cMeshObject();
     while (!glfwWindowShouldClose(window)) {
+        float ratio;
         int width, height;
+        //       mat4x4 m, p, mvp;
+        glm::mat4 matProj, matView;
         glfwGetFramebufferSize(window, &width, &height);
+        ratio = width / (float)height;
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glUseProgram(program);
 
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+        GLint proj_location = glGetUniformLocation(program, "mProj");
+        GLint view_location = glGetUniformLocation(program, "mView");
 
-        camera.InputHandler(window);
-        camera.Matrix(60.0f, 0.1f, 100.0f, *g_pTheShaderManager, "camMatrix");
+
+        //mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
+        matProj = glm::perspective(0.6f,
+                                   ratio,
+                                   0.1f,
+                                   100000.0f);
+
+        matView = glm::mat4(1.0f);
+
+        glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
+
+        matView = glm::lookAt(g_cameraEye,
+                              cameraTarget,
+                              upVector);
 
         GLint eyeLocation_UL = glGetUniformLocation(program, "eyeLocation");
 
-        glUniform3f(eyeLocation_UL, camera.Position.x, camera.Position.y, camera.Position.z);
+        glUniform3f(eyeLocation_UL,
+                    ::g_cameraEye.x, ::g_cameraEye.y, ::g_cameraEye.z);
 
-        // Lighting type
-        GLint lightingType_UL = glGetUniformLocation(program, "lightingType");
-        glUniform1i(lightingType_UL, g_LightingType);
+        glUniformMatrix4fv(proj_location, 1, GL_FALSE, glm::value_ptr(matProj));
+        glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(matView));
 
         ::g_pLights->UpdateShaderUniforms(program);
 
@@ -221,131 +169,28 @@ int main(void) {
             DrawMesh(pCurrentMesh, program);
         }
 
-        // Firefly Flicker
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[9].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[9].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[10].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[10].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[11].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[11].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[12].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[12].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[13].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[13].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[14].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[14].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[15].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[15].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[16].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[16].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[17].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[17].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[18].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[18].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[19].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[19].param2.x = 0.0f; // turn off
-        }
-
-        g_pLights->theLights[9].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[9].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[10].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[10].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[11].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[11].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[12].atten.y = 0.1f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[12].atten.z = 0.01f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[13].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[13].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[14].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[14].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[15].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[15].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[16].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[16].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[17].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[17].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[18].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[18].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[19].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[19].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
+        /*::g_pSmoothSphere = new cMeshObject();
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
         ::g_pSmoothSphere->bIsWireframe = true;
         ::g_pSmoothSphere->bOverrideVertexModelColour = true;
-        ::g_pSmoothSphere->bIsVisible = lightDebug;
+        ::g_pSmoothSphere->colourRGB = glm::vec4(1.0f);
+        ::g_pSmoothSphere->scale = 0.2f;
+
         ::g_pSmoothSphere->position = glm::vec3(
             ::g_pLights->theLights[::g_selectedLightIndex].position.x,
             ::g_pLights->theLights[::g_selectedLightIndex].position.y,
             ::g_pLights->theLights[::g_selectedLightIndex].position.z);
 
-
-        if (!g_pMeshesToDraw.empty() && g_selectedObjectIndex < g_pMeshesToDraw.size()) {
-            // Selected Mesh Indicator
-            ::g_pSelectedMeshIndicator->meshFileName = ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
-            ::g_pSelectedMeshIndicator->bIsWireframe = true;
-            ::g_pSelectedMeshIndicator->bOverrideVertexModelColour = true;
-            ::g_pSelectedMeshIndicator->bIsVisible = meshDebug;
-            ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale * 1.01f;
-            ::g_pSelectedMeshIndicator->colourRGB = RGBify(255, 165, 0);
-            ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec3(1.0f);
-            ::g_pSelectedMeshIndicator->specularPower = 0.0f;
-            ::g_pSelectedMeshIndicator->position = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position;
-            ::g_pSelectedMeshIndicator->orientation = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation;
-
-            DrawMesh(g_pSelectedMeshIndicator, program);
-        }
+        DrawMesh(g_pSmoothSphere, program);*/
+        ::g_pSmoothSphere = new cMeshObject();
+        ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
+        ::g_pSmoothSphere->bIsWireframe = true;
+        ::g_pSmoothSphere->bOverrideVertexModelColour = true;
+        g_pSmoothSphere->bIsVisible = lightDebug;
+        ::g_pSmoothSphere->position = glm::vec3(
+            ::g_pLights->theLights[::g_selectedLightIndex].position.x,
+            ::g_pLights->theLights[::g_selectedLightIndex].position.y,
+            ::g_pLights->theLights[::g_selectedLightIndex].position.z);
 
         cLightHelper lightHelper;
 
@@ -399,194 +244,42 @@ int main(void) {
 
         std::stringstream ssWindowTitle;
 
-        ssWindowTitle << "Session info [ Camera Speed: " << camera.speed << " | Object Speed: " << object_move_speed << " | Rotation Speed: " << object_rotate_speed << " | Light Speed: " << light_move_speed << " ]   [ Camera X:" << camera.Position.x << " | Camera Y:" << camera.Position.y << " | Camera Z:" << camera.Position.z << " ]"<< std::endl;
+        ssWindowTitle << "Camera (XYZ)" << ::g_cameraEye.x << ","
+            << ::g_cameraEye.y << ", " << ::g_cameraEye.z << std::endl;
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 
-        ImGui::SetNextWindowSize(ImVec2(screenWidth * 0.32, screenHeight * 0.8));
-        ImGui::Begin("Simple Editor", nullptr,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize);
-        {
-            static int selectedMeshIndex = 0;
-            std::vector<std::string> currentVAOMeshs;
-            for (const std::pair<const std::string, sModelDrawInfo>& pair : g_pMeshManager->GetMapOfMesh()) {
-                currentVAOMeshs.push_back(pair.first);
-            }
+        /* if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/cow.ply",
+             modelToDraw))
+         {
+             glBindVertexArray(modelToDraw.VAO_ID);
+             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
+                 GL_UNSIGNED_INT, (void*)0);
+             glBindVertexArray(0);
+         }
 
-            if (ImGui::BeginMenuBar()) {
-                if (ImGui::BeginMenu("File")) {
-                    if (ImGui::MenuItem("Load")) {LoadScene();}
-                    if (ImGui::MenuItem("Save")) {SaveScene();}
-                    ImGui::EndMenu();
-                }
-                ImGui::EndMenuBar();
-            }
+         if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/Utah_Teapot.ply",
+             modelToDraw))
+         {
+             glBindVertexArray(modelToDraw.VAO_ID);
+             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
+                 GL_UNSIGNED_INT, (void*)0);
+             glBindVertexArray(0);
+         }
 
-            if (ImGui::BeginTabBar("SceneEditor")) {
-                // lighting tab
-                if (ImGui::BeginTabItem("Lighting")) {
-                    ImGui::Text("Edit Light");
+         if (::g_pMeshManager->FindDrawInfoByModelName("assets/models/dolphin.ply",
+             modelToDraw))
+         {
+             glBindVertexArray(modelToDraw.VAO_ID);
+             glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
+                 GL_UNSIGNED_INT, (void*)0);
+             glBindVertexArray(0);
+         }*/
 
-                    glm::vec4* directionRadians = &g_pLights->theLights[g_selectedLightIndex].direction;
-                    glm::vec4 directionDegrees = glm::degrees(*directionRadians);
-
-                    float* lightTypeValue = &g_pLights->theLights[g_selectedLightIndex].param1.x;
-                    int lightType = *lightTypeValue;
-
-                    float* lightStateValue = &g_pLights->theLights[g_selectedLightIndex].param2.x;
-                    int lightState = *lightStateValue;
-
-                    ImGui::InputFloat3("Edit Position",  glm::value_ptr(g_pLights->theLights[g_selectedLightIndex].position));
-                    if ( lightType >= 1 &&
-                        ImGui::SliderFloat3("Edit Direction", glm::value_ptr(directionDegrees), -180.0f, 180.0f)) {
-
-                        *directionRadians = glm::radians(directionDegrees);
-                    }
-
-                    ImGui::InputFloat4("Edit attenuation", glm::value_ptr(g_pLights->theLights[g_selectedLightIndex].atten),"%.7f");
-
-
-                    ImGui::ColorEdit4("Edit Diffuse", glm::value_ptr(g_pLights->theLights[g_selectedLightIndex].diffuse));
-                    ImGui::ColorEdit4("Edit Specular", glm::value_ptr(g_pLights->theLights[g_selectedLightIndex].specular));
-
-                    if (ImGui::SliderInt("Edit Light Type", &lightType, 0, 2)) {
-                        g_pLights->theLights[g_selectedLightIndex].param1.x = lightType;
-                    }
-                    if (ImGui::IsItemHovered()){
-                        ImGui::SetTooltip("0 = Point Light\n1 = Spot Light\n2 = Directional Light");
-                    }
-
-                    if (lightType == 1) {
-                        if (ImGui::SliderFloat("Edit Spot Inner Angle", &g_pLights->theLights[g_selectedLightIndex].param1.y, 0.0f, 180.0f) &&
-                            g_pLights->theLights[g_selectedLightIndex].param1.z < g_pLights->theLights[g_selectedLightIndex].param1.y) {
-
-                            g_pLights->theLights[g_selectedLightIndex].param1.z = g_pLights->theLights[g_selectedLightIndex].param1.y;
-                        }
-                        if ( ImGui::SliderFloat("Edit Spot Outer Angle", &g_pLights->theLights[g_selectedLightIndex].param1.z, 0.0f, 180.0f) &&
-                            g_pLights->theLights[g_selectedLightIndex].param1.y > g_pLights->theLights[g_selectedLightIndex].param1.z) {
-
-                            g_pLights->theLights[g_selectedLightIndex].param1.y = g_pLights->theLights[g_selectedLightIndex].param1.z;
-                        }
-                    }
-
-                    if (ImGui::SliderInt("Edit Light State", &lightState, 0, 1)) {
-                        g_pLights->theLights[g_selectedLightIndex].param2.x = lightState;
-                    }
-                    if (ImGui::IsItemHovered()) {
-                        ImGui::SetTooltip("0 = Off\n1 = On");
-                    }
-
-                    ImGui::Separator();
-
-                    ImGui::SliderInt("Lighting mode", &g_LightingType, 0, 2);
-                    ImGui::EndTabItem();
-                } // End lighting tab
-
-                // Objects tab
-                if (ImGui::BeginTabItem("Objects")) {
-
-                    // Add object
-                    if (!currentVAOMeshs.empty()) {
-                        std::vector<const char*> meshNames;
-                        for (std::string& mesh : currentVAOMeshs) {
-                            meshNames.push_back(mesh.c_str());
-                        }
-
-                        ImGui::Text("Add Object");
-
-                        static float addPosition[3] = {0.0f, 0.0f, 0.0f};
-                        static float addRot[3] = {0.0f, 0.0f, 0.0f};
-                        static float addScale = 1.0f;
-                        static float addColour[3] = {1.0f, 1.0f, 1.0f};
-                        static float addSpecularHighlight[3] = {1.0f, 1.0f, 1.0f};
-                        static float addSpecularPower = 1.0f;
-                        static bool addOverrideColor = false;
-                        static bool addWireframe = false;
-                        static bool addVisible = true;
-
-                        ImGui::InputFloat3("Position", addPosition);
-                        ImGui::SliderFloat3("Orientation", addRot, -180.0f, 180.0f);
-                        ImGui::InputFloat("Scale", &addScale);
-                        ImGui::ColorEdit3("Colour RGB", addColour);
-                        ImGui::ColorEdit3("Specular Highlight", addSpecularHighlight);
-                        ImGui::InputFloat("Specular Power", &addSpecularPower);
-                        ImGui::Checkbox("Override Color", &addOverrideColor);
-                        ImGui::Checkbox("Wireframe", &addWireframe);
-                        ImGui::Checkbox("Visible", &addVisible);
-
-                        if (ImGui::Combo("Mesh List", &selectedMeshIndex, meshNames.data(), meshNames.size()));
-                        if (selectedMeshIndex >= 0 && selectedMeshIndex < currentVAOMeshs.size()) {
-                            if (ImGui::Button("Add")) {
-
-                                cMeshObject* pNewObject = new cMeshObject();
-                                pNewObject->meshFileName = currentVAOMeshs[selectedMeshIndex];
-                                pNewObject->position = glm::vec3(addPosition[0], addPosition[1], addPosition[2]);
-                                pNewObject->orientation = glm::radians(glm::vec3(addRot[0], addRot[1], addRot[2]));
-                                pNewObject->scale = addScale;
-                                pNewObject->colourRGB = glm::vec3(addColour[0], addColour[1], addColour[2]);
-                                pNewObject->specularHighLightRGB = glm::vec3(addSpecularHighlight[0], addSpecularHighlight[1], addSpecularHighlight[2]);
-                                pNewObject->specularPower = addSpecularPower;
-                                pNewObject->bOverrideVertexModelColour = addOverrideColor;
-                                pNewObject->bIsWireframe = addWireframe;
-                                pNewObject->bIsVisible = addVisible;
-
-                                ::g_pMeshesToDraw.push_back(pNewObject);
-
-                                // Rest form
-                                addPosition[0] = addPosition[1] = addPosition[2] = 0.0f;
-                                addRot[0] = addRot[1] = addRot[2] = 0.0f;
-                                addScale = 1.0f;
-                                addColour[0] = addColour[1] = addColour[2] = 1.0f;
-                                addSpecularHighlight[0] = addSpecularHighlight[1] = addSpecularHighlight[2] = 1.0f;
-                                addSpecularPower = 1.0f;
-                                addOverrideColor = false;
-                                addWireframe = false;
-                                addVisible = true;
-
-                                g_selectedObjectIndex = g_pMeshesToDraw.size() - 1;
-                            }
-                        }
-                    }
-
-                    ImGui::Separator();
-                    ImGui::Text("Edit Object");
-
-                    if (!g_pMeshesToDraw.empty() && g_selectedObjectIndex < g_pMeshesToDraw.size()) {
-                        glm::vec3* orientationRadians = &g_pMeshesToDraw[g_selectedObjectIndex]->orientation;
-                        glm::vec3 orientationDegrees = glm::degrees(*orientationRadians);
-
-                        ImGui::InputFloat3("Edit Position", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->position));
-                        if (ImGui::SliderFloat3("Edit Orientation", glm::value_ptr(orientationDegrees), -180.0f, 180.0f)) {
-                            *orientationRadians = glm::radians(orientationDegrees);
-                        }
-                        ImGui::InputFloat("Edit Scale", &g_pMeshesToDraw[g_selectedObjectIndex]->scale);
-                        ImGui::ColorEdit3("Edit Specular Highlight", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB));
-                        ImGui::InputFloat("Edit Specular Power", &g_pMeshesToDraw[g_selectedObjectIndex]->specularPower);
-                        ImGui::Checkbox("Edit Override Color", &g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour);
-                        ImGui::Checkbox("Edit Wireframe", &g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe);
-                        ImGui::Checkbox("Edit Visible", &g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible);
-                    }
-                    ImGui::EndTabItem();
-                } // End object tab
-                ImGui::EndTabBar();
-            } //End tab bar
-
-            ImGuiIO& io = ImGui::GetIO();
-            ImGui::Text("Current Object: %d", g_selectedObjectIndex);
-            ImGui::Text("Current Light: %d", g_selectedLightIndex);
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-            ImGui::End();
-        }
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
     glfwDestroyWindow(window);
     glfwTerminate();
     exit(EXIT_SUCCESS);
@@ -595,32 +288,95 @@ int main(void) {
 void LoadFilesIntoVAOManager(GLuint program) {
     ::g_pMeshManager = new cVAOManager();
 
-    std::string AssetsFolder = "assets/";
-    std::vector<std::string> modelFiles;
-
-    std::cout << "Searching for models in assets folder...\n";
-    std::vector<sModelDrawInfo> meshObjects;
-
-    try {
-        for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(AssetsFolder)) {
-            if (file.is_regular_file() && file.path().extension() == ".ply") {
-                sModelDrawInfo meshObject;
-                std::string meshFile = file.path().generic_string();
-                if (!::g_pMeshManager->LoadModelIntoVAO(meshFile, meshObject, program, 1.0f)) {
-                    std::cout << "Model at: " << meshFile << " not loaded into VAO!" << std::endl;
-                } else {
-                    meshObjects.push_back(meshObject);
-                }
-            }
-        }
-    } catch (const std::filesystem::filesystem_error& ex) {
-        std::cerr << ex.what() << '\n';
+    sModelDrawInfo meshInfoIsland;
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Midterm_Models/DB_Island.ply",
+                                            meshInfoIsland, program, true, true, false, 0.0005f)) {
+        std::cout << "Island not loaded into VAO!" << std::endl;
     }
-    std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
+
+    sModelDrawInfo meshInfoWall;
+
+    if (!g_pMeshManager->LoadModelIntoVAO("assets/models/Midterm_Models/SM_Env_Dwarf_Wall_01.ply",
+                                          meshInfoWall, program, true, true, false, 0.005f)) {
+        std::cout << "SM_Env_Dwarf_Wall_01 not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoDoor;
+
+    if (!g_pMeshManager->LoadModelIntoVAO("assets/models/Midterm_Models/SM_Env_Dwarf_Wall_Archway_01.ply",
+                                          meshInfoDoor, program, true, true, false, 0.005f)) {
+        std::cout << "SM_Env_Dwarf_Wall_Archway_0 not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoCRock;
+
+    if (!g_pMeshManager->LoadModelIntoVAO("assets/models/Midterm_Models/SM_Env_Crystals_Cluster_Large_01.ply",
+                                          meshInfoCRock, program, true, true, false, 0.005f)) {
+        std::cout << "v not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoFloor;
+
+    if (!g_pMeshManager->LoadModelIntoVAO("assets/models/Midterm_Models/SM_Env_Dwarf_Floor_01.ply",
+                                          meshInfoFloor, program, true, true, false, 0.005f)) {
+        std::cout << "SM_Env_Dwarf_Floor_01.ply not loaded into VAO!" << std::endl;
+    }
+
+    sModelDrawInfo meshInfoTorch;
+
+    if (!g_pMeshManager->LoadModelIntoVAO("assets/models/Midterm_Models/SM_Prop_Dwarf_Torch_01.ply",
+                                          meshInfoTorch, program, true, true, false, 0.005f)) {
+        std::cout << "SM_Prop_Dwarf_Torch_01 not loaded into VAO!" << std::endl;
+    }
+
+
+    sModelDrawInfo SmoothSphereMeshInfo;
+
+    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply",
+                                            SmoothSphereMeshInfo, program, true, true, false, 1.0f)) {
+        std::cout << "SmoothSphere NOT loaded into VAO!" << std::endl;
+    }
 }
 
 void LoadModelsIntoScene() {
+    cMeshObject* pIsland = new cMeshObject();
+    pIsland->position.y = -5.f;
+    pIsland->bIsWireframe = false;
+    pIsland->meshFileName = "assets/models/Midterm_Models/DB_Island.ply";
 
+    ::g_pMeshesToDraw.push_back(pIsland);
+
+    cMeshObject* pWall = new cMeshObject();
+    pWall->position.x = 10.5f;
+    pWall->position.y = -4.5f;
+    pWall->position.z = 15.f;
+    pWall->meshFileName = "assets/models/Midterm_Models/SM_Env_Dwarf_Wall_01.ply";
+
+    ::g_pMeshesToDraw.push_back(pWall);
+
+    cMeshObject* pFloor = new cMeshObject();
+    pFloor->position.x = 10.5f;
+    pFloor->position.y = -4.5f;
+    pFloor->position.z = 15.f;
+    pFloor->meshFileName = "assets/models/Midterm_Models/SM_Env_Dwarf_Floor_01.ply";
+
+    ::g_pMeshesToDraw.push_back(pFloor);
+
+    cMeshObject* pDoor = new cMeshObject();
+    pDoor->position.x = 10.5f;
+    pDoor->position.y = -4.5f;
+    pDoor->position.z = 15.f;
+    pDoor->meshFileName = "assets/models/Midterm_Models/SM_Env_Dwarf_Wall_Archway_01.ply";
+
+    ::g_pMeshesToDraw.push_back(pDoor);
+
+    cMeshObject* pCRock = new cMeshObject();
+    pCRock->position.x = 10.5f;
+    pCRock->position.y = -4.5f;
+    pCRock->position.z = 15.f;
+    pCRock->meshFileName = "assets/models/Midterm_Models/SM_Env_Crystals_Cluster_Large_01.ply";
+
+    ::g_pMeshesToDraw.push_back(pCRock);
 }
 
 void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {

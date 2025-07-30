@@ -4,41 +4,17 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <glm/ext/matrix_transform.hpp>
-#include <glm/ext/quaternion_trigonometric.hpp>
-
-#include "Camera.h"
 #include "cMeshObject.h"
 #include "cLightManager.h"
-#include "Functions.h"
-#include "cVAOManager/cVAOManager.h"
 
-extern Camera camera;
+extern glm::vec3 g_cameraEye;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 extern cLightManager* g_pLights;
-
-extern cVAOManager* g_pMeshManager;
-
-extern int g_LightingType;
-extern unsigned int screenWidth;
-extern unsigned int screenHeight;
+extern glm::vec3 cameraTarget;
 
 unsigned int g_selectedObjectIndex = 0;
 unsigned int g_selectedLightIndex = 0;
-
-float object_move_speed = 500.f;
-float light_move_speed = 100.f;
-float object_rotate_speed = glm::radians(90.0f);
-
 bool lightDebug = false;
-bool meshDebug = false;
-
-static std::pair<glm::vec3, glm::vec3> cameraAngles[4] = {
-    std::make_pair(glm::vec3(0.0), glm::vec3(0.0)),
-    std::make_pair(glm::vec3(0.0), glm::vec3(0.0)),
-    std::make_pair(glm::vec3(0.0), glm::vec3(0.0)),
-    std::make_pair(glm::vec3(0.0), glm::vec3(0.0))
-};
 
 bool isShiftDown(int mods) {
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
@@ -76,29 +52,33 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
 
+    float camera_speed = 0.125f;
+    float camera_move_speed = 0.25f;
+    const float object_move_speed = 0.1f;
+
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
         if (key == GLFW_KEY_A) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.x -= light_move_speed;
+            ::g_pLights->theLights[::g_selectedLightIndex].position.x += object_move_speed;
         }
 
-        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.x += light_move_speed;
+        if (key == GLFW_KEY_D) {
+            ::g_pLights->theLights[::g_selectedLightIndex].position.x -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed;
+        if (key == GLFW_KEY_Q) {
+            ::g_pLights->theLights[::g_selectedLightIndex].position.y += object_move_speed;
         }
 
-        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.y -= light_move_speed;
+        if (key == GLFW_KEY_E) {
+            ::g_pLights->theLights[::g_selectedLightIndex].position.y -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed;
+        if (key == GLFW_KEY_W) {
+            ::g_pLights->theLights[::g_selectedLightIndex].position.z += object_move_speed;
         }
 
-        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed;
+        if (key == GLFW_KEY_S) {
+            ::g_pLights->theLights[::g_selectedLightIndex].position.z -= object_move_speed;
         }
 
         if (key == GLFW_KEY_1) {
@@ -117,15 +97,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             g_pLights->theLights[g_selectedLightIndex].atten.z *= 1.02;
         }
 
-        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            light_move_speed += 5.0f;
-        }
-
-        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            light_move_speed -= 5.0f;
-        }
-
-        if (key == GLFW_KEY_RIGHT_BRACKET && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
             if (g_selectedLightIndex >= g_pLights->NUMBEROFLIGHTS - 1) {
                 g_selectedLightIndex = 0;
             } else {
@@ -133,7 +105,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
         }
 
-        if (key == GLFW_KEY_LEFT_BRACKET && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_O && action == GLFW_RELEASE) {
             if (g_selectedLightIndex == 0) {
                 g_selectedLightIndex = g_pLights->NUMBEROFLIGHTS - 1;
             } else {
@@ -141,210 +113,63 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
         }
 
-        if (key == GLFW_KEY_T && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_T && action == GLFW_RELEASE) {
             if (lightDebug) {
                 lightDebug = false;
             } else {
                 lightDebug = true;
             }
         }
-
-        if (key == GLFW_KEY_I && action == GLFW_RELEASE) {
-            std::string input;
-            std::cout << "Editing Selected Light\nIs light on (1 = True, 0 = False press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                 g_pLights->theLights[g_selectedLightIndex].param2.x = std::stof(input);
-            }
-
-            std::cout << "Enter light type (0 = point light, 1 = spot light, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                 g_pLights->theLights[g_selectedLightIndex].param1.x = std::stof(input);
-                 if (g_pLights->theLights[g_selectedLightIndex].param1.x == 1.0f) {
-                     std::cout << "Enter light inner angle (press Enter to skip): ";
-                     std::getline(std::cin, input);
-                     if (!input.empty()) {
-                         g_pLights->theLights[g_selectedLightIndex].param1.y = std::stof(input);
-                     }
-
-                     std::cout << "Enter light outer angle (press Enter to skip): ";
-                     std::getline(std::cin, input);
-                     if (!input.empty()) {
-                         g_pLights->theLights[g_selectedLightIndex].param1.z = std::stof(input);
-                     }
-
-                     std::cout << "Enter light new direction (x y z, press Enter to skip): ";
-                     std::getline(std::cin, input);
-                     if (!input.empty()) {
-                         std::istringstream ss(input);
-
-                         float inputX;
-                         float inputY;
-                         float inputZ;
-
-                         if (ss >> inputX >> inputY >> inputZ) {
-                             g_pLights->theLights[g_selectedLightIndex].direction.x = inputX;
-                             g_pLights->theLights[g_selectedLightIndex].direction.y = inputY;
-                             g_pLights->theLights[g_selectedLightIndex].direction.z = inputZ;
-                         }
-                     }
-                 }
-            }
-
-            std::cout << "Enter light new position (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    g_pLights->theLights[g_selectedLightIndex].position.x = inputX;
-                    g_pLights->theLights[g_selectedLightIndex].position.y = inputY;
-                    g_pLights->theLights[g_selectedLightIndex].position.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter light new diffuse (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    g_pLights->theLights[g_selectedLightIndex].diffuse = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
-                }
-            }
-
-            std::cout << "Enter light new specular (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    g_pLights->theLights[g_selectedLightIndex].specular = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
-                }
-            }
-
-            std::cout << "Enter light new attention (constant linear quadratic, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    g_pLights->theLights[g_selectedLightIndex].atten.x = inputX;
-                    g_pLights->theLights[g_selectedLightIndex].atten.y = inputY;
-                    g_pLights->theLights[g_selectedLightIndex].atten.z = inputZ;
-                }
-            }
-            std::cout << "Light Edited\n";
-        }
     }
 
     if ((mods & GLFW_MOD_ALT) == GLFW_MOD_ALT) {
-        if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y += object_rotate_speed;
+        if (key == GLFW_KEY_W) {
+            camera_speed += 0.5;
         }
 
-        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y -= object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x += object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x -= object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z += object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z -= object_rotate_speed;
-        }
-
-        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            object_rotate_speed += glm::radians(5.0f);
-        }
-
-        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            object_rotate_speed -= glm::radians(5.0f);
+        if (key == GLFW_KEY_S) {
+            camera_speed -= 0.5;
         }
     }
 
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
-        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
+        if (key == GLFW_KEY_A) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed;
         }
 
-        if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
+        if (key == GLFW_KEY_D) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
+        if (key == GLFW_KEY_Q) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y += object_move_speed;
         }
 
-        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
+        if (key == GLFW_KEY_E) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
+        if (key == GLFW_KEY_W) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed;
         }
 
-        if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
+        if (key == GLFW_KEY_S) {
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            object_move_speed += 5.0f;
+        if (key == GLFW_KEY_Z) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y -= object_move_speed;
         }
 
-        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            object_move_speed -= 5.0f;
+        if (key == GLFW_KEY_X) {
+            ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y += object_move_speed;
         }
 
-        if (key == GLFW_KEY_T && action == GLFW_PRESS) {
-            if (meshDebug) {
-                meshDebug = false;
-            } else {
-                meshDebug = true;
-            }
-        }
-
-        if (key == GLFW_KEY_H && action == GLFW_PRESS && !g_pMeshesToDraw.empty() && g_pMeshesToDraw[32] != nullptr) {
-            g_pMeshesToDraw[32]->colourRGB = glm::vec3(0.0f);
-            g_pLights->theLights[0].param2.x = 0.0f;
-        }
-
-        if (key == GLFW_KEY_G && action == GLFW_PRESS && !g_pMeshesToDraw.empty() && g_pMeshesToDraw[32] != nullptr) {
-            g_pMeshesToDraw[32]->colourRGB = glm::vec3(RGBify(0, 112, 255));
-            g_pLights->theLights[0].param2.x = 1.0f;
-        }
-
-        if (key == GLFW_KEY_M && action == GLFW_RELEASE) {
+        if (key == GLFW_KEY_M) {
             cMeshObject* pNewObject = new cMeshObject();
 
             // Mesh name
-            pNewObject->meshFileName =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
+            pNewObject->meshFileName = ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
 
             // Position
             pNewObject->position.x = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x;
@@ -373,249 +198,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             pNewObject->specularPower = ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularPower;
 
             // Attributes
-            pNewObject->bOverrideVertexModelColour = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bOverrideVertexModelColour; // Override color
+            pNewObject->bOverrideVertexModelColour = ::g_pMeshesToDraw[::g_selectedObjectIndex]->
+                bOverrideVertexModelColour; // Override color
             pNewObject->bIsVisible = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsVisible; // is Visible
             pNewObject->bIsWireframe = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsWireframe; // is Wireframe
 
             ::g_pMeshesToDraw.push_back(pNewObject);
         }
 
-        if (key == GLFW_KEY_I && action == GLFW_RELEASE) {
-
-            std::cout << "Editing Selected Object\nEnter object new position (x y z, press Enter to skip): ";
-            std::string input;
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = inputX;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y = inputY;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter object new orientation (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x = inputX;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y = inputY;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter object new scale (press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale = std::stof(input);
-            }
-
-            std::cout << "Enter object new colour (r g b, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
-                }
-            }
-
-            std::cout << "Enter object new Specular HighLight (r g b, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.x = inputX;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.y = inputY;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter object new Specular Power (press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularPower = std::stof(input);
-            }
-
-            std::cout << "Is object ColourOverride(1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bOverrideVertexModelColour = true;
-                } else if (std::stoi(input) == 0) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bOverrideVertexModelColour = false;
-                }
-            }
-
-            std::cout << "Is object Wireframe (1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsWireframe = true;
-                } else if (std::stoi(input) == 0) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsWireframe = false;
-                }
-            }
-
-            std::cout << "Is object Visible(1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsVisible = true;
-                } else if (std::stoi(input) == 0) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsVisible = false;
-                }
-            }
-            std::cout << "Object Edited\n";
-        }
-
-        if (key == GLFW_KEY_INSERT && action == GLFW_RELEASE) {
-            cMeshObject* pNewObject = new cMeshObject();
-
-            std::cout << "Adding New Object\n";
-            std::vector<std::string> currentVAOMeshs;
-            for (const std::pair<const std::string, sModelDrawInfo>& pair : g_pMeshManager->GetMapOfMesh()) {
-                currentVAOMeshs.push_back(pair.first);
-            }
-
-            for (int i = 0; i < currentVAOMeshs.size(); i++) {
-                std::cout << "[" << i << "] - " << currentVAOMeshs[i] << std::endl;
-            }
-
-            std::cout << "\nSelect new object mesh from above: ";
-            std::string input;
-            std::getline(std::cin, input);
-            pNewObject->meshFileName = currentVAOMeshs[std::stof(input)];
-
-            std::cout << "Enter new object position (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->position.x = inputX;
-                    pNewObject->position.y = inputY;
-                    pNewObject->position.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter new object orientation (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->orientation.x = inputX;
-                    pNewObject->orientation.y = inputY;
-                    pNewObject->orientation.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter new object scale (press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                pNewObject->scale = std::stof(input);
-            }
-
-            std::cout << "Enter new object colour (r g b, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->colourRGB = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
-                }
-            }
-
-            std::cout << "Enter new object Specular HighLight (r g b, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->specularHighLightRGB.x = inputX;
-                    pNewObject->specularHighLightRGB.y = inputY;
-                    pNewObject->specularHighLightRGB.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter new object Specular Power (press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                pNewObject->specularPower = std::stof(input);
-            }
-
-            std::cout << "Is new object ColourOverride(1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    pNewObject->bOverrideVertexModelColour = true;
-                } else if (std::stoi(input) == 0) {
-                    pNewObject->bOverrideVertexModelColour = false;
-                }
-            }
-
-            std::cout << "Is new object Wireframe (1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    pNewObject->bIsWireframe = true;
-                } else if (std::stoi(input) == 0) {
-                    pNewObject->bIsWireframe = false;
-                }
-            }
-
-            std::cout << "Is new object Visible(1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    pNewObject->bIsVisible = true;
-                } else if (std::stoi(input) == 0) {
-                    pNewObject->bIsVisible = false;
-                }
-            }
-
-            ::g_pMeshesToDraw.push_back(pNewObject);
-            std::cout << "Object Added\n";
-        }
-
-        if (key == GLFW_KEY_RIGHT_BRACKET && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
             if (::g_selectedObjectIndex >= ::g_pMeshesToDraw.size() - 1) {
                 ::g_selectedObjectIndex = 0;
             } else {
@@ -623,7 +214,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
         }
 
-        if (key == GLFW_KEY_LEFT_BRACKET && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_O && action == GLFW_RELEASE) {
             if (::g_selectedObjectIndex == 0) {
                 ::g_selectedObjectIndex = ::g_pMeshesToDraw.size() - 1;
             } else {
@@ -632,24 +223,186 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_ENTER && action == GLFW_RELEASE) {
-            SaveScene();
+            std::ofstream mySaveFile("my_scene.scene");
+
+            // Save num of mesh in scene
+            mySaveFile << ::g_pMeshesToDraw.size() << std::endl;
+
+            // Save scene objects
+            for (size_t index = 0; index < ::g_pMeshesToDraw.size(); index++) {
+                // Mesh name
+                mySaveFile << ::g_pMeshesToDraw[index]->meshFileName << std::endl;
+
+                // Position
+                mySaveFile << ::g_pMeshesToDraw[index]->position.x << " "
+                    << g_pMeshesToDraw[index]->position.y << " "
+                    << g_pMeshesToDraw[index]->position.z << std::endl;
+
+                // Orientation
+                mySaveFile << ::g_pMeshesToDraw[index]->orientation.x << " "
+                    << g_pMeshesToDraw[index]->orientation.y << " "
+                    << g_pMeshesToDraw[index]->orientation.z << std::endl;
+
+                // Scale
+                mySaveFile << ::g_pMeshesToDraw[index]->scale << std::endl;
+
+                // Color
+                mySaveFile << ::g_pMeshesToDraw[index]->colourRGB.r << " "
+                    << g_pMeshesToDraw[index]->colourRGB.g << " "
+                    << g_pMeshesToDraw[index]->colourRGB.b << std::endl;
+
+                // Specular highlight
+                mySaveFile << ::g_pMeshesToDraw[index]->specularHighLightRGB.r << " "
+                    << g_pMeshesToDraw[index]->specularHighLightRGB.g << " "
+                    << g_pMeshesToDraw[index]->specularHighLightRGB.b << std::endl;
+
+                // Specular power
+                mySaveFile << ::g_pMeshesToDraw[index]->specularPower << std::endl;
+
+                // Attitudes
+                mySaveFile << ::g_pMeshesToDraw[index]->bOverrideVertexModelColour << std::endl; // Override color
+                mySaveFile << ::g_pMeshesToDraw[index]->bIsVisible << std::endl; // is Visible
+                mySaveFile << ::g_pMeshesToDraw[index]->bIsWireframe << std::endl; // is Wireframe
+            }
+
+            // Save number of lights
+            mySaveFile << ::g_pLights->NUMBEROFLIGHTS << std::endl;
+
+            // Save lights
+            for (int index = 0; index < ::g_pLights->NUMBEROFLIGHTS; index++) {
+                // Position
+                mySaveFile << ::g_pLights->theLights[index].position.x << " "
+                    << g_pLights->theLights[index].position.y << " "
+                    << g_pLights->theLights[index].position.z << " "
+                    << g_pLights->theLights[index].position.w << std::endl;
+
+                // Diffuse
+                mySaveFile << ::g_pLights->theLights[index].diffuse.x << " "
+                    << g_pLights->theLights[index].diffuse.y << " "
+                    << g_pLights->theLights[index].diffuse.z << " "
+                    << g_pLights->theLights[index].diffuse.w << std::endl;
+
+                // Spucular
+                mySaveFile << ::g_pLights->theLights[index].specular.x << " "
+                    << g_pLights->theLights[index].specular.y << " "
+                    << g_pLights->theLights[index].specular.z << " "
+                    << g_pLights->theLights[index].specular.w << std::endl;
+
+                // Attenuation
+                mySaveFile << ::g_pLights->theLights[index].atten.x << " "
+                    << g_pLights->theLights[index].atten.y << " "
+                    << g_pLights->theLights[index].atten.z << " "
+                    << g_pLights->theLights[index].atten.w << std::endl;
+
+                // Direction
+                mySaveFile << ::g_pLights->theLights[index].direction.x << " "
+                    << g_pLights->theLights[index].direction.y << " "
+                    << g_pLights->theLights[index].direction.z << " "
+                    << g_pLights->theLights[index].direction.w << std::endl;
+
+                // Light type
+                mySaveFile << ::g_pLights->theLights[index].param1.x << " "
+                    << g_pLights->theLights[index].param1.y << " "
+                    << g_pLights->theLights[index].param1.z << " "
+                    << g_pLights->theLights[index].param1.w << std::endl;
+
+                // Light state
+                mySaveFile << ::g_pLights->theLights[index].param2.x << " "
+                    << g_pLights->theLights[index].param2.y << " "
+                    << g_pLights->theLights[index].param2.z << " "
+                    << g_pLights->theLights[index].param2.w << std::endl;
+            }
+
+            std::cout << "Scene Saved";
+            mySaveFile.close();
         }
 
         if (key == GLFW_KEY_L && action == GLFW_RELEASE) {
-            LoadScene();
-        }
+            std::ifstream mySaveFile("my_scene.scene");
 
-        if (key == GLFW_KEY_DELETE && action == GLFW_RELEASE) {
-            delete g_pMeshesToDraw[g_selectedObjectIndex];
-            g_pMeshesToDraw.erase(g_pMeshesToDraw.begin() + g_selectedObjectIndex);
-
-            if (g_selectedObjectIndex >= g_pMeshesToDraw.size() && !g_pMeshesToDraw.empty()) {
-                g_selectedObjectIndex = g_pMeshesToDraw.size() - 1;
-            } else if (g_pMeshesToDraw.empty()) {
-                g_selectedObjectIndex = 0;
+            if (!mySaveFile.is_open()) {
+                std::cout << "Did not open scene file!" << std::endl;
+                return;
             }
 
-            std::cout << "Object deleted\n";
+            // Delets mesh in vector
+            for (cMeshObject* ptr : ::g_pMeshesToDraw) {
+                delete ptr;
+            }
+            ::g_pMeshesToDraw.clear();
+
+            int meshesInScene = 0;
+            mySaveFile >> meshesInScene;\
+
+            // Load meshs
+            for (int index = 0; index < meshesInScene; index++) {
+                cMeshObject* pNewObject = new cMeshObject();
+
+                mySaveFile >> pNewObject->meshFileName;
+                mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
+                mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
+                mySaveFile >> pNewObject->scale;
+                mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
+                mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->
+                    specularHighLightRGB.b;
+                mySaveFile >> pNewObject->specularPower;
+                mySaveFile >> pNewObject->bOverrideVertexModelColour;
+                mySaveFile >> pNewObject->bIsVisible;
+                mySaveFile >> pNewObject->bIsWireframe;
+
+
+                ::g_pMeshesToDraw.push_back(pNewObject);
+            }
+
+            // Load number of lights
+            int lightsInScene = 0;
+            mySaveFile >> lightsInScene;
+            for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {
+                // Position
+                mySaveFile >> g_pLights->theLights[i].position.x
+                    >> g_pLights->theLights[i].position.y
+                    >> g_pLights->theLights[i].position.z
+                    >> g_pLights->theLights[i].position.w;
+
+                // Diffuse
+                mySaveFile >> g_pLights->theLights[i].diffuse.x
+                    >> g_pLights->theLights[i].diffuse.y
+                    >> g_pLights->theLights[i].diffuse.z
+                    >> g_pLights->theLights[i].diffuse.w;
+
+                // Specular
+                mySaveFile >> g_pLights->theLights[i].specular.x
+                    >> g_pLights->theLights[i].specular.y
+                    >> g_pLights->theLights[i].specular.z
+                    >> g_pLights->theLights[i].specular.w;
+
+                // Attenuation
+                mySaveFile >> g_pLights->theLights[i].atten.x
+                    >> g_pLights->theLights[i].atten.y
+                    >> g_pLights->theLights[i].atten.z
+                    >> g_pLights->theLights[i].atten.w;
+
+                // Direction
+                mySaveFile >> g_pLights->theLights[i].direction.x
+                    >> g_pLights->theLights[i].direction.y
+                    >> g_pLights->theLights[i].direction.z
+                    >> g_pLights->theLights[i].direction.w;
+
+                // Light type
+                mySaveFile >> g_pLights->theLights[i].param1.x
+                    >> g_pLights->theLights[i].param1.y
+                    >> g_pLights->theLights[i].param1.z
+                    >> g_pLights->theLights[i].param1.w;
+
+                // Light state
+                mySaveFile >> g_pLights->theLights[i].param2.x
+                    >> g_pLights->theLights[i].param2.y
+                    >> g_pLights->theLights[i].param2.z
+                    >> g_pLights->theLights[i].param2.w;
+            }
+
+            std::cout << "Scene Loaded";
+            mySaveFile.close();
         }
 
         if (key == GLFW_KEY_BACKSPACE && action == GLFW_RELEASE) {
@@ -659,121 +412,63 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             ::g_pMeshesToDraw.clear();
 
-            std::cout << "Scene Cleared\n";
-        }
-
-        // Save camera angle 1
-        if (key == GLFW_KEY_F1 && action == GLFW_RELEASE) {
-            cameraAngles[0] = std::make_pair(camera.Position, camera.Orientation);
-            std::cout << "Camera Angle 1 Saved";
-        }
-
-        // Save camera angle 2
-        if (key == GLFW_KEY_F2 && action == GLFW_RELEASE) {
-            cameraAngles[1] = std::make_pair(camera.Position, camera.Orientation);
-            std::cout << "Camera Angle 2 Saved";
-        }
-
-        // Save camera angle 3
-        if (key == GLFW_KEY_F3 && action == GLFW_RELEASE) {
-            cameraAngles[2] = std::make_pair(camera.Position, camera.Orientation);
-            std::cout << "Camera Angle 3 Saved";
-        }
-
-        // Save camera angle 4
-        if (key == GLFW_KEY_F4 && action == GLFW_RELEASE) {
-            cameraAngles[3] = std::make_pair(camera.Position, camera.Orientation);
-            std::cout << "Camera Angle 4 Saved";
+            std::cout << "Scene Cleared";
         }
     }
 
     if (!areAnyModifiersDown(mods)) {
         if (key == GLFW_KEY_A) {
-            camera.Position += camera.speed * -glm::normalize(glm::cross(camera.Orientation, camera.Up));
+            ::cameraTarget.x += camera_move_speed;
+            ::g_cameraEye.x += camera_move_speed;
         }
 
-        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * glm::normalize(glm::cross(camera.Orientation, camera.Up));
+        if (key == GLFW_KEY_D) {
+            ::cameraTarget.x -= camera_move_speed;
+            ::g_cameraEye.x -= camera_move_speed;
         }
 
-
-        if (key == GLFW_KEY_W && action != GLFW_RELEASE) {
-         camera.Position += camera.speed * glm::normalize(glm::vec3(camera.Orientation));
+        if (key == GLFW_KEY_W) {
+            ::cameraTarget.z += camera_move_speed;
+            ::g_cameraEye.z += camera_move_speed;
         }
 
-
-        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * glm::normalize(glm::vec3(-camera.Orientation));
+        if (key == GLFW_KEY_S) {
+            ::cameraTarget.z -= camera_move_speed;
+            ::g_cameraEye.z -= camera_move_speed;
         }
 
-        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * -camera.Up;
+        if (key == GLFW_KEY_Q) {
+            ::cameraTarget.y += camera_move_speed;
+            ::g_cameraEye.y += camera_move_speed;
         }
 
-        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * camera.Up;
+        if (key == GLFW_KEY_E) {
+            ::cameraTarget.y -= camera_move_speed;
+            ::g_cameraEye.y -= camera_move_speed;
         }
 
-        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            camera.speed += 1.0f;
+        if (key == GLFW_KEY_LEFT) {
+            g_cameraEye.x += camera_speed;
         }
 
-        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            camera.speed -= 1.0f;
+        if (key == GLFW_KEY_RIGHT) {
+            g_cameraEye.x -= camera_speed;
         }
 
-        if (key == GLFW_KEY_F && action == GLFW_PRESS) {
-            if (g_pLights->theLights[19].param2.x == 0.0f) {
-                g_pLights->theLights[19].param2.x = 1.0f;
-            } else {
-                g_pLights->theLights[19].param2.x = 0.0f;
-            }
+        if (key == GLFW_KEY_UP) {
+            g_cameraEye.z += camera_speed;
         }
 
-        if (key == GLFW_KEY_T && action == GLFW_PRESS) {
-            if (g_LightingType >= 2) {
-                g_LightingType = 0;
-            } else {
-                ++g_LightingType;
-            }
+        if (key == GLFW_KEY_DOWN) {
+            g_cameraEye.z -= camera_speed;
         }
 
-        // Load camera angle 1
-        if (key == GLFW_KEY_F1 && action == GLFW_RELEASE) {
-            camera.Position = cameraAngles[0].first;
-            camera.Orientation = cameraAngles[0].second;
-            std::cout << "Camera Angle 1 loaded";
+        if (key == GLFW_KEY_COMMA) {
+            g_cameraEye.y += camera_speed;
         }
 
-        // Load camera angle 2
-        if (key == GLFW_KEY_F2 && action == GLFW_RELEASE) {
-            camera.Position = cameraAngles[1].first;
-            camera.Orientation = cameraAngles[1].second;
-            std::cout << "Camera Angle 2 loaded";
+        if (key == GLFW_KEY_PERIOD) {
+            g_cameraEye.y -= camera_speed;
         }
-
-        // Load camera angle 3
-        if (key == GLFW_KEY_F3 && action == GLFW_RELEASE) {
-            camera.Position = cameraAngles[2].first;
-            camera.Orientation = cameraAngles[2].second;
-            std::cout << "Camera Angle 3 loaded";
-        }
-
-        // Load camera angle 4
-        if (key == GLFW_KEY_F4 && action == GLFW_RELEASE) {
-            camera.Position = cameraAngles[3].first;
-            camera.Orientation = cameraAngles[3].second;
-            std::cout << "Camera Angle 4 loaded";
-        }
-    }
-}
-
-// Scroll wheel
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-    if (yoffset > 0) {
-        camera.speed += 5.0f;
-    }
-    else if (yoffset < 0) {
-        camera.speed -= 5.0f;
     }
 }

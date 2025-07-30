@@ -17,9 +17,8 @@ public:
     //glm::vec3 scaleXYZ;
     float scale; // uniform scale
     glm::vec3 colourRGB; // diffuse
-
-    glm::vec3 specularHighLightRGB;
-    float specularPower;
+    glm::vec3 specularHighLightRGB = glm::vec3(1.0, 1.0, 1.0);
+    float specularPower = 0.0;
 
     bool bOverrideVertexModelColour;
     bool bIsWireframe;

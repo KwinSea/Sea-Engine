@@ -11,11 +11,10 @@
 // This is also called the 'vertex layout'. 
 // This means that if the shader vertex layout changed, this
 //  vertex structure will also need to change (usually). 
-struct sVert
-{
-	float x, y, z, w;
-	float nx, ny, nz, nw;
-	float r, g, b, a;
+struct sVert {
+    float x, y, z, w;
+    float nx, ny, nz, nw;
+    float r, g, b, a;
 };
 
 
@@ -24,58 +23,60 @@ struct sVert
 //  than how the file was, etc.
 // It's also storing the infomation that we need to tell the GPU
 //  which model we want to draw.
-struct sModelDrawInfo
-{
-	sModelDrawInfo();
+struct sModelDrawInfo {
+    sModelDrawInfo();
 
-	std::string meshName;
+    std::string meshName;
 
-	unsigned int VAO_ID;
+    unsigned int VAO_ID;
 
-	unsigned int VertexBufferID;
-	unsigned int VertexBuffer_Start_Index;
-	unsigned int numberOfVertices;
+    unsigned int VertexBufferID;
+    unsigned int VertexBuffer_Start_Index;
+    unsigned int numberOfVertices;
 
-	unsigned int IndexBufferID;
-	unsigned int IndexBuffer_Start_Index;
-	unsigned int numberOfIndices;
-	unsigned int numberOfTriangles;
+    unsigned int IndexBufferID;
+    unsigned int IndexBuffer_Start_Index;
+    unsigned int numberOfIndices;
+    unsigned int numberOfTriangles;
 
-	// The "local" (i.e. "CPU side" temporary array)
-	sVert* pVertices;	//  = 0;
-	// The index buffer (CPU side)
-	unsigned int* pIndices;
+    // The "local" (i.e. "CPU side" temporary array)
+    sVert* pVertices; //  = 0;
+    // The index buffer (CPU side)
+    unsigned int* pIndices;
 };
 
 
-class cVAOManager
-{
+class cVAOManager {
 public:
+    bool LoadModelIntoVAO(std::string fileName,
+                          sModelDrawInfo& drawInfo,
+                          unsigned int shaderProgramID,
+                          bool hasNormals,
+                          bool hasColours,
+                          bool hasTextureCoords, // TODO:
+                          float scaling); // Keep at 1.0 for no change
 
-	bool LoadModelIntoVAO(std::string fileName,
-		sModelDrawInfo& drawInfo,
-		unsigned int shaderProgramID,				// TODO:
-		float scaling);			// Keep at 1.0 for no change
+    // We don't want to return an int, likely
+    bool FindDrawInfoByModelName(std::string filename,
+                                 sModelDrawInfo& drawInfo);
 
-	// We don't want to return an int, likely
-	bool FindDrawInfoByModelName(std::string filename,
-								 sModelDrawInfo &drawInfo);
-
-	std::string getLastError(bool bAndClear = true);
-
-	std::map< std::string, sModelDrawInfo> GetMapOfMesh();
+    std::string getLastError(bool bAndClear = true);
 
 private:
+    std::map<std::string /*model name*/,
+             sModelDrawInfo /* info needed to draw*/>
+    m_map_ModelName_to_VAOID;
 
-	std::map< std::string /*model name*/,
-			  sModelDrawInfo /* info needed to draw*/ >
-		m_map_ModelName_to_VAOID;
+    // Loads the ply model file into a temporary array
+    bool m_LoadTheModel(std::string fileName,
+                        sModelDrawInfo& drawInfo,
+                        bool hasNormals,
+                        bool hasColours,
+                        bool hasTextureCoords,
+                        float scaling);
 
-	// Loads the ply model file into a temporary array
-	bool m_LoadTheModel( std::string fileName, sModelDrawInfo &drawInfo, float scaling);
-
-	std::string m_lastErrorString;
-	void m_AppendTextToLastError(std::string text, bool addNewLineBefore = true);
+    std::string m_lastErrorString;
+    void m_AppendTextToLastError(std::string text, bool addNewLineBefore = true);
 };
 
 #endif	// _cVAOManager_HG_

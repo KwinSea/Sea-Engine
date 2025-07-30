@@ -1,9 +1,6 @@
 #version 420
 
 uniform vec3 eyeLocation;
-uniform int lightingType; // 0 = Lit
-						  // 1 = Semi Lit
-						  // 2 = Unlit
 
 in vec4 vertColor;
 in vec4 vertNormal;
@@ -33,7 +30,7 @@ struct sLight
 const int SPOT_LIGHT_TYPE = 1;
 const int DIRECTIONAL_LIGHT_TYPE = 2;
 
-const int NUMBEROFLIGHTS = 20;
+const int NUMBEROFLIGHTS = 10;
 uniform sLight theLights[NUMBEROFLIGHTS];
 
 
@@ -45,18 +42,9 @@ void main()
 	
 	pixelColour = vec4(vertColor);
 
-	// Check if lighting sould be handeld
-	if (lightingType != 2) {
-		vec4 lightContrib = calculateLightContrib(vertColor.rgb, vertNormal.xyz, vertWorldPosition.xyz, vertSpecular);
+	vec4 lightContrib = calculateLightContrib(vertColor.rgb, vertNormal.xyz, vertWorldPosition.xyz, vertSpecular);
 
-		if (lightingType == 0) {
-			pixelColour.rgb = lightContrib.rgb; // Lit
-		} else if (lightingType == 1){
-			pixelColour.rgb = lightContrib.rgb + 0.075; // Semi Lit
-		}
-	} else if (lightingType == 2) {
-		pixelColour.rgb = vertColor.rgb; // Unlit
-	}
+	pixelColour.rgb = lightContrib.rgb;
 };
 
 // Feeney gave you this (it's inspired by the basic shader in Mike Bailey's Graphic Shaders book)
