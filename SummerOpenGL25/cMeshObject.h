@@ -16,7 +16,8 @@ public:
     glm::vec3 orientation; // eurler axis
     //glm::vec3 scaleXYZ;
     float scale; // uniform scale
-    glm::vec3 colourRGB; // diffuse
+    glm::vec3 colourRGB; // diffuse// 0.0f to 1.0f (invisible to solid)
+    float opacityAlpha;
 
     glm::vec3 specularHighLightRGB;
     float specularPower;

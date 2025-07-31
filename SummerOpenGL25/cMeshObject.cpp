@@ -9,6 +9,7 @@ cMeshObject::cMeshObject()
 
 	this->scale = 1.0f;
 	this->colourRGB = glm::vec3(1.0f);
+	this->opacityAlpha = 1.0f;
 
 	this->specularHighLightRGB = glm::vec3(1.0f);
 	this->specularPower = 1.0f;

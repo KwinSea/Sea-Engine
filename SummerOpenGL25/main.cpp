@@ -27,6 +27,7 @@
 #include "Camera.h"
 #include "Functions.h"
 #include "imgui/imgui.h"
+#include "imgui/imgui_internal.h"
 #include "imgui/backends/imgui_impl_glfw.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 
@@ -38,8 +39,8 @@ cLightManager* g_pLights = NULL;
 cMeshObject* g_pSmoothSphere = NULL;
 cMeshObject* g_pSelectedMeshIndicator = NULL;
 
-extern unsigned int g_selectedLightIndex;
-extern unsigned int g_selectedObjectIndex;
+extern int g_selectedLightIndex;
+extern int g_selectedObjectIndex;
 
 extern float object_move_speed;
 extern float object_rotate_speed;
@@ -55,7 +56,9 @@ int g_LightingType = 0;
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
 
-Camera camera (screenWidth, screenHeight, glm::vec3(2000.0f, 2000.0f, 2000.0f));
+bool usingGui = false;
+
+Camera camera (screenWidth, screenHeight, glm::vec3(3000.0f, 1500.0f, 3000.0f));
 
 void LoadFilesIntoVAOManager(GLuint program);
 
@@ -136,7 +139,7 @@ int main(void) {
     ::g_pLights->theLights[0].param2.x = 0.0f; // turn on
     ::g_pLights->theLights[0].param1.x = 0.0f; // light type = point light
     g_pLights->theLights[0].position = glm::vec4(13000.0f, 1000.0f, 13000.0f, 0.5f);
-    g_pLights->theLights[0].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
+    g_pLights->theLights[0].diffuse = glm::vec4(RGBify(255, 187, 0.0), 1.0);
 
     g_pLights->theLights[0].atten.x = 0.0f; // constant
     g_pLights->theLights[0].atten.y = 0.0001f; // linear
@@ -191,6 +194,10 @@ int main(void) {
 
     ::g_pSelectedMeshIndicator = new cMeshObject();
     ::g_pSmoothSphere = new cMeshObject();
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     while (!glfwWindowShouldClose(window)) {
         int width, height;
         glfwGetFramebufferSize(window, &width, &height);
@@ -203,7 +210,9 @@ int main(void) {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        camera.InputHandler(window);
+        if (!usingGui) {
+            camera.InputHandler(window);
+        }
         camera.Matrix(60.0f, 0.1f, 100.0f, *g_pTheShaderManager, "camMatrix");
 
         GLint eyeLocation_UL = glGetUniformLocation(program, "eyeLocation");
@@ -216,8 +225,61 @@ int main(void) {
 
         ::g_pLights->UpdateShaderUniforms(program);
 
-        for (unsigned int index = 0; index != ::g_pMeshesToDraw.size(); index++) {
+        std::vector<cMeshObject*> vecSolidThings;
+        std::vector<cMeshObject*> vecTransparentThings;
+
+
+        //       struct cThingDistance
+        //       {
+        //           float distToCamera;
+        //           cMeshObject* pMeshObject;
+        //       };
+        //       std::vector<cThingDistance> vecTransparentThings;
+
+        // Separate transparent from non-transparent
+        for (unsigned int index = 0; index != ::g_pMeshesToDraw.size(); index++)
+        {
             cMeshObject* pCurrentMesh = ::g_pMeshesToDraw[index];
+            // Transparent?
+            if (pCurrentMesh->opacityAlpha < 1.0f)
+            {
+                // It's transparent
+                vecTransparentThings.push_back(pCurrentMesh);
+            }
+            else
+            {
+                // It's solid
+                vecSolidThings.push_back(pCurrentMesh);
+            }
+        }
+
+        // Sort transparent from "far from camera to near"
+        for (unsigned int index = 0; index != vecTransparentThings.size(); index++)
+        {
+            cMeshObject* pCurrentMesh = vecTransparentThings[index];
+            // Distance from object to camera
+            float distToCamera = glm::distance(camera.Position, pCurrentMesh->position);
+        }
+        // Sort them
+        // 1 pass of the bubble sort
+        // Monkey sort
+        // Beer at the camp fire sort
+
+        // Memory = zero
+        // CPU bound
+        // 500-1000
+
+
+
+        for (unsigned int index = 0; index != vecSolidThings.size(); index++)
+        {
+            cMeshObject* pCurrentMesh = vecSolidThings[index];
+            DrawMesh(pCurrentMesh, program);
+        }
+
+        for (unsigned int index = 0; index != vecTransparentThings.size(); index++)
+        {
+            cMeshObject* pCurrentMesh = vecTransparentThings[index];
             DrawMesh(pCurrentMesh, program);
         }
 
@@ -338,9 +400,9 @@ int main(void) {
             ::g_pSelectedMeshIndicator->bOverrideVertexModelColour = true;
             ::g_pSelectedMeshIndicator->bIsVisible = meshDebug;
             ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale * 1.01f;
-            ::g_pSelectedMeshIndicator->colourRGB = RGBify(255, 165, 0);
-            ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec3(1.0f);
-            ::g_pSelectedMeshIndicator->specularPower = 0.0f;
+            ::g_pSelectedMeshIndicator->colourRGB = glm::vec4(RGBify(255, 165, 0.0), 1.0);
+            ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec4(RGBify(255, 165, 0.0), 1.0);
+            ::g_pSelectedMeshIndicator->specularPower = 99999.0f;
             ::g_pSelectedMeshIndicator->position = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position;
             ::g_pSelectedMeshIndicator->orientation = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation;
 
@@ -354,7 +416,7 @@ int main(void) {
 
         // where the light located
         ::g_pSmoothSphere->scale = 0.1f;
-        ::g_pSmoothSphere->colourRGB = glm::vec3(1.0f);
+        ::g_pSmoothSphere->colourRGB = glm::vec4(1.0f);
         DrawMesh(g_pSmoothSphere, program);
 
         float distanceAt75Percent = lightHelper.calcApproxDistFromAtten(0.75f,
@@ -367,7 +429,7 @@ int main(void) {
                                                                         atten.z);
 
         ::g_pSmoothSphere->scale = distanceAt75Percent;
-        ::g_pSmoothSphere->colourRGB = glm::vec3(1.0f, 0.0f, 0.0f);
+        ::g_pSmoothSphere->colourRGB = glm::vec4(1.0f, 0.0f, 0.0f, 1.0);
         DrawMesh(g_pSmoothSphere, program);
 
         float distanceAt50Percent = lightHelper.calcApproxDistFromAtten(0.5f,
@@ -380,7 +442,7 @@ int main(void) {
                                                                         atten.z);
 
         ::g_pSmoothSphere->scale = distanceAt50Percent;
-        ::g_pSmoothSphere->colourRGB = glm::vec3(0.0f, 1.0f, 0.0f);
+        ::g_pSmoothSphere->colourRGB = glm::vec4(0.0f, 1.0f, 0.0f, 01.0f);
         DrawMesh(g_pSmoothSphere, program);
 
         float distanceAt25Percent = lightHelper.calcApproxDistFromAtten(0.25f,
@@ -403,8 +465,16 @@ int main(void) {
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 
-        ImGui::SetNextWindowSize(ImVec2(screenWidth * 0.32, screenHeight * 0.8));
+        ImGui::SetNextWindowSize(ImVec2(550, height));
+        ImGui::SetNextWindowPos(ImVec2(width - 550, 0));
+        if (usingGui) {
+            ImGui::SetNextWindowBgAlpha(1);
+
+        } else {
+            ImGui::SetNextWindowBgAlpha(0.75);
+        }
         ImGui::Begin("Simple Editor", nullptr,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize);
+        usingGui = ImGui::IsWindowHovered() || ImGui::IsAnyItemActive() || ImGui::IsAnyItemFocused();
         {
             static int selectedMeshIndex = 0;
             std::vector<std::string> currentVAOMeshs;
@@ -426,13 +496,16 @@ int main(void) {
                 if (ImGui::BeginTabItem("Lighting")) {
                     ImGui::Text("Edit Light");
 
-                    glm::vec4* directionRadians = &g_pLights->theLights[g_selectedLightIndex].direction;
+                    static glm::vec4* directionRadians;
+                    directionRadians = &g_pLights->theLights[g_selectedLightIndex].direction;
                     glm::vec4 directionDegrees = glm::degrees(*directionRadians);
 
-                    float* lightTypeValue = &g_pLights->theLights[g_selectedLightIndex].param1.x;
+                    static float* lightTypeValue;
+                    lightTypeValue = &g_pLights->theLights[g_selectedLightIndex].param1.x;
                     int lightType = *lightTypeValue;
 
-                    float* lightStateValue = &g_pLights->theLights[g_selectedLightIndex].param2.x;
+                    static float* lightStateValue;
+                    lightStateValue = &g_pLights->theLights[g_selectedLightIndex].param2.x;
                     int lightState = *lightStateValue;
 
                     ImGui::InputFloat3("Edit Position",  glm::value_ptr(g_pLights->theLights[g_selectedLightIndex].position));
@@ -497,6 +570,7 @@ int main(void) {
                         static float addRot[3] = {0.0f, 0.0f, 0.0f};
                         static float addScale = 1.0f;
                         static float addColour[3] = {1.0f, 1.0f, 1.0f};
+                        static float addOpacity = 1.0f;
                         static float addSpecularHighlight[3] = {1.0f, 1.0f, 1.0f};
                         static float addSpecularPower = 1.0f;
                         static bool addOverrideColor = false;
@@ -506,7 +580,10 @@ int main(void) {
                         ImGui::InputFloat3("Position", addPosition);
                         ImGui::SliderFloat3("Orientation", addRot, -180.0f, 180.0f);
                         ImGui::InputFloat("Scale", &addScale);
-                        ImGui::ColorEdit3("Colour RGB", addColour);
+                        if (addOverrideColor) {
+                            ImGui::ColorEdit3("Colour RGB", addColour);
+                        }
+                        ImGui::SliderFloat("Opacity", &addOpacity, 0.0, 1.0);
                         ImGui::ColorEdit3("Specular Highlight", addSpecularHighlight);
                         ImGui::InputFloat("Specular Power", &addSpecularPower);
                         ImGui::Checkbox("Override Color", &addOverrideColor);
@@ -523,6 +600,7 @@ int main(void) {
                                 pNewObject->orientation = glm::radians(glm::vec3(addRot[0], addRot[1], addRot[2]));
                                 pNewObject->scale = addScale;
                                 pNewObject->colourRGB = glm::vec3(addColour[0], addColour[1], addColour[2]);
+                                pNewObject->opacityAlpha = addOpacity;
                                 pNewObject->specularHighLightRGB = glm::vec3(addSpecularHighlight[0], addSpecularHighlight[1], addSpecularHighlight[2]);
                                 pNewObject->specularPower = addSpecularPower;
                                 pNewObject->bOverrideVertexModelColour = addOverrideColor;
@@ -536,6 +614,7 @@ int main(void) {
                                 addRot[0] = addRot[1] = addRot[2] = 0.0f;
                                 addScale = 1.0f;
                                 addColour[0] = addColour[1] = addColour[2] = 1.0f;
+                                addOpacity = 1.0f;
                                 addSpecularHighlight[0] = addSpecularHighlight[1] = addSpecularHighlight[2] = 1.0f;
                                 addSpecularPower = 1.0f;
                                 addOverrideColor = false;
@@ -551,14 +630,22 @@ int main(void) {
                     ImGui::Text("Edit Object");
 
                     if (!g_pMeshesToDraw.empty() && g_selectedObjectIndex < g_pMeshesToDraw.size()) {
-                        glm::vec3* orientationRadians = &g_pMeshesToDraw[g_selectedObjectIndex]->orientation;
+                        static glm::vec3* orientationRadians;
+                        orientationRadians = &g_pMeshesToDraw[g_selectedObjectIndex]->orientation;
                         glm::vec3 orientationDegrees = glm::degrees(*orientationRadians);
 
                         ImGui::InputFloat3("Edit Position", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->position));
                         if (ImGui::SliderFloat3("Edit Orientation", glm::value_ptr(orientationDegrees), -180.0f, 180.0f)) {
                             *orientationRadians = glm::radians(orientationDegrees);
                         }
+
                         ImGui::InputFloat("Edit Scale", &g_pMeshesToDraw[g_selectedObjectIndex]->scale);
+
+                        if (g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour) {
+                            ImGui::ColorEdit4("Edit Colour", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->colourRGB));
+                        }
+
+                        ImGui::SliderFloat("Edit Opacity", &g_pMeshesToDraw[g_selectedObjectIndex]->opacityAlpha,0.0f, 1.0f);
                         ImGui::ColorEdit3("Edit Specular Highlight", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->specularHighLightRGB));
                         ImGui::InputFloat("Edit Specular Power", &g_pMeshesToDraw[g_selectedObjectIndex]->specularPower);
                         ImGui::Checkbox("Edit Override Color", &g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour);
@@ -571,8 +658,47 @@ int main(void) {
             } //End tab bar
 
             ImGuiIO& io = ImGui::GetIO();
-            ImGui::Text("Current Object: %d", g_selectedObjectIndex);
-            ImGui::Text("Current Light: %d", g_selectedLightIndex);
+
+            ImGui::Separator();
+
+            if (ImGui::ArrowButton("PreviousObject", ImGuiDir_Left)) {
+                if (g_selectedObjectIndex > 0) {
+                    g_selectedObjectIndex--;
+                } else {
+                    g_selectedObjectIndex = g_pMeshesToDraw.size() - 1;
+                }
+            }
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(200);
+            ImGui::SliderInt("Current Object", &g_selectedObjectIndex,0, g_pMeshesToDraw.size() - 1);
+            ImGui::SameLine();
+            if (ImGui::ArrowButton("NextObject", ImGuiDir_Right)) {
+                if (g_selectedObjectIndex < g_pMeshesToDraw.size() - 1) {
+                    g_selectedObjectIndex++;
+                } else {
+                    g_selectedObjectIndex = 0;
+                }
+            }
+
+            if (ImGui::ArrowButton("PreviousLight", ImGuiDir_Left)) {
+                if (g_selectedLightIndex > 0) {
+                    g_selectedLightIndex--;
+                } else {
+                    g_selectedLightIndex = g_pLights->NUMBEROFLIGHTS - 1;
+                }
+            }
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(200);
+            ImGui::SliderInt("Current Light", &g_selectedLightIndex, 0, g_pLights->NUMBEROFLIGHTS - 1);
+            ImGui::SameLine();
+            if (ImGui::ArrowButton("NextLight", ImGuiDir_Right)) {
+                if (g_selectedLightIndex < g_pLights->NUMBEROFLIGHTS - 1) {
+                    g_selectedLightIndex++;
+                } else {
+                    g_selectedLightIndex = 0;
+                }
+            }
+
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }
@@ -620,7 +746,7 @@ void LoadFilesIntoVAOManager(GLuint program) {
 }
 
 void LoadModelsIntoScene() {
-
+    LoadMaze("assets/maze.txt");
 }
 
 void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
@@ -641,6 +767,13 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
     } else {
         glUniform1f(useOverrideColor_location, GL_FALSE);
     }
+
+    // Copy over the transparency
+    // uniform float alphaTransparency;
+    GLint alphaTransparency_UL
+        = glGetUniformLocation(program, "alphaTransparency");
+    // Set it
+    glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
 
     // ste specular value
     GLint vertSpecular_UL = glGetUniformLocation(program, "vertSpecular");

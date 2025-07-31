@@ -13,6 +13,8 @@ out vec4 pixelColour;
 
 uniform vec4 vertSpecular;
 
+uniform float alphaTransparency;
+
 vec4 calculateLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal, 
                             vec3 vertexWorldPos, vec4 vertexSpecular);
 							
@@ -57,6 +59,8 @@ void main()
 	} else if (lightingType == 2) {
 		pixelColour.rgb = vertColor.rgb; // Unlit
 	}
+
+	pixelColour.a = alphaTransparency;
 };
 
 // Feeney gave you this (it's inspired by the basic shader in Mike Bailey's Graphic Shaders book)

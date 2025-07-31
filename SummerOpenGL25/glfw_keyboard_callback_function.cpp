@@ -19,12 +19,13 @@ extern cLightManager* g_pLights;
 
 extern cVAOManager* g_pMeshManager;
 
+extern bool usingGui;
 extern int g_LightingType;
 extern unsigned int screenWidth;
 extern unsigned int screenHeight;
 
-unsigned int g_selectedObjectIndex = 0;
-unsigned int g_selectedLightIndex = 0;
+int g_selectedObjectIndex = 0;
+int g_selectedLightIndex = 0;
 
 float object_move_speed = 500.f;
 float light_move_speed = 100.f;
@@ -73,8 +74,13 @@ bool areAnyModifiersDown(int mods) {
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+
+    if (usingGui) {
+        return;
+    }
 
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
         if (key == GLFW_KEY_A) {
@@ -770,6 +776,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 // Scroll wheel
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
+    if (usingGui)
+        return;
+
     if (yoffset > 0) {
         camera.speed += 5.0f;
     }

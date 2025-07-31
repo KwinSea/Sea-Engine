@@ -17,7 +17,7 @@ void Camera::Matrix(float FOVdeg, float zNear, float zFar, cShaderManager& shade
 void Camera::InputHandler(GLFWwindow* window) {
 
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN); // Hides cursor
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Hides cursor
 
         if (firstClick)
         {
