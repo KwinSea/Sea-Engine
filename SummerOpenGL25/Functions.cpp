@@ -153,7 +153,7 @@ void LoadScene() {
             ::g_pMeshesToDraw.clear();
 
             int meshesInScene = 0;
-            mySaveFile >> meshesInScene;\
+            mySaveFile >> meshesInScene;
 
             // Load meshs
             for (int index = 0; index < meshesInScene; index++) {
@@ -193,10 +193,10 @@ void LoadScene() {
                     >> g_pLights->theLights[i].diffuse.w;
 
                 // Specular
-                mySaveFile >> g_pLights->theLights[i].specular.x
-                    >> g_pLights->theLights[i].specular.r
+                mySaveFile >> g_pLights->theLights[i].specular.r
                     >> g_pLights->theLights[i].specular.g
-                    >> g_pLights->theLights[i].specular.b;
+                    >> g_pLights->theLights[i].specular.b
+                    >> g_pLights->theLights[i].specular.w;
 
                 // Attenuation
                 mySaveFile >> g_pLights->theLights[i].atten.x
