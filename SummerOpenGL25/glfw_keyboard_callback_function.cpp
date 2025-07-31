@@ -346,7 +346,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             g_pLights->theLights[0].param2.x = 1.0f;
         }
 
-        if (key == GLFW_KEY_M && action == GLFW_RELEASE) {
+        if (key == GLFW_KEY_M && action == GLFW_PRESS) {
             cMeshObject* pNewObject = new cMeshObject();
 
             // Mesh name
@@ -369,6 +369,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             pNewObject->colourRGB.r = ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.r;
             pNewObject->colourRGB.g = ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.g;
             pNewObject->colourRGB.b = ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB.b;
+
+            // Opacity
+            pNewObject->opacityAlpha = ::g_pMeshesToDraw[::g_selectedObjectIndex]->opacityAlpha;
 
             // Specular highlight
             pNewObject->specularHighLightRGB.r = ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.r;

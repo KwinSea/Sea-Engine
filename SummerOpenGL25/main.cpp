@@ -260,6 +260,13 @@ int main(void) {
             cMeshObject* pCurrentMesh = vecTransparentThings[index];
             // Distance from object to camera
             float distToCamera = glm::distance(camera.Position, pCurrentMesh->position);
+
+            int prev = index - 1;
+            while (prev >= 0 && glm::distance(camera.Position, vecTransparentThings[prev]->position) < distToCamera) {
+                vecTransparentThings[prev + 1] = vecTransparentThings[prev];
+                --prev;
+            }
+            vecTransparentThings[prev + 1] = pCurrentMesh;
         }
         // Sort them
         // 1 pass of the bubble sort
