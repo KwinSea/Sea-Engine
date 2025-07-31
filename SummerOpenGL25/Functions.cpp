@@ -234,6 +234,15 @@ void ClearScene () {
     }
     ::g_pMeshesToDraw.clear();
 
+    for (int i = 0; i < g_pLights->NUMBEROFLIGHTS; i++) {
+        g_pLights->theLights[i].position = glm::vec4(0.0f);
+        g_pLights->theLights[i].diffuse = glm::vec4(0.0f);
+        g_pLights->theLights[i].specular = glm::vec4(0.0f);
+        g_pLights->theLights[i].direction = glm::vec4(0.0f);
+        g_pLights->theLights[i].param1 = glm::vec4(0.0f);
+        g_pLights->theLights[i].param2 = glm::vec4(0.0f);
+    }
+
     std::cout << "Scene Cleared\n";
 }
 

@@ -612,14 +612,14 @@ int main(void) {
                 ImGui::InputFloat("##ObjectGridVal", &object_move_grid);
             }
 
-            ImGui::Spacing();
-
             ImGui::Checkbox("Light Grid Snap", &isLightGridSnap);
             if (isLightGridSnap) {
                 ImGui::SameLine();
                 ImGui::SetNextItemWidth(75);
                 ImGui::InputFloat("##LightGridVal", &light_move_grid);
             }
+
+            ImGui::Spacing();
 
             if (ImGui::ArrowButton("PreviousObject", ImGuiDir_Left)) {
                 if (g_selectedObjectIndex > 0) {

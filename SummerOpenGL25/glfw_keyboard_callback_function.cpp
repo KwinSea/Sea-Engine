@@ -126,19 +126,19 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
 
             if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed;
-            }
-
-            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
                 ::g_pLights->theLights[::g_selectedLightIndex].position.y -= light_move_speed;
             }
 
+            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
+                ::g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed;
+            }
+
             if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed;
+                ::g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed;
             }
 
             if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed;
+                ::g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed;
             }
         }
 
@@ -377,7 +377,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
 
             if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position -= object_move_speed;
             }
 
             if (key == GLFW_KEY_PAGE_UP && action != GLFW_RELEASE) {
