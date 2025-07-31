@@ -74,8 +74,6 @@ static void error_callback(int error, const char* description) {
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
-
-
 int main(void) {
     GLFWwindow* window;
 
@@ -194,6 +192,9 @@ int main(void) {
 
     ::g_pSelectedMeshIndicator = new cMeshObject();
     ::g_pSmoothSphere = new cMeshObject();
+
+    glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -488,6 +489,15 @@ int main(void) {
                     if (ImGui::MenuItem("Save")) {SaveScene();}
                     ImGui::EndMenu();
                 }
+
+                ImGui::Spacing();
+
+                if (ImGui::BeginMenu("Lighting Mode")) {
+                    if (ImGui::MenuItem("Lit")) {g_LightingType = 0;}
+                    if (ImGui::MenuItem("Semi-Lit")) {g_LightingType = 1;}
+                    if (ImGui::MenuItem("Unlit")) {g_LightingType = 2;}
+                    ImGui::EndMenu();
+                }
                 ImGui::EndMenuBar();
             }
 
@@ -550,7 +560,6 @@ int main(void) {
 
                     ImGui::Separator();
 
-                    ImGui::SliderInt("Lighting mode", &g_LightingType, 0, 2);
                     ImGui::EndTabItem();
                 } // End lighting tab
 

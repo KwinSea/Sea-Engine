@@ -68,6 +68,9 @@ void SaveScene() {
                    << g_pMeshesToDraw[index]->colourRGB.g << " "
                    << g_pMeshesToDraw[index]->colourRGB.b << std::endl;
 
+                // Opacity
+                mySaveFile << ::g_pMeshesToDraw[index]->opacityAlpha << std::endl;
+
                 // Specular highlight
                 mySaveFile << ::g_pMeshesToDraw[index]->specularHighLightRGB.r << " "
                     << g_pMeshesToDraw[index]->specularHighLightRGB.g << " "
@@ -161,6 +164,7 @@ void LoadScene() {
                 mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
                 mySaveFile >> pNewObject->scale;
                 mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
+                mySaveFile >> pNewObject->opacityAlpha;
                 mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
                 mySaveFile >> pNewObject->specularPower;
                 mySaveFile >> pNewObject->bOverrideVertexModelColour;
