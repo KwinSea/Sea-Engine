@@ -12,6 +12,8 @@ void SaveScene();
 
 void LoadScene();
 
+void ClearScene();
+
 void AddMeshObject (
     std::string meshFileName,
     std::string uniqueName = "",

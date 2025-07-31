@@ -17,6 +17,8 @@ extern Camera camera;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 extern cLightManager* g_pLights;
 
+extern double deltaTime;
+
 extern cVAOManager* g_pMeshManager;
 
 extern bool usingGui;
@@ -29,10 +31,17 @@ int g_selectedLightIndex = 0;
 
 float object_move_speed = 500.f;
 float light_move_speed = 100.f;
+
+float object_move_grid = 500.f;
+float light_move_grid = 100.f;
+
 float object_rotate_speed = glm::radians(90.0f);
 
 bool lightDebug = false;
 bool meshDebug = false;
+
+bool isObjectGridSnap = false;
+bool isLightGridSnap = false;
 
 static std::pair<glm::vec3, glm::vec3> cameraAngles[4] = {
     std::make_pair(glm::vec3(0.0), glm::vec3(0.0)),
@@ -83,51 +92,77 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }
 
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
-        if (key == GLFW_KEY_A) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.x -= light_move_speed;
+        if (isLightGridSnap) {
+            if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
+                g_pLights->theLights[::g_selectedLightIndex].position.x = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) + light_move_grid;
+            }
+
+            if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
+                g_pLights->theLights[::g_selectedLightIndex].position.x = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) - light_move_grid;
+            }
+
+            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
+                g_pLights->theLights[::g_selectedLightIndex].position.y = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) + light_move_grid;
+            }
+
+            if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
+                g_pLights->theLights[::g_selectedLightIndex].position.y = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) - light_move_grid;
+            }
+
+            if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
+                g_pLights->theLights[::g_selectedLightIndex].position.z = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) + light_move_grid;
+            }
+
+            if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
+                g_pLights->theLights[::g_selectedLightIndex].position.z = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) - object_move_grid;
+            }
+        } else {
+            if (key == GLFW_KEY_A && action != GLFW_RELEASE) {
+                ::g_pLights->theLights[::g_selectedLightIndex].position.x -= light_move_speed;
+            }
+
+            if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
+                ::g_pLights->theLights[::g_selectedLightIndex].position.x += light_move_speed;
+            }
+
+            if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
+                ::g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed;
+            }
+
+            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
+                ::g_pLights->theLights[::g_selectedLightIndex].position.y -= light_move_speed;
+            }
+
+            if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
+                ::g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed;
+            }
+
+            if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
+                ::g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed;
+            }
         }
 
-        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.x += light_move_speed;
-        }
-
-        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed;
-        }
-
-        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.y -= light_move_speed;
-        }
-
-        if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed;
-        }
-
-        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-            ::g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed;
-        }
-
-        if (key == GLFW_KEY_1) {
+        if (key == GLFW_KEY_1 && action != GLFW_RELEASE) {
             g_pLights->theLights[g_selectedLightIndex].atten.y *= 0.98;
         }
 
-        if (key == GLFW_KEY_2) {
+        if (key == GLFW_KEY_2 && action != GLFW_RELEASE) {
             g_pLights->theLights[g_selectedLightIndex].atten.y *= 1.02;
         }
 
-        if (key == GLFW_KEY_3) {
+        if (key == GLFW_KEY_3 && action != GLFW_RELEASE) {
             g_pLights->theLights[g_selectedLightIndex].atten.z *= 0.98;
         }
 
-        if (key == GLFW_KEY_4) {
+        if (key == GLFW_KEY_4 && action != GLFW_RELEASE) {
             g_pLights->theLights[g_selectedLightIndex].atten.z *= 1.02;
         }
 
-        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_PAGE_UP && action != GLFW_RELEASE) {
             light_move_speed += 5.0f;
         }
 
-        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_PAGE_DOWN && action != GLFW_RELEASE) {
             light_move_speed -= 5.0f;
         }
 
@@ -286,47 +321,74 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z -= object_rotate_speed;
         }
 
-        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_PAGE_UP && action != GLFW_RELEASE) {
             object_rotate_speed += glm::radians(5.0f);
         }
 
-        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_PAGE_DOWN && action != GLFW_RELEASE) {
             object_rotate_speed -= glm::radians(5.0f);
         }
     }
 
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
-        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed;
+        if (isObjectGridSnap) {
+            if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.x / object_move_grid)) + object_move_grid;
+            }
+
+            if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.x / object_move_grid)) - object_move_grid;
+            }
+
+            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.y / object_move_grid)) + object_move_grid;
+            }
+
+            if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.y / object_move_grid)) - object_move_grid;
+            }
+
+            if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.z / object_move_grid)) + object_move_grid;
+            }
+
+            if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.z / object_move_grid)) - object_move_grid;
+            }
+        } else {
+            if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed;
+            }
+
+            if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
+            }
+
+            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y += object_move_speed;
+            }
+
+            if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
+            }
+
+            if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed;
+            }
+
+            if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
+            }
+
+            if (key == GLFW_KEY_PAGE_UP && action != GLFW_RELEASE) {
+                object_move_speed += 5.0f;
+            }
+
+            if (key == GLFW_KEY_PAGE_DOWN && action != GLFW_RELEASE) {
+                object_move_speed -= 5.0f;
+            }
         }
 
-        if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
-        }
-
-        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y += object_move_speed;
-        }
-
-        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
-        }
-
-        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed;
-        }
-
-        if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-            ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed;
-        }
-
-        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
-            object_move_speed += 5.0f;
-        }
-
-        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
-            object_move_speed -= 5.0f;
-        }
 
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
             if (meshDebug) {
@@ -648,7 +710,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             LoadScene();
         }
 
-        if (key == GLFW_KEY_DELETE && action == GLFW_RELEASE) {
+        if (key == GLFW_KEY_BACKSPACE && action == GLFW_RELEASE) {
             delete g_pMeshesToDraw[g_selectedObjectIndex];
             g_pMeshesToDraw.erase(g_pMeshesToDraw.begin() + g_selectedObjectIndex);
 
@@ -659,16 +721,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
 
             std::cout << "Object deleted\n";
-        }
-
-        if (key == GLFW_KEY_BACKSPACE && action == GLFW_RELEASE) {
-            // Delets mesh in vector
-            for (cMeshObject* ptr : ::g_pMeshesToDraw) {
-                delete ptr;
-            }
-            ::g_pMeshesToDraw.clear();
-
-            std::cout << "Scene Cleared\n";
         }
 
         // Save camera angle 1
@@ -697,37 +749,37 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }
 
     if (!areAnyModifiersDown(mods)) {
-        if (key == GLFW_KEY_A) {
-            camera.Position += camera.speed * -glm::normalize(glm::cross(camera.Orientation, camera.Up));
+        if (key == GLFW_KEY_A && action != GLFW_RELEASE) {
+            camera.Position += camera.speed * -glm::normalize(glm::cross(camera.Orientation, camera.Up)) * static_cast<float>(deltaTime);
         }
 
         if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * glm::normalize(glm::cross(camera.Orientation, camera.Up));
+             camera.Position += camera.speed * glm::normalize(glm::cross(camera.Orientation, camera.Up)) * static_cast<float>(deltaTime);
         }
 
 
         if (key == GLFW_KEY_W && action != GLFW_RELEASE) {
-         camera.Position += camera.speed * glm::normalize(glm::vec3(camera.Orientation));
+         camera.Position += camera.speed * glm::normalize(glm::vec3(camera.Orientation))  * static_cast<float>(deltaTime);
         }
 
 
         if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * glm::normalize(glm::vec3(-camera.Orientation));
+             camera.Position += camera.speed * glm::normalize(glm::vec3(-camera.Orientation))  * static_cast<float>(deltaTime);
         }
 
         if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * -camera.Up;
+             camera.Position += camera.speed * -camera.Up * static_cast<float>(deltaTime);
         }
 
         if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * camera.Up;
+             camera.Position += camera.speed * camera.Up * static_cast<float>(deltaTime);
         }
 
-        if (key == GLFW_KEY_PAGE_UP && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_PAGE_UP && action != GLFW_RELEASE) {
             camera.speed += 1.0f;
         }
 
-        if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_PAGE_DOWN && action != GLFW_RELEASE) {
             camera.speed -= 1.0f;
         }
 
@@ -783,9 +835,9 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
         return;
 
     if (yoffset > 0) {
-        camera.speed += 5.0f;
+        camera.speed += 50.0f;
     }
     else if (yoffset < 0) {
-        camera.speed -= 5.0f;
+        camera.speed -= 50.0f;
     }
 }

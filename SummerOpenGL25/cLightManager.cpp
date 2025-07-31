@@ -8,7 +8,7 @@ cLight::cLight() {
     this->specular = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
     this->atten = glm::vec4(0.0f, 0.01f, 0.01f, 1.0f);
     // For spot lights
-    this->direction = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    this->direction = glm::vec4(0.0f, -0.5f, 0.0f, 1.0f);
     this->param1.x = 0.0f; // Point light
     // If it's a spot light, these will be looked at
     this->param1.y = 1.0f; // Inner angle
@@ -149,7 +149,7 @@ void cLightManager::UpdateShaderUniforms(GLuint shaderProgram) {
                     this->theLights[index].specular.r,
                     this->theLights[index].specular.g,
                     this->theLights[index].specular.b,
-                    this->theLights[index].specular.a);
+                    this->theLights[index].specular.w);
 
         glUniform4f(this->theLights[index].atten_UL, // Uniform location
                     this->theLights[index].atten.r,

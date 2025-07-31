@@ -104,9 +104,9 @@ void SaveScene() {
                     << g_pLights->theLights[index].diffuse.w << std::endl;
 
                 // Spucular
-                mySaveFile << ::g_pLights->theLights[index].specular.r << " "
-                    << g_pLights->theLights[index].specular.g << " "
-                    << g_pLights->theLights[index].specular.b << " "
+                mySaveFile << ::g_pLights->theLights[index].specular.x << " "
+                    << g_pLights->theLights[index].specular.y << " "
+                    << g_pLights->theLights[index].specular.z << " "
                     << g_pLights->theLights[index].specular.w << std::endl;
 
                 // Attenuation
@@ -193,9 +193,9 @@ void LoadScene() {
                     >> g_pLights->theLights[i].diffuse.w;
 
                 // Specular
-                mySaveFile >> g_pLights->theLights[i].specular.r
-                    >> g_pLights->theLights[i].specular.g
-                    >> g_pLights->theLights[i].specular.b
+                mySaveFile >> g_pLights->theLights[i].specular.x
+                    >> g_pLights->theLights[i].specular.y
+                    >> g_pLights->theLights[i].specular.z
                     >> g_pLights->theLights[i].specular.w;
 
                 // Attenuation
@@ -225,6 +225,16 @@ void LoadScene() {
 
             std::cout << "Scene Loaded\n";
             mySaveFile.close();
+}
+
+void ClearScene () {
+    // Delets mesh in vector
+    for (cMeshObject* ptr : g_pMeshesToDraw) {
+        delete ptr;
+    }
+    ::g_pMeshesToDraw.clear();
+
+    std::cout << "Scene Cleared\n";
 }
 
 void AddMeshObject (

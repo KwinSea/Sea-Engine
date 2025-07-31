@@ -46,8 +46,16 @@ extern float object_move_speed;
 extern float object_rotate_speed;
 extern float light_move_speed;
 
+double deltaTime;
+
 extern bool lightDebug;
 extern bool meshDebug;
+
+extern bool isObjectGridSnap;
+extern bool isLightGridSnap;
+
+extern float object_move_grid;
+extern float light_move_grid;
 
 unsigned int screenWidth = 1280;
 unsigned int screenHeight = 720;
@@ -74,12 +82,15 @@ static void error_callback(int error, const char* description) {
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
+
+
 int main(void) {
     GLFWwindow* window;
 
-
     GLuint program;
     GLint mvp_location;
+
+    double oldTimeSinceStart = 0;
 
     glfwSetErrorCallback(error_callback);
     if (!glfwInit()) {
@@ -207,6 +218,10 @@ int main(void) {
 
         glUseProgram(program);
 
+        double timeSinceStart = glfwGetTime();
+        deltaTime = timeSinceStart - oldTimeSinceStart;
+        oldTimeSinceStart = timeSinceStart;
+
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -292,104 +307,16 @@ int main(void) {
         }
 
         // Firefly Flicker
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[9].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[9].param2.x = 0.0f; // turn off
-        }
+        // if (rand() % 20 + 1 > 5) {
+        //     g_pLights->theLights[9].param2.x = 1.0f; // turn on
+        // } else {
+        //     g_pLights->theLights[9].param2.x = 0.0f; // turn off
+        // }
 
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[10].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[10].param2.x = 0.0f; // turn off
-        }
 
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[11].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[11].param2.x = 0.0f; // turn off
-        }
+        // g_pLights->theLights[9].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
+        // g_pLights->theLights[9].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
 
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[12].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[12].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[13].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[13].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[14].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[14].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[15].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[15].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[16].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[16].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[17].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[17].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[18].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[18].param2.x = 0.0f; // turn off
-        }
-
-        if (rand() % 20 + 1 > 5) {
-            g_pLights->theLights[19].param2.x = 1.0f; // turn on
-        } else {
-            g_pLights->theLights[19].param2.x = 0.0f; // turn off
-        }
-
-        g_pLights->theLights[9].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[9].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[10].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[10].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[11].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[11].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[12].atten.y = 0.1f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[12].atten.z = 0.01f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[13].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[13].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[14].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[14].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[15].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[15].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[16].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[16].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[17].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[17].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[18].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[18].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
-
-        g_pLights->theLights[19].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        g_pLights->theLights[19].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
 
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
         ::g_pSmoothSphere->bIsWireframe = true;
@@ -410,7 +337,7 @@ int main(void) {
             ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale * 1.01f;
             ::g_pSelectedMeshIndicator->colourRGB = glm::vec4(RGBify(255, 165, 0.0), 1.0);
             ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec4(RGBify(255, 165, 0.0), 1.0);
-            ::g_pSelectedMeshIndicator->specularPower = 99999.0f;
+            ::g_pSelectedMeshIndicator->specularPower = 0.0000001f;
             ::g_pSelectedMeshIndicator->position = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position;
             ::g_pSelectedMeshIndicator->orientation = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation;
 
@@ -482,7 +409,7 @@ int main(void) {
             ImGui::SetNextWindowBgAlpha(0.75);
         }
         ImGui::Begin("Simple Editor", nullptr,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize);
-        usingGui = ImGui::IsWindowHovered() || ImGui::IsAnyItemActive() || ImGui::IsAnyItemFocused();
+        usingGui = ImGui::IsWindowHovered() || ImGui::IsAnyItemActive() || ImGui::IsAnyItemFocused() || ImGui::IsAnyItemHovered();
         {
             static int selectedMeshIndex = 0;
             std::vector<std::string> currentVAOMeshs;
@@ -492,8 +419,9 @@ int main(void) {
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
-                    if (ImGui::MenuItem("Load")) {LoadScene();}
-                    if (ImGui::MenuItem("Save")) {SaveScene();}
+                    if (ImGui::MenuItem("Clear Scene")) {ClearScene();}
+                    if (ImGui::MenuItem("Load Scene")) {LoadScene();}
+                    if (ImGui::MenuItem("Save Scene")) {SaveScene();}
                     ImGui::EndMenu();
                 }
 
@@ -676,6 +604,22 @@ int main(void) {
             ImGuiIO& io = ImGui::GetIO();
 
             ImGui::Separator();
+
+            ImGui::Checkbox("Object Grid Snap", &isObjectGridSnap);
+            if (isObjectGridSnap) {
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(75);
+                ImGui::InputFloat("##ObjectGridVal", &object_move_grid);
+            }
+
+            ImGui::Spacing();
+
+            ImGui::Checkbox("Light Grid Snap", &isLightGridSnap);
+            if (isLightGridSnap) {
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(75);
+                ImGui::InputFloat("##LightGridVal", &light_move_grid);
+            }
 
             if (ImGui::ArrowButton("PreviousObject", ImGuiDir_Left)) {
                 if (g_selectedObjectIndex > 0) {
