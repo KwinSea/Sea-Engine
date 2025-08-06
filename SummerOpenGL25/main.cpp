@@ -735,6 +735,9 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
     // Set it
     glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
 
+    // Set it
+    glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
+
     // ste specular value
     GLint vertSpecular_UL = glGetUniformLocation(program, "vertSpecular");
 

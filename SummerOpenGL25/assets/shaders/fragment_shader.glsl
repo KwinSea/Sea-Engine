@@ -15,6 +15,8 @@ uniform vec4 vertSpecular;
 
 uniform float alphaTransparency;
 
+uniform float ambientLight = 0.075;
+
 vec4 calculateLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal, 
                             vec3 vertexWorldPos, vec4 vertexSpecular);
 							
@@ -54,7 +56,7 @@ void main()
 		if (lightingType == 0) {
 			pixelColour.rgb = lightContrib.rgb; // Lit
 		} else if (lightingType == 1){
-			pixelColour.rgb = lightContrib.rgb + 0.075; // Semi Lit
+			pixelColour.rgb = lightContrib.rgb + ambientLight; // Semi Lit
 		}
 	} else if (lightingType == 2) {
 		pixelColour.rgb = vertColor.rgb; // Unlit
