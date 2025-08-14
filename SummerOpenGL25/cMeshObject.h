@@ -26,5 +26,5 @@ public:
     bool bIsWireframe;
     bool bIsVisible;
 
-    //std::vector<cMeshObject*> vec_pChildObjects; // for later use potentially
+    std::vector<cMeshObject*> vec_pChildObjects; // for later use potentially
 };

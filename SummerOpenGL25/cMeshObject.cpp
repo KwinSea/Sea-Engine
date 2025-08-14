@@ -17,4 +17,6 @@ cMeshObject::cMeshObject()
 	this->bOverrideVertexModelColour = false;
 	this->bIsWireframe = false;
 	this->bIsVisible = true;
+
+	this->vec_pChildObjects;
 }
