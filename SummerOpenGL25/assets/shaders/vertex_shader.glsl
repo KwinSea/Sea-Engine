@@ -12,10 +12,12 @@ uniform vec3 colorOverride;
 in vec4 vCol;
 in vec4 vPos;
 in vec4 vNorm;
+in vec2 vTextCoords;
 
 out vec4 vertColor;
 out vec4 vertNormal;
 out vec4 vertWorldPosition;
+out vec2 vertTextCoords;
 
 void main()
 {
@@ -36,4 +38,6 @@ void main()
 	
 	vertNormal = mModel_InverseTranpose * vec4(vNorm.xyz, 1.0f);
 	vertNormal.xyz = normalize(vertNormal.xyz);
+
+    vertTextCoords = vTextCoords;
 };

@@ -33,4 +33,7 @@ glm::vec3 RGBify(int red, int green, int blue);
 
 void LoadMaze(std::string file_name);
 
+cMeshObject* g_pFindObjectByUniqueName(std::string theNameToFind);
 
+double g_getRandBetween0and1(void);
+double g_getRandBetween(float min, float max);

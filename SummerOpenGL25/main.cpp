@@ -26,15 +26,25 @@
 #include "cLightHelper/cLightHelper.h"
 #include "Camera.h"
 #include "Functions.h"
+#include "DrawMesh.h"
+#include "LoadModelsAndTextures.h"
+
+// ImGui
 #include "imgui/imgui.h"
 #include "imgui/imgui_internal.h"
 #include "imgui/backends/imgui_impl_glfw.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 
+// Textures
+#include "cBasicTextureManager/cBasicTextureManager.h"
+
 
 cShaderManager* g_pTheShaderManager = NULL;
 cVAOManager* g_pMeshManager = NULL;
 cLightManager* g_pLights = NULL;
+
+// Textures
+cBasicTextureManager* g_pTheTextures = NULL;
 
 cMeshObject* g_pSmoothSphere = NULL;
 cMeshObject* g_pSelectedMeshIndicator = NULL;
@@ -66,14 +76,12 @@ unsigned int g_SizeOfVertexArrayInBytes = 0;
 
 bool usingGui = false;
 
-Camera camera (screenWidth, screenHeight, glm::vec3(3000.0f, 1500.0f, 3000.0f));
+Camera camera (screenWidth, screenHeight, glm::vec3(0.0f, 0.0f, 0.0f));
 
 void LoadFilesIntoVAOManager(GLuint program);
 
 std::vector<cMeshObject*> g_pMeshesToDraw;
-void LoadModelsIntoScene();
 
-void DrawMesh(cMeshObject* pCurrentMesh, GLint program);
 
 static void error_callback(int error, const char* description) {
     fprintf(stderr, "Error: %s\n", description);
@@ -135,6 +143,9 @@ int main(void) {
     mvp_location = glGetUniformLocation(program, "MVP");
 
     LoadFilesIntoVAOManager(program);
+
+    ::g_pTheTextures = new cBasicTextureManager();
+    LoadTexturesIntoTextureManager(::g_pTheTextures);
 
     LoadModelsIntoScene();
 
@@ -393,6 +404,39 @@ int main(void) {
         ::g_pSmoothSphere->colourRGB = glm::vec3(0.0f, 0.0f, 1.0f);
         DrawMesh(g_pSmoothSphere, program);
 
+        // SkyBox
+        cMeshObject* pSkyBox = g_pFindObjectByUniqueName("skybox_mesh");
+        GLint bIsSkyboxObject_UL = glGetUniformLocation(program, "bIsSkyboxObject");
+        glUniform1f(bIsSkyboxObject_UL, (GLfloat)GL_TRUE);  // Or 1.0f
+
+        if (pSkyBox != NULL)
+        {
+            pSkyBox->bIsVisible = true;
+
+            // Move this mesh to where the camera is
+            pSkyBox->position = camera.Position;
+
+            // The skybox textue likely won't change, so we are setting it once at the start
+            //            GLuint skyBoxTexture_ID = ::g_pTheTextures->getTextureIDFromName("SunnyDay");
+            GLuint skyBoxTexture_ID = ::g_pTheTextures->getTextureIDFromName("Space");
+
+            // Chose a unique texture unit. Here I pick 20 just because...
+            glActiveTexture(GL_TEXTURE20);
+            // Note this ISN'T GL_TEXTURE_2D
+            glBindTexture(GL_TEXTURE_CUBE_MAP, skyBoxTexture_ID);
+
+            // uniform samplerCube skyboxCubeTexture;
+            GLint skyboxCubeTexture_UL = glGetUniformLocation(program, "skyboxCubeTexture");
+            glUniform1i(skyboxCubeTexture_UL, 20);   // (Uniform ID, Texture Unit #)
+
+            DrawMesh(pSkyBox, program);
+
+
+            pSkyBox->bIsVisible = false;
+
+        }//if (pSkyBox != NULL)
+
+        glUniform1f(bIsSkyboxObject_UL, (GLfloat)GL_FALSE);
 
         std::stringstream ssWindowTitle;
 
@@ -705,102 +749,98 @@ void LoadFilesIntoVAOManager(GLuint program) {
     std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
 }
 
-void LoadModelsIntoScene() {
-    LoadMaze("assets/maze.txt");
-}
-
-void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
-    if (!pCurrentMesh->bIsVisible) {
-        return;
-    }
-
-    glm::mat4 matModel;
-    GLint Model_location = glGetUniformLocation(program, "mModel");
-    GLint useOverrideColor_location = glGetUniformLocation(program, "bUseOverrideColor");
-    GLint overrideColor_location = glGetUniformLocation(program, "colorOverride");
-
-    if (pCurrentMesh->bOverrideVertexModelColour) {
-        glUniform3f(overrideColor_location, pCurrentMesh->colourRGB.r,
-                    pCurrentMesh->colourRGB.g, pCurrentMesh->colourRGB.b);
-
-        glUniform1f(useOverrideColor_location, GL_TRUE); // 1.0f
-    } else {
-        glUniform1f(useOverrideColor_location, GL_FALSE);
-    }
-
-    // Copy over the transparency
-    // uniform float alphaTransparency;
-    GLint alphaTransparency_UL
-        = glGetUniformLocation(program, "alphaTransparency");
-    // Set it
-    glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
-
-    // Set it
-    glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
-
-    // ste specular value
-    GLint vertSpecular_UL = glGetUniformLocation(program, "vertSpecular");
-
-    glUniform4f(vertSpecular_UL,
-                pCurrentMesh->specularHighLightRGB.r,
-                pCurrentMesh->specularHighLightRGB.g,
-                pCurrentMesh->specularHighLightRGB.b,
-                pCurrentMesh->specularPower);
-
-    //         mat4x4_identity(m);
-    matModel = glm::mat4(1.0f);
-
-    glm::mat4 translation = glm::translate(glm::mat4(1.0f), pCurrentMesh->position);
-
-    //mat4x4_rotate_Z(m, m, (float) glfwGetTime());
-    glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
-                                    pCurrentMesh->orientation.x,
-                                    glm::vec3(1.0f, 0.0f, 0.0f));
-
-    glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
-                                    pCurrentMesh->orientation.y,
-                                    glm::vec3(0.0f, 1.0f, 0.0f));
-
-    glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
-                                    pCurrentMesh->orientation.z,
-                                    glm::vec3(0.0f, 0.0f, 1.0f));
-
-    float uniformScale = pCurrentMesh->scale;
-    glm::mat4 scaleXYZ = glm::scale(glm::mat4(1.0f),
-                                    glm::vec3(uniformScale, uniformScale, uniformScale));
-
-    matModel = matModel * translation * rotateX * rotateY * rotateZ * scaleXYZ;
-
-
-    //m = m * rotateZ;
-
-    //mat4x4_mul(mvp, p, m);
-    //mvp = matProj * matView * matModel;
-
-    if (pCurrentMesh->bIsWireframe) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    } else {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-
-
-    //glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*) mvp);
-    glUniformMatrix4fv(Model_location, 1, GL_FALSE, glm::value_ptr(matModel));
-
-    GLint mModelIt_location = glGetUniformLocation(program, "mModel_InverseTranpose");
-
-    // gets rid of any translation (movement) and scaling. leaves only roation
-    glm::mat4 matModelIt = glm::inverse(glm::transpose(matModel));
-    glUniformMatrix4fv(mModelIt_location, 1, GL_FALSE, glm::value_ptr(matModelIt));
-
-    //glDrawArrays(GL_TRIANGLES, 0, g_NumVerticiesToDraw);
-    sModelDrawInfo modelToDraw;
-
-    if (::g_pMeshManager->FindDrawInfoByModelName(pCurrentMesh->meshFileName,
-                                                  modelToDraw)) {
-        glBindVertexArray(modelToDraw.VAO_ID);
-        glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-                       GL_UNSIGNED_INT, (void*)0);
-        glBindVertexArray(0);
-    }
-}
+// void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
+//     if (!pCurrentMesh->bIsVisible) {
+//         return;
+//     }
+//
+//     glm::mat4 matModel;
+//     GLint Model_location = glGetUniformLocation(program, "mModel");
+//     GLint useOverrideColor_location = glGetUniformLocation(program, "bUseOverrideColor");
+//     GLint overrideColor_location = glGetUniformLocation(program, "colorOverride");
+//
+//     if (pCurrentMesh->bOverrideVertexModelColour) {
+//         glUniform3f(overrideColor_location, pCurrentMesh->colourRGB.r,
+//                     pCurrentMesh->colourRGB.g, pCurrentMesh->colourRGB.b);
+//
+//         glUniform1f(useOverrideColor_location, GL_TRUE); // 1.0f
+//     } else {
+//         glUniform1f(useOverrideColor_location, GL_FALSE);
+//     }
+//
+//     // Copy over the transparency
+//     // uniform float alphaTransparency;
+//     GLint alphaTransparency_UL
+//         = glGetUniformLocation(program, "alphaTransparency");
+//     // Set it
+//     glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
+//
+//     // Set it
+//     glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
+//
+//     // ste specular value
+//     GLint vertSpecular_UL = glGetUniformLocation(program, "vertSpecular");
+//
+//     glUniform4f(vertSpecular_UL,
+//                 pCurrentMesh->specularHighLightRGB.r,
+//                 pCurrentMesh->specularHighLightRGB.g,
+//                 pCurrentMesh->specularHighLightRGB.b,
+//                 pCurrentMesh->specularPower);
+//
+//     //         mat4x4_identity(m);
+//     matModel = glm::mat4(1.0f);
+//
+//     glm::mat4 translation = glm::translate(glm::mat4(1.0f), pCurrentMesh->position);
+//
+//     //mat4x4_rotate_Z(m, m, (float) glfwGetTime());
+//     glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
+//                                     pCurrentMesh->orientation.x,
+//                                     glm::vec3(1.0f, 0.0f, 0.0f));
+//
+//     glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
+//                                     pCurrentMesh->orientation.y,
+//                                     glm::vec3(0.0f, 1.0f, 0.0f));
+//
+//     glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
+//                                     pCurrentMesh->orientation.z,
+//                                     glm::vec3(0.0f, 0.0f, 1.0f));
+//
+//     float uniformScale = pCurrentMesh->scale;
+//     glm::mat4 scaleXYZ = glm::scale(glm::mat4(1.0f),
+//                                     glm::vec3(uniformScale, uniformScale, uniformScale));
+//
+//     matModel = matModel * translation * rotateX * rotateY * rotateZ * scaleXYZ;
+//
+//
+//     //m = m * rotateZ;
+//
+//     //mat4x4_mul(mvp, p, m);
+//     //mvp = matProj * matView * matModel;
+//
+//     if (pCurrentMesh->bIsWireframe) {
+//         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//     } else {
+//         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+//     }
+//
+//
+//     //glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*) mvp);
+//     glUniformMatrix4fv(Model_location, 1, GL_FALSE, glm::value_ptr(matModel));
+//
+//     GLint mModelIt_location = glGetUniformLocation(program, "mModel_InverseTranpose");
+//
+//     // gets rid of any translation (movement) and scaling. leaves only roation
+//     glm::mat4 matModelIt = glm::inverse(glm::transpose(matModel));
+//     glUniformMatrix4fv(mModelIt_location, 1, GL_FALSE, glm::value_ptr(matModelIt));
+//
+//     //glDrawArrays(GL_TRIANGLES, 0, g_NumVerticiesToDraw);
+//     sModelDrawInfo modelToDraw;
+//
+//     if (::g_pMeshManager->FindDrawInfoByModelName(pCurrentMesh->meshFileName,
+//                                                   modelToDraw)) {
+//         glBindVertexArray(modelToDraw.VAO_ID);
+//         glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
+//                        GL_UNSIGNED_INT, (void*)0);
+//         glBindVertexArray(0);
+//     }
+// }

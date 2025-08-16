@@ -475,3 +475,31 @@ void LoadMaze(std::string file_name) {
     file.close();
 }
 
+cMeshObject* g_pFindObjectByUniqueName(std::string theNameToFind)
+{
+    for (cMeshObject* pTestMesh : ::g_pMeshesToDraw)
+    {
+        // Is this it?
+        if (pTestMesh->uniqueName == theNameToFind)
+        {
+            // Yup
+            return pTestMesh;
+        }
+    }
+    // Didn't find it
+    return NULL;
+
+}
+
+double g_getRandBetween0and1(void)
+{
+    return ((double)rand() / ((double)RAND_MAX));
+}
+
+double g_getRandBetween(float min, float max)
+{
+    double zeroToOne = ((double)rand() / (RAND_MAX));
+    double value = (zeroToOne * (max - min)) + min;
+    return value;
+}
+

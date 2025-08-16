@@ -10,6 +10,7 @@
 #include <vector>
 
 #include <sstream>
+#include <glm/vec2.hpp>
 
 sModelDrawInfo::sModelDrawInfo()
 {
@@ -39,6 +40,12 @@ sModelDrawInfo::sModelDrawInfo()
 	return;
 }
 
+bool cVAOManager::LoadModelIntoVAO_2(std::string fileName, unsigned int shaderProgramID)
+{
+	sModelDrawInfo modelInfo;
+	return this->LoadModelIntoVAO(fileName, modelInfo,
+		shaderProgramID, 1.0f);
+}
 
 bool cVAOManager::LoadModelIntoVAO(
 		std::string fileName,
@@ -107,6 +114,7 @@ bool cVAOManager::LoadModelIntoVAO(
 	GLint vpos_location = glGetAttribLocation(shaderProgramID, "vPos");	// program
 	GLint vcol_location = glGetAttribLocation(shaderProgramID, "vCol");	// program;
 	GLint vnorm_location = glGetAttribLocation(shaderProgramID, "vNorm");
+	GLint vTextCoords_location = glGetAttribLocation(shaderProgramID, "vTextCoords");
 
 	// Set the vertex attributes for this shader
 	glEnableVertexAttribArray(vpos_location);	// vPos
@@ -127,6 +135,15 @@ bool cVAOManager::LoadModelIntoVAO(
 							sizeof(sVert),
 						   ( void* )offsetof(sVert,r));
 
+	// Tell it where the uv values are
+	glEnableVertexAttribArray(vTextCoords_location);	// vTextCoords
+	glVertexAttribPointer( vTextCoords_location,			// vTextCoords
+						   2,
+						   GL_FLOAT,
+						   GL_FALSE,
+						   sizeof(sVert),
+						   ( void* )offsetof(sVert,u));
+
 	// Now that all the parts are set up, set the VAO to zero
 	glBindVertexArray(0);
 
@@ -136,6 +153,7 @@ bool cVAOManager::LoadModelIntoVAO(
 	glDisableVertexAttribArray(vpos_location);
 	glDisableVertexAttribArray(vnorm_location);
 	glDisableVertexAttribArray(vcol_location);
+	glDisableVertexAttribArray(vTextCoords_location);
 
 
 	// Store the draw information into the map
@@ -246,6 +264,7 @@ bool cVAOManager::m_LoadTheModel(std::string fileName, sModelDrawInfo &drawInfo,
 		glm::vec3 pos;
 		glm::vec3 norm;
 		glm::vec4 colour;
+		glm::vec2 textureCoords;
 	};
 
 	std::vector<sVertPly> vecTempPlyVerts;
@@ -287,9 +306,9 @@ bool cVAOManager::m_LoadTheModel(std::string fileName, sModelDrawInfo &drawInfo,
 
 		if (hasTextures)
 		{
-			float texture_u;
-			float texture_v;
-			thePlyFile >> texture_u >> texture_v;
+			thePlyFile
+				>> tempVert.textureCoords.x		// U or S
+				>> tempVert.textureCoords.y;	// V or T
 		}
 
 		// Add too... what?
@@ -331,6 +350,31 @@ bool cVAOManager::m_LoadTheModel(std::string fileName, sModelDrawInfo &drawInfo,
 			drawInfo.pVertices[index].g = vecTempPlyVerts[index].colour.g;
 			drawInfo.pVertices[index].b = vecTempPlyVerts[index].colour.b;
 			drawInfo.pVertices[index].a = vecTempPlyVerts[index].colour.a;
+		}// for ( unsigned int index...
+	}
+	if (hasNormals && hasColours && hasTextures)
+	{
+		for (unsigned int index = 0; index != drawInfo.numberOfVertices; index++)
+		{
+			drawInfo.pVertices[index].x = vecTempPlyVerts[index].pos.x;
+			drawInfo.pVertices[index].y = vecTempPlyVerts[index].pos.y;
+			drawInfo.pVertices[index].z = vecTempPlyVerts[index].pos.z;
+			drawInfo.pVertices[index].w = 1.0f; // when in doubt, set to 1.0f
+
+			drawInfo.pVertices[index].nx = vecTempPlyVerts[index].norm.x;
+			drawInfo.pVertices[index].ny = vecTempPlyVerts[index].norm.y;
+			drawInfo.pVertices[index].nz = vecTempPlyVerts[index].norm.z;
+			drawInfo.pVertices[index].nw = 1.0f; // when in doubt, set to 1.0f
+
+			drawInfo.pVertices[index].r = vecTempPlyVerts[index].colour.r;
+			drawInfo.pVertices[index].g = vecTempPlyVerts[index].colour.g;
+			drawInfo.pVertices[index].b = vecTempPlyVerts[index].colour.b;
+			drawInfo.pVertices[index].a = vecTempPlyVerts[index].colour.a;
+
+			// Copy the texture stuff as well
+			drawInfo.pVertices[index].u = vecTempPlyVerts[index].textureCoords.x;
+			drawInfo.pVertices[index].v = vecTempPlyVerts[index].textureCoords.y;
+
 		}// for ( unsigned int index...
 	}
 	else if (hasNormals)
@@ -517,4 +561,130 @@ void cVAOManager::m_AppendTextToLastError(std::string text, bool addNewLineBefor
 
 	return;
 
+}
+
+bool cVAOManager::LoadTheModel_IntoDrawInfoObject(std::string fileName,sModelDrawInfo& drawInfo,float scaling)
+{
+	// Load the model from file
+	// (We do this here, since if we can't load it, there's
+	//	no point in doing anything else, right?)
+
+	drawInfo.meshName = fileName;
+
+	if (!this->m_LoadTheModel(fileName, drawInfo, scaling))
+	{
+		this->m_AppendTextToLastError("Didn't load model", true);
+		return false;
+	}
+
+	// Loaded OK
+	return true;
+}
+
+bool cVAOManager::LoadModelDrawInfo_IntoVAO(
+	sModelDrawInfo& drawInfo,
+	unsigned int shaderProgramID)
+{
+	//this->GenTextureCoordsSpherical(drawInfo,
+//	enumTEXCOORDBIAS::POSITIVE_X,
+//	enumTEXCOORDBIAS::POSITIVE_Y, true, 1.0f, false);
+	//
+	// Model is loaded and the vertices and indices are in the drawInfo struct
+	//
+
+	// Create a VAO (Vertex Array Object), which will
+	//	keep track of all the 'state' needed to draw
+	//	from this buffer...
+
+	// Ask OpenGL for a new buffer ID...
+	glGenVertexArrays(1, &(drawInfo.VAO_ID));
+	// "Bind" this buffer:
+	// - aka "make this the 'current' VAO buffer
+	glBindVertexArray(drawInfo.VAO_ID);
+
+	// Now ANY state that is related to vertex or index buffer
+	//	and vertex attribute layout, is stored in the 'state'
+	//	of the VAO...
+
+
+	// NOTE: OpenGL error checks have been omitted for brevity
+//	glGenBuffers(1, &vertex_buffer);
+	glGenBuffers(1, &(drawInfo.VertexBufferID));
+
+	//	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, drawInfo.VertexBufferID);
+	// sVert vertices[3]
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(sVert) * drawInfo.numberOfVertices,	// ::g_NumberOfVertsToDraw,	// sizeof(vertices),
+		(GLvoid*)drawInfo.pVertices,							// pVertices,			//vertices,
+		GL_STATIC_DRAW);
+
+
+	// Copy the index buffer into the video card, too
+	// Create an index buffer.
+	glGenBuffers(1, &(drawInfo.IndexBufferID));
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, drawInfo.IndexBufferID);
+
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,			// Type: Index element array
+		sizeof(unsigned int) * drawInfo.numberOfIndices,
+		(GLvoid*)drawInfo.pIndices,
+		GL_STATIC_DRAW);
+
+	// Set the vertex attributes.
+
+	GLint vpos_location = glGetAttribLocation(shaderProgramID, "vPos");	// program
+	GLint vcol_location = glGetAttribLocation(shaderProgramID, "vCol");	// program;
+	GLint vnorm_location = glGetAttribLocation(shaderProgramID, "vNorm");
+	// Now texture coords
+	GLint vTextCoords_location = glGetAttribLocation(shaderProgramID, "vTextCoords");
+
+
+	// Set the vertex attributes for this shader
+	glEnableVertexAttribArray(vpos_location);	// vPos
+	glVertexAttribPointer(vpos_location, 4,		// vPos
+		GL_FLOAT, GL_FALSE,
+		sizeof(sVert),
+		(void*)offsetof(sVert, x));
+
+	glEnableVertexAttribArray(vnorm_location);	// vNorm
+	glVertexAttribPointer(vnorm_location, 4,		// vNorm
+		GL_FLOAT, GL_FALSE,
+		sizeof(sVert),
+		(void*)offsetof(sVert, nx));
+
+	glEnableVertexAttribArray(vcol_location);	// vCol
+	glVertexAttribPointer(vcol_location, 4,		// vCol
+		GL_FLOAT, GL_FALSE,
+		sizeof(sVert),
+		(void*)offsetof(sVert, r));
+
+	// Tell it where the uv values are
+	glEnableVertexAttribArray(vTextCoords_location);	// vTextCoords
+	glVertexAttribPointer(vTextCoords_location,			// vTextCoords
+		2,
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(sVert),
+		(void*)offsetof(sVert, u));
+
+
+
+	// Now that all the parts are set up, set the VAO to zero
+	glBindVertexArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glDisableVertexAttribArray(vpos_location);
+	glDisableVertexAttribArray(vnorm_location);
+	glDisableVertexAttribArray(vcol_location);
+	glDisableVertexAttribArray(vTextCoords_location);
+
+
+	// Store the draw information into the map
+	this->m_map_ModelName_to_VAOID[drawInfo.meshName] = drawInfo;
+
+
+	return true;
 }

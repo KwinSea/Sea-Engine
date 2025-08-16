@@ -26,5 +26,12 @@ public:
     bool bIsWireframe;
     bool bIsVisible;
 
-    std::vector<cMeshObject*> vec_pChildObjects; // for later use potentially
+    bool bDoNotLight;
+    bool bDontUseTextures;	// default = false;
+
+    static const unsigned int NUM_TEXTURES = 4;
+    std::string textureNames[NUM_TEXTURES];
+    float textureMixRatio[NUM_TEXTURES];
+
+    // std::vector<cMeshObject*> vec_pChildObjects; // for later use potentially
 };

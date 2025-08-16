@@ -18,5 +18,8 @@ cMeshObject::cMeshObject()
 	this->bIsWireframe = false;
 	this->bIsVisible = true;
 
-	this->vec_pChildObjects;
+	this->bDoNotLight = false;
+	this->bDontUseTextures = false;
+
+	// this->vec_pChildObjects;
 }

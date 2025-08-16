@@ -8,6 +8,7 @@ uniform int lightingType; // 0 = Lit
 in vec4 vertColor;
 in vec4 vertNormal;
 in vec4 vertWorldPosition;
+in vec2 vertTextCoords;
 
 out vec4 pixelColour;
 
@@ -40,6 +41,30 @@ const int DIRECTIONAL_LIGHT_TYPE = 2;
 const int NUMBEROFLIGHTS = 20;
 uniform sLight theLights[NUMBEROFLIGHTS];
 
+// Textures (can have up to 32+ of these)
+// BUT keep in mind that's NOT the "total number of textures"
+//    it's the max texture PER PIXEL
+uniform sampler2D textSampler2D_00;		// Sydney
+uniform sampler2D textSampler2D_01;		// Dungeon
+uniform sampler2D textSampler2D_02;
+uniform sampler2D textSampler2D_03;
+
+// From cMeshObject: float textureMixRatio[NUM_TEXTURES];
+// 0.0 = no texture to 1.0 = 100% of that texture
+// All the ratios should add up to 1.0f
+uniform vec4 texMixRatios;		// x = 0, y = 1, etc.
+
+// If this is true, then we are drawing the skybox
+// (it's false for all other objects)
+uniform bool bIsSkyboxObject;
+uniform samplerCube skyboxCubeTexture;
+
+
+uniform sampler2D sampMaskTexture01;
+uniform bool bUseMaskingTexture;
+
+uniform bool bUseVertexColourNotTexture;	// If true, the vertex colour is instead of texture
+uniform bool bDoNotLight;
 
 void main()
 {
@@ -49,17 +74,66 @@ void main()
 	
 	pixelColour = vec4(vertColor);
 
+    // Skybox
+    // uniform bool bIsSkyboxObject;
+    // uniform samplerCube skyboxCubeTexture;
+    if ( bIsSkyboxObject )
+    {
+        // Note we are using the normal vectors to cast a ray that
+        //	intersects with the cube map.
+        // (we completely ignore the UVs on the skybox sphere)
+
+        vec3 vertexColour = texture( skyboxCubeTexture, vertNormal.xyz ).rgb;
+
+        pixelColour.rgb = vertexColour;
+        pixelColour.a = 1.0f;
+
+        return;
+    }
+
+    // Set the vertex colour in case we are NOT using texture lookup
+    vec3 vertexColourRGB = vec3(0.0f, 0.0f, 0.0f);
+
+    if ( bUseVertexColourNotTexture )
+    {
+        // Use incoming vertex colour, NOT texture colour
+        vertexColourRGB = vertColor.rgb;
+    }
+    else
+    {
+        // Use the textures for the "vertex colour"
+        vec3 tex00RGB = texture( textSampler2D_00, vertTextCoords.xy ).rgb;
+        vec3 tex01RGB = texture( textSampler2D_01, vertTextCoords.xy ).rgb;
+        vec3 tex02RGB = texture( textSampler2D_02, vertTextCoords.xy ).rgb;
+        vec3 tex03RGB = texture( textSampler2D_03, vertTextCoords.xy ).rgb;
+
+        vertexColourRGB.rgb = tex00RGB * texMixRatios.x;
+        + tex01RGB * texMixRatios.y
+        + tex02RGB * texMixRatios.z
+        + tex03RGB * texMixRatios.w;
+    }
+
+    if ( bDoNotLight )
+    {
+        // Bypass the lighting calculation
+        pixelColour.rgb = vertexColourRGB.rgb;
+        // Assume alpha is 1.0f
+        pixelColour.a = 1.0f;
+        // Early exit of shader
+        return;
+    }
+
 	// Check if lighting sould be handeld
 	if (lightingType != 2) {
-		vec4 lightContrib = calculateLightContrib(vertColor.rgb, vertNormal.xyz, vertWorldPosition.xyz, vertSpecular);
+		vec4 lightContrib = calculateLightContrib(vertexColourRGB.rgb, vertNormal.xyz, vertWorldPosition.xyz, vertSpecular);
 
-		if (lightingType == 0) {
-			pixelColour.rgb = lightContrib.rgb; // Lit
-		} else if (lightingType == 1){
-			pixelColour.rgb = lightContrib.rgb + ambientLight; // Semi Lit
+        pixelColour.rgb = lightContrib.rgb; // Lit
+
+		if (lightingType == 1){
+            pixelColour.rgb += ambientLight; // Semi Lit
 		}
 	} else if (lightingType == 2) {
-		pixelColour.rgb = vertColor.rgb; // Unlit
+        pixelColour.rgb = vertexColourRGB.rgb;
 	}
 
 	pixelColour.a = alphaTransparency;
