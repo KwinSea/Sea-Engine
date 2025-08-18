@@ -749,48 +749,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }
 
     if (!areAnyModifiersDown(mods)) {
-        if (key == GLFW_KEY_A && action != GLFW_RELEASE) {
-            camera.Position += camera.speed * -glm::normalize(glm::cross(camera.Orientation, camera.Up)) * static_cast<float>(deltaTime);
-        }
-
-        if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * glm::normalize(glm::cross(camera.Orientation, camera.Up)) * static_cast<float>(deltaTime);
-        }
-
-
-        if (key == GLFW_KEY_W && action != GLFW_RELEASE) {
-         camera.Position += camera.speed * glm::normalize(glm::vec3(camera.Orientation))  * static_cast<float>(deltaTime);
-        }
-
-
-        if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * glm::normalize(glm::vec3(-camera.Orientation))  * static_cast<float>(deltaTime);
-        }
-
-        if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * -camera.Up * static_cast<float>(deltaTime);
-        }
-
-        if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-             camera.Position += camera.speed * camera.Up * static_cast<float>(deltaTime);
-        }
-
-        if (key == GLFW_KEY_PAGE_UP && action != GLFW_RELEASE) {
-            camera.speed += 1.0f;
-        }
-
-        if (key == GLFW_KEY_PAGE_DOWN && action != GLFW_RELEASE) {
-            camera.speed -= 1.0f;
-        }
-
-        if (key == GLFW_KEY_F && action == GLFW_PRESS) {
-            if (g_pLights->theLights[19].param2.x == 0.0f) {
-                g_pLights->theLights[19].param2.x = 1.0f;
-            } else {
-                g_pLights->theLights[19].param2.x = 0.0f;
-            }
-        }
-
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
             if (g_LightingType >= 2) {
                 g_LightingType = 0;
@@ -835,9 +793,9 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
         return;
 
     if (yoffset > 0) {
-        camera.speed += 50.0f;
+        camera.speed += 10.0f;
     }
-    else if (yoffset < 0) {
-        camera.speed -= 50.0f;
+    else if (yoffset < 0 && camera.speed > 5) {
+        camera.speed -= 10.0f;
     }
 }

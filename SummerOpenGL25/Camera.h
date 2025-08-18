@@ -12,6 +12,9 @@
 #include<glm/gtx/vector_angle.hpp>
 #include  "cShaderManager/cShaderManager.h"
 
+extern double deltaTime;
+extern bool usingGui;
+
 class Camera {
 public:
     glm::vec3 Position;
@@ -24,9 +27,14 @@ public:
     bool firstClick = true;
 
     float speed = 15.0f;
-    float sensitivity = 25.5f;
+    float sensitivity = 625.5f;
 
     Camera(int viewWidth, int viewHeight, glm::vec3 position);
+
+    bool isShiftDown(GLFWwindow* window);
+    bool isControlDown(GLFWwindow* window);
+    bool isAltDown(GLFWwindow* window);
+    bool areAllModifiersUp(GLFWwindow* window);
 
     void Matrix(float FOVdeg, float zNear, float zFar, cShaderManager& shader, const char* uniform);
     void InputHandler(GLFWwindow* window);

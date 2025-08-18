@@ -14,7 +14,89 @@ void Camera::Matrix(float FOVdeg, float zNear, float zFar, cShaderManager& shade
     glUniformMatrix4fv(glGetUniformLocation(shader.getIDFromFriendlyName("shader1"), uniform), 1, GL_FALSE, glm::value_ptr(matProj * matView));
 }
 
+// Input Stuff
+bool Camera::isShiftDown(GLFWwindow* window) {
+    if ((glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) ||
+        (glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Camera::isControlDown(GLFWwindow* window)
+{
+    if ((glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) ||
+        (glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Camera::isAltDown(GLFWwindow* window)
+{
+    if ((glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS) ||
+        (glfwGetKey(window, GLFW_KEY_RIGHT_ALT) == GLFW_PRESS))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Camera::areAllModifiersUp(GLFWwindow* window)
+{
+    if (isShiftDown(window))
+    {
+        return false;
+    }
+
+    if (isControlDown(window))
+    {
+        return false;
+    }
+
+    if (isAltDown(window))
+    {
+        return false;
+    }
+
+    // Nothing is down
+    return true;
+}
+
 void Camera::InputHandler(GLFWwindow* window) {
+
+    if (areAllModifiersUp(window)) {
+        // Move the camera
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        {
+            this->Position += this->speed * glm::normalize(glm::vec3(this->Orientation))  * static_cast<float>(deltaTime);
+        }
+
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        {
+            this->Position += this->speed * glm::normalize(glm::vec3(-this->Orientation))  * static_cast<float>(deltaTime);
+        }
+
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        {
+            this->Position += this->speed * -glm::normalize(glm::cross(this->Orientation, this->Up)) * static_cast<float>(deltaTime);
+        }
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        {
+            this->Position += this->speed * glm::normalize(glm::cross(this->Orientation, this->Up)) * static_cast<float>(deltaTime);
+        }
+
+        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        {
+            this->Position += this->speed * glm::normalize(-this->Up) * static_cast<float>(deltaTime);
+        }
+        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        {
+            this->Position += this->speed * glm::normalize(this->Up) * static_cast<float>(deltaTime);
+        }
+    }
 
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Hides cursor
@@ -29,8 +111,8 @@ void Camera::InputHandler(GLFWwindow* window) {
         double mouseY;
         glfwGetCursorPos(window, &mouseX, &mouseY);
 
-        float rotX = sensitivity * (float)(mouseY - ( viewHeight / 2)) / viewHeight;
-        float rotY = sensitivity * (float)(mouseX - (viewWidth / 2)) / viewWidth;
+        float rotX = sensitivity * (float)(mouseY - ( viewHeight / 2)) / viewHeight * static_cast<float>(deltaTime);
+        float rotY = sensitivity * (float)(mouseX - (viewWidth / 2)) / viewWidth * static_cast<float>(deltaTime);
 
         glm::vec3 newOrientation = glm::rotate(Orientation, glm::radians(-rotX), glm::normalize(glm::cross(Orientation, Up)));
 
@@ -49,6 +131,9 @@ void Camera::InputHandler(GLFWwindow* window) {
         firstClick = true;
     }
 }
+
+
+
 
 
 

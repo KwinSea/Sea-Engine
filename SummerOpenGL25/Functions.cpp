@@ -50,6 +50,37 @@ void SaveScene() {
                 // Mesh name
                 mySaveFile << ::g_pMeshesToDraw[index]->meshFileName << std::endl;
 
+                // Textures
+                if (::g_pMeshesToDraw[index]->textureNames[0].empty()) {
+                    mySaveFile << "PLACEHOLDER.bmp" << std::endl;
+                } else {
+                    mySaveFile << ::g_pMeshesToDraw[index]->textureNames[0] << std::endl;
+                }
+
+                if (::g_pMeshesToDraw[index]->textureNames[1].empty()) {
+                    mySaveFile << "PLACEHOLDER.bmp" << std::endl;
+                } else {
+                    mySaveFile << ::g_pMeshesToDraw[index]->textureNames[1] << std::endl;
+                }
+
+                if (::g_pMeshesToDraw[index]->textureNames[2].empty()) {
+                    mySaveFile << "PLACEHOLDER.bmp" << std::endl;
+                } else {
+                    mySaveFile << ::g_pMeshesToDraw[index]->textureNames[2] << std::endl;
+                }
+
+                if (::g_pMeshesToDraw[index]->textureNames[3].empty()) {
+                    mySaveFile << "PLACEHOLDER.bmp" << std::endl;
+                } else {
+                    mySaveFile << ::g_pMeshesToDraw[index]->textureNames[3] << std::endl;
+                }
+
+                // Texture Mix
+                mySaveFile << ::g_pMeshesToDraw[index]->textureMixRatio[0] << " "
+                    << g_pMeshesToDraw[index]->textureMixRatio[1] << " "
+                    << g_pMeshesToDraw[index]->textureMixRatio[2] << " "
+                    << g_pMeshesToDraw[index]->textureMixRatio[3] << std::endl;
+
                 // Position
                 mySaveFile << ::g_pMeshesToDraw[index]->position.x << " "
                     << g_pMeshesToDraw[index]->position.y << " "
@@ -83,6 +114,8 @@ void SaveScene() {
                 mySaveFile << ::g_pMeshesToDraw[index]->bOverrideVertexModelColour << std::endl; // Override color
                 mySaveFile << ::g_pMeshesToDraw[index]->bIsVisible << std::endl; // is Visible
                 mySaveFile << ::g_pMeshesToDraw[index]->bIsWireframe << std::endl; // is Wireframe
+                mySaveFile << ::g_pMeshesToDraw[index]->bDoNotLight << std::endl;
+                mySaveFile << ::g_pMeshesToDraw[index]->bDontUseTextures << std::endl;
             }
 
             // Save number of lights
@@ -139,92 +172,97 @@ void SaveScene() {
 }
 
 void LoadScene() {
-     std::ifstream mySaveFile("my_scene.scene");
+    std::ifstream mySaveFile("my_scene.scene");
 
-            if (!mySaveFile.is_open()) {
-                std::cout << "Did not open scene file!" << std::endl;
-                return;
-            }
+    if (!mySaveFile.is_open()) {
+        std::cout << "Did not open scene file!" << std::endl;
+        return;
+    }
 
-            // Delets mesh in vector
-            for (cMeshObject* ptr : ::g_pMeshesToDraw) {
-                delete ptr;
-            }
-            ::g_pMeshesToDraw.clear();
+    // Deletes meshes in vector
+    for (cMeshObject* ptr : ::g_pMeshesToDraw) {
+        delete ptr;
+    }
+    ::g_pMeshesToDraw.clear();
 
-            int meshesInScene = 0;
-            mySaveFile >> meshesInScene;
+    int meshesInScene = 0;
+    mySaveFile >> meshesInScene;
 
-            // Load meshs
-            for (int index = 0; index < meshesInScene; index++) {
-                cMeshObject* pNewObject = new cMeshObject();
+    // Load meshes
+    for (int index = 0; index < meshesInScene; index++) {
+        cMeshObject* pNewObject = new cMeshObject();
 
-                mySaveFile >> pNewObject->meshFileName;
-                mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
-                mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
-                mySaveFile >> pNewObject->scale;
-                mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
-                mySaveFile >> pNewObject->opacityAlpha;
-                mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
-                mySaveFile >> pNewObject->specularPower;
-                mySaveFile >> pNewObject->bOverrideVertexModelColour;
-                mySaveFile >> pNewObject->bIsVisible;
-                mySaveFile >> pNewObject->bIsWireframe;
+        std::getline(mySaveFile >> std::ws, pNewObject->meshFileName);
+        std::getline(mySaveFile >> std::ws, pNewObject->textureNames[0]);
+        std::getline(mySaveFile >> std::ws, pNewObject->textureNames[1]);
+        std::getline(mySaveFile >> std::ws, pNewObject->textureNames[2]);
+        std::getline(mySaveFile >> std::ws, pNewObject->textureNames[3]);
+        mySaveFile >> pNewObject->textureMixRatio[0] >> pNewObject->textureMixRatio[1] >> pNewObject->textureMixRatio[2] >> pNewObject->textureMixRatio[3];
+        mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
+        mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
+        mySaveFile >> pNewObject->scale;
+        mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
+        mySaveFile >> pNewObject->opacityAlpha;
+        mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
+        mySaveFile >> pNewObject->specularPower;
+        mySaveFile >> pNewObject->bOverrideVertexModelColour;
+        mySaveFile >> pNewObject->bIsVisible;
+        mySaveFile >> pNewObject->bIsWireframe;
+        mySaveFile >> pNewObject->bDoNotLight;
+        mySaveFile >> pNewObject->bDontUseTextures;
 
+        ::g_pMeshesToDraw.push_back(pNewObject);
+    }
 
-                ::g_pMeshesToDraw.push_back(pNewObject);
-            }
+    // Load number of lights
+    int lightsInScene = 0;
+    mySaveFile >> lightsInScene;
+    for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {
+        // Position
+        mySaveFile >> g_pLights->theLights[i].position.x
+                   >> g_pLights->theLights[i].position.y
+                   >> g_pLights->theLights[i].position.z
+                   >> g_pLights->theLights[i].position.w;
 
-            // Load number of lights
-            int lightsInScene = 0;
-            mySaveFile >> lightsInScene;
-            for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {\
+        // Diffuse
+        mySaveFile >> g_pLights->theLights[i].diffuse.x
+                   >> g_pLights->theLights[i].diffuse.y
+                   >> g_pLights->theLights[i].diffuse.z
+                   >> g_pLights->theLights[i].diffuse.w;
 
-                // Position
-                mySaveFile >> g_pLights->theLights[i].position.x
-                    >> g_pLights->theLights[i].position.y
-                    >> g_pLights->theLights[i].position.z
-                    >> g_pLights->theLights[i].position.w;
+        // Specular
+        mySaveFile >> g_pLights->theLights[i].specular.x
+                   >> g_pLights->theLights[i].specular.y
+                   >> g_pLights->theLights[i].specular.z
+                   >> g_pLights->theLights[i].specular.w;
 
-                // Diffuse
-                mySaveFile >> g_pLights->theLights[i].diffuse.x
-                    >> g_pLights->theLights[i].diffuse.y
-                    >> g_pLights->theLights[i].diffuse.z
-                    >> g_pLights->theLights[i].diffuse.w;
+        // Attenuation
+        mySaveFile >> g_pLights->theLights[i].atten.x
+                   >> g_pLights->theLights[i].atten.y
+                   >> g_pLights->theLights[i].atten.z
+                   >> g_pLights->theLights[i].atten.w;
 
-                // Specular
-                mySaveFile >> g_pLights->theLights[i].specular.x
-                    >> g_pLights->theLights[i].specular.y
-                    >> g_pLights->theLights[i].specular.z
-                    >> g_pLights->theLights[i].specular.w;
+        // Direction
+        mySaveFile >> g_pLights->theLights[i].direction.x
+                   >> g_pLights->theLights[i].direction.y
+                   >> g_pLights->theLights[i].direction.z
+                   >> g_pLights->theLights[i].direction.w;
 
-                // Attenuation
-                mySaveFile >> g_pLights->theLights[i].atten.x
-                    >> g_pLights->theLights[i].atten.y
-                    >> g_pLights->theLights[i].atten.z
-                    >> g_pLights->theLights[i].atten.w;
+        // Light type
+        mySaveFile >> g_pLights->theLights[i].param1.x
+                   >> g_pLights->theLights[i].param1.y
+                   >> g_pLights->theLights[i].param1.z
+                   >> g_pLights->theLights[i].param1.w;
 
-                // Direction
-                mySaveFile >> g_pLights->theLights[i].direction.x
-                    >> g_pLights->theLights[i].direction.y
-                    >> g_pLights->theLights[i].direction.z
-                    >> g_pLights->theLights[i].direction.w;
+        // Light state
+        mySaveFile >> g_pLights->theLights[i].param2.x
+                   >> g_pLights->theLights[i].param2.y
+                   >> g_pLights->theLights[i].param2.z
+                   >> g_pLights->theLights[i].param2.w;
+    }
 
-                // Light type
-                mySaveFile >> g_pLights->theLights[i].param1.x
-                    >> g_pLights->theLights[i].param1.y
-                    >> g_pLights->theLights[i].param1.z
-                    >> g_pLights->theLights[i].param1.w;
-
-                // Light state
-                mySaveFile >> g_pLights->theLights[i].param2.x
-                    >> g_pLights->theLights[i].param2.y
-                    >> g_pLights->theLights[i].param2.z
-                    >> g_pLights->theLights[i].param2.w;
-            }
-
-            std::cout << "Scene Loaded\n";
-            mySaveFile.close();
+    std::cout << "Scene Loaded\n";
+    mySaveFile.close();
 }
 
 void ClearScene () {
