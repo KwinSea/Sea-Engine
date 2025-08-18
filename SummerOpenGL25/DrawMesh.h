@@ -11,7 +11,7 @@
 #include "cVAOManager/cVAOManager.h"
 
 extern cBasicTextureManager* g_pTheTextures;
-extern cVAOManager* g_pMeshManager;
+extern cVAOManager* pTheMeshManager;
 
 void SetUpTexturesForObjectDraw(cMeshObject* pCurrentMesh, GLint program);
 

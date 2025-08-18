@@ -72,7 +72,7 @@ void main()
 	
 	// vec4 vertSpecular = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	
-	pixelColour = vec4(vertColor);
+	pixelColour =vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
     // Skybox
     // uniform bool bIsSkyboxObject;
@@ -107,10 +107,7 @@ void main()
         vec3 tex02RGB = texture( textSampler2D_02, vertTextCoords.xy ).rgb;
         vec3 tex03RGB = texture( textSampler2D_03, vertTextCoords.xy ).rgb;
 
-        vertexColourRGB.rgb = tex00RGB * texMixRatios.x;
-        + tex01RGB * texMixRatios.y
-        + tex02RGB * texMixRatios.z
-        + tex03RGB * texMixRatios.w;
+        vertexColourRGB.rgb = tex00RGB * texMixRatios.x + tex01RGB * texMixRatios.y + tex02RGB * texMixRatios.z + tex03RGB * texMixRatios.w;
     }
 
     if ( bDoNotLight )

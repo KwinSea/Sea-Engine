@@ -9,11 +9,8 @@ void cBasicTextureManager::SetBasePath(std::string basepath)
 }
 
 
-bool cBasicTextureManager::Create2DTextureFromBMPFile( std::string textureFileName, bool bGenerateMIPMap )
+bool cBasicTextureManager::Create2DTextureFromBMPFile( std::string textureFileName, std::string fileToLoadFullPath, bool bGenerateMIPMap )
 {
-	std::string fileToLoadFullPath = this->m_basePath + "/" + textureFileName;
-
-
 	CTextureFromBMP* pTempTexture = new CTextureFromBMP();
 	if ( ! pTempTexture->CreateNewTextureFromBMPFile2( textureFileName, fileToLoadFullPath, /*textureUnit,*/ bGenerateMIPMap ) )
 	{
@@ -139,6 +136,18 @@ std::string cBasicTextureManager::getListOfLoadedTextures(void)
 	}
 
 	return ssLoadedTextures.str();
+}
+
+std::vector<std::string> cBasicTextureManager::GetLoadedTextures(void)
+{
+	std::vector<std::string> textures;
+
+	for (const std::pair<std::string, CTextureFromBMP*>& item : this->m_map_TexNameToTexture)
+	{
+		textures.push_back(item.first);
+	}
+
+	return textures;
 }
 
 

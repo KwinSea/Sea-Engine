@@ -3,13 +3,15 @@
 
 #include <string>
 #include <map>
+#include <vector>
+
 #include "CTextureFromBMP.h"
 #include "../GlobalOpenGL.h"
 
 class cBasicTextureManager
 {
 public:
-	bool Create2DTextureFromBMPFile( std::string textureFileName, bool bGenerateMIPMap );
+	bool Create2DTextureFromBMPFile( std::string textureFileName, std::string fileToLoadFullPath, bool bGenerateMIPMap );
 
 	// Picks a random texture from the textures loaded
 	std::string PickRandomTexture(void);
@@ -27,6 +29,7 @@ public:
 	void SetBasePath(std::string basepath);
 
 	std::string getListOfLoadedTextures(void);
+	std::vector<std::string> GetLoadedTextures(void);
 
 	std::string decodeOpenGLErrorToString(GLenum errorCode);
 private:

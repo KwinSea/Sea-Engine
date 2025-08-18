@@ -1,56 +1,34 @@
 #include "LoadModelsAndTextures.h"
 
-void LoadFilesIntoVAOManager(cVAOManager* pTheMeshManager, GLuint program)
+cVAOManager* pTheMeshManager = NULL;
+
+void LoadFilesIntoVAOManager(GLuint program)
 {
 
+    ::pTheMeshManager = new cVAOManager();
 
-    //pTheMeshManager = new cVAOManager();
+    std::string AssetsModelFolder = "assets/models";
+    std::vector<std::string> modelFiles;
 
-    // Load the dungeon floow model
-    sModelDrawInfo meshFloor03;
+    std::cout << "Searching for models in assets folder...\n";
+    std::vector<sModelDrawInfo> meshObjects;
 
-    // Scale we want for the floor. 
-    // They are 500 units wide.
-    float newFloorScale = 10.0f / 500.0f;
-
-
-
-    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply",
-        meshFloor03, program, newFloorScale))
-    {
-        std::cout << "Floor didn't load not loaded into VAO!" << std::endl;
+    try {
+        for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(AssetsModelFolder)) {
+            if (file.is_regular_file() && file.path().extension() == ".ply") {
+                sModelDrawInfo meshObject;
+                std::string meshFile = file.path().generic_string();
+                if (!::pTheMeshManager->LoadModelIntoVAO(meshFile, meshObject, program, 1.0f)) {
+                    std::cout << "Model at: " << meshFile << " not loaded into VAO!" << std::endl;
+                } else {
+                    meshObjects.push_back(meshObject);
+                }
+            }
+        }
+    } catch (const std::filesystem::filesystem_error& ex) {
+        std::cerr << ex.what() << '\n';
     }
-
-
-    sModelDrawInfo meshInfoCow;
-
-    //    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba.ply",
-    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply",
-        meshInfoCow, program, 1.0f))
-    {
-        std::cout << "Cow not loaded into VAO!" << std::endl;
-    }
-
-
-
-    sModelDrawInfo WarehouseMeshInfo;
-
-    //    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Warehouse_xyz_n_rgba.ply",
-//    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/Warehouse_xyz_n_rgba_UV (MeshLab_XY_Project).ply",
-    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/Warehouse_xyz_n_rgba_UV (Blender Smart UV project).ply",
-        WarehouseMeshInfo, program, 1.0f))
-    {
-        std::cout << "Warehouse NOT loaded into VAO!" << std::endl;
-    }
-
-    sModelDrawInfo SmoothSphereMeshInfo;
-
-    //    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply",
-    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba_uv.ply",
-        SmoothSphereMeshInfo, program, 1.0f))
-    {
-        std::cout << "SmoothSphere NOT loaded into VAO!" << std::endl;
-    }
+    std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
 
 //    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_xyz_n_rgba_uv.ply",
 //        SmoothSphereMeshInfo, program, 1.0f))
@@ -60,7 +38,7 @@ void LoadFilesIntoVAOManager(cVAOManager* pTheMeshManager, GLuint program)
 
 
 //    sModelDrawInfo dolphinMeshInfo;
-//    //    if (!::g_pMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba.ply",
+//    //    if (!::pTheMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba.ply",
 //    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba_UV.ply",
 //        dolphinMeshInfo, program, 1.0f))
 //    {
@@ -93,7 +71,6 @@ void LoadFilesIntoVAOManager(cVAOManager* pTheMeshManager, GLuint program)
         pTheMeshManager->LoadModelDrawInfo_IntoVAO(dolphinMeshInfo, program);
     }
 
-
     sModelDrawInfo teaPotDrawInfo;
     if (!pTheMeshManager->LoadTheModel_IntoDrawInfoObject("assets/models/Utah_Teapot_xyz_n_rgba_UV.ply",
         teaPotDrawInfo, 1.0f))
@@ -115,18 +92,6 @@ void LoadFilesIntoVAOManager(cVAOManager* pTheMeshManager, GLuint program)
         // Now load it into the VAO
         pTheMeshManager->LoadModelDrawInfo_IntoVAO(teaPotDrawInfo, program);
     }
-
-
-    // Load the original warehouse models
-    sModelDrawInfo warehousePartModelInfo;
-    pTheMeshManager->LoadModelIntoVAO_2("assets/models/Warehouse_Crate1.ply", program);
-    pTheMeshManager->LoadModelIntoVAO_2("assets/models/Warehouse_Crate2.ply", program);
-    pTheMeshManager->LoadModelIntoVAO_2("assets/models/Warehouse_Floor.ply", program);
-    pTheMeshManager->LoadModelIntoVAO_2("assets/models/Warehouse_Loading_001.ply", program);
-    pTheMeshManager->LoadModelIntoVAO_2("assets/models/Warehouse_Loading_Pallets.ply", program);
-    pTheMeshManager->LoadModelIntoVAO_2("assets/models/Warehouse_Loading_Roof.ply", program);
-
-    pTheMeshManager->LoadModelIntoVAO_2("assets/models/Isoshphere_smooth_xyz_n_rgba_uv.ply", program);
 
     return;
 }
@@ -157,40 +122,25 @@ void LoadTexturesIntoTextureManager(cBasicTextureManager* pTheTextureManager)
         std::cout << "Didn't load Space texture because: " << errorMessage << std::endl;
     }
 
+    std::string AssetsTextureFolder = "assets/textures";
+    int loadedCount = 0;
 
-    pTheTextureManager->SetBasePath("assets/textures");
+    try {
+        for (const auto& file : std::filesystem::recursive_directory_iterator(AssetsTextureFolder)) {
+            if (file.is_regular_file() && file.path().extension() == ".bmp") {
+                std::string texFile = file.path().filename().string();
+                if (pTheTextureManager->Create2DTextureFromBMPFile(file.path().filename().string(), file.path().generic_string(), true)) {
+                    ++loadedCount;
+                } else {
+                    std::cout << "Failed to load " << texFile << std::endl;
+                }
+            }
+        }
+    } catch (const std::filesystem::filesystem_error& ex) {
+        std::cerr << ex.what() << '\n';
+    }
 
-    // 
-    if (pTheTextureManager->Create2DTextureFromBMPFile("Sydney_Sweeney.bmp", true))
-    {
-        std::cout << "Loaded Sydney_Sweeney.bmp OK" << std::endl;
-    };
-
-    pTheTextureManager->Create2DTextureFromBMPFile("Dungeons_2_Texture_01_A.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("Grass_Texture_1.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("Lava_Texture.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("Stone_Texture_1.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("Stone_Texture_2.bmp", true);
-
-    pTheTextureManager->Create2DTextureFromBMPFile("cow_xyz_n_rgba_UV_Blender_UV_Unwrap_orange.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("cow_xyz_n_rgba_UV_Blender_UV_Unwrap_grey.bmp", true);
-
-    pTheTextureManager->Create2DTextureFromBMPFile("Brushed_Metal_Texture.bmp", true);
-
-    // Load the original warehouse model textures
-    pTheTextureManager->Create2DTextureFromBMPFile("Warehouse_WoodCrate2.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("Warehouse_WoodCrate_.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("Warehouse_Fiber.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("Warehouse_WrappedPallet.bmp", true);
-
-
-    pTheTextureManager->Create2DTextureFromBMPFile("Seamless-Rust-Texture.bmp", true);
-    pTheTextureManager->Create2DTextureFromBMPFile("MaskingTexture.bmp", true);
-
-
-        //GLuint SydSwee_TID = ::g_pTheTextures->getTextureIDFromName("Sydney_Sweeney.bmp");
-
-
+    std::cout << "Finished searching\n" << loadedCount << " textures loaded" << std::endl;
     return;
 }
 
@@ -477,8 +427,8 @@ void LoadModelsIntoScene()
     // This is being used for the skybox
     cMeshObject* pSkyBoxMesh = new cMeshObject();
     pSkyBoxMesh->uniqueName = "skybox_mesh";
-    pSkyBoxMesh->meshFileName = "assets/models/Isoshphere_smooth_xyz_n_rgba_uv.ply";
-    pSkyBoxMesh->scale = 500.0f;
+    pSkyBoxMesh->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba_uv.ply";
+    pSkyBoxMesh->scale = 1000.0f;
     // We AREN'T going to use these...
     pSkyBoxMesh->textureNames[0] = "Sydney_Sweeney.bmp";
     pSkyBoxMesh->textureMixRatio[0] = 1.0f;

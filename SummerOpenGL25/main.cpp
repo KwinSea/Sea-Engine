@@ -40,7 +40,6 @@
 
 
 cShaderManager* g_pTheShaderManager = NULL;
-cVAOManager* g_pMeshManager = NULL;
 cLightManager* g_pLights = NULL;
 
 // Textures
@@ -48,6 +47,8 @@ cBasicTextureManager* g_pTheTextures = NULL;
 
 cMeshObject* g_pSmoothSphere = NULL;
 cMeshObject* g_pSelectedMeshIndicator = NULL;
+
+extern cVAOManager* pTheMeshManager;
 
 extern int g_selectedLightIndex;
 extern int g_selectedObjectIndex;
@@ -74,11 +75,14 @@ int g_LightingType = 0;
 unsigned int g_NumVerticiesToDraw = 0;
 unsigned int g_SizeOfVertexArrayInBytes = 0;
 
+bool objectHovered = false;
+int g_hoveredObjectIndex = 0;
+
 bool usingGui = false;
 
 Camera camera (screenWidth, screenHeight, glm::vec3(0.0f, 0.0f, 0.0f));
 
-void LoadFilesIntoVAOManager(GLuint program);
+// void LoadFilesIntoVAOManager(GLuint program);
 
 std::vector<cMeshObject*> g_pMeshesToDraw;
 
@@ -240,7 +244,7 @@ int main(void) {
         if (!usingGui) {
             camera.InputHandler(window);
         }
-        camera.Matrix(60.0f, 0.1f, 100.0f, *g_pTheShaderManager, "camMatrix");
+        camera.Matrix(0.6f, 0.1f, 1000000.0f, *g_pTheShaderManager, "camMatrix");
 
         GLint eyeLocation_UL = glGetUniformLocation(program, "eyeLocation");
 
@@ -344,13 +348,29 @@ int main(void) {
             ::g_pSelectedMeshIndicator->meshFileName = ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
             ::g_pSelectedMeshIndicator->bIsWireframe = true;
             ::g_pSelectedMeshIndicator->bOverrideVertexModelColour = true;
+            ::g_pSelectedMeshIndicator->bDontUseTextures = true;
+            ::g_pSelectedMeshIndicator->bDoNotLight = true;
             ::g_pSelectedMeshIndicator->bIsVisible = meshDebug;
             ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale * 1.01f;
             ::g_pSelectedMeshIndicator->colourRGB = glm::vec4(RGBify(255, 165, 0.0), 1.0);
-            ::g_pSelectedMeshIndicator->specularHighLightRGB = glm::vec4(RGBify(255, 165, 0.0), 1.0);
-            ::g_pSelectedMeshIndicator->specularPower = 0.0000001f;
             ::g_pSelectedMeshIndicator->position = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position;
             ::g_pSelectedMeshIndicator->orientation = ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation;
+
+            DrawMesh(g_pSelectedMeshIndicator, program);
+        }
+
+        if (!g_pMeshesToDraw.empty() && g_hoveredObjectIndex < g_pMeshesToDraw.size()) {
+            // Selected Mesh Indicator
+            ::g_pSelectedMeshIndicator->meshFileName = ::g_pMeshesToDraw[::g_hoveredObjectIndex]->meshFileName;
+            ::g_pSelectedMeshIndicator->bIsWireframe = true;
+            ::g_pSelectedMeshIndicator->bOverrideVertexModelColour = true;
+            ::g_pSelectedMeshIndicator->bDontUseTextures = true;
+            ::g_pSelectedMeshIndicator->bDoNotLight = true;
+            ::g_pSelectedMeshIndicator->bIsVisible = objectHovered;
+            ::g_pSelectedMeshIndicator->scale = ::g_pMeshesToDraw[::g_hoveredObjectIndex]->scale * 1.01f;
+            ::g_pSelectedMeshIndicator->colourRGB = glm::vec4(RGBify(0, 255, 255), 1.0);
+            ::g_pSelectedMeshIndicator->position = ::g_pMeshesToDraw[::g_hoveredObjectIndex]->position;
+            ::g_pSelectedMeshIndicator->orientation = ::g_pMeshesToDraw[::g_hoveredObjectIndex]->orientation;
 
             DrawMesh(g_pSelectedMeshIndicator, program);
         }
@@ -404,7 +424,6 @@ int main(void) {
         ::g_pSmoothSphere->colourRGB = glm::vec3(0.0f, 0.0f, 1.0f);
         DrawMesh(g_pSmoothSphere, program);
 
-        // SkyBox
         cMeshObject* pSkyBox = g_pFindObjectByUniqueName("skybox_mesh");
         GLint bIsSkyboxObject_UL = glGetUniformLocation(program, "bIsSkyboxObject");
         glUniform1f(bIsSkyboxObject_UL, (GLfloat)GL_TRUE);  // Or 1.0f
@@ -457,9 +476,16 @@ int main(void) {
         {
             static int selectedMeshIndex = 0;
             std::vector<std::string> currentVAOMeshs;
-            for (const std::pair<const std::string, sModelDrawInfo>& pair : g_pMeshManager->GetMapOfMesh()) {
+            for (const std::pair<const std::string, sModelDrawInfo>& pair : pTheMeshManager->GetMapOfMesh()) {
                 currentVAOMeshs.push_back(pair.first);
             }
+
+            std::vector<std::string> loadedTextures = g_pTheTextures->GetLoadedTextures();
+            std::vector<const char*> textureNames;
+            for (const std::string& texture : loadedTextures) {
+                textureNames.push_back(texture.c_str());
+            }
+
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
@@ -480,7 +506,30 @@ int main(void) {
                 ImGui::EndMenuBar();
             }
 
+            ImGui::Text("Scene Objects");
+            bool anyObjectListHovered = false;
+            ImGui::BeginChild("ObjectList", ImVec2(0, height / 2), true, ImGuiWindowFlags_HorizontalScrollbar);
+            for (size_t i = 0; i < g_pMeshesToDraw.size(); ++i) {
+                std::string label = g_pMeshesToDraw[i]->uniqueName.empty() ? g_pMeshesToDraw[i]->meshFileName + std::to_string(i) : g_pMeshesToDraw[i]->uniqueName;
+
+                if (ImGui::Selectable(label.c_str(), g_selectedObjectIndex == i)) {
+                    g_selectedObjectIndex = (int)i;
+                }
+
+                if (ImGui::IsItemHovered() && meshDebug) {
+                    g_hoveredObjectIndex = (int)i;
+                    anyObjectListHovered = true;
+                }
+            }
+            objectHovered = anyObjectListHovered;
+            ImGui::EndChild();
+
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+
             if (ImGui::BeginTabBar("SceneEditor")) {
+
                 // lighting tab
                 if (ImGui::BeginTabItem("Lighting")) {
                     ImGui::Text("Edit Light");
@@ -564,36 +613,81 @@ int main(void) {
                         static bool addOverrideColor = false;
                         static bool addWireframe = false;
                         static bool addVisible = true;
+                        static bool addDoNotLight = false;
+                        static bool addDontUseTextures = false;
+
+                        static int addSelectedTexIndex_01 = 0;
+                        static int addSelectedTexIndex_02 = 0;
+                        static int addSelectedTexIndex_03 = 0;
+                        static int addSelectedTexIndex_04 = 0;
+
+                        static float addTexIndexMix[4] = {1.0f, 0.0f, 0.0f, 0.0f};
 
                         ImGui::InputFloat3("Position", addPosition);
                         ImGui::SliderFloat3("Orientation", addRot, -180.0f, 180.0f);
                         ImGui::InputFloat("Scale", &addScale);
+                        ImGui::Spacing();
+
                         if (addOverrideColor) {
                             ImGui::ColorEdit3("Colour RGB", addColour);
                         }
                         ImGui::SliderFloat("Opacity", &addOpacity, 0.0, 1.0);
+                        ImGui::Spacing();
+
                         ImGui::ColorEdit3("Specular Highlight", addSpecularHighlight);
                         ImGui::InputFloat("Specular Power", &addSpecularPower);
+                        ImGui::Spacing();
+
                         ImGui::Checkbox("Override Color", &addOverrideColor);
                         ImGui::Checkbox("Wireframe", &addWireframe);
+                        ImGui::Spacing();
+
+                        ImGui::Checkbox("Dont Light", &addDoNotLight);
+
+                        if (!ImGui::Checkbox("Dont Use Textures", &addDontUseTextures)) {
+                            if (ImGui::Combo("New Texture 1 List", &addSelectedTexIndex_01, textureNames.data(), textureNames.size()));
+                            if (ImGui::Combo("New Texture 2 List", &addSelectedTexIndex_02, textureNames.data(), textureNames.size()));
+                            if (ImGui::Combo("New Texture 3 List", &addSelectedTexIndex_03, textureNames.data(), textureNames.size()));
+                            if (ImGui::Combo("New Texture 4 List", &addSelectedTexIndex_04, textureNames.data(), textureNames.size()));
+                            ImGui::SliderFloat4("New Texture Mix", addTexIndexMix, 0.0f, 1.0f);
+                        }
+                        ImGui::Spacing();
+
                         ImGui::Checkbox("Visible", &addVisible);
 
-                        if (ImGui::Combo("Mesh List", &selectedMeshIndex, meshNames.data(), meshNames.size()));
+                        if (ImGui::Combo("New Mesh List", &selectedMeshIndex, meshNames.data(), meshNames.size()));
+
                         if (selectedMeshIndex >= 0 && selectedMeshIndex < currentVAOMeshs.size()) {
                             if (ImGui::Button("Add")) {
 
                                 cMeshObject* pNewObject = new cMeshObject();
                                 pNewObject->meshFileName = currentVAOMeshs[selectedMeshIndex];
+
+                                pNewObject->textureNames[0] = loadedTextures[addSelectedTexIndex_01];
+                                pNewObject->textureNames[1] = loadedTextures[addSelectedTexIndex_02];
+                                pNewObject->textureNames[2] = loadedTextures[addSelectedTexIndex_03];
+                                pNewObject->textureNames[3] = loadedTextures[addSelectedTexIndex_04];
+
+                                for (int i = 0; i < 4; i++) {
+                                    pNewObject->textureMixRatio[i] = addTexIndexMix[i];
+                                }
+
                                 pNewObject->position = glm::vec3(addPosition[0], addPosition[1], addPosition[2]);
                                 pNewObject->orientation = glm::radians(glm::vec3(addRot[0], addRot[1], addRot[2]));
                                 pNewObject->scale = addScale;
+
                                 pNewObject->colourRGB = glm::vec3(addColour[0], addColour[1], addColour[2]);
                                 pNewObject->opacityAlpha = addOpacity;
+
                                 pNewObject->specularHighLightRGB = glm::vec3(addSpecularHighlight[0], addSpecularHighlight[1], addSpecularHighlight[2]);
                                 pNewObject->specularPower = addSpecularPower;
+
                                 pNewObject->bOverrideVertexModelColour = addOverrideColor;
                                 pNewObject->bIsWireframe = addWireframe;
                                 pNewObject->bIsVisible = addVisible;
+
+                                pNewObject->bDoNotLight = addDoNotLight;
+                                pNewObject->bDontUseTextures = addDontUseTextures;
 
                                 ::g_pMeshesToDraw.push_back(pNewObject);
 
@@ -608,6 +702,8 @@ int main(void) {
                                 addOverrideColor = false;
                                 addWireframe = false;
                                 addVisible = true;
+                                addDoNotLight = false;
+                                addDontUseTextures = false;
 
                                 g_selectedObjectIndex = g_pMeshesToDraw.size() - 1;
                             }
@@ -639,6 +735,8 @@ int main(void) {
                         ImGui::Checkbox("Edit Override Color", &g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour);
                         ImGui::Checkbox("Edit Wireframe", &g_pMeshesToDraw[g_selectedObjectIndex]->bIsWireframe);
                         ImGui::Checkbox("Edit Visible", &g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible);
+                        ImGui::Checkbox("Light", &g_pMeshesToDraw[g_selectedObjectIndex]->bDoNotLight);
+                        ImGui::Checkbox("Use Textures", &g_pMeshesToDraw[g_selectedObjectIndex]->bDontUseTextures);
                     }
                     ImGui::EndTabItem();
                 } // End object tab
@@ -654,6 +752,10 @@ int main(void) {
                 ImGui::SameLine();
                 ImGui::SetNextItemWidth(75);
                 ImGui::InputFloat("##ObjectGridVal", &object_move_grid);
+            } else {
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(75);
+                ImGui::InputFloat("Object Move Speed", &object_move_speed);
             }
 
             ImGui::Checkbox("Light Grid Snap", &isLightGridSnap);
@@ -661,6 +763,10 @@ int main(void) {
                 ImGui::SameLine();
                 ImGui::SetNextItemWidth(75);
                 ImGui::InputFloat("##LightGridVal", &light_move_grid);
+            } else {
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(75);
+                ImGui::InputFloat("Light Move Speed", &light_move_speed);
             }
 
             ImGui::Spacing();
@@ -722,125 +828,29 @@ int main(void) {
     exit(EXIT_SUCCESS);
 }
 
-void LoadFilesIntoVAOManager(GLuint program) {
-    ::g_pMeshManager = new cVAOManager();
-
-    std::string AssetsFolder = "assets/";
-    std::vector<std::string> modelFiles;
-
-    std::cout << "Searching for models in assets folder...\n";
-    std::vector<sModelDrawInfo> meshObjects;
-
-    try {
-        for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(AssetsFolder)) {
-            if (file.is_regular_file() && file.path().extension() == ".ply") {
-                sModelDrawInfo meshObject;
-                std::string meshFile = file.path().generic_string();
-                if (!::g_pMeshManager->LoadModelIntoVAO(meshFile, meshObject, program, 1.0f)) {
-                    std::cout << "Model at: " << meshFile << " not loaded into VAO!" << std::endl;
-                } else {
-                    meshObjects.push_back(meshObject);
-                }
-            }
-        }
-    } catch (const std::filesystem::filesystem_error& ex) {
-        std::cerr << ex.what() << '\n';
-    }
-    std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
-}
-
-// void DrawMesh(cMeshObject* pCurrentMesh, GLint program) {
-//     if (!pCurrentMesh->bIsVisible) {
-//         return;
+// void LoadFilesIntoVAOManager(GLuint program) {
+//     ::pTheMeshManager = new cVAOManager();
+//
+//     std::string AssetsFolder = "assets/";
+//     std::vector<std::string> modelFiles;
+//
+//     std::cout << "Searching for models in assets folder...\n";
+//     std::vector<sModelDrawInfo> meshObjects;
+//
+//     try {
+//         for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(AssetsFolder)) {
+//             if (file.is_regular_file() && file.path().extension() == ".ply") {
+//                 sModelDrawInfo meshObject;
+//                 std::string meshFile = file.path().generic_string();
+//                 if (!::pTheMeshManager->LoadModelIntoVAO(meshFile, meshObject, program, 1.0f)) {
+//                     std::cout << "Model at: " << meshFile << " not loaded into VAO!" << std::endl;
+//                 } else {
+//                     meshObjects.push_back(meshObject);
+//                 }
+//             }
+//         }
+//     } catch (const std::filesystem::filesystem_error& ex) {
+//         std::cerr << ex.what() << '\n';
 //     }
-//
-//     glm::mat4 matModel;
-//     GLint Model_location = glGetUniformLocation(program, "mModel");
-//     GLint useOverrideColor_location = glGetUniformLocation(program, "bUseOverrideColor");
-//     GLint overrideColor_location = glGetUniformLocation(program, "colorOverride");
-//
-//     if (pCurrentMesh->bOverrideVertexModelColour) {
-//         glUniform3f(overrideColor_location, pCurrentMesh->colourRGB.r,
-//                     pCurrentMesh->colourRGB.g, pCurrentMesh->colourRGB.b);
-//
-//         glUniform1f(useOverrideColor_location, GL_TRUE); // 1.0f
-//     } else {
-//         glUniform1f(useOverrideColor_location, GL_FALSE);
-//     }
-//
-//     // Copy over the transparency
-//     // uniform float alphaTransparency;
-//     GLint alphaTransparency_UL
-//         = glGetUniformLocation(program, "alphaTransparency");
-//     // Set it
-//     glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
-//
-//     // Set it
-//     glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
-//
-//     // ste specular value
-//     GLint vertSpecular_UL = glGetUniformLocation(program, "vertSpecular");
-//
-//     glUniform4f(vertSpecular_UL,
-//                 pCurrentMesh->specularHighLightRGB.r,
-//                 pCurrentMesh->specularHighLightRGB.g,
-//                 pCurrentMesh->specularHighLightRGB.b,
-//                 pCurrentMesh->specularPower);
-//
-//     //         mat4x4_identity(m);
-//     matModel = glm::mat4(1.0f);
-//
-//     glm::mat4 translation = glm::translate(glm::mat4(1.0f), pCurrentMesh->position);
-//
-//     //mat4x4_rotate_Z(m, m, (float) glfwGetTime());
-//     glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
-//                                     pCurrentMesh->orientation.x,
-//                                     glm::vec3(1.0f, 0.0f, 0.0f));
-//
-//     glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
-//                                     pCurrentMesh->orientation.y,
-//                                     glm::vec3(0.0f, 1.0f, 0.0f));
-//
-//     glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
-//                                     pCurrentMesh->orientation.z,
-//                                     glm::vec3(0.0f, 0.0f, 1.0f));
-//
-//     float uniformScale = pCurrentMesh->scale;
-//     glm::mat4 scaleXYZ = glm::scale(glm::mat4(1.0f),
-//                                     glm::vec3(uniformScale, uniformScale, uniformScale));
-//
-//     matModel = matModel * translation * rotateX * rotateY * rotateZ * scaleXYZ;
-//
-//
-//     //m = m * rotateZ;
-//
-//     //mat4x4_mul(mvp, p, m);
-//     //mvp = matProj * matView * matModel;
-//
-//     if (pCurrentMesh->bIsWireframe) {
-//         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-//     } else {
-//         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-//     }
-//
-//
-//     //glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*) mvp);
-//     glUniformMatrix4fv(Model_location, 1, GL_FALSE, glm::value_ptr(matModel));
-//
-//     GLint mModelIt_location = glGetUniformLocation(program, "mModel_InverseTranpose");
-//
-//     // gets rid of any translation (movement) and scaling. leaves only roation
-//     glm::mat4 matModelIt = glm::inverse(glm::transpose(matModel));
-//     glUniformMatrix4fv(mModelIt_location, 1, GL_FALSE, glm::value_ptr(matModelIt));
-//
-//     //glDrawArrays(GL_TRIANGLES, 0, g_NumVerticiesToDraw);
-//     sModelDrawInfo modelToDraw;
-//
-//     if (::g_pMeshManager->FindDrawInfoByModelName(pCurrentMesh->meshFileName,
-//                                                   modelToDraw)) {
-//         glBindVertexArray(modelToDraw.VAO_ID);
-//         glDrawElements(GL_TRIANGLES, modelToDraw.numberOfIndices,
-//                        GL_UNSIGNED_INT, (void*)0);
-//         glBindVertexArray(0);
-//     }
+//     std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
 // }

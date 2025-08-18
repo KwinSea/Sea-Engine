@@ -21,5 +21,10 @@ cMeshObject::cMeshObject()
 	this->bDoNotLight = false;
 	this->bDontUseTextures = false;
 
+	this->textureMixRatio[0] = 1.0f;
+	this->textureMixRatio[1] = 0.0f;
+	this->textureMixRatio[2] = 0.0f;
+	this->textureMixRatio[3] = 0.0f;
+
 	// this->vec_pChildObjects;
 }

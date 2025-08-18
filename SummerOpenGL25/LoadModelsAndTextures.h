@@ -10,7 +10,7 @@
 
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 
-void LoadFilesIntoVAOManager(cVAOManager* pTheMeshManager, GLuint program);
+void LoadFilesIntoVAOManager(GLuint program);
 
 void LoadTexturesIntoTextureManager(cBasicTextureManager* pTheTextureManager);
 

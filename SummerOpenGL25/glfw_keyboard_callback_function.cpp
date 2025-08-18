@@ -19,7 +19,7 @@ extern cLightManager* g_pLights;
 
 extern double deltaTime;
 
-extern cVAOManager* g_pMeshManager;
+extern cVAOManager* pTheMeshManager;
 
 extern bool usingGui;
 extern int g_LightingType;
@@ -565,7 +565,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
             std::cout << "Adding New Object\n";
             std::vector<std::string> currentVAOMeshs;
-            for (const std::pair<const std::string, sModelDrawInfo>& pair : g_pMeshManager->GetMapOfMesh()) {
+            for (const std::pair<const std::string, sModelDrawInfo>& pair : pTheMeshManager->GetMapOfMesh()) {
                 currentVAOMeshs.push_back(pair.first);
             }
 

@@ -24,45 +24,55 @@ void SetUpTexturesForObjectDraw(cMeshObject* pCurrentMesh, GLint program)
         glUniform1i(textSampler2D_00_UL, texture00Unit);   // (Uniform ID, Texture Unit #)
     }
 
-    {   // Texture sampler01:
-        GLuint textID01 = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[1]);
+    {   // Texture sampler00:
+        GLuint texture01_ID = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[1]);
         // Bind this texture to the sampler
-        // Choose a texture unit... 
+        // Choose a texture unit...
         // Unit: #1
-        glActiveTexture(GL_TEXTURE1);	// GL_TEXTURE0 = 33984
+        GLuint texture01Unit = 1;
+        glActiveTexture(GL_TEXTURE0 + texture01Unit);	// GL_TEXTURE0 = 33984
         // Bind texture to tell texture unit what it's bound to
-        glBindTexture(GL_TEXTURE_2D, textID01);    // Note: NOT GL_TEXTURE1
+        glBindTexture(GL_TEXTURE_2D, texture01_ID);    // <-- 0 is the texture unit
+        // At this point, texture "texture01_ID" is bound to texture unit #0
 
         // Get the sampler (shader) uniform location
-        // uniform sampler2D texSamp2D_01;	
+        // uniform sampler2D textSampler2D_01;
         GLint textSampler2D_01_UL = glGetUniformLocation(program, "textSampler2D_01");
-        glUniform1i(textSampler2D_01_UL, 1);
+        glUniform1i(textSampler2D_01_UL, texture01Unit);   // (Uniform ID, Texture Unit #)
     }
 
-    {   // Texture sampler 2:
+    {   // Texture sampler00:
+        GLuint texture02_ID = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[2]);
+        // Bind this texture to the sampler
+        // Choose a texture unit...
+        // Unit: #2
+        GLuint texture02Unit = 2;
+        glActiveTexture(GL_TEXTURE0 + texture02Unit);	// GL_TEXTURE0 = 33984
+        // Bind texture to tell texture unit what it's bound to
+        glBindTexture(GL_TEXTURE_2D, texture02_ID);    // <-- 0 is the texture unit
+        // At this point, texture "texture02_ID" is bound to texture unit #0
 
-        // Texture bound to texture unit:
-        GLuint textID02 = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[2]);
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, textID02);
-
-        // Sampler tied to texture unit
+        // Get the sampler (shader) uniform location
         // uniform sampler2D textSampler2D_02;
         GLint textSampler2D_02_UL = glGetUniformLocation(program, "textSampler2D_02");
-        glUniform1i(textSampler2D_02_UL, 2);
+        glUniform1i(textSampler2D_02_UL, texture02Unit);   // (Uniform ID, Texture Unit #)
     }
 
-    {   // Texture sampler 3:
+    {   // Texture sampler00:
+        GLuint texture03_ID = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[3]);
+        // Bind this texture to the sampler
+        // Choose a texture unit...
+        // Unit: #3
+        GLuint texture03Unit = 3;
+        glActiveTexture(GL_TEXTURE0 + texture03Unit);	// GL_TEXTURE0 = 33984
+        // Bind texture to tell texture unit what it's bound to
+        glBindTexture(GL_TEXTURE_2D, texture03_ID);    // <-- 0 is the texture unit
+        // At this point, texture "texture03_ID" is bound to texture unit #0
 
-        // Texture bound to texture unit:
-        GLuint textID03 = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[3]);
-        glActiveTexture(GL_TEXTURE3);
-        glBindTexture(GL_TEXTURE_2D, textID03);
-
-        // Sampler tied to texture unit
+        // Get the sampler (shader) uniform location
         // uniform sampler2D textSampler2D_03;
         GLint textSampler2D_03_UL = glGetUniformLocation(program, "textSampler2D_03");
-        glUniform1i(textSampler2D_03_UL, 3);
+        glUniform1i(textSampler2D_03_UL, texture03Unit);   // (Uniform ID, Texture Unit #)
     }
 
 
@@ -133,6 +143,16 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
     else
     {
         glUniform1f(bUseVertexColourNotTexture_UL, (GLfloat)GL_FALSE);
+    }
+
+    GLint bDoNotLight_UL = glGetUniformLocation(program, "bDoNotLight");
+    if (pCurrentMesh->bDoNotLight)
+    {
+        glUniform1f(bDoNotLight_UL, (GLfloat)GL_TRUE);
+    }
+    else
+    {
+        glUniform1f(bDoNotLight_UL, (GLfloat)GL_FALSE);
     }
 
 
@@ -216,7 +236,7 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
     //glDrawArrays(GL_TRIANGLES, 0, g_NumVerticiesToDraw);
     sModelDrawInfo modelToDraw;
 
-    if (::g_pMeshManager->FindDrawInfoByModelName(pCurrentMesh->meshFileName,
+    if (::pTheMeshManager->FindDrawInfoByModelName(pCurrentMesh->meshFileName,
         modelToDraw))
     {
         glBindVertexArray(modelToDraw.VAO_ID);
