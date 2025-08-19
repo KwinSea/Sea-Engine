@@ -13,6 +13,8 @@ cMeshObject::cMeshObject()
 
 	this->specularHighLightRGB = glm::vec3(1.0f);
 	this->specularPower = 1.0f;
+	this->reflectionStrength = 0.5f;
+	this->refractionStrength = 0.5f;
 
 	this->bOverrideVertexModelColour = false;
 	this->bIsWireframe = false;
@@ -22,6 +24,8 @@ cMeshObject::cMeshObject()
 	this->bDontUseTextures = false;
 	this->bUseMaskingTexture = false;
 	this->bAddReflectAndRefract = false;
+	this->bAddReflect = false;
+	this->bAddRefract = false;
 
 	this->textureMixRatio[0] = 1.0f;
 	this->textureMixRatio[1] = 0.0f;

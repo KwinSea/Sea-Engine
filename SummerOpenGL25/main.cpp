@@ -524,7 +524,15 @@ int main(void) {
             bool anyObjectListHovered = false;
             ImGui::BeginChild("ObjectList", ImVec2(0, height / 2), true, ImGuiWindowFlags_HorizontalScrollbar);
             for (size_t i = 0; i < g_pMeshesToDraw.size(); ++i) {
-                std::string label = g_pMeshesToDraw[i]->uniqueName.empty() ? g_pMeshesToDraw[i]->meshFileName + std::to_string(i) : g_pMeshesToDraw[i]->uniqueName;
+                std::string label;
+
+                if (g_pMeshesToDraw[i]->uniqueName != "N/A" && !g_pMeshesToDraw[i]->uniqueName.empty()) {
+                    label = g_pMeshesToDraw[i]->uniqueName;
+                } else if (!g_pMeshesToDraw[i]->meshFileName.empty()) {
+                    label = g_pMeshesToDraw[i]->meshFileName + std::to_string(i);
+                } else {
+                    label = "N/A" + std::to_string(i);
+                }
 
                 if (ImGui::Selectable(label.c_str(), g_selectedObjectIndex == i)) {
                     g_selectedObjectIndex = (int)i;
@@ -624,6 +632,8 @@ int main(void) {
                         static float addOpacity = 1.0f;
                         static float addSpecularHighlight[3] = {1.0f, 1.0f, 1.0f};
                         static float addSpecularPower = 1.0f;
+                        static float addReflectionStrength = 1.0f;
+                        static float addRefractionStrength = 1.0f;
                         static bool addOverrideColor = false;
                         static bool addWireframe = false;
                         static bool addVisible = true;
@@ -631,6 +641,8 @@ int main(void) {
                         static bool addDontUseTextures = false;
                         static bool addUseMaskingTexture = false;
                         static bool addReflectAndRefract = false;
+                        static bool addReflect = false;
+                        static bool addRefract = false;
 
                         static int addSelectedTexIndex_01 = 0;
                         static int addSelectedTexIndex_02 = 0;
@@ -660,6 +672,10 @@ int main(void) {
 
                         ImGui::Checkbox("Dont Light", &addDoNotLight);
                         ImGui::Checkbox("Add Reflect And Refract", &addReflectAndRefract);
+                        ImGui::Checkbox("Add Reflect", &addReflect);
+                        ImGui::Checkbox("Add Refract", &addRefract);
+                        ImGui::SliderFloat("Add Reflect Strength", &addReflectionStrength, 0.0f, 1.0f);
+                        ImGui::SliderFloat("Add Refract Strength", &addRefractionStrength, 0.0f, 1.0f);
                         ImGui::Checkbox("Dont Use Textures", &addDontUseTextures);
                         ImGui::Checkbox("Use Masking Texture", &addUseMaskingTexture);
 
@@ -788,6 +804,8 @@ int main(void) {
 
                                 pNewObject->specularHighLightRGB = glm::vec3(addSpecularHighlight[0], addSpecularHighlight[1], addSpecularHighlight[2]);
                                 pNewObject->specularPower = addSpecularPower;
+                                pNewObject->reflectionStrength = addReflectAndRefract;
+                                pNewObject->refractionStrength = addRefractionStrength;
 
                                 pNewObject->bOverrideVertexModelColour = addOverrideColor;
                                 pNewObject->bIsWireframe = addWireframe;
@@ -797,6 +815,8 @@ int main(void) {
                                 pNewObject->bDontUseTextures = addDontUseTextures;
                                 pNewObject->bUseMaskingTexture = addUseMaskingTexture;
                                 pNewObject->bAddReflectAndRefract = addReflectAndRefract;
+                                pNewObject->bAddReflect = addReflect;
+                                pNewObject->bAddRefract = addRefract;
 
                                 ::g_pMeshesToDraw.push_back(pNewObject);
 
@@ -852,6 +872,12 @@ int main(void) {
 
                         ImGui::Checkbox("Light", &g_pMeshesToDraw[g_selectedObjectIndex]->bDoNotLight);
                         ImGui::Checkbox("Reflect And Refract", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddReflectAndRefract);
+                        ImGui::Checkbox("Reflect", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddReflect);
+                        ImGui::Checkbox("Refract", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddRefract);
+                        ImGui::SliderFloat("Reflect Strength", &g_pMeshesToDraw[g_selectedObjectIndex]->reflectionStrength, 0.0f, 1.0f);
+                        ImGui::SliderFloat("Refract Strength", &g_pMeshesToDraw[g_selectedObjectIndex]->refractionStrength, 0.0f, 1.0f);
+                        ImGui::NewLine();
+
                         ImGui::Checkbox("Edit Dont Use Textures", &g_pMeshesToDraw[g_selectedObjectIndex]->bDontUseTextures);
                         ImGui::Checkbox("Edit Use Masking Texture", &g_pMeshesToDraw[g_selectedObjectIndex]->bUseMaskingTexture);
 

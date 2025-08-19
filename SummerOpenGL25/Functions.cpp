@@ -49,6 +49,11 @@ void SaveScene() {
 
                 // Mesh name
                 mySaveFile << ::g_pMeshesToDraw[index]->meshFileName << std::endl;
+                if (::g_pMeshesToDraw[index]->uniqueName.empty()) {
+                    mySaveFile << "N/A" << std::endl;
+                } else {
+                    mySaveFile << ::g_pMeshesToDraw[index]->uniqueName<< std::endl;
+                }
 
                 // Textures
                 if (::g_pMeshesToDraw[index]->textureNames[0].empty()) {
@@ -110,12 +115,20 @@ void SaveScene() {
                 // Specular power
                 mySaveFile << ::g_pMeshesToDraw[index]->specularPower << std::endl;
 
+                // Reflect and refract
+                mySaveFile << ::g_pMeshesToDraw[index]->reflectionStrength << std::endl;
+                mySaveFile << ::g_pMeshesToDraw[index]->refractionStrength << std::endl;
+
+
                 // Attitudes
                 mySaveFile << ::g_pMeshesToDraw[index]->bOverrideVertexModelColour << std::endl; // Override color
                 mySaveFile << ::g_pMeshesToDraw[index]->bIsVisible << std::endl; // is Visible
                 mySaveFile << ::g_pMeshesToDraw[index]->bIsWireframe << std::endl; // is Wireframe
                 mySaveFile << ::g_pMeshesToDraw[index]->bDoNotLight << std::endl;
                 mySaveFile << ::g_pMeshesToDraw[index]->bDontUseTextures << std::endl;
+                mySaveFile << ::g_pMeshesToDraw[index]->bAddReflectAndRefract << std::endl;
+                mySaveFile << ::g_pMeshesToDraw[index]->bAddReflect << std::endl;
+                mySaveFile << ::g_pMeshesToDraw[index]->bAddRefract << std::endl;
             }
 
             // Save number of lights
@@ -193,6 +206,7 @@ void LoadScene() {
         cMeshObject* pNewObject = new cMeshObject();
 
         std::getline(mySaveFile >> std::ws, pNewObject->meshFileName);
+        std::getline(mySaveFile >> std::ws, pNewObject->uniqueName);
         std::getline(mySaveFile >> std::ws, pNewObject->textureNames[0]);
         std::getline(mySaveFile >> std::ws, pNewObject->textureNames[1]);
         std::getline(mySaveFile >> std::ws, pNewObject->textureNames[2]);
@@ -205,11 +219,16 @@ void LoadScene() {
         mySaveFile >> pNewObject->opacityAlpha;
         mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
         mySaveFile >> pNewObject->specularPower;
+        mySaveFile >> pNewObject->reflectionStrength;
+        mySaveFile >> pNewObject->refractionStrength;
         mySaveFile >> pNewObject->bOverrideVertexModelColour;
         mySaveFile >> pNewObject->bIsVisible;
         mySaveFile >> pNewObject->bIsWireframe;
         mySaveFile >> pNewObject->bDoNotLight;
         mySaveFile >> pNewObject->bDontUseTextures;
+        mySaveFile >> pNewObject->bAddReflectAndRefract;
+        mySaveFile >> pNewObject->bAddReflect;
+        mySaveFile >> pNewObject->bAddRefract;
 
         ::g_pMeshesToDraw.push_back(pNewObject);
     }

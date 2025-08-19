@@ -25,6 +25,8 @@ public:
 
     glm::vec3 specularHighLightRGB;
     float specularPower;
+    float reflectionStrength;
+    float refractionStrength;
 
     bool bOverrideVertexModelColour;
     bool bIsWireframe;
@@ -34,6 +36,8 @@ public:
     bool bDontUseTextures;	// default = false;
     bool bUseMaskingTexture;
     bool bAddReflectAndRefract;
+    bool bAddReflect;
+    bool bAddRefract;
 
     static const unsigned int NUM_TEXTURES = 4;
     std::string textureNames[NUM_TEXTURES];

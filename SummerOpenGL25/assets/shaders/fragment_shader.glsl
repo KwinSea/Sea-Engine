@@ -14,6 +14,8 @@ out vec4 pixelColour;
 
 uniform vec4 vertSpecular;
 
+uniform float reflectionStrength = 0.5;
+uniform float refractionStrength = 0.5;
 uniform float alphaTransparency;
 
 uniform float ambientLight = 0.075;
@@ -57,6 +59,8 @@ uniform vec4 texMixRatios;		// x = 0, y = 1, etc.
 // If this is true, then we are drawing the skybox
 // (it's false for all other objects)
 uniform bool bAddReflectAndRefract;
+uniform bool bAddReflect;
+uniform bool bAddRefract;
 uniform bool bIsSkyboxObject;
 uniform samplerCube skyboxCubeTexture;
 
@@ -89,6 +93,7 @@ void main()
         pixelColour.rgb = vertexColour;
         pixelColour.a = 1.0f;
 
+
         return;
     }
 
@@ -103,9 +108,42 @@ void main()
         vec3 reflectRGB = texture( skyboxCubeTexture, reflectRay ).rgb;
         vec3 refractRGB = texture( skyboxCubeTexture, refractRay ).rgb;
 
-        pixelColour.rgb = reflectRGB * 0.5f +
-                          refractRGB * 0.5f;
+
+        pixelColour.rgb = reflectRGB * reflectionStrength + refractRGB * refractionStrength;
+
+        pixelColour.a = alphaTransparency;
+
+        return;
     }
+
+    if (bAddReflect)
+    {
+        vec3 eyeRayIncident = normalize(eyeLocation - vertWorldPosition.xyz);
+
+        vec3 reflectRay = reflect(vertNormal.xyz, eyeRayIncident);
+
+        vec3 reflectRGB = texture( skyboxCubeTexture, reflectRay ).rgb;
+
+        pixelColour.rgb = reflectRGB * reflectionStrength;
+
+        pixelColour.a = alphaTransparency;
+        return;
+    }
+    if (bAddRefract)
+    {
+        vec3 eyeRayIncident = normalize(eyeLocation - vertWorldPosition.xyz);
+
+        vec3 refractRay = refract(vertNormal.xyz, eyeRayIncident, 1.06f);
+
+        vec3 refractRGB = texture( skyboxCubeTexture, refractRay ).rgb;
+
+        pixelColour.rgb = refractRGB * refractionStrength;
+
+        pixelColour.a = alphaTransparency;
+
+        return;
+    }
+
 
     // Set the vertex colour in case we are NOT using texture lookup
     vec3 vertexColourRGB = vec3(0.0f, 0.0f, 0.0f);

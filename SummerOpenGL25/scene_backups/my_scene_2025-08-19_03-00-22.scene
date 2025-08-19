@@ -205,14 +205,14 @@ PLACEHOLDER.bmp
 1
 1 1 1
 1
-0.109
-0.924
+0.5
+0.5
 0
 1
 0
 0
 0
-1
+0
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
@@ -11286,7 +11286,7 @@ PLACEHOLDER.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
 1 0 0 0
--15.384 40.7832 -107.219
+0 0 0
 0 0 0
 1000
 1 1 1
@@ -11304,13 +11304,13 @@ PLACEHOLDER.bmp
 0
 0
 20
-0 500 0 0.5
-1 1 1 1
+13000 1000 13000 0.5
+1 0.733333 0 1
 1 1 1 1
 0 0.0001 1e-05 1
 0 -0.5 0 1
 0 1 45 0
-1 0 0 0
+0 0 0 0
 0 0 0 1
 1 1 1 1
 1 1 1 1

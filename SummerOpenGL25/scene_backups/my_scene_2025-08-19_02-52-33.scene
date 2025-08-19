@@ -1,6 +1,5 @@
 471
 assets/models/Warehouse_Crate1.ply
-N/A
 Warehouse_WoodCrate2.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -24,7 +23,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Warehouse_Crate2.ply
-N/A
 Warehouse_WoodCrate_.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -48,7 +46,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Warehouse_Floor.ply
-N/A
 Warehouse_Fiber.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -72,7 +69,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Warehouse_Loading_001.ply
-N/A
 Warehouse_Fiber.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -96,7 +92,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Warehouse_Loading_Pallets.ply
-N/A
 Warehouse_WrappedPallet.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -120,7 +115,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Warehouse_Loading_Roof.ply
-N/A
 Warehouse_Fiber.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -144,7 +138,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Warehouse_xyz_n_rgba_UV (Blender Smart UV project).ply
-The Warehouse
 Sydney_Sweeney.bmp
 Dungeons_2_Texture_01_A.bmp
 Stone_Texture_2.bmp
@@ -168,7 +161,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -192,7 +184,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Utah_Teapot_xyz_n_rgba_UV.ply
-Teapot
 Seamless-Rust-Texture.bmp
 Brushed_Metal_Texture.bmp
 PLACEHOLDER.bmp
@@ -205,8 +196,8 @@ PLACEHOLDER.bmp
 1
 1 1 1
 1
-0.109
-0.924
+0.155
+1
 0
 1
 0
@@ -216,7 +207,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -240,7 +230,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -264,7 +253,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -288,7 +276,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -312,7 +299,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -336,7 +322,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -360,7 +345,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -384,7 +368,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -408,7 +391,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -432,7 +414,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -456,7 +437,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -480,7 +460,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -504,7 +483,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -528,7 +506,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -552,7 +529,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -576,7 +552,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -600,7 +575,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -624,7 +598,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -648,7 +621,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -672,7 +644,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -696,7 +667,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -720,7 +690,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -744,7 +713,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -768,7 +736,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -792,7 +759,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -816,7 +782,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -840,7 +805,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -864,7 +828,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -888,7 +851,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -912,7 +874,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -936,7 +897,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -960,7 +920,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -984,7 +943,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1008,7 +966,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1032,7 +989,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1056,7 +1012,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1080,7 +1035,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1104,7 +1058,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1128,7 +1081,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1152,7 +1104,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1176,7 +1127,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1200,7 +1150,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1224,7 +1173,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1248,7 +1196,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1272,7 +1219,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1296,7 +1242,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1320,7 +1265,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1344,7 +1288,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1368,7 +1311,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1392,7 +1334,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1416,7 +1357,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1440,7 +1380,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1464,7 +1403,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1488,7 +1426,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1512,7 +1449,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1536,7 +1472,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1560,7 +1495,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1584,7 +1518,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1608,7 +1541,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1632,7 +1564,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1656,7 +1587,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1680,7 +1610,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1704,7 +1633,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1728,7 +1656,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1752,7 +1679,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1776,7 +1702,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1800,7 +1725,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1824,7 +1748,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1848,7 +1771,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1872,7 +1794,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1896,7 +1817,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1920,7 +1840,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1944,7 +1863,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1968,7 +1886,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -1992,7 +1909,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2016,7 +1932,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2040,7 +1955,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2064,7 +1978,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2088,7 +2001,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2112,7 +2024,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2136,7 +2047,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2160,7 +2070,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2184,7 +2093,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2208,7 +2116,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2232,7 +2139,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2256,7 +2162,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2280,7 +2185,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2304,7 +2208,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2328,7 +2231,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2352,7 +2254,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2376,7 +2277,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2400,7 +2300,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2424,7 +2323,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2448,7 +2346,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2472,7 +2369,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2496,7 +2392,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2520,7 +2415,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2544,7 +2438,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2568,7 +2461,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2592,7 +2484,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2616,7 +2507,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2640,7 +2530,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2664,7 +2553,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2688,7 +2576,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2712,7 +2599,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2736,7 +2622,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2760,7 +2645,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2784,7 +2668,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2808,7 +2691,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2832,7 +2714,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2856,7 +2737,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2880,7 +2760,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2904,7 +2783,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2928,7 +2806,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2952,7 +2829,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -2976,7 +2852,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3000,7 +2875,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3024,7 +2898,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3048,7 +2921,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3072,7 +2944,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3096,7 +2967,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3120,7 +2990,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3144,7 +3013,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3168,7 +3036,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3192,7 +3059,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3216,7 +3082,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3240,7 +3105,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3264,7 +3128,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3288,7 +3151,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3312,7 +3174,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3336,7 +3197,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3360,7 +3220,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3384,7 +3243,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3408,7 +3266,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3432,7 +3289,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3456,7 +3312,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3480,7 +3335,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3504,7 +3358,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3528,7 +3381,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3552,7 +3404,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3576,7 +3427,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3600,7 +3450,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3624,7 +3473,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3648,7 +3496,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3672,7 +3519,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3696,7 +3542,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3720,7 +3565,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3744,7 +3588,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3768,7 +3611,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3792,7 +3634,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3816,7 +3657,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3840,7 +3680,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3864,7 +3703,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3888,7 +3726,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3912,7 +3749,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3936,7 +3772,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3960,7 +3795,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -3984,7 +3818,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4008,7 +3841,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4032,7 +3864,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4056,7 +3887,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4080,7 +3910,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4104,7 +3933,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4128,7 +3956,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4152,7 +3979,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4176,7 +4002,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4200,7 +4025,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4224,7 +4048,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4248,7 +4071,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4272,7 +4094,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4296,7 +4117,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4320,7 +4140,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4344,7 +4163,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4368,7 +4186,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4392,7 +4209,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4416,7 +4232,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4440,7 +4255,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4464,7 +4278,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4488,7 +4301,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4512,7 +4324,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4536,7 +4347,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4560,7 +4370,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4584,7 +4393,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4608,7 +4416,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4632,7 +4439,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4656,7 +4462,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4680,7 +4485,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4704,7 +4508,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4728,7 +4531,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4752,7 +4554,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4776,7 +4577,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4800,7 +4600,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4824,7 +4623,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4848,7 +4646,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4872,7 +4669,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4896,7 +4692,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4920,7 +4715,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4944,7 +4738,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4968,7 +4761,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -4992,7 +4784,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5016,7 +4807,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5040,7 +4830,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5064,7 +4853,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5088,7 +4876,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5112,7 +4899,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5136,7 +4922,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5160,7 +4945,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5184,7 +4968,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5208,7 +4991,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5232,7 +5014,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5256,7 +5037,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5280,7 +5060,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5304,7 +5083,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5328,7 +5106,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5352,7 +5129,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5376,7 +5152,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5400,7 +5175,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5424,7 +5198,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5448,7 +5221,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5472,7 +5244,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5496,7 +5267,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5520,7 +5290,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5544,7 +5313,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5568,7 +5336,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5592,7 +5359,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5616,7 +5382,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5640,7 +5405,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5664,7 +5428,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5688,7 +5451,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5712,7 +5474,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5736,7 +5497,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5760,7 +5520,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5784,7 +5543,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5808,7 +5566,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5832,7 +5589,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5856,7 +5612,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5880,7 +5635,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5904,7 +5658,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5928,7 +5681,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5952,7 +5704,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -5976,7 +5727,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6000,7 +5750,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6024,7 +5773,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6048,7 +5796,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6072,7 +5819,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6096,7 +5842,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6120,7 +5865,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6144,7 +5888,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6168,7 +5911,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6192,7 +5934,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6216,7 +5957,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6240,7 +5980,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6264,7 +6003,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6288,7 +6026,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6312,7 +6049,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6336,7 +6072,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6360,7 +6095,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6384,7 +6118,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6408,7 +6141,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6432,7 +6164,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6456,7 +6187,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6480,7 +6210,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6504,7 +6233,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6528,7 +6256,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6552,7 +6279,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6576,7 +6302,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6600,7 +6325,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6624,7 +6348,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6648,7 +6371,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6672,7 +6394,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6696,7 +6417,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6720,7 +6440,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6744,7 +6463,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6768,7 +6486,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6792,7 +6509,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6816,7 +6532,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6840,7 +6555,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6864,7 +6578,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6888,7 +6601,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6912,7 +6624,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6936,7 +6647,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6960,7 +6670,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -6984,7 +6693,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7008,7 +6716,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7032,7 +6739,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7056,7 +6762,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7080,7 +6785,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7104,7 +6808,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7128,7 +6831,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7152,7 +6854,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7176,7 +6877,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7200,7 +6900,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7224,7 +6923,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7248,7 +6946,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7272,7 +6969,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7296,7 +6992,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7320,7 +7015,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7344,7 +7038,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7368,7 +7061,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7392,7 +7084,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7416,7 +7107,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7440,7 +7130,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7464,7 +7153,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7488,7 +7176,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7512,7 +7199,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7536,7 +7222,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7560,7 +7245,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7584,7 +7268,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7608,7 +7291,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7632,7 +7314,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7656,7 +7337,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7680,7 +7360,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7704,7 +7383,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7728,7 +7406,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7752,7 +7429,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7776,7 +7452,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7800,7 +7475,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7824,7 +7498,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7848,7 +7521,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7872,7 +7544,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7896,7 +7567,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7920,7 +7590,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7944,7 +7613,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7968,7 +7636,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -7992,7 +7659,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8016,7 +7682,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8040,7 +7705,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8064,7 +7728,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8088,7 +7751,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8112,7 +7774,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8136,7 +7797,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8160,7 +7820,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8184,7 +7843,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8208,7 +7866,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8232,7 +7889,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8256,7 +7912,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8280,7 +7935,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8304,7 +7958,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8328,7 +7981,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8352,7 +8004,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8376,7 +8027,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8400,7 +8050,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8424,7 +8073,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8448,7 +8096,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8472,7 +8119,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8496,7 +8142,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8520,7 +8165,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8544,7 +8188,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8568,7 +8211,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8592,7 +8234,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8616,7 +8257,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8640,7 +8280,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8664,7 +8303,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8688,7 +8326,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8712,7 +8349,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8736,7 +8372,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8760,7 +8395,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8784,7 +8418,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8808,7 +8441,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8832,7 +8464,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8856,7 +8487,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8880,7 +8510,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8904,7 +8533,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8928,7 +8556,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8952,7 +8579,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -8976,7 +8602,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9000,7 +8625,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9024,7 +8648,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9048,7 +8671,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9072,7 +8694,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9096,7 +8717,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9120,7 +8740,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9144,7 +8763,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9168,7 +8786,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9192,7 +8809,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9216,7 +8832,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9240,7 +8855,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9264,7 +8878,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9288,7 +8901,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9312,7 +8924,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9336,7 +8947,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9360,7 +8970,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9384,7 +8993,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9408,7 +9016,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9432,7 +9039,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9456,7 +9062,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9480,7 +9085,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9504,7 +9108,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9528,7 +9131,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9552,7 +9154,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9576,7 +9177,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9600,7 +9200,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9624,7 +9223,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9648,7 +9246,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9672,7 +9269,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9696,7 +9292,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9720,7 +9315,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9744,7 +9338,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9768,7 +9361,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9792,7 +9384,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9816,7 +9407,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9840,7 +9430,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9864,7 +9453,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9888,7 +9476,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9912,7 +9499,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9936,7 +9522,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9960,7 +9545,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -9984,7 +9568,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10008,7 +9591,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10032,7 +9614,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10056,7 +9637,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10080,7 +9660,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10104,7 +9683,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10128,7 +9706,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10152,7 +9729,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10176,7 +9752,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10200,7 +9775,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10224,7 +9798,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10248,7 +9821,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10272,7 +9844,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10296,7 +9867,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10320,7 +9890,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10344,7 +9913,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10368,7 +9936,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10392,7 +9959,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10416,7 +9982,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10440,7 +10005,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10464,7 +10028,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10488,7 +10051,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10512,7 +10074,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10536,7 +10097,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10560,7 +10120,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10584,7 +10143,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10608,7 +10166,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10632,7 +10189,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_03.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10656,7 +10212,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10680,7 +10235,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10704,7 +10258,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10728,7 +10281,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10752,7 +10304,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10776,7 +10327,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10800,7 +10350,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10824,7 +10373,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10848,7 +10396,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10872,7 +10419,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10896,7 +10442,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10920,7 +10465,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10944,7 +10488,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10968,7 +10511,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -10992,7 +10534,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11016,7 +10557,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11040,7 +10580,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11064,7 +10603,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11088,7 +10626,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11112,7 +10649,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11136,7 +10672,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 Lava_Texture.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11160,7 +10695,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-Betsy
 Stone_Texture_1.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11184,7 +10718,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 cow_xyz_n_rgba_UV_Blender_UV_Unwrap_orange.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11208,7 +10741,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply
-N/A
 PLACEHOLDER.bmp
 cow_xyz_n_rgba_UV_Blender_UV_Unwrap_grey.bmp
 PLACEHOLDER.bmp
@@ -11232,7 +10764,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/dolphin_xyz_n_rgba_UV.ply
-N/A
 Sydney_Sweeney.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11256,7 +10787,6 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/dolphin_xyz_n_rgba_UV.ply
-N/A
 Dungeons_2_Texture_01_A.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
@@ -11280,13 +10810,12 @@ PLACEHOLDER.bmp
 0
 0
 assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba_uv.ply
-skybox_mesh
 Sydney_Sweeney.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
 PLACEHOLDER.bmp
 1 0 0 0
--15.384 40.7832 -107.219
+-33.4256 36.5823 -92.4801
 0 0 0
 1000
 1 1 1

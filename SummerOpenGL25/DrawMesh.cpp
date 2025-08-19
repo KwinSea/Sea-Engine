@@ -166,7 +166,7 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
     }
 
     GLint bAddReflectAndRefract_UL = glGetUniformLocation(program, "bAddReflectAndRefract");
-    if (pCurrentMesh->bUseMaskingTexture)
+    if (pCurrentMesh->bAddReflectAndRefract)
     {
         glUniform1f(bAddReflectAndRefract_UL, (GLfloat)GL_TRUE);
     }
@@ -175,6 +175,31 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
         glUniform1f(bAddReflectAndRefract_UL, (GLfloat)GL_FALSE);
     }
 
+    GLint bAddReflect_UL = glGetUniformLocation(program, "bAddReflect");
+    if (pCurrentMesh->bAddReflect)
+    {
+        glUniform1f(bAddReflect_UL, (GLfloat)GL_TRUE);
+    }
+    else
+    {
+        glUniform1f(bAddReflect_UL, (GLfloat)GL_FALSE);
+    }
+
+    GLint bAddRefract_UL = glGetUniformLocation(program, "bAddRefract");
+    if (pCurrentMesh->bAddRefract)
+    {
+        glUniform1f(bAddRefract_UL, (GLfloat)GL_TRUE);
+    }
+    else
+    {
+        glUniform1f(bAddRefract_UL, (GLfloat)GL_FALSE);
+    }
+
+    GLint reflectionStrength_UL = glGetUniformLocation(program, "reflectionStrength");
+    glUniform1f(reflectionStrength_UL, pCurrentMesh->reflectionStrength);
+
+    GLint refractionStrength_UL = glGetUniformLocation(program, "refractionStrength");
+    glUniform1f(refractionStrength_UL, pCurrentMesh->refractionStrength);
 
     // Copy over the transparency
     // uniform float alphaTransparency;
