@@ -1,5 +1,6 @@
 #include "LoadModelsAndTextures.h"
 
+
 cVAOManager* pTheMeshManager = NULL;
 
 void LoadFilesIntoVAOManager(GLuint program)
@@ -28,7 +29,7 @@ void LoadFilesIntoVAOManager(GLuint program)
     } catch (const std::filesystem::filesystem_error& ex) {
         std::cerr << ex.what() << '\n';
     }
-    std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
+    std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found\n";
 
 //    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_xyz_n_rgba_uv.ply",
 //        SmoothSphereMeshInfo, program, 1.0f))
@@ -140,7 +141,7 @@ void LoadTexturesIntoTextureManager(cBasicTextureManager* pTheTextureManager)
         std::cerr << ex.what() << '\n';
     }
 
-    std::cout << "Finished searching\n" << loadedCount << " textures loaded" << std::endl;
+    std::cout << "Finished searching\n" << loadedCount << " textures loaded\n" << std::endl;
     return;
 }
 
@@ -373,6 +374,7 @@ void LoadModelsIntoScene()
     pCow->meshFileName = "assets/models/cow_xyz_n_rgba_UV (MeshLab trivial, random).ply";
     pCow->textureNames[0] = "Stone_Texture_1.bmp";
     pCow->textureMixRatio[0] = 1.0f;
+
 
     cMeshObject* pCow2 = new cMeshObject();
     pCow2->bIsWireframe = false;

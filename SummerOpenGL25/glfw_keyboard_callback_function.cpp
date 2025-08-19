@@ -29,10 +29,10 @@ extern unsigned int screenHeight;
 int g_selectedObjectIndex = 0;
 int g_selectedLightIndex = 0;
 
-float object_move_speed = 500.f;
+float object_move_speed = 50.f;
 float light_move_speed = 100.f;
 
-float object_move_grid = 500.f;
+float object_move_grid = 50.f;
 float light_move_grid = 100.f;
 
 float object_rotate_speed = glm::radians(90.0f);
@@ -93,52 +93,68 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
     if ((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL) {
         if (isLightGridSnap) {
-            if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-                g_pLights->theLights[::g_selectedLightIndex].position.x = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) + light_move_grid;
+             if (key == GLFW_KEY_E && action != GLFW_RELEASE) {
+                g_pLights->theLights[::g_selectedLightIndex].position.y = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.y / light_move_grid)) + light_move_grid;
             }
-
-            if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
-                g_pLights->theLights[::g_selectedLightIndex].position.x = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) - light_move_grid;
+            if (key == GLFW_KEY_Q && action != GLFW_RELEASE) {
+                g_pLights->theLights[::g_selectedLightIndex].position.y = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.y / light_move_grid)) - light_move_grid;
             }
-
-            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-                g_pLights->theLights[::g_selectedLightIndex].position.y = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) + light_move_grid;
+            if (key == GLFW_KEY_W && action != GLFW_RELEASE) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    g_pLights->theLights[::g_selectedLightIndex].position.x = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) + (camera.Orientation.x > 0 ? light_move_grid : -light_move_grid);
+                } else {
+                    g_pLights->theLights[::g_selectedLightIndex].position.z = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.z / light_move_grid)) + (camera.Orientation.z > 0 ? light_move_grid : -light_move_grid);
+                }
             }
-
-            if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-                g_pLights->theLights[::g_selectedLightIndex].position.y = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) - light_move_grid;
+            if (key == GLFW_KEY_S && action != GLFW_RELEASE) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    g_pLights->theLights[::g_selectedLightIndex].position.x = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) - (camera.Orientation.x > 0 ? light_move_grid : -light_move_grid);
+                } else {
+                    g_pLights->theLights[::g_selectedLightIndex].position.z = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.z / light_move_grid)) - (camera.Orientation.z > 0 ? light_move_grid : -light_move_grid);
+                }
             }
-
-            if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-                g_pLights->theLights[::g_selectedLightIndex].position.z = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) + light_move_grid;
+            if (key == GLFW_KEY_A && action != GLFW_RELEASE) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    g_pLights->theLights[::g_selectedLightIndex].position.z = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.z / light_move_grid)) - (camera.Orientation.x > 0 ? light_move_grid : -light_move_grid);
+                } else {
+                    g_pLights->theLights[::g_selectedLightIndex].position.x = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) + (camera.Orientation.z > 0 ? light_move_grid : -light_move_grid);
+                }
             }
-
-            if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-                g_pLights->theLights[::g_selectedLightIndex].position.z = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) - object_move_grid;
+            if (key == GLFW_KEY_D && action != GLFW_RELEASE) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    g_pLights->theLights[::g_selectedLightIndex].position.z = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.z / light_move_grid)) + (camera.Orientation.x > 0 ? light_move_grid : -light_move_grid);
+                } else {
+                    g_pLights->theLights[::g_selectedLightIndex].position.x = light_move_grid * static_cast<float>(static_cast<int>(g_pLights->theLights[::g_selectedLightIndex].position.x / light_move_grid)) - (camera.Orientation.z > 0 ? light_move_grid : -light_move_grid);
+                }
             }
         } else {
-            if (key == GLFW_KEY_A && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.x -= light_move_speed;
+            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    g_pLights->theLights[::g_selectedLightIndex].position.x += (camera.Orientation.x > 0 ? 1 : -1) * light_move_speed * deltaTime;
+                } else {
+                    g_pLights->theLights[::g_selectedLightIndex].position.z += (camera.Orientation.z > 0 ? 1 : -1) * light_move_speed * deltaTime;
+                }
             }
-
-            if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.x += light_move_speed;
+            if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    g_pLights->theLights[::g_selectedLightIndex].position.x -= (camera.Orientation.x > 0 ? 1 : -1) * light_move_speed * deltaTime;
+                } else {
+                    g_pLights->theLights[::g_selectedLightIndex].position.z -= (camera.Orientation.z > 0 ? 1 : -1) * light_move_speed * deltaTime;
+                }
             }
-
-            if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.y -= light_move_speed;
+            if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed * deltaTime * (camera.Orientation.x > 0 ? 1 : -1);
+                } else {
+                    g_pLights->theLights[::g_selectedLightIndex].position.x += light_move_speed * deltaTime * (camera.Orientation.z > 0 ? 1 : -1);
+                }
             }
-
-            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed;
-            }
-
-            if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.z -= light_move_speed;
-            }
-
-            if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-                ::g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed;
+            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    g_pLights->theLights[::g_selectedLightIndex].position.z += light_move_speed * deltaTime * (camera.Orientation.x > 0 ? 1 : -1);
+                } else {
+                    g_pLights->theLights[::g_selectedLightIndex].position.x -= light_move_speed * deltaTime * (camera.Orientation.z > 0 ? 1 : -1);
+                }
             }
         }
 
@@ -332,60 +348,68 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
     if ((mods & GLFW_MOD_SHIFT) == GLFW_MOD_SHIFT) {
         if (isObjectGridSnap) {
-            if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.x / object_move_grid)) + object_move_grid;
-            }
-
-            if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.x / object_move_grid)) - object_move_grid;
-            }
-
-            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
+            if (key == GLFW_KEY_E && action != GLFW_RELEASE) {
                 ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.y / object_move_grid)) + object_move_grid;
             }
-
-            if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
+            if (key == GLFW_KEY_Q && action != GLFW_RELEASE) {
                 ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.y / object_move_grid)) - object_move_grid;
             }
-
-            if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.z / object_move_grid)) + object_move_grid;
+            if (key == GLFW_KEY_W && action != GLFW_RELEASE) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.x / object_move_grid)) + (camera.Orientation.x > 0 ? object_move_grid : -object_move_grid);
+                } else {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.z / object_move_grid)) + (camera.Orientation.z > 0 ? object_move_grid : -object_move_grid);
+                }
             }
-
-            if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.z / object_move_grid)) - object_move_grid;
+            if (key == GLFW_KEY_S && action != GLFW_RELEASE) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.x / object_move_grid)) - (camera.Orientation.x > 0 ? object_move_grid : -object_move_grid);
+                } else {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.z / object_move_grid)) - (camera.Orientation.z > 0 ? object_move_grid : -object_move_grid);
+                }
+            }
+            if (key == GLFW_KEY_A && action != GLFW_RELEASE) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.z / object_move_grid)) - (camera.Orientation.x > 0 ? object_move_grid : -object_move_grid);
+                } else {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.x / object_move_grid)) + (camera.Orientation.z > 0 ? object_move_grid : -object_move_grid);
+                }
+            }
+            if (key == GLFW_KEY_D && action != GLFW_RELEASE) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.z / object_move_grid)) + (camera.Orientation.x > 0 ? object_move_grid : -object_move_grid);
+                } else {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = object_move_grid * static_cast<float>(static_cast<int>(g_pMeshesToDraw[::g_selectedObjectIndex]->position.x / object_move_grid)) - (camera.Orientation.z > 0 ? object_move_grid : -object_move_grid);
+                }
             }
         } else {
-            if (key == GLFW_KEY_D  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed;
+            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += (camera.Orientation.x > 0 ? 1 : -1) * object_move_speed * deltaTime;
+                } else {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += (camera.Orientation.z > 0 ? 1 : -1) * object_move_speed * deltaTime;
+                }
             }
-
-            if (key == GLFW_KEY_A  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed;
+            if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= (camera.Orientation.x > 0 ? 1 : -1) * object_move_speed * deltaTime;
+                } else {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= (camera.Orientation.z > 0 ? 1 : -1) * object_move_speed * deltaTime;
+                }
             }
-
-            if (key == GLFW_KEY_E  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y += object_move_speed;
+            if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z -= object_move_speed * deltaTime * (camera.Orientation.x > 0 ? 1 : -1);
+                } else {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x += object_move_speed * deltaTime * (camera.Orientation.z > 0 ? 1 : -1);
+                }
             }
-
-            if (key == GLFW_KEY_Q  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed;
-            }
-
-            if (key == GLFW_KEY_S  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed;
-            }
-
-            if (key == GLFW_KEY_W  && action != GLFW_RELEASE) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position -= object_move_speed;
-            }
-
-            if (key == GLFW_KEY_PAGE_UP && action != GLFW_RELEASE) {
-                object_move_speed += 5.0f;
-            }
-
-            if (key == GLFW_KEY_PAGE_DOWN && action != GLFW_RELEASE) {
-                object_move_speed -= 5.0f;
+            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+                if (std::abs(camera.Orientation.x) > std::abs(camera.Orientation.z)) {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z += object_move_speed * deltaTime * (camera.Orientation.x > 0 ? 1 : -1);
+                } else {
+                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed * deltaTime * (camera.Orientation.z > 0 ? 1 : -1);
+                }
             }
         }
 

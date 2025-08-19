@@ -49,6 +49,7 @@ cMeshObject* g_pSmoothSphere = NULL;
 cMeshObject* g_pSelectedMeshIndicator = NULL;
 
 extern cVAOManager* pTheMeshManager;
+extern std::vector<cScript> scriptObjects;
 
 extern int g_selectedLightIndex;
 extern int g_selectedObjectIndex;
@@ -89,6 +90,12 @@ std::vector<cMeshObject*> g_pMeshesToDraw;
 
 static void error_callback(int error, const char* description) {
     fprintf(stderr, "Error: %s\n", description);
+}
+
+void UpdateSceneScripts(std::vector<cMeshObject*>& meshObjects, float deltaTime) {
+    for (cMeshObject* meshObject : meshObjects){
+        meshObject->UpdateScripts(deltaTime);
+    }
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -222,6 +229,12 @@ int main(void) {
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+    cScript scriptInstance;
+    // scriptInstance.CreateScript("Test1");
+    // scriptInstance.CreateScript("Test2");
+    // scriptInstance.CreateScript("Test3");
 
     while (!glfwWindowShouldClose(window)) {
         int width, height;
@@ -461,6 +474,8 @@ int main(void) {
 
         ssWindowTitle << "Session info [ Camera Speed: " << camera.speed << " | Object Speed: " << object_move_speed << " | Rotation Speed: " << object_rotate_speed << " | Light Speed: " << light_move_speed << " ]   [ Camera X:" << camera.Position.x << " | Camera Y:" << camera.Position.y << " | Camera Z:" << camera.Position.z << " ]"<< std::endl;
 
+        UpdateSceneScripts(g_pMeshesToDraw, deltaTime);
+
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 
         ImGui::SetNextWindowSize(ImVec2(550, height));
@@ -485,7 +500,6 @@ int main(void) {
             for (const std::string& texture : loadedTextures) {
                 currentVAOTextures.push_back(texture.c_str());
             }
-
 
             if (ImGui::BeginMenuBar()) {
                 if (ImGui::BeginMenu("File")) {
@@ -942,10 +956,9 @@ int main(void) {
                             }
 
                             ImGui::SliderFloat4("Texture Mix", g_pMeshesToDraw[g_selectedObjectIndex]->textureMixRatio, 0.0f, 1.0f);
+                            ImGui::NewLine();
                         }
                         ImGui::NewLine();
-
-                        ImGui::Checkbox("Edit Visible", &g_pMeshesToDraw[g_selectedObjectIndex]->bIsVisible);
                     }
                     ImGui::EndTabItem();
                 } // End object tab
@@ -1062,4 +1075,4 @@ int main(void) {
 //         std::cerr << ex.what() << '\n';
 //     }
 //     std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
-// }
+// 

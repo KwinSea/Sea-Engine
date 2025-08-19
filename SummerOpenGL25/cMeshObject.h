@@ -4,10 +4,14 @@
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+#include "cScript.h"
 
 // CRC: Class, Responsibility, Collboration
 // should usually be a noun (and just one thing)
 class cMeshObject {
+
+    std::vector<cScript*> scripts;
+
 public:
     cMeshObject();
     std::string meshFileName;
@@ -33,5 +37,9 @@ public:
     std::string textureNames[NUM_TEXTURES];
     float textureMixRatio[NUM_TEXTURES];
 
-    // std::vector<cMeshObject*> vec_pChildObjects; // for later use potentially
+    void AttachScript(cScript* script);
+    void DetachScript(cScript* script);
+    void DetachScriptByName(const std::string& scriptName);
+    cScript* GetScriptByName(const std::string& scriptName);
+    void UpdateScripts(float deltaTime);
 };

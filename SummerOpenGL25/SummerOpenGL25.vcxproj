@@ -162,6 +162,7 @@
     <ClCompile Include="LoadModelsAndTextures.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="old-loading.cpp" />
+    <ClCompile Include="ScriptHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="cLightHelper\cLightHelper.h" />
     <ClInclude Include="cLightManager.h" />
     <ClInclude Include="cMeshObject.h" />
+    <ClInclude Include="cScript.h" />
     <ClInclude Include="cShaderManager\cShaderManager.h" />
     <ClInclude Include="cVAOManager\cVAOManager.h" />
     <ClInclude Include="DrawMesh.h" />
@@ -186,6 +188,7 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="LoadModelsAndTextures.h" />
+    <ClInclude Include="ScriptHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cLightHelper\Isoshphere_flat_3div_xyz_n_rgba_uv.ply" />
