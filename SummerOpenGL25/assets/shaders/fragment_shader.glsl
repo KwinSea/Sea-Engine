@@ -56,6 +56,7 @@ uniform vec4 texMixRatios;		// x = 0, y = 1, etc.
 
 // If this is true, then we are drawing the skybox
 // (it's false for all other objects)
+uniform bool bAddReflectAndRefract;
 uniform bool bIsSkyboxObject;
 uniform samplerCube skyboxCubeTexture;
 
@@ -91,6 +92,21 @@ void main()
         return;
     }
 
+    // Reflect and refract
+    if (bAddReflectAndRefract)
+    {
+        vec3 eyeRayIncident = normalize(eyeLocation - vertWorldPosition.xyz);
+
+        vec3 reflectRay = reflect(vertNormal.xyz, eyeRayIncident);
+        vec3 refractRay = refract(vertNormal.xyz, eyeRayIncident, 1.06f);
+
+        vec3 reflectRGB = texture( skyboxCubeTexture, reflectRay ).rgb;
+        vec3 refractRGB = texture( skyboxCubeTexture, refractRay ).rgb;
+
+        pixelColour.rgb = reflectRGB * 0.5f +
+                          refractRGB * 0.5f;
+    }
+
     // Set the vertex colour in case we are NOT using texture lookup
     vec3 vertexColourRGB = vec3(0.0f, 0.0f, 0.0f);
 
@@ -108,6 +124,20 @@ void main()
         vec3 tex03RGB = texture( textSampler2D_03, vertTextCoords.xy ).rgb;
 
         vertexColourRGB.rgb = tex00RGB * texMixRatios.x + tex01RGB * texMixRatios.y + tex02RGB * texMixRatios.z + tex03RGB * texMixRatios.w;
+    }
+
+    if (bUseMaskingTexture)
+    {
+        // Use this texture to "mask" parts of the original texture
+        vec4 tex00RGBA = texture( textSampler2D_00, vertTextCoords.xy ); // Rust
+        vec4 tex01RGBA = texture( textSampler2D_01, vertTextCoords.xy ); // Steel
+
+        float maskValue = texture( sampMaskTexture01, vertTextCoords.xy ).r;
+
+        if ( maskValue > 0.5f )
+        {
+            discard;
+        }
     }
 
     if ( bDoNotLight )
@@ -211,10 +241,9 @@ vec4 calculateLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal,
 		vec3 eyeVector = normalize(eyeLocation.xyz - vertexWorldPos.xyz);
 
 		// To simplify, we are NOT using the light specular value, just the object’s.
-		float objectSpecularPower = vertexSpecular.w; 
-		
-		lightSpecularContrib = pow( max(0.0f, dot( eyeVector, reflectVector) ), objectSpecularPower )
-			                   * vertexSpecular.rgb;	//* theLights[lightIndex].Specular.rgb
+		float objectSpecularPower = vertexSpecular.w;
+
+        lightSpecularContrib = pow( max(0.0f, dot( eyeVector, reflectVector) ), objectSpecularPower ) * vertexSpecular.rgb;	//* theLights[lightIndex].Specular.rgb
 					   
 		// Attenuation
 		float attenuation = 1.0f / 

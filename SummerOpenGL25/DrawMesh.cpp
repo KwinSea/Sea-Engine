@@ -155,6 +155,26 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
         glUniform1f(bDoNotLight_UL, (GLfloat)GL_FALSE);
     }
 
+    GLint bUseMaskingTexture_UL = glGetUniformLocation(program, "bUseMaskingTexture");
+    if (pCurrentMesh->bUseMaskingTexture)
+    {
+        glUniform1f(bUseMaskingTexture_UL, (GLfloat)GL_TRUE);
+    }
+    else
+    {
+        glUniform1f(bUseMaskingTexture_UL, (GLfloat)GL_FALSE);
+    }
+
+    GLint bAddReflectAndRefract_UL = glGetUniformLocation(program, "bAddReflectAndRefract");
+    if (pCurrentMesh->bUseMaskingTexture)
+    {
+        glUniform1f(bAddReflectAndRefract_UL, (GLfloat)GL_TRUE);
+    }
+    else
+    {
+        glUniform1f(bAddReflectAndRefract_UL, (GLfloat)GL_FALSE);
+    }
+
 
     // Copy over the transparency
     // uniform float alphaTransparency;

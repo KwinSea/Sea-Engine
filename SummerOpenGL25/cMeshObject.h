@@ -32,6 +32,8 @@ public:
 
     bool bDoNotLight;
     bool bDontUseTextures;	// default = false;
+    bool bUseMaskingTexture;
+    bool bAddReflectAndRefract;
 
     static const unsigned int NUM_TEXTURES = 4;
     std::string textureNames[NUM_TEXTURES];

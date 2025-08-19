@@ -629,6 +629,8 @@ int main(void) {
                         static bool addVisible = true;
                         static bool addDoNotLight = false;
                         static bool addDontUseTextures = false;
+                        static bool addUseMaskingTexture = false;
+                        static bool addReflectAndRefract = false;
 
                         static int addSelectedTexIndex_01 = 0;
                         static int addSelectedTexIndex_02 = 0;
@@ -657,7 +659,9 @@ int main(void) {
                         ImGui::NewLine();
 
                         ImGui::Checkbox("Dont Light", &addDoNotLight);
+                        ImGui::Checkbox("Add Reflect And Refract", &addReflectAndRefract);
                         ImGui::Checkbox("Dont Use Textures", &addDontUseTextures);
+                        ImGui::Checkbox("Use Masking Texture", &addUseMaskingTexture);
 
                         if (!addDontUseTextures) {
                             if (ImGui::BeginCombo("New Texture 1 List", currentVAOTextures[addSelectedTexIndex_01])) {
@@ -791,6 +795,8 @@ int main(void) {
 
                                 pNewObject->bDoNotLight = addDoNotLight;
                                 pNewObject->bDontUseTextures = addDontUseTextures;
+                                pNewObject->bUseMaskingTexture = addUseMaskingTexture;
+                                pNewObject->bAddReflectAndRefract = addReflectAndRefract;
 
                                 ::g_pMeshesToDraw.push_back(pNewObject);
 
@@ -845,7 +851,9 @@ int main(void) {
                         ImGui::NewLine();
 
                         ImGui::Checkbox("Light", &g_pMeshesToDraw[g_selectedObjectIndex]->bDoNotLight);
-                        ImGui::Checkbox("Use Textures", &g_pMeshesToDraw[g_selectedObjectIndex]->bDontUseTextures);
+                        ImGui::Checkbox("Reflect And Refract", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddReflectAndRefract);
+                        ImGui::Checkbox("Edit Dont Use Textures", &g_pMeshesToDraw[g_selectedObjectIndex]->bDontUseTextures);
+                        ImGui::Checkbox("Edit Use Masking Texture", &g_pMeshesToDraw[g_selectedObjectIndex]->bUseMaskingTexture);
 
                         // Find Textue index based off currentVAOTextures
                         static int textureIndex[4];

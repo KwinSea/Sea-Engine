@@ -20,6 +20,8 @@ cMeshObject::cMeshObject()
 
 	this->bDoNotLight = false;
 	this->bDontUseTextures = false;
+	this->bUseMaskingTexture = false;
+	this->bAddReflectAndRefract = false;
 
 	this->textureMixRatio[0] = 1.0f;
 	this->textureMixRatio[1] = 0.0f;
