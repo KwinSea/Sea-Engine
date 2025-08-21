@@ -156,6 +156,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                     g_pLights->theLights[::g_selectedLightIndex].position.x -= light_move_speed * deltaTime * (camera.Orientation.z > 0 ? 1 : -1);
                 }
             }
+            if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+                g_pLights->theLights[::g_selectedLightIndex].position.y += light_move_speed * deltaTime;
+            }
+            if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+                g_pLights->theLights[::g_selectedLightIndex].position.y -= light_move_speed * deltaTime;
+            }
         }
 
         if (key == GLFW_KEY_1 && action != GLFW_RELEASE) {
@@ -411,6 +417,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
                     ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x -= object_move_speed * deltaTime * (camera.Orientation.z > 0 ? 1 : -1);
                 }
             }
+            if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y += object_move_speed * deltaTime;
+            }
+            if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+                ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y -= object_move_speed * deltaTime;
+            }
         }
 
 
@@ -437,6 +449,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
             // Mesh name
             pNewObject->meshFileName =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->meshFileName;
+
+            // Texture
+            pNewObject->textureNames[0] =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->textureNames[0];
+            pNewObject->textureNames[1] =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->textureNames[1];
+            pNewObject->textureNames[2] =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->textureNames[2];
+            pNewObject->textureNames[3] =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->textureNames[3];
+
+            pNewObject->textureMixRatio[0] =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->textureMixRatio[0];
+            pNewObject->textureMixRatio[1] =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->textureMixRatio[1];
+            pNewObject->textureMixRatio[2] =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->textureMixRatio[2];
+            pNewObject->textureMixRatio[3] =  ::g_pMeshesToDraw[::g_selectedObjectIndex]->textureMixRatio[3];
 
             // Position
             pNewObject->position.x = ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x;
@@ -471,6 +494,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             pNewObject->bOverrideVertexModelColour = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bOverrideVertexModelColour; // Override color
             pNewObject->bIsVisible = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsVisible; // is Visible
             pNewObject->bIsWireframe = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsWireframe; // is Wireframe
+            pNewObject->bDoNotLight = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bDoNotLight;
+            pNewObject->bAddReflect = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bAddReflect;
+            pNewObject->bAddRefract = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bAddRefract;
 
             ::g_pMeshesToDraw.push_back(pNewObject);
         }
@@ -817,9 +843,9 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
         return;
 
     if (yoffset > 0) {
-        camera.speed += 10.0f;
+        camera.speed += 100.0f;
     }
-    else if (yoffset < 0 && camera.speed > 5) {
-        camera.speed -= 10.0f;
+    else if (yoffset < 0 && camera.speed > 50) {
+        camera.speed -= 100.0f;
     }
 }

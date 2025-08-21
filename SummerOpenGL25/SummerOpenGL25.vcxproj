@@ -195,6 +195,9 @@
     <Content Include="cLightHelper\Isoshphere_flat_4div_xyz_n_rgba_uv.ply" />
     <Content Include="my_scene.scene" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\scripts\" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

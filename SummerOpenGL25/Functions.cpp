@@ -1,5 +1,7 @@
 ﻿#include "Functions.h"
 
+#include "imgui/imgui.h"
+
 extern cLightManager* g_pLights;
 extern std::vector<cMeshObject*> g_pMeshesToDraw;
 
@@ -126,7 +128,6 @@ void SaveScene() {
                 mySaveFile << ::g_pMeshesToDraw[index]->bIsWireframe << std::endl; // is Wireframe
                 mySaveFile << ::g_pMeshesToDraw[index]->bDoNotLight << std::endl;
                 mySaveFile << ::g_pMeshesToDraw[index]->bDontUseTextures << std::endl;
-                mySaveFile << ::g_pMeshesToDraw[index]->bAddReflectAndRefract << std::endl;
                 mySaveFile << ::g_pMeshesToDraw[index]->bAddReflect << std::endl;
                 mySaveFile << ::g_pMeshesToDraw[index]->bAddRefract << std::endl;
             }
@@ -201,6 +202,8 @@ void LoadScene() {
     int meshesInScene = 0;
     mySaveFile >> meshesInScene;
 
+    std::string temp;
+
     // Load meshes
     for (int index = 0; index < meshesInScene; index++) {
         cMeshObject* pNewObject = new cMeshObject();
@@ -226,7 +229,6 @@ void LoadScene() {
         mySaveFile >> pNewObject->bIsWireframe;
         mySaveFile >> pNewObject->bDoNotLight;
         mySaveFile >> pNewObject->bDontUseTextures;
-        mySaveFile >> pNewObject->bAddReflectAndRefract;
         mySaveFile >> pNewObject->bAddReflect;
         mySaveFile >> pNewObject->bAddRefract;
 

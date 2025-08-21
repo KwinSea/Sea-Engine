@@ -36,11 +36,14 @@
 #include "imgui/backends/imgui_impl_opengl3.h"
 
 // Textures
+#include "ScriptHelper.h"
 #include "cBasicTextureManager/cBasicTextureManager.h"
 
 
 cShaderManager* g_pTheShaderManager = NULL;
 cLightManager* g_pLights = NULL;
+
+cScript scriptInstance;
 
 // Textures
 cBasicTextureManager* g_pTheTextures = NULL;
@@ -81,7 +84,7 @@ int g_hoveredObjectIndex = 0;
 
 bool usingGui = false;
 
-Camera camera (screenWidth, screenHeight, glm::vec3(0.0f, 0.0f, 0.0f));
+Camera camera (screenWidth, screenHeight, glm::vec3(5000.0f, 2000.0f, 5000.0f));
 
 // void LoadFilesIntoVAOManager(GLuint program);
 
@@ -92,7 +95,7 @@ static void error_callback(int error, const char* description) {
     fprintf(stderr, "Error: %s\n", description);
 }
 
-void UpdateSceneScripts(std::vector<cMeshObject*>& meshObjects, float deltaTime) {
+void UpdateSceneScripts(std::vector<cMeshObject*>& meshObjects,  float deltaTime) {
     for (cMeshObject* meshObject : meshObjects){
         meshObject->UpdateScripts(deltaTime);
     }
@@ -155,6 +158,8 @@ int main(void) {
 
     ::g_pTheTextures = new cBasicTextureManager();
     LoadTexturesIntoTextureManager(::g_pTheTextures);
+
+    LoadScripts();
 
     LoadModelsIntoScene();
 
@@ -230,8 +235,6 @@ int main(void) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
-    cScript scriptInstance;
     // scriptInstance.CreateScript("Test1");
     // scriptInstance.CreateScript("Test2");
     // scriptInstance.CreateScript("Test3");
@@ -332,16 +335,37 @@ int main(void) {
             DrawMesh(pCurrentMesh, program);
         }
 
-        // Firefly Flicker
-        // if (rand() % 20 + 1 > 5) {
-        //     g_pLights->theLights[9].param2.x = 1.0f; // turn on
-        // } else {
-        //     g_pLights->theLights[9].param2.x = 0.0f; // turn off
-        // }
+        /*TODO MOVE TORCHES AROUND SCENE*/
 
+        // Torch Flicker
+        static float flickFrame = 0.0f;
+        flickFrame++ * deltaTime;
+        if (flickFrame  > g_getRandBetween(1.0f, 10.0f)) {
+            g_pLights->theLights[11].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
+            g_pLights->theLights[11].atten.z = g_getRandBetween(0.0001f, 0.00005f);// quadratic
 
-        // g_pLights->theLights[9].atten.y = 0.01f + (rand() / (float)RAND_MAX) * 0.12f; // linear
-        // g_pLights->theLights[9].atten.z = 0.001f + (rand() / (float)RAND_MAX) * 0.012f; // quadratic
+            g_pLights->theLights[12].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
+            g_pLights->theLights[12].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+
+            g_pLights->theLights[13].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
+            g_pLights->theLights[13].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+
+            g_pLights->theLights[14].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
+            g_pLights->theLights[14].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+
+            g_pLights->theLights[15].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
+            g_pLights->theLights[15].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+
+            g_pLights->theLights[16].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
+            g_pLights->theLights[16].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+
+            g_pLights->theLights[17].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
+            g_pLights->theLights[17].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+
+            g_pLights->theLights[18].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
+            g_pLights->theLights[18].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+            flickFrame = 0.0f;
+        }
 
 
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
@@ -501,8 +525,19 @@ int main(void) {
                 currentVAOTextures.push_back(texture.c_str());
             }
 
+            static bool openScripPopUp = false;
+            static bool openObjectPopUp = false;
+
             if (ImGui::BeginMenuBar()) {
-                if (ImGui::BeginMenu("File")) {
+                if (ImGui::BeginMenu("Edit")) {
+                    if (ImGui::MenuItem("New Script")) {openScripPopUp = true;}
+                    if (ImGui::MenuItem("New Object")) {openObjectPopUp = true;}
+                    ImGui::EndMenu();
+                }
+
+                ImGui::Spacing();
+
+                if (ImGui::BeginMenu("Scene")) {
                     if (ImGui::MenuItem("Clear Scene")) {ClearScene();}
                     if (ImGui::MenuItem("Load Scene")) {LoadScene();}
                     if (ImGui::MenuItem("Save Scene")) {SaveScene();}
@@ -518,6 +553,278 @@ int main(void) {
                     ImGui::EndMenu();
                 }
                 ImGui::EndMenuBar();
+            }
+
+            if (openScripPopUp) {
+                ImGui::OpenPopup("##CreatingScript");
+                openScripPopUp = false;
+            } else if (openObjectPopUp) {
+                ImGui::OpenPopup("##CreatingObject");
+                openObjectPopUp = false;
+            }
+
+            ImVec2 screenCenter = ImGui::GetMainViewport()->GetCenter();
+
+            // New Scrip Popup
+            ImGui::SetNextWindowPos(screenCenter, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+            if (ImGui::BeginPopupModal("##CreatingScript", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+                static char newScriptName[128] = "";
+                ImGui::InputText("Script Name", newScriptName, sizeof(newScriptName));
+                if (ImGui::Button("Create Script")) {
+                    scriptInstance.CreateScript(newScriptName);
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::SameLine();
+                if (ImGui::Button("Cancel")) {
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::EndPopup();
+            }
+
+            // New Object Popup
+            ImGui::SetNextWindowPos(screenCenter, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+            if (ImGui::BeginPopupModal("##CreatingObject", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+                // Add object
+                if (!currentVAOMeshs.empty()) {
+                    std::vector<const char*> meshNames;
+                    for (std::string& mesh : currentVAOMeshs) {
+                        meshNames.push_back(mesh.c_str());
+                    }
+
+                    ImGui::Text("Add Object");
+
+                    static float addPosition[3] = {0.0f, 0.0f, 0.0f};
+                    static float addRot[3] = {0.0f, 0.0f, 0.0f};
+                    static float addScale = 1.0f;
+                    static float addColour[3] = {1.0f, 1.0f, 1.0f};
+                    static float addOpacity = 1.0f;
+                    static float addSpecularHighlight[3] = {1.0f, 1.0f, 1.0f};
+                    static float addSpecularPower = 1.0f;
+                    static float addReflectionStrength = 1.0f;
+                    static float addRefractionStrength = 1.0f;
+                    static bool addOverrideColor = false;
+                    static bool addWireframe = false;
+                    static bool addVisible = true;
+                    static bool addDoNotLight = false;
+                    static bool addDontUseTextures = false;
+                    static bool addUseMaskingTexture = false;
+                    static bool addReflect = false;
+                    static bool addRefract = false;
+
+                    static int addSelectedTexIndex_01 = 0;
+                    static int addSelectedTexIndex_02 = 0;
+                    static int addSelectedTexIndex_03 = 0;
+                    static int addSelectedTexIndex_04 = 0;
+
+                    static float addTexIndexMix[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+
+                    ImGui::InputFloat3("Position", addPosition);
+                    ImGui::SliderFloat3("Orientation", addRot, -180.0f, 180.0f);
+                    ImGui::InputFloat("Scale", &addScale);
+                    ImGui::NewLine();
+
+                    if (addOverrideColor) {
+                        ImGui::ColorEdit3("Colour RGB", addColour);
+                    }
+                    ImGui::SliderFloat("Opacity", &addOpacity, 0.0, 1.0);
+                    ImGui::NewLine();
+
+                    ImGui::ColorEdit3("Specular Highlight", addSpecularHighlight);
+                    ImGui::InputFloat("Specular Power", &addSpecularPower);
+                    ImGui::NewLine();
+
+                    ImGui::Checkbox("Override Color", &addOverrideColor);
+                    ImGui::Checkbox("Wireframe", &addWireframe);
+                    ImGui::NewLine();
+
+                    ImGui::Checkbox("Dont Light", &addDoNotLight);
+                    ImGui::NewLine();
+
+                    ImGui::Checkbox("Add Reflect", &addReflect);
+                    if (addReflect) {
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(150);
+                        ImGui::SliderFloat("Add Reflect Strength", &addReflectionStrength, 0.0f, 1.0f);
+                    }
+
+                    ImGui::Checkbox("Add Refract", &addRefract);
+                    if (addRefract) {
+                        ImGui::SameLine();
+                        ImGui::SetNextItemWidth(150);
+                        ImGui::SliderFloat("Add Refract Strength", &addRefractionStrength, 0.0f, 1.0f);
+                    }
+                    ImGui::Checkbox("Dont Use Textures", &addDontUseTextures);
+                    ImGui::Checkbox("Use Masking Texture", &addUseMaskingTexture);
+
+                    if (!addDontUseTextures) {
+                        if (ImGui::BeginCombo("New Texture 1 List", currentVAOTextures[addSelectedTexIndex_01])) {
+                            for (int i = 0; i < currentVAOTextures.size(); i++) {
+                                bool isSelected = addSelectedTexIndex_01 == i;
+
+                                if (ImGui::Selectable(currentVAOTextures[i], isSelected)) {
+                                    addSelectedTexIndex_01 = i;
+                                }
+
+                                // Texture preview when hovering
+                                if (ImGui::IsItemHovered()) {
+                                    ImGui::BeginTooltip();
+                                    ImGui::Image((void*)(size_t)g_pTheTextures->getTextureIDFromName(currentVAOTextures[i]),
+                                                 ImVec2(100, 100));
+                                    ImGui::EndTooltip();
+                                }
+
+                                if (isSelected) {
+                                    ImGui::SetItemDefaultFocus();
+                                }
+                            }
+                            ImGui::EndCombo();
+                        }
+
+                        if (ImGui::BeginCombo("New Texture 2 List", currentVAOTextures[addSelectedTexIndex_02])) {
+                            for (int i = 0; i < currentVAOTextures.size(); i++) {
+                                bool isSelected = addSelectedTexIndex_02 == i;
+
+                                if (ImGui::Selectable(currentVAOTextures[i], isSelected)) {
+                                    addSelectedTexIndex_02 = i;
+                                }
+
+                                // Texture preview when hovering
+                                if (ImGui::IsItemHovered()) {
+                                    ImGui::BeginTooltip();
+                                    ImGui::Image((void*)(size_t)g_pTheTextures->getTextureIDFromName(currentVAOTextures[i]),
+                                                 ImVec2(100, 100));
+                                    ImGui::EndTooltip();
+                                }
+
+                                if (isSelected) {
+                                    ImGui::SetItemDefaultFocus();
+                                }
+                            }
+                            ImGui::EndCombo();
+                        }
+
+                        if (ImGui::BeginCombo("New Texture 3 List", currentVAOTextures[addSelectedTexIndex_03])) {
+                            for (int i = 0; i < currentVAOTextures.size(); i++) {
+                                bool isSelected = addSelectedTexIndex_03 == i;
+
+                                if (ImGui::Selectable(currentVAOTextures[i], isSelected)) {
+                                    addSelectedTexIndex_03 = i;
+                                }
+
+                                // Texture preview when hovering
+                                if (ImGui::IsItemHovered()) {
+                                    ImGui::BeginTooltip();
+                                    ImGui::Image((void*)(size_t)g_pTheTextures->getTextureIDFromName(currentVAOTextures[i]),
+                                                 ImVec2(100, 100));
+                                    ImGui::EndTooltip();
+                                }
+
+                                if (isSelected) {
+                                    ImGui::SetItemDefaultFocus();
+                                }
+                            }
+                            ImGui::EndCombo();
+                        }
+
+                        if (ImGui::BeginCombo("New Texture 4 List", currentVAOTextures[addSelectedTexIndex_04])) {
+                            for (int i = 0; i < currentVAOTextures.size(); i++) {
+                                bool isSelected = addSelectedTexIndex_04 == i;
+
+                                if (ImGui::Selectable(currentVAOTextures[i], isSelected)) {
+                                    addSelectedTexIndex_04 = i;
+                                }
+
+                                // Texture preview when hovering
+                                if (ImGui::IsItemHovered()) {
+                                    ImGui::BeginTooltip();
+                                    ImGui::Image((void*)(size_t)g_pTheTextures->getTextureIDFromName(currentVAOTextures[i]),
+                                                 ImVec2(100, 100));
+                                    ImGui::EndTooltip();
+                                }
+
+                                if (isSelected) {
+                                    ImGui::SetItemDefaultFocus();
+                                }
+                            }
+                            ImGui::EndCombo();
+                        }
+
+                        ImGui::SliderFloat4("New Texture Mix", addTexIndexMix, 0.0f, 1.0f);
+                    }
+                    ImGui::NewLine();
+
+                    if (ImGui::Combo("New Mesh List", &selectedMeshIndex, meshNames.data(), meshNames.size()));
+                    ImGui::Checkbox("Visible", &addVisible);
+                    ImGui::NewLine();
+
+                    if (selectedMeshIndex >= 0 && selectedMeshIndex < currentVAOMeshs.size()) {
+                        if (ImGui::Button("Add")) {
+
+                            cMeshObject* pNewObject = new cMeshObject();
+                            pNewObject->meshFileName = currentVAOMeshs[selectedMeshIndex];
+
+                            pNewObject->textureNames[0] = loadedTextures[addSelectedTexIndex_01];
+                            pNewObject->textureNames[1] = loadedTextures[addSelectedTexIndex_02];
+                            pNewObject->textureNames[2] = loadedTextures[addSelectedTexIndex_03];
+                            pNewObject->textureNames[3] = loadedTextures[addSelectedTexIndex_04];
+
+                            for (int i = 0; i < 4; i++) {
+                                pNewObject->textureMixRatio[i] = addTexIndexMix[i];
+                            }
+
+                            pNewObject->position = glm::vec3(addPosition[0], addPosition[1], addPosition[2]);
+                            pNewObject->orientation = glm::vec3(addRot[0], addRot[1], addRot[2]);
+                            pNewObject->scale = addScale;
+
+                            pNewObject->colourRGB = glm::vec3(addColour[0], addColour[1], addColour[2]);
+                            pNewObject->opacityAlpha = addOpacity;
+
+                            pNewObject->specularHighLightRGB = glm::vec3(addSpecularHighlight[0], addSpecularHighlight[1], addSpecularHighlight[2]);
+                            pNewObject->specularPower = addSpecularPower;
+                            pNewObject->reflectionStrength = addReflectionStrength;
+                            pNewObject->refractionStrength = addRefractionStrength;
+
+                            pNewObject->bOverrideVertexModelColour = addOverrideColor;
+                            pNewObject->bIsWireframe = addWireframe;
+                            pNewObject->bIsVisible = addVisible;
+
+                            pNewObject->bDoNotLight = addDoNotLight;
+                            pNewObject->bDontUseTextures = addDontUseTextures;
+                            pNewObject->bUseMaskingTexture = addUseMaskingTexture;
+                            pNewObject->bAddReflect = addReflect;
+                            pNewObject->bAddRefract = addRefract;
+
+                            ::g_pMeshesToDraw.push_back(pNewObject);
+
+                            // Rest form
+                            addPosition[0] = addPosition[1] = addPosition[2] = 0.0f;
+                            addRot[0] = addRot[1] = addRot[2] = 0.0f;
+                            addScale = 1.0f;
+                            addColour[0] = addColour[1] = addColour[2] = 1.0f;
+                            addOpacity = 1.0f;
+                            addSpecularHighlight[0] = addSpecularHighlight[1] = addSpecularHighlight[2] = 1.0f;
+                            addSpecularPower = 1.0f;
+                            addOverrideColor = false;
+                            addWireframe = false;
+                            addVisible = true;
+                            addDoNotLight = false;
+                            addDontUseTextures = false;
+
+                            g_selectedObjectIndex = g_pMeshesToDraw.size() - 1;
+
+                            ImGui::CloseCurrentPopup();
+                        }
+
+                        ImGui::SameLine();
+                        ImGui::Spacing();
+                        ImGui::SameLine();
+
+                        if (ImGui::Button("Cancel")) {
+                            ImGui::CloseCurrentPopup();
+                        }
+                    }
+                }
+                ImGui::EndPopup();
             }
 
             ImGui::Text("Scene Objects");
@@ -545,10 +852,7 @@ int main(void) {
             }
             objectHovered = anyObjectListHovered;
             ImGui::EndChild();
-
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
+            ImGui::NewLine();
 
             if (ImGui::BeginTabBar("SceneEditor")) {
 
@@ -607,250 +911,22 @@ int main(void) {
                     if (ImGui::IsItemHovered()) {
                         ImGui::SetTooltip("0 = Off\n1 = On");
                     }
+                    ImGui::NewLine();
 
-                    ImGui::Separator();
-
+                    ImGui::Checkbox("Script", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddReflect);
                     ImGui::EndTabItem();
                 } // End lighting tab
 
                 // Objects tab
                 if (ImGui::BeginTabItem("Objects")) {
-
-                    // Add object
-                    if (!currentVAOMeshs.empty()) {
-                        std::vector<const char*> meshNames;
-                        for (std::string& mesh : currentVAOMeshs) {
-                            meshNames.push_back(mesh.c_str());
-                        }
-
-                        ImGui::Text("Add Object");
-
-                        static float addPosition[3] = {0.0f, 0.0f, 0.0f};
-                        static float addRot[3] = {0.0f, 0.0f, 0.0f};
-                        static float addScale = 1.0f;
-                        static float addColour[3] = {1.0f, 1.0f, 1.0f};
-                        static float addOpacity = 1.0f;
-                        static float addSpecularHighlight[3] = {1.0f, 1.0f, 1.0f};
-                        static float addSpecularPower = 1.0f;
-                        static float addReflectionStrength = 1.0f;
-                        static float addRefractionStrength = 1.0f;
-                        static bool addOverrideColor = false;
-                        static bool addWireframe = false;
-                        static bool addVisible = true;
-                        static bool addDoNotLight = false;
-                        static bool addDontUseTextures = false;
-                        static bool addUseMaskingTexture = false;
-                        static bool addReflectAndRefract = false;
-                        static bool addReflect = false;
-                        static bool addRefract = false;
-
-                        static int addSelectedTexIndex_01 = 0;
-                        static int addSelectedTexIndex_02 = 0;
-                        static int addSelectedTexIndex_03 = 0;
-                        static int addSelectedTexIndex_04 = 0;
-
-                        static float addTexIndexMix[4] = {1.0f, 0.0f, 0.0f, 0.0f};
-
-                        ImGui::InputFloat3("Position", addPosition);
-                        ImGui::SliderFloat3("Orientation", addRot, -180.0f, 180.0f);
-                        ImGui::InputFloat("Scale", &addScale);
-                        ImGui::NewLine();
-
-                        if (addOverrideColor) {
-                            ImGui::ColorEdit3("Colour RGB", addColour);
-                        }
-                        ImGui::SliderFloat("Opacity", &addOpacity, 0.0, 1.0);
-                        ImGui::NewLine();
-
-                        ImGui::ColorEdit3("Specular Highlight", addSpecularHighlight);
-                        ImGui::InputFloat("Specular Power", &addSpecularPower);
-                        ImGui::NewLine();
-
-                        ImGui::Checkbox("Override Color", &addOverrideColor);
-                        ImGui::Checkbox("Wireframe", &addWireframe);
-                        ImGui::NewLine();
-
-                        ImGui::Checkbox("Dont Light", &addDoNotLight);
-                        ImGui::Checkbox("Add Reflect And Refract", &addReflectAndRefract);
-                        ImGui::Checkbox("Add Reflect", &addReflect);
-                        ImGui::Checkbox("Add Refract", &addRefract);
-                        ImGui::SliderFloat("Add Reflect Strength", &addReflectionStrength, 0.0f, 1.0f);
-                        ImGui::SliderFloat("Add Refract Strength", &addRefractionStrength, 0.0f, 1.0f);
-                        ImGui::Checkbox("Dont Use Textures", &addDontUseTextures);
-                        ImGui::Checkbox("Use Masking Texture", &addUseMaskingTexture);
-
-                        if (!addDontUseTextures) {
-                            if (ImGui::BeginCombo("New Texture 1 List", currentVAOTextures[addSelectedTexIndex_01])) {
-                                for (int i = 0; i < currentVAOTextures.size(); i++) {
-                                    bool isSelected = addSelectedTexIndex_01 == i;
-
-                                    if (ImGui::Selectable(currentVAOTextures[i], isSelected)) {
-                                        addSelectedTexIndex_01 = i;
-                                    }
-
-                                    // Texture preview when hovering
-                                    if (ImGui::IsItemHovered()) {
-                                        ImGui::BeginTooltip();
-                                        ImGui::Image((void*)(size_t)g_pTheTextures->getTextureIDFromName(currentVAOTextures[i]),
-                                                     ImVec2(100, 100));
-                                        ImGui::EndTooltip();
-                                    }
-
-                                    if (isSelected) {
-                                        ImGui::SetItemDefaultFocus();
-                                    }
-                                }
-                                ImGui::EndCombo();
-                            }
-
-                            if (ImGui::BeginCombo("New Texture 2 List", currentVAOTextures[addSelectedTexIndex_02])) {
-                                for (int i = 0; i < currentVAOTextures.size(); i++) {
-                                    bool isSelected = addSelectedTexIndex_02 == i;
-
-                                    if (ImGui::Selectable(currentVAOTextures[i], isSelected)) {
-                                        addSelectedTexIndex_02 = i;
-                                    }
-
-                                    // Texture preview when hovering
-                                    if (ImGui::IsItemHovered()) {
-                                        ImGui::BeginTooltip();
-                                        ImGui::Image((void*)(size_t)g_pTheTextures->getTextureIDFromName(currentVAOTextures[i]),
-                                                     ImVec2(100, 100));
-                                        ImGui::EndTooltip();
-                                    }
-
-                                    if (isSelected) {
-                                        ImGui::SetItemDefaultFocus();
-                                    }
-                                }
-                                ImGui::EndCombo();
-                            }
-
-                            if (ImGui::BeginCombo("New Texture 3 List", currentVAOTextures[addSelectedTexIndex_03])) {
-                                for (int i = 0; i < currentVAOTextures.size(); i++) {
-                                    bool isSelected = addSelectedTexIndex_03 == i;
-
-                                    if (ImGui::Selectable(currentVAOTextures[i], isSelected)) {
-                                        addSelectedTexIndex_03 = i;
-                                    }
-
-                                    // Texture preview when hovering
-                                    if (ImGui::IsItemHovered()) {
-                                        ImGui::BeginTooltip();
-                                        ImGui::Image((void*)(size_t)g_pTheTextures->getTextureIDFromName(currentVAOTextures[i]),
-                                                     ImVec2(100, 100));
-                                        ImGui::EndTooltip();
-                                    }
-
-                                    if (isSelected) {
-                                        ImGui::SetItemDefaultFocus();
-                                    }
-                                }
-                                ImGui::EndCombo();
-                            }
-
-                            if (ImGui::BeginCombo("New Texture 4 List", currentVAOTextures[addSelectedTexIndex_04])) {
-                                for (int i = 0; i < currentVAOTextures.size(); i++) {
-                                    bool isSelected = addSelectedTexIndex_04 == i;
-
-                                    if (ImGui::Selectable(currentVAOTextures[i], isSelected)) {
-                                        addSelectedTexIndex_04 = i;
-                                    }
-
-                                    // Texture preview when hovering
-                                    if (ImGui::IsItemHovered()) {
-                                        ImGui::BeginTooltip();
-                                        ImGui::Image((void*)(size_t)g_pTheTextures->getTextureIDFromName(currentVAOTextures[i]),
-                                                     ImVec2(100, 100));
-                                        ImGui::EndTooltip();
-                                    }
-
-                                    if (isSelected) {
-                                        ImGui::SetItemDefaultFocus();
-                                    }
-                                }
-                                ImGui::EndCombo();
-                            }
-
-                            ImGui::SliderFloat4("New Texture Mix", addTexIndexMix, 0.0f, 1.0f);
-                        }
-                        ImGui::NewLine();
-
-                        ImGui::Checkbox("Visible", &addVisible);
-
-                        if (ImGui::Combo("New Mesh List", &selectedMeshIndex, meshNames.data(), meshNames.size()));
-
-                        if (selectedMeshIndex >= 0 && selectedMeshIndex < currentVAOMeshs.size()) {
-                            if (ImGui::Button("Add")) {
-
-                                cMeshObject* pNewObject = new cMeshObject();
-                                pNewObject->meshFileName = currentVAOMeshs[selectedMeshIndex];
-
-                                pNewObject->textureNames[0] = loadedTextures[addSelectedTexIndex_01];
-                                pNewObject->textureNames[1] = loadedTextures[addSelectedTexIndex_02];
-                                pNewObject->textureNames[2] = loadedTextures[addSelectedTexIndex_03];
-                                pNewObject->textureNames[3] = loadedTextures[addSelectedTexIndex_04];
-
-                                for (int i = 0; i < 4; i++) {
-                                    pNewObject->textureMixRatio[i] = addTexIndexMix[i];
-                                }
-
-                                pNewObject->position = glm::vec3(addPosition[0], addPosition[1], addPosition[2]);
-                                pNewObject->orientation = glm::radians(glm::vec3(addRot[0], addRot[1], addRot[2]));
-                                pNewObject->scale = addScale;
-
-                                pNewObject->colourRGB = glm::vec3(addColour[0], addColour[1], addColour[2]);
-                                pNewObject->opacityAlpha = addOpacity;
-
-                                pNewObject->specularHighLightRGB = glm::vec3(addSpecularHighlight[0], addSpecularHighlight[1], addSpecularHighlight[2]);
-                                pNewObject->specularPower = addSpecularPower;
-                                pNewObject->reflectionStrength = addReflectAndRefract;
-                                pNewObject->refractionStrength = addRefractionStrength;
-
-                                pNewObject->bOverrideVertexModelColour = addOverrideColor;
-                                pNewObject->bIsWireframe = addWireframe;
-                                pNewObject->bIsVisible = addVisible;
-
-                                pNewObject->bDoNotLight = addDoNotLight;
-                                pNewObject->bDontUseTextures = addDontUseTextures;
-                                pNewObject->bUseMaskingTexture = addUseMaskingTexture;
-                                pNewObject->bAddReflectAndRefract = addReflectAndRefract;
-                                pNewObject->bAddReflect = addReflect;
-                                pNewObject->bAddRefract = addRefract;
-
-                                ::g_pMeshesToDraw.push_back(pNewObject);
-
-                                // Rest form
-                                addPosition[0] = addPosition[1] = addPosition[2] = 0.0f;
-                                addRot[0] = addRot[1] = addRot[2] = 0.0f;
-                                addScale = 1.0f;
-                                addColour[0] = addColour[1] = addColour[2] = 1.0f;
-                                addOpacity = 1.0f;
-                                addSpecularHighlight[0] = addSpecularHighlight[1] = addSpecularHighlight[2] = 1.0f;
-                                addSpecularPower = 1.0f;
-                                addOverrideColor = false;
-                                addWireframe = false;
-                                addVisible = true;
-                                addDoNotLight = false;
-                                addDontUseTextures = false;
-
-                                g_selectedObjectIndex = g_pMeshesToDraw.size() - 1;
-                            }
-                        }
-                    }
-
-                    ImGui::Separator();
+                    ImGui::NewLine();
                     ImGui::Text("Edit Object");
 
                     if (!g_pMeshesToDraw.empty() && g_selectedObjectIndex < g_pMeshesToDraw.size()) {
-                        static glm::vec3* orientationRadians;
-                        orientationRadians = &g_pMeshesToDraw[g_selectedObjectIndex]->orientation;
-                        glm::vec3 orientationDegrees = glm::degrees(*orientationRadians);
 
                         ImGui::InputFloat3("Edit Position", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->position));
-                        if (ImGui::SliderFloat3("Edit Orientation", glm::value_ptr(orientationDegrees), -180.0f, 180.0f)) {
-                            *orientationRadians = glm::radians(orientationDegrees);
-                        }
+                        ImGui::SliderFloat3("Edit Orientation", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->orientation), -180.0f, 180.0f);
+
 
                         ImGui::InputFloat("Edit Scale", &g_pMeshesToDraw[g_selectedObjectIndex]->scale);
                         ImGui::NewLine();
@@ -871,11 +947,21 @@ int main(void) {
                         ImGui::NewLine();
 
                         ImGui::Checkbox("Light", &g_pMeshesToDraw[g_selectedObjectIndex]->bDoNotLight);
-                        ImGui::Checkbox("Reflect And Refract", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddReflectAndRefract);
+                        ImGui::NewLine();
+
                         ImGui::Checkbox("Reflect", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddReflect);
+                        if (g_pMeshesToDraw[g_selectedObjectIndex]->bAddReflect) {
+                            ImGui::SameLine();
+                            ImGui::SetNextItemWidth(150);
+                            ImGui::SliderFloat("Reflect Strength", &g_pMeshesToDraw[g_selectedObjectIndex]->reflectionStrength, 0.0f, 1.0f);
+                        }
+
                         ImGui::Checkbox("Refract", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddRefract);
-                        ImGui::SliderFloat("Reflect Strength", &g_pMeshesToDraw[g_selectedObjectIndex]->reflectionStrength, 0.0f, 1.0f);
-                        ImGui::SliderFloat("Refract Strength", &g_pMeshesToDraw[g_selectedObjectIndex]->refractionStrength, 0.0f, 1.0f);
+                        if (g_pMeshesToDraw[g_selectedObjectIndex]->bAddRefract) {
+                            ImGui::SameLine();
+                            ImGui::SetNextItemWidth(150);
+                            ImGui::SliderFloat("Refract Strength", &g_pMeshesToDraw[g_selectedObjectIndex]->refractionStrength, 0.0f, 1.0f);
+                        }
                         ImGui::NewLine();
 
                         ImGui::Checkbox("Edit Dont Use Textures", &g_pMeshesToDraw[g_selectedObjectIndex]->bDontUseTextures);
@@ -990,9 +1076,7 @@ int main(void) {
                             }
 
                             ImGui::SliderFloat4("Texture Mix", g_pMeshesToDraw[g_selectedObjectIndex]->textureMixRatio, 0.0f, 1.0f);
-                            ImGui::NewLine();
                         }
-                        ImGui::NewLine();
                     }
                     ImGui::EndTabItem();
                 } // End object tab
@@ -1002,6 +1086,7 @@ int main(void) {
             ImGuiIO& io = ImGui::GetIO();
 
             ImGui::Separator();
+            ImGui::NewLine();
 
             ImGui::Checkbox("Object Grid Snap", &isObjectGridSnap);
             if (isObjectGridSnap) {
@@ -1025,7 +1110,7 @@ int main(void) {
                 ImGui::InputFloat("Light Move Speed", &light_move_speed);
             }
 
-            ImGui::Spacing();
+            ImGui::NewLine();
 
             if (ImGui::ArrowButton("PreviousObject", ImGuiDir_Left)) {
                 if (g_selectedObjectIndex > 0) {
@@ -1064,6 +1149,12 @@ int main(void) {
                     g_selectedLightIndex = 0;
                 }
             }
+            ImGui::NewLine();
+
+            ImGui::SetNextItemWidth(75);
+            ImGui::InputFloat("Camera Speed", &camera.speed);
+            ImGui::SetNextItemWidth(75);
+            ImGui::InputFloat("Camera Sensitivity", &camera.sensitivity);
 
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
@@ -1083,30 +1174,3 @@ int main(void) {
     glfwTerminate();
     exit(EXIT_SUCCESS);
 }
-
-// void LoadFilesIntoVAOManager(GLuint program) {
-//     ::pTheMeshManager = new cVAOManager();
-//
-//     std::string AssetsFolder = "assets/";
-//     std::vector<std::string> modelFiles;
-//
-//     std::cout << "Searching for models in assets folder...\n";
-//     std::vector<sModelDrawInfo> meshObjects;
-//
-//     try {
-//         for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(AssetsFolder)) {
-//             if (file.is_regular_file() && file.path().extension() == ".ply") {
-//                 sModelDrawInfo meshObject;
-//                 std::string meshFile = file.path().generic_string();
-//                 if (!::pTheMeshManager->LoadModelIntoVAO(meshFile, meshObject, program, 1.0f)) {
-//                     std::cout << "Model at: " << meshFile << " not loaded into VAO!" << std::endl;
-//                 } else {
-//                     meshObjects.push_back(meshObject);
-//                 }
-//             }
-//         }
-//     } catch (const std::filesystem::filesystem_error& ex) {
-//         std::cerr << ex.what() << '\n';
-//     }
-//     std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found";
-// 

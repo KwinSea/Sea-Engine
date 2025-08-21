@@ -58,7 +58,6 @@ uniform vec4 texMixRatios;		// x = 0, y = 1, etc.
 
 // If this is true, then we are drawing the skybox
 // (it's false for all other objects)
-uniform bool bAddReflectAndRefract;
 uniform bool bAddReflect;
 uniform bool bAddRefract;
 uniform bool bIsSkyboxObject;
@@ -90,60 +89,12 @@ void main()
 
         vec3 vertexColour = texture( skyboxCubeTexture, vertNormal.xyz ).rgb;
 
-        pixelColour.rgb = vertexColour;
+        pixelColour.rgb += vertexColour;
         pixelColour.a = 1.0f;
 
 
         return;
     }
-
-    // Reflect and refract
-    if (bAddReflectAndRefract)
-    {
-        vec3 eyeRayIncident = normalize(eyeLocation - vertWorldPosition.xyz);
-
-        vec3 reflectRay = reflect(vertNormal.xyz, eyeRayIncident);
-        vec3 refractRay = refract(vertNormal.xyz, eyeRayIncident, 1.06f);
-
-        vec3 reflectRGB = texture( skyboxCubeTexture, reflectRay ).rgb;
-        vec3 refractRGB = texture( skyboxCubeTexture, refractRay ).rgb;
-
-
-        pixelColour.rgb = reflectRGB * reflectionStrength + refractRGB * refractionStrength;
-
-        pixelColour.a = alphaTransparency;
-
-        return;
-    }
-
-    if (bAddReflect)
-    {
-        vec3 eyeRayIncident = normalize(eyeLocation - vertWorldPosition.xyz);
-
-        vec3 reflectRay = reflect(vertNormal.xyz, eyeRayIncident);
-
-        vec3 reflectRGB = texture( skyboxCubeTexture, reflectRay ).rgb;
-
-        pixelColour.rgb = reflectRGB * reflectionStrength;
-
-        pixelColour.a = alphaTransparency;
-        return;
-    }
-    if (bAddRefract)
-    {
-        vec3 eyeRayIncident = normalize(eyeLocation - vertWorldPosition.xyz);
-
-        vec3 refractRay = refract(vertNormal.xyz, eyeRayIncident, 1.06f);
-
-        vec3 refractRGB = texture( skyboxCubeTexture, refractRay ).rgb;
-
-        pixelColour.rgb = refractRGB * refractionStrength;
-
-        pixelColour.a = alphaTransparency;
-
-        return;
-    }
-
 
     // Set the vertex colour in case we are NOT using texture lookup
     vec3 vertexColourRGB = vec3(0.0f, 0.0f, 0.0f);
@@ -151,7 +102,7 @@ void main()
     if ( bUseVertexColourNotTexture )
     {
         // Use incoming vertex colour, NOT texture colour
-        vertexColourRGB = vertColor.rgb;
+        vertexColourRGB += vertColor.rgb;
     }
     else
     {
@@ -161,7 +112,7 @@ void main()
         vec3 tex02RGB = texture( textSampler2D_02, vertTextCoords.xy ).rgb;
         vec3 tex03RGB = texture( textSampler2D_03, vertTextCoords.xy ).rgb;
 
-        vertexColourRGB.rgb = tex00RGB * texMixRatios.x + tex01RGB * texMixRatios.y + tex02RGB * texMixRatios.z + tex03RGB * texMixRatios.w;
+        vertexColourRGB.rgb += tex00RGB * texMixRatios.x + tex01RGB * texMixRatios.y + tex02RGB * texMixRatios.z + tex03RGB * texMixRatios.w;
     }
 
     if (bUseMaskingTexture)
@@ -181,9 +132,9 @@ void main()
     if ( bDoNotLight )
     {
         // Bypass the lighting calculation
-        pixelColour.rgb = vertexColourRGB.rgb;
+        pixelColour.rgb += vertexColourRGB.rgb;
         // Assume alpha is 1.0f
-        pixelColour.a = 1.0f;
+        pixelColour.a = alphaTransparency;
         // Early exit of shader
         return;
     }
@@ -192,15 +143,42 @@ void main()
 	if (lightingType != 2) {
 		vec4 lightContrib = calculateLightContrib(vertexColourRGB.rgb, vertNormal.xyz, vertWorldPosition.xyz, vertSpecular);
 
-        pixelColour.rgb = lightContrib.rgb; // Lit
+        pixelColour.rgb += lightContrib.rgb; // Lit
 
 		if (lightingType == 1){
             pixelColour.rgb += ambientLight; // Semi Lit
 		}
-	} else if (lightingType == 2) {
-        pixelColour.rgb = vertexColourRGB.rgb;
-	}
+        // Reflect and refract
+        if (bAddReflect)
+        {
+            vec3 eyeRayIncident = normalize(eyeLocation - vertWorldPosition.xyz);
 
+            vec3 reflectRay = reflect(vertNormal.xyz, eyeRayIncident);
+
+            vec3 reflectRGB = texture( skyboxCubeTexture, reflectRay ).rgb;
+
+            pixelColour.rgb += reflectRGB * reflectionStrength;
+
+            pixelColour.a = alphaTransparency;
+            return;
+        }
+        if (bAddRefract)
+        {
+            vec3 eyeRayIncident = normalize(eyeLocation - vertWorldPosition.xyz);
+
+            vec3 refractRay = refract(vertNormal.xyz, eyeRayIncident, 1.06f);
+
+            vec3 refractRGB = texture( skyboxCubeTexture, refractRay ).rgb;
+
+            pixelColour.rgb += refractRGB * refractionStrength;
+
+            pixelColour.a = alphaTransparency;
+            return;
+        }
+	} else if (lightingType == 2) {
+        pixelColour.rgb += vertexColourRGB.rgb;
+	}
+    
 	pixelColour.a = alphaTransparency;
 };
 

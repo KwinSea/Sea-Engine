@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 cLight::cLight() {
     this->position = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
     this->diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -15,8 +16,9 @@ cLight::cLight() {
     this->param1.z = 45.0f; // outer angle
 
     this->param2.x = 0.0f; // Off
-    //
+
 }
+
 
 void cLightManager::GetUniformLocations(GLuint shaderProgram) {
     // this->theLights[0].position_UL = glGetUniformLocation(shaderProgram, "theLights[0].position");

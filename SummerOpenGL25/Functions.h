@@ -12,6 +12,8 @@ void SaveScene();
 
 void LoadScene();
 
+void OldLoad();
+
 void ClearScene();
 
 void AddMeshObject (
@@ -32,6 +34,8 @@ void AddMeshObject (
 glm::vec3 RGBify(int red, int green, int blue);
 
 void LoadMaze(std::string file_name);
+
+void OpenPopupInMenuBar(std::string idPopUp);
 
 cMeshObject* g_pFindObjectByUniqueName(std::string theNameToFind);
 

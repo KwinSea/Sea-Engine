@@ -23,7 +23,6 @@ cMeshObject::cMeshObject()
 	this->bDoNotLight = false;
 	this->bDontUseTextures = false;
 	this->bUseMaskingTexture = false;
-	this->bAddReflectAndRefract = false;
 	this->bAddReflect = false;
 	this->bAddRefract = false;
 

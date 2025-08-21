@@ -35,7 +35,6 @@ public:
     bool bDoNotLight;
     bool bDontUseTextures;	// default = false;
     bool bUseMaskingTexture;
-    bool bAddReflectAndRefract;
     bool bAddReflect;
     bool bAddRefract;
 

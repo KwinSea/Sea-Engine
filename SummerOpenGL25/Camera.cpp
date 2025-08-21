@@ -1,9 +1,13 @@
 ﻿#include "Camera.h"
 
+
 Camera::Camera(int viewWidth, int viewHeight, glm::vec3 position) {
     Camera::viewWidth = viewWidth;
     Camera::viewHeight = viewHeight;
     Position = position;
+
+    speed = 250.0f;
+    sensitivity = 1000.0f;
 }
 
 void Camera::Matrix(float FOVdeg, float zNear, float zFar, cShaderManager& shader, const char* uniform) {

@@ -165,16 +165,6 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
         glUniform1f(bUseMaskingTexture_UL, (GLfloat)GL_FALSE);
     }
 
-    GLint bAddReflectAndRefract_UL = glGetUniformLocation(program, "bAddReflectAndRefract");
-    if (pCurrentMesh->bAddReflectAndRefract)
-    {
-        glUniform1f(bAddReflectAndRefract_UL, (GLfloat)GL_TRUE);
-    }
-    else
-    {
-        glUniform1f(bAddReflectAndRefract_UL, (GLfloat)GL_FALSE);
-    }
-
     GLint bAddReflect_UL = glGetUniformLocation(program, "bAddReflect");
     if (pCurrentMesh->bAddReflect)
     {

@@ -6,4 +6,3 @@
 void LoadScripts();
 
 cScript* GetScriptByName(const std::string& scriptName);
-

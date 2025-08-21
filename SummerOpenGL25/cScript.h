@@ -55,7 +55,7 @@ protected:
     void LoadScriptStarterCode(const std::string& script_name) {
         scriptStarterCode
         << "#pragma once\n"
-        << "#include \"cScript.h\"\n\n"<< "class " << script_name << " : public cScript {\n\n"
+        << "#include \"../../cScript.h\"\n\n"<< "class " << script_name << " : public cScript {\n\n"
         << "private:\n"
         << "    // Add Private variables here\n"
         << "public:\n"

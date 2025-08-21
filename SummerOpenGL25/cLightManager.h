@@ -4,7 +4,9 @@
 #include "glm/vec4.hpp"
 #include <sstream>
 
+
 class cLight {
+
 public:
     cLight();
     glm::vec4 position; // xyz, ignoring w (4th parameter)

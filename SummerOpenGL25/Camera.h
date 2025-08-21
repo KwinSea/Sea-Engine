@@ -26,8 +26,8 @@ public:
 
     bool firstClick = true;
 
-    float speed = 15.0f;
-    float sensitivity = 625.5f;
+    float speed;
+    float sensitivity;
 
     Camera(int viewWidth, int viewHeight, glm::vec3 position);
 
