@@ -99,7 +99,9 @@ void SaveScene() {
                     << g_pMeshesToDraw[index]->orientation.z << std::endl;
 
                 // Scale
-                mySaveFile << ::g_pMeshesToDraw[index]->scale << std::endl;
+                mySaveFile << ::g_pMeshesToDraw[index]->scale.x << " "
+                     << g_pMeshesToDraw[index]->scale.y << " "
+                     << g_pMeshesToDraw[index]->scale.z << std::endl;
 
                 // Color
                 mySaveFile << ::g_pMeshesToDraw[index]->colourRGB.r << " "
@@ -217,7 +219,113 @@ void LoadScene() {
         mySaveFile >> pNewObject->textureMixRatio[0] >> pNewObject->textureMixRatio[1] >> pNewObject->textureMixRatio[2] >> pNewObject->textureMixRatio[3];
         mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
         mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
-        mySaveFile >> pNewObject->scale;
+        mySaveFile >> pNewObject->scale.x >> pNewObject->scale.y >> pNewObject->scale.z;
+        mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
+        mySaveFile >> pNewObject->opacityAlpha;
+        mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
+        mySaveFile >> pNewObject->specularPower;
+        mySaveFile >> pNewObject->reflectionStrength;
+        mySaveFile >> pNewObject->refractionStrength;
+        mySaveFile >> pNewObject->bOverrideVertexModelColour;
+        mySaveFile >> pNewObject->bIsVisible;
+        mySaveFile >> pNewObject->bIsWireframe;
+        mySaveFile >> pNewObject->bDoNotLight;
+        mySaveFile >> pNewObject->bDontUseTextures;
+        mySaveFile >> pNewObject->bAddReflect;
+        mySaveFile >> pNewObject->bAddRefract;
+
+        ::g_pMeshesToDraw.push_back(pNewObject);
+    }
+
+    // Load number of lights
+    int lightsInScene = 0;
+    mySaveFile >> lightsInScene;
+    for (int i = 0; i < lightsInScene && i < g_pLights->NUMBEROFLIGHTS; ++i) {
+        // Position
+        mySaveFile >> g_pLights->theLights[i].position.x
+                   >> g_pLights->theLights[i].position.y
+                   >> g_pLights->theLights[i].position.z
+                   >> g_pLights->theLights[i].position.w;
+
+        // Diffuse
+        mySaveFile >> g_pLights->theLights[i].diffuse.x
+                   >> g_pLights->theLights[i].diffuse.y
+                   >> g_pLights->theLights[i].diffuse.z
+                   >> g_pLights->theLights[i].diffuse.w;
+
+        // Specular
+        mySaveFile >> g_pLights->theLights[i].specular.x
+                   >> g_pLights->theLights[i].specular.y
+                   >> g_pLights->theLights[i].specular.z
+                   >> g_pLights->theLights[i].specular.w;
+
+        // Attenuation
+        mySaveFile >> g_pLights->theLights[i].atten.x
+                   >> g_pLights->theLights[i].atten.y
+                   >> g_pLights->theLights[i].atten.z
+                   >> g_pLights->theLights[i].atten.w;
+
+        // Direction
+        mySaveFile >> g_pLights->theLights[i].direction.x
+                   >> g_pLights->theLights[i].direction.y
+                   >> g_pLights->theLights[i].direction.z
+                   >> g_pLights->theLights[i].direction.w;
+
+        // Light type
+        mySaveFile >> g_pLights->theLights[i].param1.x
+                   >> g_pLights->theLights[i].param1.y
+                   >> g_pLights->theLights[i].param1.z
+                   >> g_pLights->theLights[i].param1.w;
+
+        // Light state
+        mySaveFile >> g_pLights->theLights[i].param2.x
+                   >> g_pLights->theLights[i].param2.y
+                   >> g_pLights->theLights[i].param2.z
+                   >> g_pLights->theLights[i].param2.w;
+    }
+
+    std::cout << "Scene Loaded\n";
+    mySaveFile.close();
+}
+
+void OldLoad() {
+    std::ifstream mySaveFile("my_scene.scene");
+
+    if (!mySaveFile.is_open()) {
+        std::cout << "Did not open scene file!" << std::endl;
+        return;
+    }
+
+    // Deletes meshes in vector
+    for (cMeshObject* ptr : ::g_pMeshesToDraw) {
+        delete ptr;
+    }
+    ::g_pMeshesToDraw.clear();
+
+    int meshesInScene = 0;
+    mySaveFile >> meshesInScene;
+
+    std::string temp;
+
+    // Load meshes
+    for (int index = 0; index < meshesInScene; index++) {
+        cMeshObject* pNewObject = new cMeshObject();
+
+        float temp;
+
+        std::getline(mySaveFile >> std::ws, pNewObject->meshFileName);
+        std::getline(mySaveFile >> std::ws, pNewObject->uniqueName);
+        std::getline(mySaveFile >> std::ws, pNewObject->textureNames[0]);
+        std::getline(mySaveFile >> std::ws, pNewObject->textureNames[1]);
+        std::getline(mySaveFile >> std::ws, pNewObject->textureNames[2]);
+        std::getline(mySaveFile >> std::ws, pNewObject->textureNames[3]);
+        mySaveFile >> pNewObject->textureMixRatio[0] >> pNewObject->textureMixRatio[1] >> pNewObject->textureMixRatio[2] >> pNewObject->textureMixRatio[3];
+        mySaveFile >> pNewObject->position.x >> pNewObject->position.y >> pNewObject->position.z;
+        mySaveFile >> pNewObject->orientation.x >> pNewObject->orientation.y >> pNewObject->orientation.z;
+        mySaveFile >>temp;
+        pNewObject->scale.x = temp;
+        pNewObject->scale.y  = temp;
+        pNewObject->scale.z = temp;
         mySaveFile >> pNewObject->colourRGB.r >> pNewObject->colourRGB.g >> pNewObject->colourRGB.b;
         mySaveFile >> pNewObject->opacityAlpha;
         mySaveFile >> pNewObject->specularHighLightRGB.r >> pNewObject->specularHighLightRGB.g >> pNewObject->specularHighLightRGB.b;
@@ -310,7 +418,7 @@ void AddMeshObject (
     std::string uniqueName,
     glm::vec3 position,
     glm::vec3 orientation,
-    float scale,
+    glm::vec3 scale,
     glm::vec3 colourRGB,
     glm::vec3 specularHighLightRGB,
     float specularPower,
@@ -335,7 +443,9 @@ void AddMeshObject (
     pNewObject->orientation.z = orientation.z;
 
     // Scale
-    pNewObject->scale = scale;
+    pNewObject->position.x = scale.x;
+    pNewObject->position.y = scale.y;
+    pNewObject->position.z = scale.z;
 
     // Color
     pNewObject->colourRGB.r = colourRGB.r;

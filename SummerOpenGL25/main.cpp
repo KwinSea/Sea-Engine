@@ -83,6 +83,13 @@ bool objectHovered = false;
 int g_hoveredObjectIndex = 0;
 
 bool usingGui = false;
+bool doDayLightCycle = false;
+
+glm::vec3 ambientLight = RGBify(255, 255, 255);
+static glm::vec3 ambientLightColour = ambientLight;
+static float ambientLightStrength = 0.12;
+
+static float timeOfDay = 12.0f;
 
 Camera camera (screenWidth, screenHeight, glm::vec3(5000.0f, 2000.0f, 5000.0f));
 
@@ -335,35 +342,73 @@ int main(void) {
             DrawMesh(pCurrentMesh, program);
         }
 
-        /*TODO MOVE TORCHES AROUND SCENE*/
-
         // Torch Flicker
         static float flickFrame = 0.0f;
         flickFrame++ * deltaTime;
         if (flickFrame  > g_getRandBetween(1.0f, 10.0f)) {
+            float tFlicker1 = g_getRandBetween(0.0001f, 0.00005f);
             g_pLights->theLights[11].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[11].atten.z = g_getRandBetween(0.0001f, 0.00005f);// quadratic
+            g_pLights->theLights[11].atten.z = tFlicker1;// quadratic
+            cMeshObject* pFlame1 = g_pFindObjectByUniqueName("flame_1");
+            if (pFlame1 != NULL) {
+                pFlame1->scale.y = 1.0f - 2500.0f * tFlicker1;
+            }
 
+            float tFlicker2 = g_getRandBetween(0.0001f, 0.00005f);
             g_pLights->theLights[12].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[12].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+            g_pLights->theLights[12].atten.z = tFlicker2;// quadratic
+            cMeshObject* pFlame2 = g_pFindObjectByUniqueName("flame_2");
+            if (pFlame2 != NULL) {
+                pFlame2->scale.y = 1.0f - 2500.0f * tFlicker2;
+            }
 
+            float tFlicker3 = g_getRandBetween(0.0001f, 0.00005f);
             g_pLights->theLights[13].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[13].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+            g_pLights->theLights[13].atten.z = tFlicker3;// quadratic
+            cMeshObject* pFlame3 = g_pFindObjectByUniqueName("flame_3");
+            if (pFlame3 != NULL) {
+                pFlame3->scale.y = 1.0f - 2500.0f * tFlicker3;
+            }
 
+            float tFlicker4 = g_getRandBetween(0.0001f, 0.00005f);
             g_pLights->theLights[14].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[14].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+            g_pLights->theLights[14].atten.z = tFlicker4;// quadratic
+            cMeshObject* pFlame4 = g_pFindObjectByUniqueName("flame_4");
+            if (pFlame4 != NULL) {
+                pFlame4->scale.y = 1.0f - 2500.0f * tFlicker4;
+            }
 
+            float tFlicker5 = g_getRandBetween(0.0001f, 0.00005f);
             g_pLights->theLights[15].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[15].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+            g_pLights->theLights[15].atten.z = tFlicker5;// quadratic
+            cMeshObject* pFlame5 = g_pFindObjectByUniqueName("flame_5");
+            if (pFlame5 != NULL) {
+                pFlame5->scale.y = 1.0f - 2500.0f * tFlicker5;
+            }
 
+            float tFlicker6 = g_getRandBetween(0.0001f, 0.00005f);
             g_pLights->theLights[16].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[16].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+            g_pLights->theLights[16].atten.z = tFlicker6;// quadratic
+            cMeshObject* pFlame6 = g_pFindObjectByUniqueName("flame_6");
+            if (pFlame6 != NULL) {
+                pFlame6->scale.y = 1.0f - 2500.0f * tFlicker6;
+            }
 
+            float tFlicker7 = g_getRandBetween(0.0001f, 0.00005f);
             g_pLights->theLights[17].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[17].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+            g_pLights->theLights[17].atten.z = tFlicker7;// quadratic
+            cMeshObject* pFlame7 = g_pFindObjectByUniqueName("flame_7");
+            if (pFlame7 != NULL) {
+                pFlame7->scale.y = 1.0f - 2500.0f * tFlicker7;
+            }
 
+            float tFlicker8 = g_getRandBetween(0.0001f, 0.00005f);
             g_pLights->theLights[18].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[18].atten.z = g_getRandBetween(0.0001f, 0.00005f); // quadratic
+            g_pLights->theLights[18].atten.z = tFlicker8;// quadratic
+            cMeshObject* pFlame8 = g_pFindObjectByUniqueName("flame_8");
+            if (pFlame8 != NULL) {
+                pFlame8->scale.y = 1.0f - 2500.0f * tFlicker8;
+            }
             flickFrame = 0.0f;
         }
 
@@ -418,7 +463,7 @@ int main(void) {
         const float infiniteDistance = 10000.0f;
 
         // where the light located
-        ::g_pSmoothSphere->scale = 0.1f;
+        ::g_pSmoothSphere->scale = glm::vec3(0.1f);
         ::g_pSmoothSphere->colourRGB = glm::vec4(1.0f);
         DrawMesh(g_pSmoothSphere, program);
 
@@ -431,7 +476,7 @@ int main(void) {
                                                                         ::g_pLights->theLights[::g_selectedLightIndex].
                                                                         atten.z);
 
-        ::g_pSmoothSphere->scale = distanceAt75Percent;
+        ::g_pSmoothSphere->scale = glm::vec3(distanceAt75Percent);
         ::g_pSmoothSphere->colourRGB = glm::vec4(1.0f, 0.0f, 0.0f, 1.0);
         DrawMesh(g_pSmoothSphere, program);
 
@@ -444,7 +489,7 @@ int main(void) {
                                                                         ::g_pLights->theLights[::g_selectedLightIndex].
                                                                         atten.z);
 
-        ::g_pSmoothSphere->scale = distanceAt50Percent;
+        ::g_pSmoothSphere->scale = glm::vec3(distanceAt50Percent);
         ::g_pSmoothSphere->colourRGB = glm::vec4(0.0f, 1.0f, 0.0f, 01.0f);
         DrawMesh(g_pSmoothSphere, program);
 
@@ -457,7 +502,7 @@ int main(void) {
                                                                         ::g_pLights->theLights[::g_selectedLightIndex].
                                                                         atten.z);
 
-        ::g_pSmoothSphere->scale = distanceAt25Percent;
+        ::g_pSmoothSphere->scale = glm::vec3(distanceAt25Percent);
         ::g_pSmoothSphere->colourRGB = glm::vec3(0.0f, 0.0f, 1.0f);
         DrawMesh(g_pSmoothSphere, program);
 
@@ -500,6 +545,29 @@ int main(void) {
 
         UpdateSceneScripts(g_pMeshesToDraw, deltaTime);
 
+        if (doDayLightCycle) {
+
+            static float cycleLight = 0.01f;
+            static float sunRotationSpeed = 0.01f * deltaTime;
+
+            timeOfDay += 1.0f * deltaTime;
+
+            if (timeOfDay >= 12.0f) { // Afternoon
+                cycleLight = -0.01f;
+            } else if (timeOfDay >= 0.0f) { // Morning
+                cycleLight = 0.01f;
+            }
+            if (timeOfDay >= 24.0f) { // New Day
+                timeOfDay = 0.0f;
+            }
+
+            ambientLightStrength += cycleLight * deltaTime;
+
+            g_pLights->theLights[4].atten.z -= cycleLight * 0.00002 * deltaTime;
+            g_pLights->theLights[9].atten.z -= cycleLight * 0.00002 * deltaTime;
+            g_pLights->theLights[19].atten.z -= cycleLight * 0.00002 * deltaTime;
+        }
+
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 
         ImGui::SetNextWindowSize(ImVec2(550, height));
@@ -521,7 +589,7 @@ int main(void) {
 
             std::vector<std::string> loadedTextures = g_pTheTextures->GetLoadedTextures();
             std::vector<const char*> currentVAOTextures;
-            for (const std::string& texture : loadedTextures) {
+            for (const std::string& texture: loadedTextures) {
                 currentVAOTextures.push_back(texture.c_str());
             }
 
@@ -548,7 +616,7 @@ int main(void) {
 
                 if (ImGui::BeginMenu("Lighting Mode")) {
                     if (ImGui::MenuItem("Lit")) {g_LightingType = 0;}
-                    if (ImGui::MenuItem("Semi-Lit")) {g_LightingType = 1;}
+                    if (ImGui::MenuItem("Lit w/Ambient Light")) {g_LightingType = 1;}
                     if (ImGui::MenuItem("Unlit")) {g_LightingType = 2;}
                     ImGui::EndMenu();
                 }
@@ -595,7 +663,7 @@ int main(void) {
 
                     static float addPosition[3] = {0.0f, 0.0f, 0.0f};
                     static float addRot[3] = {0.0f, 0.0f, 0.0f};
-                    static float addScale = 1.0f;
+                    static float addScale[3] = {1.0f, 1.0f, 1.0f};
                     static float addColour[3] = {1.0f, 1.0f, 1.0f};
                     static float addOpacity = 1.0f;
                     static float addSpecularHighlight[3] = {1.0f, 1.0f, 1.0f};
@@ -620,7 +688,7 @@ int main(void) {
 
                     ImGui::InputFloat3("Position", addPosition);
                     ImGui::SliderFloat3("Orientation", addRot, -180.0f, 180.0f);
-                    ImGui::InputFloat("Scale", &addScale);
+                    ImGui::InputFloat3("Scale", addScale);
                     ImGui::NewLine();
 
                     if (addOverrideColor) {
@@ -774,7 +842,7 @@ int main(void) {
 
                             pNewObject->position = glm::vec3(addPosition[0], addPosition[1], addPosition[2]);
                             pNewObject->orientation = glm::vec3(addRot[0], addRot[1], addRot[2]);
-                            pNewObject->scale = addScale;
+                            pNewObject->scale = glm::vec3(addScale[0], addScale[1], addScale[2]);
 
                             pNewObject->colourRGB = glm::vec3(addColour[0], addColour[1], addColour[2]);
                             pNewObject->opacityAlpha = addOpacity;
@@ -799,7 +867,7 @@ int main(void) {
                             // Rest form
                             addPosition[0] = addPosition[1] = addPosition[2] = 0.0f;
                             addRot[0] = addRot[1] = addRot[2] = 0.0f;
-                            addScale = 1.0f;
+                            addScale[0] = addScale[1] = addScale[2] = 1.0f;
                             addColour[0] = addColour[1] = addColour[2] = 1.0f;
                             addOpacity = 1.0f;
                             addSpecularHighlight[0] = addSpecularHighlight[1] = addSpecularHighlight[2] = 1.0f;
@@ -912,8 +980,6 @@ int main(void) {
                         ImGui::SetTooltip("0 = Off\n1 = On");
                     }
                     ImGui::NewLine();
-
-                    ImGui::Checkbox("Script", &g_pMeshesToDraw[g_selectedObjectIndex]->bAddReflect);
                     ImGui::EndTabItem();
                 } // End lighting tab
 
@@ -928,7 +994,7 @@ int main(void) {
                         ImGui::SliderFloat3("Edit Orientation", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->orientation), -180.0f, 180.0f);
 
 
-                        ImGui::InputFloat("Edit Scale", &g_pMeshesToDraw[g_selectedObjectIndex]->scale);
+                        ImGui::InputFloat3("Edit Scale", glm::value_ptr(g_pMeshesToDraw[g_selectedObjectIndex]->scale));
                         ImGui::NewLine();
 
                         if (g_pMeshesToDraw[g_selectedObjectIndex]->bOverrideVertexModelColour) {
@@ -1151,12 +1217,20 @@ int main(void) {
             }
             ImGui::NewLine();
 
+            ImGui::ColorEdit3("Ambient Colour", glm::value_ptr(ambientLightColour));
+            ImGui::SliderFloat("Ambient Strength", &ambientLightStrength, 1.000f, 0.000f);
+
+            ambientLight = ambientLightColour * ambientLightStrength;
+
+            ImGui::NewLine();
+
             ImGui::SetNextItemWidth(75);
             ImGui::InputFloat("Camera Speed", &camera.speed);
             ImGui::SetNextItemWidth(75);
             ImGui::InputFloat("Camera Sensitivity", &camera.sensitivity);
 
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+            ImGui::Text("Time: %.2f", timeOfDay);
             ImGui::End();
         }
 

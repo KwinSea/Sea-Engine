@@ -20,6 +20,7 @@ extern cLightManager* g_pLights;
 extern double deltaTime;
 
 extern cVAOManager* pTheMeshManager;
+extern bool doDayLightCycle;
 
 extern bool usingGui;
 extern int g_LightingType;
@@ -435,13 +436,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         if (key == GLFW_KEY_H && action == GLFW_PRESS && !g_pMeshesToDraw.empty() && g_pMeshesToDraw[32] != nullptr) {
-            g_pMeshesToDraw[32]->colourRGB = glm::vec3(0.0f);
-            g_pLights->theLights[0].param2.x = 0.0f;
-        }
-
-        if (key == GLFW_KEY_G && action == GLFW_PRESS && !g_pMeshesToDraw.empty() && g_pMeshesToDraw[32] != nullptr) {
-            g_pMeshesToDraw[32]->colourRGB = glm::vec3(RGBify(0, 112, 255));
-            g_pLights->theLights[0].param2.x = 1.0f;
+            if (!doDayLightCycle) {
+                doDayLightCycle = true;
+            } else {
+                doDayLightCycle = false;
+            }
         }
 
         if (key == GLFW_KEY_M && action == GLFW_PRESS) {
@@ -499,241 +498,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             pNewObject->bAddRefract = ::g_pMeshesToDraw[::g_selectedObjectIndex]->bAddRefract;
 
             ::g_pMeshesToDraw.push_back(pNewObject);
-        }
-
-        if (key == GLFW_KEY_I && action == GLFW_RELEASE) {
-
-            std::cout << "Editing Selected Object\nEnter object new position (x y z, press Enter to skip): ";
-            std::string input;
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.x = inputX;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.y = inputY;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->position.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter object new orientation (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.x = inputX;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.y = inputY;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->orientation.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter object new scale (press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->scale = std::stof(input);
-            }
-
-            std::cout << "Enter object new colour (r g b, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->colourRGB = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
-                }
-            }
-
-            std::cout << "Enter object new Specular HighLight (r g b, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.x = inputX;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.y = inputY;
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularHighLightRGB.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter object new Specular Power (press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                ::g_pMeshesToDraw[::g_selectedObjectIndex]->specularPower = std::stof(input);
-            }
-
-            std::cout << "Is object ColourOverride(1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bOverrideVertexModelColour = true;
-                } else if (std::stoi(input) == 0) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bOverrideVertexModelColour = false;
-                }
-            }
-
-            std::cout << "Is object Wireframe (1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsWireframe = true;
-                } else if (std::stoi(input) == 0) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsWireframe = false;
-                }
-            }
-
-            std::cout << "Is object Visible(1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsVisible = true;
-                } else if (std::stoi(input) == 0) {
-                    ::g_pMeshesToDraw[::g_selectedObjectIndex]->bIsVisible = false;
-                }
-            }
-            std::cout << "Object Edited\n";
-        }
-
-        if (key == GLFW_KEY_INSERT && action == GLFW_RELEASE) {
-            cMeshObject* pNewObject = new cMeshObject();
-
-            std::cout << "Adding New Object\n";
-            std::vector<std::string> currentVAOMeshs;
-            for (const std::pair<const std::string, sModelDrawInfo>& pair : pTheMeshManager->GetMapOfMesh()) {
-                currentVAOMeshs.push_back(pair.first);
-            }
-
-            for (int i = 0; i < currentVAOMeshs.size(); i++) {
-                std::cout << "[" << i << "] - " << currentVAOMeshs[i] << std::endl;
-            }
-
-            std::cout << "\nSelect new object mesh from above: ";
-            std::string input;
-            std::getline(std::cin, input);
-            pNewObject->meshFileName = currentVAOMeshs[std::stof(input)];
-
-            std::cout << "Enter new object position (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->position.x = inputX;
-                    pNewObject->position.y = inputY;
-                    pNewObject->position.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter new object orientation (x y z, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->orientation.x = inputX;
-                    pNewObject->orientation.y = inputY;
-                    pNewObject->orientation.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter new object scale (press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                pNewObject->scale = std::stof(input);
-            }
-
-            std::cout << "Enter new object colour (r g b, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->colourRGB = glm::vec4(RGBify(inputX, inputY, inputZ), 1.0f);
-                }
-            }
-
-            std::cout << "Enter new object Specular HighLight (r g b, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                std::istringstream ss(input);
-
-                float inputX;
-                float inputY;
-                float inputZ;
-
-                if (ss >> inputX >> inputY >> inputZ) {
-                    pNewObject->specularHighLightRGB.x = inputX;
-                    pNewObject->specularHighLightRGB.y = inputY;
-                    pNewObject->specularHighLightRGB.z = inputZ;
-                }
-            }
-
-            std::cout << "Enter new object Specular Power (press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                pNewObject->specularPower = std::stof(input);
-            }
-
-            std::cout << "Is new object ColourOverride(1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    pNewObject->bOverrideVertexModelColour = true;
-                } else if (std::stoi(input) == 0) {
-                    pNewObject->bOverrideVertexModelColour = false;
-                }
-            }
-
-            std::cout << "Is new object Wireframe (1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    pNewObject->bIsWireframe = true;
-                } else if (std::stoi(input) == 0) {
-                    pNewObject->bIsWireframe = false;
-                }
-            }
-
-            std::cout << "Is new object Visible(1 = True, 0 = False, press Enter to skip): ";
-            std::getline(std::cin, input);
-            if (!input.empty()) {
-                if (std::stoi(input) == 1) {
-                    pNewObject->bIsVisible = true;
-                } else if (std::stoi(input) == 0) {
-                    pNewObject->bIsVisible = false;
-                }
-            }
-
-            ::g_pMeshesToDraw.push_back(pNewObject);
-            std::cout << "Object Added\n";
         }
 
         if (key == GLFW_KEY_RIGHT_BRACKET && action == GLFW_PRESS) {

@@ -24,7 +24,7 @@ void SetUpTexturesForObjectDraw(cMeshObject* pCurrentMesh, GLint program)
         glUniform1i(textSampler2D_00_UL, texture00Unit);   // (Uniform ID, Texture Unit #)
     }
 
-    {   // Texture sampler00:
+    {   // Texture sampler01:
         GLuint texture01_ID = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[1]);
         // Bind this texture to the sampler
         // Choose a texture unit...
@@ -41,7 +41,7 @@ void SetUpTexturesForObjectDraw(cMeshObject* pCurrentMesh, GLint program)
         glUniform1i(textSampler2D_01_UL, texture01Unit);   // (Uniform ID, Texture Unit #)
     }
 
-    {   // Texture sampler00:
+    {   // Texture sampler02:
         GLuint texture02_ID = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[2]);
         // Bind this texture to the sampler
         // Choose a texture unit...
@@ -58,7 +58,7 @@ void SetUpTexturesForObjectDraw(cMeshObject* pCurrentMesh, GLint program)
         glUniform1i(textSampler2D_02_UL, texture02Unit);   // (Uniform ID, Texture Unit #)
     }
 
-    {   // Texture sampler00:
+    {   // Texture sampler03:
         GLuint texture03_ID = ::g_pTheTextures->getTextureIDFromName(pCurrentMesh->textureNames[3]);
         // Bind this texture to the sampler
         // Choose a texture unit...
@@ -198,6 +198,9 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
     // Set it
     glUniform1f(alphaTransparency_UL, pCurrentMesh->opacityAlpha);
 
+    GLint ambientLight_UL = glGetUniformLocation(program, "ambientLight");
+    glUniform3f(ambientLight_UL, ambientLight.r, ambientLight.g, ambientLight.b);
+
     // Set the specular value
     //uniform vec4 vertSpecular;
     GLint vertSpecular_UL = glGetUniformLocation(program, "vertSpecular");
@@ -229,11 +232,16 @@ void DrawMesh(cMeshObject* pCurrentMesh, GLint program)
         glm::radians(pCurrentMesh->orientation.z),
         glm::vec3(0.0f, 0.0f, 1.0f));
 
-    float uniformScale = pCurrentMesh->scale;
-    glm::mat4 scaleXYZ = glm::scale(glm::mat4(1.0f),
-        glm::vec3(uniformScale, uniformScale, uniformScale));
+    glm::mat4 scaleX = glm::scale(glm::mat4(1.0f),
+    glm::vec3(pCurrentMesh->scale.x, 1.0f, 1.0f));
 
-    matModel = matModel * translation * rotateX * rotateY * rotateZ * scaleXYZ;
+    glm::mat4 scaleY = glm::scale(glm::mat4(1.0f),
+        glm::vec3(1.0f, pCurrentMesh->scale.y, 1.0f));
+
+    glm::mat4 scaleZ = glm::scale(glm::mat4(1.0f),
+        glm::vec3(1.0f, 1.0f, pCurrentMesh->scale.z));
+
+    matModel = matModel * translation * rotateX * rotateY * rotateZ * scaleX * scaleY * scaleZ;
 
 
     //m = m * rotateZ;

@@ -7,7 +7,7 @@ cMeshObject::cMeshObject()
 	this->position = glm::vec3(0.0f);
 	this->orientation = glm::vec3(0.0f);
 
-	this->scale = 1.0f;
+	this->scale = glm::vec3(1.0f);
 	this->colourRGB = glm::vec3(1.0f);
 	this->opacityAlpha = 1.0f;
 

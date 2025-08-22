@@ -150,7 +150,7 @@ void LoadModelsIntoScene() {
     cMeshObject* pSkyBoxMesh = new cMeshObject();
     pSkyBoxMesh->uniqueName = "skybox_mesh";
     pSkyBoxMesh->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba_uv.ply";
-    pSkyBoxMesh->scale = 1000.0f;
+    pSkyBoxMesh->scale = glm::vec3(1000.0f);
     // We AREN'T going to use these...
     pSkyBoxMesh->textureNames[0] = "Sydney_Sweeney.bmp";
     pSkyBoxMesh->textureMixRatio[0] = 1.0f;

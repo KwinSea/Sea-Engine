@@ -10,6 +10,8 @@
 #include "cBasicTextureManager/cBasicTextureManager.h"
 #include "cVAOManager/cVAOManager.h"
 
+extern glm::vec3 ambientLight;
+
 extern cBasicTextureManager* g_pTheTextures;
 extern cVAOManager* pTheMeshManager;
 

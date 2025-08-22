@@ -18,7 +18,7 @@ uniform float reflectionStrength = 0.5;
 uniform float refractionStrength = 0.5;
 uniform float alphaTransparency;
 
-uniform float ambientLight = 0.075;
+uniform vec3 ambientLight;
 
 vec4 calculateLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal, 
                             vec3 vertexWorldPos, vec4 vertexSpecular);
