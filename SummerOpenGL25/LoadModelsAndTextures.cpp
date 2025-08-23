@@ -8,48 +8,6 @@ void LoadFilesIntoVAOManager(GLuint program)
 
     ::pTheMeshManager = new cVAOManager();
 
-    std::string AssetsModelFolder = "assets/models";
-    std::vector<std::string> modelFiles;
-
-    std::cout << "Searching for models in assets folder...\n";
-    std::vector<sModelDrawInfo> meshObjects;
-
-    try {
-        for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(AssetsModelFolder)) {
-            if (file.is_regular_file() && file.path().extension() == ".ply") {
-                sModelDrawInfo meshObject;
-                std::string meshFile = file.path().generic_string();
-                if (!::pTheMeshManager->LoadModelIntoVAO(meshFile, meshObject, program, 1.0f)) {
-                    std::cout << "Model at: " << meshFile << " not loaded into VAO!" << std::endl;
-                } else {
-                    meshObjects.push_back(meshObject);
-                }
-            }
-        }
-    } catch (const std::filesystem::filesystem_error& ex) {
-        std::cerr << ex.what() << '\n';
-    }
-    std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found\n";
-
-//    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/Isoshphere_smooth_xyz_n_rgba_uv.ply",
-//        SmoothSphereMeshInfo, program, 1.0f))
-//    {
-//        std::cout << "SmoothSphere NOT loaded into VAO!" << std::endl;
-//    }
-
-
-//    sModelDrawInfo dolphinMeshInfo;
-//    //    if (!::pTheMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba.ply",
-//    if (!pTheMeshManager->LoadModelIntoVAO("assets/models/dolphin_xyz_n_rgba_UV.ply",
-//        dolphinMeshInfo, program, 1.0f))
-//    {
-//        std::cout << "Dolphin NOT loaded into VAO!" << std::endl;
-//    }
-
-
-    // Same as above, but we are loading in two steps so we 
-    //  can call the GenerateSphericalTextureCoords() in between
-
     sModelDrawInfo dolphinMeshInfo;
     if (! pTheMeshManager->LoadTheModel_IntoDrawInfoObject("assets/models/dolphin_xyz_n_rgba_UV.ply",
                 dolphinMeshInfo, 1.0f))
@@ -70,6 +28,28 @@ void LoadFilesIntoVAOManager(GLuint program)
         
         // Now load it into the VAO
         pTheMeshManager->LoadModelDrawInfo_IntoVAO(dolphinMeshInfo, program);
+    }
+
+    sModelDrawInfo waterMeshInfo;
+    if (! pTheMeshManager->LoadTheModel_IntoDrawInfoObject("assets/models/water.ply",
+                waterMeshInfo, 1.0f))
+    {
+        std::cout << "Water NOT loaded into VAO!" << std::endl;
+    }
+    else
+    {
+        // Dolphin model loaded into the dolphinMeshInfo
+
+        // Overwrite the UV coords with the spherical coordinates
+        pTheMeshManager->GenTextureCoordsSpherical(waterMeshInfo,
+                                cVAOManager::enumTEXCOORDBIAS::POSITIVE_X,
+                                cVAOManager::enumTEXCOORDBIAS::POSITIVE_Y,
+                                true,   // Used the normals from the model
+                                1.0f,   // 1.0 = UVs go from 0.0 to 1.0
+                                true); // Can't remember what I was doing here...
+
+        // Now load it into the VAO
+        pTheMeshManager->LoadModelDrawInfo_IntoVAO(waterMeshInfo, program);
     }
 
     sModelDrawInfo teaPotDrawInfo;
@@ -94,6 +74,29 @@ void LoadFilesIntoVAOManager(GLuint program)
         pTheMeshManager->LoadModelDrawInfo_IntoVAO(teaPotDrawInfo, program);
     }
 
+    std::string AssetsModelFolder = "assets/models";
+    std::vector<std::string> modelFiles;
+
+    std::cout << "Searching for models in assets folder...\n";
+    std::vector<sModelDrawInfo> meshObjects;
+
+    try {
+        for (const std::filesystem::directory_entry& file : std::filesystem::recursive_directory_iterator(AssetsModelFolder)) {
+            if (file.is_regular_file() && file.path().extension() == ".ply") {
+                sModelDrawInfo meshObject;
+                std::string meshFile = file.path().generic_string();
+                if (!::pTheMeshManager->LoadModelIntoVAO(meshFile, meshObject, program, 1.0f)) {
+                    std::cout << "Model at: " << meshFile << " not loaded into VAO!" << std::endl;
+                } else {
+                    meshObjects.push_back(meshObject);
+                }
+            }
+        }
+    } catch (const std::filesystem::filesystem_error& ex) {
+        std::cerr << ex.what() << '\n';
+    }
+    std::cout << "Finished searching\n" << meshObjects.size() << " Mesh found\n";
+
     return;
 }
 
@@ -107,7 +110,7 @@ void LoadTexturesIntoTextureManager(cBasicTextureManager* pTheTextureManager)
     std::string errorMessage = "";
     if (!pTheTextureManager->CreateCubeTextureFromBMPFiles("SunnyDay",
         "TropicalSunnyDayRight2048.bmp", "TropicalSunnyDayLeft2048.bmp",
-        "TropicalSunnyDayUp2048.bmp", "TropicalSunnyDayDown2048.bmp",
+        "TropicalSunnyDayDown2048.bmp", "TropicalSunnyDayUp2048.bmp",
         "TropicalSunnyDayBack2048.bmp", "TropicalSunnyDayFront2048.bmp",
         true, errorMessage))
     {

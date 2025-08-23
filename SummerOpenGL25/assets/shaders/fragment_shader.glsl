@@ -55,13 +55,17 @@ uniform sampler2D textSampler2D_03;
 // 0.0 = no texture to 1.0 = 100% of that texture
 // All the ratios should add up to 1.0f
 uniform vec4 texMixRatios;		// x = 0, y = 1, etc.
+uniform vec4 skyMixRatios;		// x = 0, y = 1, etc.
 
 // If this is true, then we are drawing the skybox
 // (it's false for all other objects)
 uniform bool bAddReflect;
 uniform bool bAddRefract;
 uniform bool bIsSkyboxObject;
-uniform samplerCube skyboxCubeTexture;
+uniform samplerCube skyboxCubeTexture00;
+uniform samplerCube skyboxCubeTexture01;
+uniform samplerCube skyboxCubeTexture02;
+uniform samplerCube skyboxCubeTexture03;
 
 
 uniform sampler2D sampMaskTexture01;
@@ -80,18 +84,20 @@ void main()
 
     // Skybox
     // uniform bool bIsSkyboxObject;
-    // uniform samplerCube skyboxCubeTexture;
+    // uniform samplerCube skyboxCubeTextures;
     if ( bIsSkyboxObject )
     {
         // Note we are using the normal vectors to cast a ray that
         //	intersects with the cube map.
         // (we completely ignore the UVs on the skybox sphere)
 
-        vec3 vertexColour = texture( skyboxCubeTexture, vertNormal.xyz ).rgb;
+        vec3 sky00RGB = texture( skyboxCubeTexture00, vertNormal.xyz ).rgb;
+        vec3 sky01RGB = texture( skyboxCubeTexture01, vertNormal.xyz ).rgb;
+        vec3 sky02RGB = texture( skyboxCubeTexture02, vertNormal.xyz ).rgb;
+        vec3 sky03RGB = texture( skyboxCubeTexture03, vertNormal.xyz ).rgb;
 
-        pixelColour.rgb += vertexColour;
+        pixelColour.rgb += sky00RGB * skyMixRatios.x + sky01RGB * skyMixRatios.y + sky02RGB * skyMixRatios.z + sky03RGB * skyMixRatios.w;
         pixelColour.a = 1.0f;
-
 
         return;
     }
@@ -155,7 +161,10 @@ void main()
 
             vec3 reflectRay = reflect(vertNormal.xyz, eyeRayIncident);
 
-            vec3 reflectRGB = texture( skyboxCubeTexture, reflectRay ).rgb;
+            vec3 reflectRGB = texture( skyboxCubeTexture00, reflectRay ).rgb * skyMixRatios.x +
+                              texture( skyboxCubeTexture01, reflectRay ).rgb * skyMixRatios.y +
+                              texture( skyboxCubeTexture02, reflectRay ).rgb * skyMixRatios.z +
+                              texture( skyboxCubeTexture03, reflectRay ).rgb * skyMixRatios.w;
 
             pixelColour.rgb += reflectRGB * reflectionStrength;
 
@@ -168,7 +177,10 @@ void main()
 
             vec3 refractRay = refract(vertNormal.xyz, eyeRayIncident, 1.06f);
 
-            vec3 refractRGB = texture( skyboxCubeTexture, refractRay ).rgb;
+            vec3 refractRGB = texture( skyboxCubeTexture00, refractRay ).rgb * skyMixRatios.x +
+                              texture( skyboxCubeTexture01, refractRay ).rgb * skyMixRatios.y +
+                              texture( skyboxCubeTexture02, refractRay ).rgb * skyMixRatios.z +
+                              texture( skyboxCubeTexture03, refractRay ).rgb * skyMixRatios.w;
 
             pixelColour.rgb += refractRGB * refractionStrength;
 
@@ -284,7 +296,7 @@ vec4 calculateLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal,
 			vertexToLight = normalize(vertexToLight);
 
 			float currentLightRayAngle
-					= dot( vertexToLight.xyz, theLights[index].direction.xyz );
+					= dot( vertexToLight.xyz, normalize(theLights[index].direction.xyz) );
 					
 			currentLightRayAngle = max(0.0f, currentLightRayAngle);
 

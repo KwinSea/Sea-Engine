@@ -39,6 +39,8 @@
 #include "ScriptHelper.h"
 #include "cBasicTextureManager/cBasicTextureManager.h"
 
+// Deshawn Brown
+// 1190378
 
 cShaderManager* g_pTheShaderManager = NULL;
 cLightManager* g_pLights = NULL;
@@ -84,6 +86,8 @@ int g_hoveredObjectIndex = 0;
 
 bool usingGui = false;
 bool doDayLightCycle = false;
+
+static float skyMixRatio[4] = {1.0f, 0.0f, 0.0f, 0.0f};
 
 glm::vec3 ambientLight = RGBify(255, 255, 255);
 static glm::vec3 ambientLightColour = ambientLight;
@@ -245,6 +249,7 @@ int main(void) {
     // scriptInstance.CreateScript("Test1");
     // scriptInstance.CreateScript("Test2");
     // scriptInstance.CreateScript("Test3");
+
 
     while (!glfwWindowShouldClose(window)) {
         int width, height;
@@ -510,32 +515,71 @@ int main(void) {
         GLint bIsSkyboxObject_UL = glGetUniformLocation(program, "bIsSkyboxObject");
         glUniform1f(bIsSkyboxObject_UL, (GLfloat)GL_TRUE);  // Or 1.0f
 
-        if (pSkyBox != NULL)
-        {
-            pSkyBox->bIsVisible = true;
+         if (pSkyBox != NULL) {
+             pSkyBox->bIsVisible = true;
 
-            // Move this mesh to where the camera is
-            pSkyBox->position = camera.Position;
+             // Move this mesh to where the camera is
+             pSkyBox->position = camera.Position;
 
-            // The skybox textue likely won't change, so we are setting it once at the start
-            //            GLuint skyBoxTexture_ID = ::g_pTheTextures->getTextureIDFromName("SunnyDay");
-            GLuint skyBoxTexture_ID = ::g_pTheTextures->getTextureIDFromName("Space");
+             {
+                 // SkyBox Texture 0
+                 GLuint skyBoxTexture00_ID = ::g_pTheTextures->getTextureIDFromName("SunnyDay");
+                 // Chose a unique texture unit.
+                 glActiveTexture(GL_TEXTURE20);
+                 // Bind texture to tell texture unit what it's bound to
+                 glBindTexture(GL_TEXTURE_CUBE_MAP, skyBoxTexture00_ID);
+                 // uniform samplerCube skyboxCubeTexture;
+                 GLint skyboxCubeTexture00_UL = glGetUniformLocation(program, "skyboxCubeTexture00");
+                 glUniform1i(skyboxCubeTexture00_UL, 20);   // (Uniform ID, Texture Unit #)
+             }
 
-            // Chose a unique texture unit. Here I pick 20 just because...
-            glActiveTexture(GL_TEXTURE20);
-            // Note this ISN'T GL_TEXTURE_2D
-            glBindTexture(GL_TEXTURE_CUBE_MAP, skyBoxTexture_ID);
+             {
+                 // SkyBox Texture 1
+                 GLuint skyBoxTexture01_ID = ::g_pTheTextures->getTextureIDFromName("Space");
+                 // Chose a unique texture unit.
+                 glActiveTexture(GL_TEXTURE21);
+                 // Bind texture to tell texture unit what it's bound to
+                 glBindTexture(GL_TEXTURE_CUBE_MAP, skyBoxTexture01_ID);
+                 // uniform samplerCube skyboxCubeTexture;
+                 GLint skyboxCubeTexture01_UL = glGetUniformLocation(program, "skyboxCubeTexture01");
+                 glUniform1i(skyboxCubeTexture01_UL, 21);   // (Uniform ID, Texture Unit #)
+            }
 
-            // uniform samplerCube skyboxCubeTexture;
-            GLint skyboxCubeTexture_UL = glGetUniformLocation(program, "skyboxCubeTexture");
-            glUniform1i(skyboxCubeTexture_UL, 20);   // (Uniform ID, Texture Unit #)
+            {
+                // SkyBox Texture 2
+                GLuint skyBoxTexture02_ID = ::g_pTheTextures->getTextureIDFromName("SunnyDay");
+                // Chose a unique texture unit.
+                glActiveTexture(GL_TEXTURE22);
+                // Bind texture to tell texture unit what it's bound to
+                glBindTexture(GL_TEXTURE_CUBE_MAP, skyBoxTexture02_ID);
+                // uniform samplerCube skyboxCubeTexture;
+                GLint skyboxCubeTexture02_UL = glGetUniformLocation(program, "skyboxCubeTexture02");
+                glUniform1i(skyboxCubeTexture02_UL, 22);   // (Uniform ID, Texture Unit #)
+            }
+
+            {
+                // SkyBox Texture 3
+                GLuint skyBoxTexture03_ID = ::g_pTheTextures->getTextureIDFromName("Space");
+                // Chose a unique texture unit
+                glActiveTexture(GL_TEXTURE23);
+                // Bind texture to tell texture unit what it's bound to
+                glBindTexture(GL_TEXTURE_CUBE_MAP, skyBoxTexture03_ID);
+                // uniform samplerCube skyboxCubeTexture;
+                GLint skyboxCubeTexture03_UL = glGetUniformLocation(program, "skyboxCubeTexture03");
+                glUniform1i(skyboxCubeTexture03_UL, 23);   // (Uniform ID, Texture Unit #)
+            }
+
+            GLint skyMixRatios_UL = glGetUniformLocation(program, "skyMixRatios");
+            glUniform4f(skyMixRatios_UL, skyMixRatio[0], skyMixRatio[1], skyMixRatio[2], skyMixRatio[3]);
 
             DrawMesh(pSkyBox, program);
-
-
             pSkyBox->bIsVisible = false;
-
         }//if (pSkyBox != NULL)
+
+        skyMixRatio[0] = glm::clamp(skyMixRatio[0],0.0f, 1.0f);
+        skyMixRatio[1] = glm::clamp(skyMixRatio[1],0.0f, 1.0f);
+        skyMixRatio[2] = glm::clamp(skyMixRatio[2],0.0f, 1.0f);
+        skyMixRatio[3] = glm::clamp(skyMixRatio[3],0.0f, 1.0f);
 
         glUniform1f(bIsSkyboxObject_UL, (GLfloat)GL_FALSE);
 
@@ -548,24 +592,35 @@ int main(void) {
         if (doDayLightCycle) {
 
             static float cycleLight = 0.01f;
-            static float sunRotationSpeed = 0.01f * deltaTime;
+            static float sunRotationSpeed = 1.3f / 12.0f;
 
             timeOfDay += 1.0f * deltaTime;
 
             if (timeOfDay >= 12.0f) { // Afternoon
                 cycleLight = -0.01f;
+                skyMixRatio[0] -= 1.3f / 12.0f * deltaTime;
+                skyMixRatio[1] += 1.3f / 12.0f * deltaTime;
+
             } else if (timeOfDay >= 0.0f) { // Morning
                 cycleLight = 0.01f;
+                skyMixRatio[0] += 1.3f / 12.0f * deltaTime;
+                skyMixRatio[1] -= 1.3f / 12.0f * deltaTime;
             }
             if (timeOfDay >= 24.0f) { // New Day
                 timeOfDay = 0.0f;
+                g_pLights->theLights[4].direction.x -= sunRotationSpeed * 12 * 2;
+                g_pLights->theLights[9].direction.x -= sunRotationSpeed * 12 * 2;
+                g_pLights->theLights[19].direction.x -= sunRotationSpeed * 12 * 2;
             }
 
             ambientLightStrength += cycleLight * deltaTime;
 
             g_pLights->theLights[4].atten.z -= cycleLight * 0.00002 * deltaTime;
+            g_pLights->theLights[4].direction.x += sunRotationSpeed * deltaTime;
             g_pLights->theLights[9].atten.z -= cycleLight * 0.00002 * deltaTime;
+            g_pLights->theLights[9].direction.x += sunRotationSpeed * deltaTime;
             g_pLights->theLights[19].atten.z -= cycleLight * 0.00002 * deltaTime;
+            g_pLights->theLights[19].direction.x += sunRotationSpeed * deltaTime;
         }
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
@@ -1215,6 +1270,9 @@ int main(void) {
                     g_selectedLightIndex = 0;
                 }
             }
+            ImGui::NewLine();
+
+            ImGui::SliderFloat4("Sky Box Mix Ratio", skyMixRatio, 1.0f, 0.0f);
             ImGui::NewLine();
 
             ImGui::ColorEdit3("Ambient Colour", glm::value_ptr(ambientLightColour));
