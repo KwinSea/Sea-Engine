@@ -1,7 +1,8 @@
 #version 420
 
 //uniform mat4 MVP;
-uniform mat4 camMatrix;
+uniform mat4 mProj;
+uniform mat4 mView;
 uniform mat4 mModel;
 uniform mat4 mModel_InverseTranpose;
 
@@ -21,13 +22,14 @@ out vec2 vertTextCoords;
 
 void main()
 {
-	mat4 MVP = camMatrix * mModel;
+    mat4 MVP = mProj * mView * mModel;
 
     gl_Position = MVP * vec4(vPos.xyz, 1.0f);
 
-	vertWorldPosition = mModel * vec4(vPos.xyz, 1.0f);
+    vertWorldPosition = mModel * vec4(vPos.xyz, 1.0f);
 
-	if (bUseOverrideColor)
+
+    if (bUseOverrideColor)
 	{
 		vertColor = vec4(colorOverride.rgb, 1.0f);
 	}
