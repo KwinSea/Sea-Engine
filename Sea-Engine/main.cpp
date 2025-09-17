@@ -28,19 +28,14 @@
 #include "Functions.h"
 #include "DrawMesh.h"
 #include "LoadModelsAndTextures.h"
+#include "ScriptHelper.h"
+#include "cBasicTextureManager/cBasicTextureManager.h"
 
 // ImGui
 #include "imgui/imgui.h"
 #include "imgui/imgui_internal.h"
 #include "imgui/backends/imgui_impl_glfw.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
-
-// Textures
-#include "ScriptHelper.h"
-#include "cBasicTextureManager/cBasicTextureManager.h"
-
-// Deshawn Brown
-// 1190378
 
 cShaderManager* g_pTheShaderManager = NULL;
 cLightManager* g_pLights = NULL;
@@ -96,8 +91,6 @@ static float ambientLightStrength = 0.12;
 static float timeOfDay = 12.0f;
 
 Camera camera (screenWidth, screenHeight, glm::vec3(5000.0f, 2000.0f, 5000.0f));
-
-// void LoadFilesIntoVAOManager(GLuint program);
 
 std::vector<cMeshObject*> g_pMeshesToDraw;
 
@@ -180,57 +173,6 @@ int main(void) {
     ::g_pLights = new cLightManager();
     ::g_pLights->GetUniformLocations(program);
 
-    // Light 1
-    ::g_pLights->theLights[0].param2.x = 0.0f; // turn on
-    ::g_pLights->theLights[0].param1.x = 0.0f; // light type = point light
-    g_pLights->theLights[0].position = glm::vec4(13000.0f, 1000.0f, 13000.0f, 0.5f);
-    g_pLights->theLights[0].diffuse = glm::vec4(RGBify(255, 187, 0.0), 1.0);
-
-    g_pLights->theLights[0].atten.x = 0.0f; // constant
-    g_pLights->theLights[0].atten.y = 0.0001f; // linear
-    g_pLights->theLights[0].atten.z = 0.00001f; // quadratic
-
-    // // Light 2
-    // ::g_pLights->theLights[1].param2.x = 0.0f; // turn on
-    // ::g_pLights->theLights[1].param1.x = 0.0f; // light type = point light
-    // g_pLights->theLights[1].position = glm::vec4(-500.0f, 1000.0f, 13000.0f, 0.5f);
-    // g_pLights->theLights[1].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-    //
-    // g_pLights->theLights[1].atten.x = 0.0f; // constant
-    // g_pLights->theLights[1].atten.y = 0.0001f; // linear
-    // g_pLights->theLights[1].atten.z = 0.00001f; // quadratic
-    //
-    // // Light 3
-    // ::g_pLights->theLights[2].param2.x = 0.0f; // turn on
-    // ::g_pLights->theLights[2].param1.x = 0.0f; // light type = point light
-    // g_pLights->theLights[2].position = glm::vec4(13000.0f, 1000.0f, 0.0f, 0.5f);
-    // g_pLights->theLights[2].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-    //
-    // g_pLights->theLights[2].atten.x = 0.0f; // constant
-    // g_pLights->theLights[2].atten.y = 0.0001f; // linear
-    // g_pLights->theLights[2].atten.z = 0.00001f; // quadratic
-    //
-    // // Light 4
-    // ::g_pLights->theLights[3].param2.x = 0.0f; // turn on
-    // ::g_pLights->theLights[3].param1.x = 0.0f; // light type = point light
-    // g_pLights->theLights[3].position = glm::vec4(-500.0f, 1000.0f, -500.0f, 0.5f);
-    // g_pLights->theLights[3].diffuse = glm::vec4(RGBify(255, 187, 0), 1.0f);
-    //
-    // g_pLights->theLights[3].atten.x = 0.0f; // constant
-    // g_pLights->theLights[3].atten.y = 0.0001f; // linear
-    // g_pLights->theLights[3].atten.z = 0.00001f; // quadratic
-    //
-    // // Camera Light
-    // g_pLights->theLights[19].param2.x = 0.0f; // turn on
-    // g_pLights->theLights[19].param1.x = 1.0f;
-    // g_pLights->theLights[19].position = glm::vec4(camera.Position, 1.0f);
-    // g_pLights->theLights[19].diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    // g_pLights->theLights[19].param1.z = 10.0f;
-    //
-    // g_pLights->theLights[19].atten.x = 0.0f; // constant
-    // g_pLights->theLights[19].atten.y = 0.001f; // linear
-    // g_pLights->theLights[19].atten.z = 0.00001f; // quadratic
-
     // Initialize ImGui
     ImGui::CreateContext();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -245,11 +187,6 @@ int main(void) {
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // scriptInstance.CreateScript("Test1");
-    // scriptInstance.CreateScript("Test2");
-    // scriptInstance.CreateScript("Test3");
-
 
     while (!glfwWindowShouldClose(window)) {
         int width, height;
@@ -285,14 +222,6 @@ int main(void) {
         std::vector<cMeshObject*> vecSolidThings;
         std::vector<cMeshObject*> vecTransparentThings;
 
-
-        //       struct cThingDistance
-        //       {
-        //           float distToCamera;
-        //           cMeshObject* pMeshObject;
-        //       };
-        //       std::vector<cThingDistance> vecTransparentThings;
-
         // Separate transparent from non-transparent
         for (unsigned int index = 0; index != ::g_pMeshesToDraw.size(); index++)
         {
@@ -324,16 +253,6 @@ int main(void) {
             }
             vecTransparentThings[prev + 1] = pCurrentMesh;
         }
-        // Sort them
-        // 1 pass of the bubble sort
-        // Monkey sort
-        // Beer at the camp fire sort
-
-        // Memory = zero
-        // CPU bound
-        // 500-1000
-
-
 
         for (unsigned int index = 0; index != vecSolidThings.size(); index++)
         {
@@ -347,77 +266,8 @@ int main(void) {
             DrawMesh(pCurrentMesh, program);
         }
 
-        // Torch Flicker
-        static float flickFrame = 0.0f;
-        flickFrame++ * deltaTime;
-        if (flickFrame  > g_getRandBetween(1.0f, 10.0f)) {
-            float tFlicker1 = g_getRandBetween(0.0001f, 0.00005f);
-            g_pLights->theLights[11].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[11].atten.z = tFlicker1;// quadratic
-            cMeshObject* pFlame1 = g_pFindObjectByUniqueName("flame_1");
-            if (pFlame1 != NULL) {
-                pFlame1->scale.y = 1.0f - 2500.0f * tFlicker1;
-            }
 
-            float tFlicker2 = g_getRandBetween(0.0001f, 0.00005f);
-            g_pLights->theLights[12].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[12].atten.z = tFlicker2;// quadratic
-            cMeshObject* pFlame2 = g_pFindObjectByUniqueName("flame_2");
-            if (pFlame2 != NULL) {
-                pFlame2->scale.y = 1.0f - 2500.0f * tFlicker2;
-            }
-
-            float tFlicker3 = g_getRandBetween(0.0001f, 0.00005f);
-            g_pLights->theLights[13].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[13].atten.z = tFlicker3;// quadratic
-            cMeshObject* pFlame3 = g_pFindObjectByUniqueName("flame_3");
-            if (pFlame3 != NULL) {
-                pFlame3->scale.y = 1.0f - 2500.0f * tFlicker3;
-            }
-
-            float tFlicker4 = g_getRandBetween(0.0001f, 0.00005f);
-            g_pLights->theLights[14].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[14].atten.z = tFlicker4;// quadratic
-            cMeshObject* pFlame4 = g_pFindObjectByUniqueName("flame_4");
-            if (pFlame4 != NULL) {
-                pFlame4->scale.y = 1.0f - 2500.0f * tFlicker4;
-            }
-
-            float tFlicker5 = g_getRandBetween(0.0001f, 0.00005f);
-            g_pLights->theLights[15].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[15].atten.z = tFlicker5;// quadratic
-            cMeshObject* pFlame5 = g_pFindObjectByUniqueName("flame_5");
-            if (pFlame5 != NULL) {
-                pFlame5->scale.y = 1.0f - 2500.0f * tFlicker5;
-            }
-
-            float tFlicker6 = g_getRandBetween(0.0001f, 0.00005f);
-            g_pLights->theLights[16].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[16].atten.z = tFlicker6;// quadratic
-            cMeshObject* pFlame6 = g_pFindObjectByUniqueName("flame_6");
-            if (pFlame6 != NULL) {
-                pFlame6->scale.y = 1.0f - 2500.0f * tFlicker6;
-            }
-
-            float tFlicker7 = g_getRandBetween(0.0001f, 0.00005f);
-            g_pLights->theLights[17].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[17].atten.z = tFlicker7;// quadratic
-            cMeshObject* pFlame7 = g_pFindObjectByUniqueName("flame_7");
-            if (pFlame7 != NULL) {
-                pFlame7->scale.y = 1.0f - 2500.0f * tFlicker7;
-            }
-
-            float tFlicker8 = g_getRandBetween(0.0001f, 0.00005f);
-            g_pLights->theLights[18].atten.y = g_getRandBetween(0.001f, 0.0012f); // linear
-            g_pLights->theLights[18].atten.z = tFlicker8;// quadratic
-            cMeshObject* pFlame8 = g_pFindObjectByUniqueName("flame_8");
-            if (pFlame8 != NULL) {
-                pFlame8->scale.y = 1.0f - 2500.0f * tFlicker8;
-            }
-            flickFrame = 0.0f;
-        }
-
-
+        // Debug Mesh
         ::g_pSmoothSphere->meshFileName = "assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply";
         ::g_pSmoothSphere->bIsWireframe = true;
         ::g_pSmoothSphere->bOverrideVertexModelColour = true;
@@ -467,7 +317,7 @@ int main(void) {
         const float errorValueforLightLevelGuess = 0.01f;
         const float infiniteDistance = 10000.0f;
 
-        // where the light located
+        // where the light is located
         ::g_pSmoothSphere->scale = glm::vec3(0.1f);
         ::g_pSmoothSphere->colourRGB = glm::vec4(1.0f);
         DrawMesh(g_pSmoothSphere, program);
@@ -588,40 +438,6 @@ int main(void) {
         ssWindowTitle << "Session info [ Camera Speed: " << camera.speed << " | Object Speed: " << object_move_speed << " | Rotation Speed: " << object_rotate_speed << " | Light Speed: " << light_move_speed << " ]   [ Camera X:" << camera.Position.x << " | Camera Y:" << camera.Position.y << " | Camera Z:" << camera.Position.z << " ]"<< std::endl;
 
         UpdateSceneScripts(g_pMeshesToDraw, deltaTime);
-
-        if (doDayLightCycle) {
-
-            static float cycleLight = 0.01f;
-            static float sunRotationSpeed = 1.3f / 12.0f;
-
-            timeOfDay += 1.0f * deltaTime;
-
-            if (timeOfDay >= 12.0f) { // Afternoon
-                cycleLight = -0.01f;
-                skyMixRatio[0] -= 1.3f / 12.0f * deltaTime;
-                skyMixRatio[1] += 1.3f / 12.0f * deltaTime;
-
-            } else if (timeOfDay >= 0.0f) { // Morning
-                cycleLight = 0.01f;
-                skyMixRatio[0] += 1.3f / 12.0f * deltaTime;
-                skyMixRatio[1] -= 1.3f / 12.0f * deltaTime;
-            }
-            if (timeOfDay >= 24.0f) { // New Day
-                timeOfDay = 0.0f;
-                g_pLights->theLights[4].direction.x -= sunRotationSpeed * 12 * 2;
-                g_pLights->theLights[9].direction.x -= sunRotationSpeed * 12 * 2;
-                g_pLights->theLights[19].direction.x -= sunRotationSpeed * 12 * 2;
-            }
-
-            ambientLightStrength += cycleLight * deltaTime;
-
-            g_pLights->theLights[4].atten.z -= cycleLight * 0.00002 * deltaTime;
-            g_pLights->theLights[4].direction.x += sunRotationSpeed * deltaTime;
-            g_pLights->theLights[9].atten.z -= cycleLight * 0.00002 * deltaTime;
-            g_pLights->theLights[9].direction.x += sunRotationSpeed * deltaTime;
-            g_pLights->theLights[19].atten.z -= cycleLight * 0.00002 * deltaTime;
-            g_pLights->theLights[19].direction.x += sunRotationSpeed * deltaTime;
-        }
 
         glfwSetWindowTitle(window, ssWindowTitle.str().c_str());
 

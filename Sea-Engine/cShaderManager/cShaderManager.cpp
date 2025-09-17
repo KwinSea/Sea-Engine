@@ -145,7 +145,7 @@ bool cShaderManager::m_wasThereACompileError( unsigned int shaderID,
 		this->m_lastError.append( errorText );
 
 
-		delete [] pLogText;	// Oops
+		delete [] pLogText;
 
 		return true;	// There WAS an error
 	}

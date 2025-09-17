@@ -62,11 +62,11 @@ bool CTextureFromBMP::CreateNewTextureFromBMPFile2( std::string textureName, std
 {
 	bool bReturnVal = true;
 
-	// Clear any old openGL errors???
-	int IHateYou = glGetError();
-	if (IHateYou != 0)
+	// Clear any old openGL errors
+	int foundOpenGLErrors = glGetError();
+	if (foundOpenGLErrors != 0)
 	{
-		std::cout << "CreateNewTextureFromBMPFile2(): OpenGL error: " << this->decodeOpenGLErrorToString(IHateYou) << std::endl;
+		std::cout << "CreateNewTextureFromBMPFile2(): OpenGL error: " << this->decodeOpenGLErrorToString(foundOpenGLErrors) << std::endl;
 	}
 
 	// Pick a texture number...

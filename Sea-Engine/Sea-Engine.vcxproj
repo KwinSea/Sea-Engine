@@ -161,7 +161,6 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="LoadModelsAndTextures.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="old-loading.cpp" />
     <ClCompile Include="ScriptHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
