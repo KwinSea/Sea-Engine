@@ -1,0 +1,637 @@
+45
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+0 -220 0
+-3.14159 -3.14159 0
+10
+1 1 1
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3500 0 -3000
+0 4.71239 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3000 0 -3500
+0 0 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3500 0 -3500
+0 0 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2500 0 -3500
+0 0 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2000 0 -3500
+0 1.5708 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2000 0 -3000
+0 1.5708 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2000 0 -2500
+0 1.5708 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2000 0 -2000
+0 3.14159 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2500 0 -2000
+0 3.14159 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3000 0 -2000
+0 3.14159 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3000 500 -2000
+0 9.42478 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_Archway_01.ply
+3500 0 -3000
+0 1.5708 0
+1
+1 0.764706 0
+1
+1 0.617647 0
+0.5
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+3500 1000 -2000
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+2500 1000 -2000
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+2500 1000 -2500
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+2500 1000 -3000
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+3000 1000 -3000
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+3500 1000 -3000
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+3500 1000 -2500
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+3000 1000 -2500
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+3000 1000 -2000
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+3500 1000 -2000
+0 0 0
+1
+0.352941 0.352941 0.352941
+0.381
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3500 0 -2000
+0 4.71239 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3500 500 -2000
+0 4.71239 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3500 500 -2500
+0 4.71239 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3500 500 -3000
+0 4.71239 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3500 500 -3500
+0 6.28319 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+3000 500 -3500
+0 6.28319 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2500 500 -3500
+0 6.28319 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2000 500 -3500
+0 7.85398 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2000 500 -3000
+0 7.85398 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2000 500 -2500
+0 7.85398 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2000 500 -2000
+0 9.42478 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Walls/SM_Env_Dwarf_Wall_01.ply
+2500 500 -2000
+0 9.42478 0
+1
+0.27451 0.27451 0.27451
+1
+1 1 1
+1
+1
+1
+0
+assets/models/homer_xyz_n_rgba.ply
+2500 430 -2500
+0 0 0
+900
+1 0.882353 0
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Props/SM_Prop_Barrel_01 (2).ply
+3300 0 -3300
+0 0 0
+300
+0.47549 0.433535 0
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Props/SM_Prop_Barrel_01 (2).ply
+2200 0 -3300
+0 0 0
+300
+0.47549 0.433535 0
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Props/SM_Prop_Barrel_01 (2).ply
+2600 0 -3300
+0 0 0
+300
+0.47549 0.433535 0
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Props/SM_Prop_Barrel_01 (2).ply
+3000 0 -3300
+0 0 0
+300
+0.47549 0.433535 0
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Props/SM_Prop_Barrel_01 (2).ply
+3300 0 -3300
+0 0 0
+300
+0.47549 0.433535 0
+1
+1 1 1
+1
+1
+1
+0
+assets/models/Dungeon_models/Props/SM_Prop_Anvil_01.ply
+3200 0 -2100
+0 0 0
+3
+0.132353 0.132353 0.132353
+1
+1 1 1
+0.7
+1
+1
+0
+assets/models/Dungeon_models/Props/SM_Prop_Anvil_01.ply
+2300 0 -2100
+0 0 0
+3
+0.132353 0.132353 0.132353
+1
+1 1 1
+0.7
+1
+1
+0
+assets/models/Dungeon_models/Props/SM_Prop_Anvil_01.ply
+3200 0 -2100
+0 0 0
+3
+0.132353 0.132353 0.132353
+1
+1 1 1
+0.7
+1
+1
+0
+assets/models/with_normals (Meshlab)/cow_xyz_n_rgba.ply
+2300 390 -2100
+0 0 0
+25
+1 0 0
+0.481
+1 0 0
+0.4
+1
+1
+0
+20
+2600 2800 -2300 0.5
+1 1 1 1
+1 1 1 1
+1 1e-06 2.0555e-07 1
+0 0 0 1
+0 1 45 0
+1 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.121097 0.00589309 1
+0 0 0 1
+0 1 45 0
+1 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.0567702 0.00443773 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.0326618 0.0111074 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.206307 0.0218462 1
+0 0 0 1
+0 1 45 0
+1 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.100721 0.00609159 1
+0 0 0 1
+0 1 45 0
+1 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.0599783 0.00321198 1
+0 0 0 1
+0 1 45 0
+1 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.122793 0.00242131 1
+0 0 0 1
+0 1 45 0
+1 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.115512 0.00472777 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.0779415 0.00793149 1
+0 0 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.0612967 0.00184597 1
+0 0 0 1
+0 1 45 0
+1 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.0733454 0.00823948 1
+0 0 0 1
+0 1 45 0
+1 0 0 0
