@@ -90,10 +90,9 @@ static float ambientLightStrength = 0.12;
 
 static float timeOfDay = 12.0f;
 
-Camera camera (screenWidth, screenHeight, glm::vec3(5000.0f, 2000.0f, 5000.0f));
+Camera camera (screenWidth, screenHeight, glm::vec3(0.0f, 0.0f, 0.0f));
 
 std::vector<cMeshObject*> g_pMeshesToDraw;
-
 
 static void error_callback(int error, const char* description) {
     fprintf(stderr, "Error: %s\n", description);

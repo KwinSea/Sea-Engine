@@ -1,0 +1,326 @@
+8
+assets/models/Isoshphere_smooth_inverted_normals_xyz_n_rgba_uv.ply
+skybox_mesh
+Sydney_Sweeney.bmp
+PLACEHOLDER.bmp
+PLACEHOLDER.bmp
+PLACEHOLDER.bmp
+1 0 0 0
+-129.083 -11.1193 173.757
+0 0 0
+10000 10000 10000
+1 1 1
+1
+1 1 1
+1
+0.5
+0.5
+0
+0
+0
+1
+0
+0
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+N/A
+Dungeons_2_Texture_01_A.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+1 0 0 0
+499.696 -150 400
+0 0 0
+1 1 1
+1 1 1
+1
+1 1 1
+1
+1
+1
+0
+1
+0
+0
+0
+0
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+N/A
+Dungeons_2_Texture_01_A.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+1 0 0 0
+0 -150 400
+0 0 0
+1 1 1
+1 1 1
+1
+1 1 1
+1
+0.5
+0.5
+0
+1
+0
+0
+0
+0
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+N/A
+Dungeons_2_Texture_01_A.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+1 0 0 0
+0 -150 -100
+0 0 0
+1 1 1
+1 1 1
+1
+1 1 1
+1
+0.5
+0.5
+0
+1
+0
+0
+0
+0
+0
+assets/models/Dungeon_models/Floors/SM_Env_Dwarf_Floor_01.ply
+N/A
+Dungeons_2_Texture_01_A.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+1 0 0 0
+498.802 -150 -100
+0 0 0
+1 1 1
+1 1 1
+1
+1 1 1
+1
+0.5
+0.5
+0
+1
+0
+0
+0
+0
+0
+assets/models/Dungeon_models/Props and Decorations/SM_Prop_Anvil_01.ply
+N/A
+Dungeons_2_Texture_01_A.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+1 0 0 0
+100 -150 -100
+0 -17.2788 0
+1 1 1
+1 1 1
+1
+1 1 1
+1
+0
+1
+0
+1
+0
+0
+0
+0
+0
+assets/models/Dungeon_models/Crystals/SM_Env_Crystals_Cluster_Large_01.ply
+N/A
+Dungeons_2_Texture_01_A.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+1 0 0 0
+0 -150 -300
+0 0 0
+1 1 1
+1 1 1
+0.5
+1 1 1
+1
+0.5
+0.5
+0
+1
+0
+0
+0
+1
+1
+assets/models/Dungeon_models/Dead/SM_Prop_DeadBody_Dwarf_01.ply
+N/A
+Dungeons_2_Texture_01_A.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+Brushed_Metal_Texture.bmp
+1 0 0 0
+-50 -150 -150
+-1.5708 89.5354 0
+1 1 1
+1 1 1
+1
+1 1 1
+1
+1
+1
+0
+1
+0
+0
+0
+0
+0
+20
+0 5700 2400 1
+1 1 1 1
+1 1 1 1
+0 1e-06 1e-07 1
+0 -0.5 -0.124425 1
+1 7.918 62.288 0
+1 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
+0 0 0 1
+1 1 1 1
+1 1 1 1
+0 0.01 0.01 1
+0 -0.5 0 1
+0 1 45 0
+0 0 0 0
