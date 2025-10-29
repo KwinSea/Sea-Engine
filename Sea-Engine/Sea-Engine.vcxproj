@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{decf4035-748b-4c5c-8b4c-e960fdce04f3}</ProjectGuid>
+    <RootNamespace>SummerOpenGL25</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="cBasicTextureManager\C24BitBMPpixel.cpp" />
+    <ClCompile Include="cBasicTextureManager\cBasicTextureManager.cpp" />
+    <ClCompile Include="cBasicTextureManager\CTextureFromBMP.cpp" />
+    <ClCompile Include="cLightHelper\cLightHelper.cpp" />
+    <ClCompile Include="cLightManager.cpp" />
+    <ClCompile Include="cMeshObject.cpp" />
+    <ClCompile Include="cShaderManager\cShader.cpp" />
+    <ClCompile Include="cShaderManager\cShaderManager.cpp" />
+    <ClCompile Include="cVAOManager\cVAOManager.cpp" />
+    <ClCompile Include="cVAOManager\GenTextureCoordsSpherical.cpp" />
+    <ClCompile Include="DrawMesh.cpp" />
+    <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="glfw_keyboard_callback_function.cpp" />
+    <ClCompile Include="imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="LoadModelsAndTextures.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ScriptHelper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="cBasicTextureManager\C24BitBMPpixel.h" />
+    <ClInclude Include="cBasicTextureManager\cBasicTextureManager.h" />
+    <ClInclude Include="cBasicTextureManager\CTextureFromBMP.h" />
+    <ClInclude Include="cLightHelper\cLightHelper.h" />
+    <ClInclude Include="cLightManager.h" />
+    <ClInclude Include="cMeshObject.h" />
+    <ClInclude Include="cScript.h" />
+    <ClInclude Include="cShaderManager\cShaderManager.h" />
+    <ClInclude Include="cVAOManager\cVAOManager.h" />
+    <ClInclude Include="DrawMesh.h" />
+    <ClInclude Include="Functions.h" />
+    <ClInclude Include="GlobalOpenGL.h" />
+    <ClInclude Include="imgui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="LoadModelsAndTextures.h" />
+    <ClInclude Include="ScriptHelper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\DungeonMap.txt" />
+    <Content Include="assets\maze.txt" />
+    <Content Include="assets\models\bun_zipper.ply" />
+    <Content Include="assets\models\CityModels\CityTextures\Image_0.jpg" />
+    <Content Include="assets\models\CityModels\CityTextures\Image_4.jpg" />
+    <Content Include="assets\models\CityModels\CityTextures\Image_6.jpg" />
+    <Content Include="assets\models\CityModels\Example scene.jpg" />
+    <Content Include="assets\models\CityModels\Object_10.ply" />
+    <Content Include="assets\models\CityModels\Object_100.ply" />
+    <Content Include="assets\models\CityModels\Object_101.ply" />
+    <Content Include="assets\models\CityModels\Object_102.ply" />
+    <Content Include="assets\models\CityModels\Object_103.ply" />
+    <Content Include="assets\models\CityModels\Object_104.ply" />
+    <Content Include="assets\models\CityModels\Object_105.ply" />
+    <Content Include="assets\models\CityModels\Object_106.ply" />
+    <Content Include="assets\models\CityModels\Object_107.ply" />
+    <Content Include="assets\models\CityModels\Object_108.ply" />
+    <Content Include="assets\models\CityModels\Object_109.ply" />
+    <Content Include="assets\models\CityModels\Object_11.ply" />
+    <Content Include="assets\models\CityModels\Object_110.ply" />
+    <Content Include="assets\models\CityModels\Object_111.ply" />
+    <Content Include="assets\models\CityModels\Object_112.ply" />
+    <Content Include="assets\models\CityModels\Object_113.ply" />
+    <Content Include="assets\models\CityModels\Object_114.ply" />
+    <Content Include="assets\models\CityModels\Object_115.ply" />
+    <Content Include="assets\models\CityModels\Object_116.ply" />
+    <Content Include="assets\models\CityModels\Object_117.ply" />
+    <Content Include="assets\models\CityModels\Object_118.ply" />
+    <Content Include="assets\models\CityModels\Object_119.ply" />
+    <Content Include="assets\models\CityModels\Object_12.ply" />
+    <Content Include="assets\models\CityModels\Object_120.ply" />
+    <Content Include="assets\models\CityModels\Object_121.ply" />
+    <Content Include="assets\models\CityModels\Object_122.ply" />
+    <Content Include="assets\models\CityModels\Object_123.ply" />
+    <Content Include="assets\models\CityModels\Object_124.ply" />
+    <Content Include="assets\models\CityModels\Object_125.ply" />
+    <Content Include="assets\models\CityModels\Object_126.ply" />
+    <Content Include="assets\models\CityModels\Object_127.ply" />
+    <Content Include="assets\models\CityModels\Object_128.ply" />
+    <Content Include="assets\models\CityModels\Object_129.ply" />
+    <Content Include="assets\models\CityModels\Object_13.ply" />
+    <Content Include="assets\models\CityModels\Object_130.ply" />
+    <Content Include="assets\models\CityModels\Object_131.ply" />
+    <Content Include="assets\models\CityModels\Object_132.ply" />
+    <Content Include="assets\models\CityModels\Object_133.ply" />
+    <Content Include="assets\models\CityModels\Object_134.ply" />
+    <Content Include="assets\models\CityModels\Object_135.ply" />
+    <Content Include="assets\models\CityModels\Object_136.ply" />
+    <Content Include="assets\models\CityModels\Object_137.ply" />
+    <Content Include="assets\models\CityModels\Object_138.ply" />
+    <Content Include="assets\models\CityModels\Object_139.ply" />
+    <Content Include="assets\models\CityModels\Object_14.ply" />
+    <Content Include="assets\models\CityModels\Object_140.ply" />
+    <Content Include="assets\models\CityModels\Object_141.ply" />
+    <Content Include="assets\models\CityModels\Object_142.ply" />
+    <Content Include="assets\models\CityModels\Object_143.ply" />
+    <Content Include="assets\models\CityModels\Object_144.ply" />
+    <Content Include="assets\models\CityModels\Object_145.ply" />
+    <Content Include="assets\models\CityModels\Object_146.ply" />
+    <Content Include="assets\models\CityModels\Object_147.ply" />
+    <Content Include="assets\models\CityModels\Object_148.ply" />
+    <Content Include="assets\models\CityModels\Object_149.ply" />
+    <Content Include="assets\models\CityModels\Object_15.ply" />
+    <Content Include="assets\models\CityModels\Object_150.ply" />
+    <Content Include="assets\models\CityModels\Object_151.ply" />
+    <Content Include="assets\models\CityModels\Object_152.ply" />
+    <Content Include="assets\models\CityModels\Object_153.ply" />
+    <Content Include="assets\models\CityModels\Object_154.ply" />
+    <Content Include="assets\models\CityModels\Object_155.ply" />
+    <Content Include="assets\models\CityModels\Object_156.ply" />
+    <Content Include="assets\models\CityModels\Object_157.ply" />
+    <Content Include="assets\models\CityModels\Object_158.ply" />
+    <Content Include="assets\models\CityModels\Object_16.ply" />
+    <Content Include="assets\models\CityModels\Object_17.ply" />
+    <Content Include="assets\models\CityModels\Object_18.ply" />
+    <Content Include="assets\models\CityModels\Object_19.ply" />
+    <Content Include="assets\models\CityModels\Object_20.ply" />
+    <Content Include="assets\models\CityModels\Object_21.ply" />
+    <Content Include="assets\models\CityModels\Object_22.ply" />
+    <Content Include="assets\models\CityModels\Object_23.ply" />
+    <Content Include="assets\models\CityModels\Object_24.ply" />
+    <Content Include="assets\models\CityModels\Object_25.ply" />
+    <Content Include="assets\models\CityModels\Object_26.ply" />
+    <Content Include="assets\models\CityModels\Object_27.ply" />
+    <Content Include="assets\models\CityModels\Object_28.ply" />
+    <Content Include="assets\models\CityModels\Object_29.ply" />
+    <Content Include="assets\models\CityModels\Object_30.ply" />
+    <Content Include="assets\models\CityModels\Object_31.ply" />
+    <Content Include="assets\models\CityModels\Object_32.ply" />
+    <Content Include="assets\models\CityModels\Object_33.ply" />
+    <Content Include="assets\models\CityModels\Object_34.ply" />
+    <Content Include="assets\models\CityModels\Object_35.ply" />
+    <Content Include="assets\models\CityModels\Object_36.ply" />
+    <Content Include="assets\models\CityModels\Object_37.ply" />
+    <Content Include="assets\models\CityModels\Object_38.ply" />
+    <Content Include="assets\models\CityModels\Object_39.ply" />
+    <Content Include="assets\models\CityModels\Object_40.ply" />
+    <Content Include="assets\models\CityModels\Object_41.ply" />
+    <Content Include="assets\models\CityModels\Object_42.ply" />
+    <Content Include="assets\models\CityModels\Object_43.ply" />
+    <Content Include="assets\models\CityModels\Object_44.ply" />
+    <Content Include="assets\models\CityModels\Object_45.ply" />
+    <Content Include="assets\models\CityModels\Object_46.ply" />
+    <Content Include="assets\models\CityModels\Object_47.ply" />
+    <Content Include="assets\models\CityModels\Object_48.ply" />
+    <Content Include="assets\models\CityModels\Object_49.ply" />
+    <Content Include="assets\models\CityModels\Object_5.ply" />
+    <Content Include="assets\models\CityModels\Object_50.ply" />
+    <Content Include="assets\models\CityModels\Object_51.ply" />
+    <Content Include="assets\models\CityModels\Object_52.ply" />
+    <Content Include="assets\models\CityModels\Object_53.ply" />
+    <Content Include="assets\models\CityModels\Object_54.ply" />
+    <Content Include="assets\models\CityModels\Object_55.ply" />
+    <Content Include="assets\models\CityModels\Object_56.ply" />
+    <Content Include="assets\models\CityModels\Object_57.ply" />
+    <Content Include="assets\models\CityModels\Object_58.ply" />
+    <Content Include="assets\models\CityModels\Object_59.ply" />
+    <Content Include="assets\models\CityModels\Object_6.ply" />
+    <Content Include="assets\models\CityModels\Object_60.ply" />
+    <Content Include="assets\models\CityModels\Object_61.ply" />
+    <Content Include="assets\models\CityModels\Object_62.ply" />
+    <Content Include="assets\models\CityModels\Object_63.ply" />
+    <Content Include="assets\models\CityModels\Object_64.ply" />
+    <Content Include="assets\models\CityModels\Object_65.ply" />
+    <Content Include="assets\models\CityModels\Object_66.ply" />
+    <Content Include="assets\models\CityModels\Object_67.ply" />
+    <Content Include="assets\models\CityModels\Object_68.ply" />
+    <Content Include="assets\models\CityModels\Object_69.ply" />
+    <Content Include="assets\models\CityModels\Object_7.ply" />
+    <Content Include="assets\models\CityModels\Object_70.ply" />
+    <Content Include="assets\models\CityModels\Object_71.ply" />
+    <Content Include="assets\models\CityModels\Object_72.ply" />
+    <Content Include="assets\models\CityModels\Object_73.ply" />
+    <Content Include="assets\models\CityModels\Object_74.ply" />
+    <Content Include="assets\models\CityModels\Object_75.ply" />
+    <Content Include="assets\models\CityModels\Object_76.ply" />
+    <Content Include="assets\models\CityModels\Object_77.ply" />
+    <Content Include="assets\models\CityModels\Object_78.ply" />
+    <Content Include="assets\models\CityModels\Object_79.ply" />
+    <Content Include="assets\models\CityModels\Object_8.ply" />
+    <Content Include="assets\models\CityModels\Object_80.ply" />
+    <Content Include="assets\models\CityModels\Object_81.ply" />
+    <Content Include="assets\models\CityModels\Object_82.ply" />
+    <Content Include="assets\models\CityModels\Object_83.ply" />
+    <Content Include="assets\models\CityModels\Object_84.ply" />
+    <Content Include="assets\models\CityModels\Object_85.ply" />
+    <Content Include="assets\models\CityModels\Object_86.ply" />
+    <Content Include="assets\models\CityModels\Object_87.ply" />
+    <Content Include="assets\models\CityModels\Object_88.ply" />
+    <Content Include="assets\models\CityModels\Object_89.ply" />
+    <Content Include="assets\models\CityModels\Object_9.ply" />
+    <Content Include="assets\models\CityModels\Object_90.ply" />
+    <Content Include="assets\models\CityModels\Object_91.ply" />
+    <Content Include="assets\models\CityModels\Object_92.ply" />
+    <Content Include="assets\models\CityModels\Object_93.ply" />
+    <Content Include="assets\models\CityModels\Object_94.ply" />
+    <Content Include="assets\models\CityModels\Object_95.ply" />
+    <Content Include="assets\models\CityModels\Object_96.ply" />
+    <Content Include="assets\models\CityModels\Object_97.ply" />
+    <Content Include="assets\models\CityModels\Object_98.ply" />
+    <Content Include="assets\models\CityModels\Object_99.ply" />
+    <Content Include="assets\models\CityModels\ScreenTest.ply" />
+    <Content Include="assets\models\CityModels\ScreenTest3.ply" />
+    <Content Include="assets\models\Corellian_Corvette_(Blockade_Runner).ply" />
+    <Content Include="assets\models\Corellian_Corvette_xyz_n_rgba.ply" />
+    <Content Include="assets\models\cow.ply" />
+    <Content Include="assets\models\cow_XYZ.ply" />
+    <Content Include="assets\models\cow_xyz_n_rgba.ply" />
+    <Content Include="assets\models\cow_xyz_n_rgba_UV (Blender Smart UV project).ply" />
+    <Content Include="assets\models\cow_xyz_n_rgba_UV (MeshLab trivial, random).ply" />
+    <Content Include="assets\models\cow_xyz_n_rgba_UV.ply" />
+    <Content Include="assets\models\de--lorean.ply" />
+    <Content Include="assets\models\de--lorean_xyz_n_rgba.ply" />
+    <Content Include="assets\models\dolphin.ply" />
+    <Content Include="assets\models\dolphin_xyz_n_rgba.ply" />
+    <Content Include="assets\models\dolphin_xyz_n_rgba_UV.ply" />
+    <Content Include="assets\models\dummy.png" />
+    <Content Include="assets\models\Dungeon_models\Additions\SM_Env_Camp_Well_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Env_Crystals_Cluster_Large_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Env_Crystals_Cluster_Large_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Env_Crystals_Cluster_Large_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Env_Crystals_Cluster_Large_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Prop_Crystal_Rock_A_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Prop_Crystal_Rock_A_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Prop_Crystal_Rock_B_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Prop_Crystal_Rock_B_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Crystals\SM_Prop_Crystal_Rock_B_03j.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Item_Skull_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_DeadBody_Dwarf_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_DeadBody_Dwarf_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_DeadBody_Dwarf_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_DeadBody_Nomad_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_DeadBody_Nomad_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_DeadBody_Nomad_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_Skeleton_Cage_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_Skeleton_Cage_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_Skeleton_Chest_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_Skeleton_Chest_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_Skeleton_Ground_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_Skeleton_Ground_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_Skeleton_Ground_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead bodies, etc\SM_Prop_Skeleton_Shackle_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Item_Skull_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_DeadBody_Dwarf_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_DeadBody_Dwarf_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_DeadBody_Dwarf_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_DeadBody_Nomad_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_DeadBody_Nomad_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_DeadBody_Nomad_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_Skeleton_Cage_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_Skeleton_Cage_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_Skeleton_Chest_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_Skeleton_Chest_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_Skeleton_Ground_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_Skeleton_Ground_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_Skeleton_Ground_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Dead\SM_Prop_Skeleton_Shackle_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_03_xyz_n.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_05.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_06.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_07.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_08.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_09.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_10.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_11.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_12.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_13.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_14.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_15.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_16.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_17.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_18.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_19.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_20.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_21.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_22.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_23.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_24.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_25.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_26.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_27.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_28.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_29.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_Corner_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_Half_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Floors\SM_Env_Dwarf_Floor_Half_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Bramble_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Bramble_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Bramble_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Bush_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Fern_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Flowers_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Flowers_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_GrassPatch_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_GrassPatch_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_GrassPatch_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_Thin_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_Thin_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_Thin_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_Thin_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_Tuft_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_Tuft_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_Tuft_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Grass_Tuft_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_GroundLeaves_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_GroundLeaves_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_GroundLeaves_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Mangrove_Tree_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Mangrove_Tree_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_PalmBush_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_PalmTree_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_PalmTree_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_PalmTree_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_PalmTree_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_PalmTree_Tall_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_PalmTree_Tall_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Plants_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Plants_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Plants_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Plant_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Plant_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Plant_Spikey_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Base_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Base_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Big_01.obj.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Canopy_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Canopy_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Canopy_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Canopy_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Dead_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Large_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Large_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Vines_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Vines_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Vines_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Vines_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Tree_Vines_05.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Vines_Wall_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Env_Vines_Wall_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Generic_TreeDead_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Generic_TreeStump_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Generic_Tree_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Generic_Tree_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Generic_Tree_03..ply" />
+    <Content Include="assets\models\Dungeon_models\Plants\SM_Generic_Tree_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\dummy.png" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Env_Camp_Well_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bag_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bag_Attachment_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bag_Attachment_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bomb_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bottle_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bottle_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bottle_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bottle_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bottle_Attachment_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bottle_Candle_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Bottle_Candle_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Candelabra_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Candelabra_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Candle_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Chalice_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Compass_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Cup_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Item_Flask_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Anvil_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_01 (2).ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_02 (2).ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_03 (2).ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_05.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Barrel_Half_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Lantern_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Lantern_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Lantern_Attachment_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Mug_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props and Decorations\SM_Prop_Tankard_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Env_Camp_Well_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bag_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bag_Attachment_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bag_Attachment_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bomb_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bottle_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bottle_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bottle_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bottle_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bottle_Attachment_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bottle_Candle_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Bottle_Candle_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Candelabra_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Candelabra_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Candle_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Chalice_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Compass_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Cup_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Item_Flask_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Anvil_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_01 (2).ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_02 (2).ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_03 (2).ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_05.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Barrel_Half_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Lantern_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Lantern_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Lantern_Attachment_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Mug_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Props\SM_Prop_Tankard_01.ply" />
+    <Content Include="assets\models\Dungeon_models\SM_Env_Floor_Grate_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Textures\Dungeons_2_Texture_01_A.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Dungeons_2_Texture_Emission_01.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Dungeons_2_Texture_Emission_02.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Dungeons_2_Texture_Emission_03.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Dungeons_2_Texture_Emission_04.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Dungeons_2_Texture_Normal_Map.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\FX_Circle_Soft_Tex.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\FX_Circle_Tex.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\FX_Gold_Sparkle_Tex.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\FX_SunBeam_Tex.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Gold_Diffuse.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Gold_Normal.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\SimpleSky.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\SimpleSky_Texture.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_01_A.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_01_B.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_01_C.bmp" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_01_C.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_02_A.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_02_B.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_02_C.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_03_A.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_03_B.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_03_C.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_04_A.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_04_B.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_04_C.png" />
+    <Content Include="assets\models\Dungeon_models\Textures\Texture_Emmisive.png" />
+    <Content Include="assets\models\Dungeon_models\Torches\SM_Prop_Dwarf_Torch_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Torches\SM_Prop_Dwarf_Torch_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Torches\SM_Prop_Dwarf_Torch_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Torches\SM_Prop_Dwarf_Torch_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Torches\SM_Prop_Dwarf_Torch_05.ply" />
+    <Content Include="assets\models\Dungeon_models\Torches\SM_Prop_Dwarf_Torch_06.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_05.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_06.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Archway_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Archway_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Archway_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Archway_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Broken_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Broken_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Broken_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Broken_04.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Broken_05.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Broken_06.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Tunnel_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Tunnel_Archway_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Window_01.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Window_02.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Window_03.ply" />
+    <Content Include="assets\models\Dungeon_models\Walls\SM_Env_Dwarf_Wall_Window_04.ply" />
+    <Content Include="assets\models\flame_xyz_rgba_n_uv.ply" />
+    <Content Include="assets\models\homer.ply" />
+    <Content Include="assets\models\homer_xyz_n_rgba.ply" />
+    <Content Include="assets\models\huge-warehouse.7z" />
+    <Content Include="assets\models\huge-warehouse\Huge Warehouse - Download Free 3D model by novusod (@novusod) [47de3d0].url" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Original_Blender_Exports.7z" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\PLY_Export (by Michael).7z" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_Crate1.ply" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_Crate2.ply" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_Fiber.png" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_Floor.ply" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_Loading_001.ply" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_Loading_Pallets.ply" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_Loading_Roof.ply" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_WoodCrate2.png" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_WoodCrate_.png" />
+    <Content Include="assets\models\huge-warehouse\PLY_Export (by Michael)\Warehouse_WrappedPallet.png" />
+    <Content Include="assets\models\huge-warehouse\source\Warehouse (edited-sharp edge, flat shaded).blend" />
+    <Content Include="assets\models\huge-warehouse\source\Warehouse.blend" />
+    <Content Include="assets\models\huge-warehouse\textures\Fiber.png" />
+    <Content Include="assets\models\huge-warehouse\textures\WoodCrate2.png" />
+    <Content Include="assets\models\huge-warehouse\textures\WoodCrate_.png" />
+    <Content Include="assets\models\huge-warehouse\textures\WrappedPallet.png" />
+    <Content Include="assets\models\Isoshphere_smooth_inverted_normals_xyz_n_rgba.ply" />
+    <Content Include="assets\models\Isoshphere_smooth_inverted_normals_xyz_n_rgba_uv.ply" />
+    <Content Include="assets\models\Isoshphere_smooth_xyz_n_rgba_uv.blend" />
+    <Content Include="assets\models\Isoshphere_smooth_xyz_n_rgba_uv.ply" />
+    <Content Include="assets\models\Lava_Texture.bmp" />
+    <Content Include="assets\models\Sky.ply" />
+    <Content Include="assets\models\Sydney_Sweeney.bmp" />
+    <Content Include="assets\models\Utah_Teapot.ply" />
+    <Content Include="assets\models\Utah_Teapot_xyz_n_rgba.ply" />
+    <Content Include="assets\models\Utah_Teapot_xyz_n_rgba_UV.ply" />
+    <Content Include="assets\models\Warehouse_Crate1.ply" />
+    <Content Include="assets\models\Warehouse_Crate2.ply" />
+    <Content Include="assets\models\Warehouse_Fiber.png" />
+    <Content Include="assets\models\Warehouse_Floor.ply" />
+    <Content Include="assets\models\Warehouse_Loading_001.ply" />
+    <Content Include="assets\models\Warehouse_Loading_Pallets.ply" />
+    <Content Include="assets\models\Warehouse_Loading_Roof.ply" />
+    <Content Include="assets\models\Warehouse_WrappedPallet.png" />
+    <Content Include="assets\models\Warehouse_xyz_n_rgba.ply" />
+    <Content Include="assets\models\Warehouse_xyz_n_rgba_UV (Blender Smart UV project).blend" />
+    <Content Include="assets\models\Warehouse_xyz_n_rgba_UV (Blender Smart UV project).blend1" />
+    <Content Include="assets\models\Warehouse_xyz_n_rgba_UV (Blender Smart UV project).ply" />
+    <Content Include="assets\models\Warehouse_xyz_n_rgba_UV (MeshLab_XY_Project).ply" />
+    <Content Include="assets\models\Warehouse_xyz_rgba.ply" />
+    <Content Include="assets\models\water-texture-seamless-natural-high-quality-photo.jpg" />
+    <Content Include="assets\models\Water.ply" />
+    <Content Include="assets\models\Water_top.ply" />
+    <Content Include="assets\models\with_normals (Meshlab)\cow_xyz_n_rgba.ply" />
+    <Content Include="assets\models\with_normals (Meshlab)\de--lorean_xyz_n_rgba.ply" />
+    <Content Include="assets\models\with_normals (Meshlab)\dolphin_xyz_n_rgba.ply" />
+    <Content Include="assets\models\with_normals (Meshlab)\homer_xyz_n_rgba.ply" />
+    <Content Include="assets\models\with_normals (Meshlab)\Utah_Teapot_xyz_n_rgba.ply" />
+    <Content Include="assets\models\with_normals (Meshlab)\Warehouse_xyz_n_rgba.ply" />
+    <Content Include="assets\shaders\fragment_shader.glsl" />
+    <Content Include="assets\shaders\vertex_shader.glsl" />
+    <Content Include="assets\textures\Brushed_Metal_Texture.bmp" />
+    <Content Include="assets\textures\Brushed_Metal_Texture.jpg" />
+    <Content Include="assets\textures\cow_xyz_n_rgba_UV_Blender_UV_Unwrap_grey.bmp" />
+    <Content Include="assets\textures\cow_xyz_n_rgba_UV_Blender_UV_Unwrap_orange.bmp" />
+    <Content Include="assets\textures\CubeMaps\CubeMaps-TropicalSunnyDay.7z" />
+    <Content Include="assets\textures\CubeMaps\Hills.bmp" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_back6_negZ.bmp" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_back6_negZ.jpg" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_bottom4_negY.bmp" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_bottom4_negY.jpg" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_front5_posZ.bmp" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_front5_posZ.jpg" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_left2_negX.bmp" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_left2_negX.jpg" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_right1_posX.bmp" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_right1_posX.jpg" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_top3_posY.bmp" />
+    <Content Include="assets\textures\CubeMaps\SpaceBox_top3_posY.jpg" />
+    <Content Include="assets\textures\CubeMaps\Spacescape – Alex Peterson.url" />
+    <Content Include="assets\textures\CubeMaps\TropicalSunnyDayBack2048.bmp" />
+    <Content Include="assets\textures\CubeMaps\TropicalSunnyDayDown2048.bmp" />
+    <Content Include="assets\textures\CubeMaps\TropicalSunnyDayFront2048.bmp" />
+    <Content Include="assets\textures\CubeMaps\TropicalSunnyDayLeft2048.bmp" />
+    <Content Include="assets\textures\CubeMaps\TropicalSunnyDayRight2048.bmp" />
+    <Content Include="assets\textures\CubeMaps\TropicalSunnyDayUp2048.bmp" />
+    <Content Include="assets\textures\dummy.png" />
+    <Content Include="assets\textures\Dungeons_2_Texture_01_A.bmp" />
+    <Content Include="assets\textures\Dungeons_2_Texture_01_A.png" />
+    <Content Include="assets\textures\fire.bmp" />
+    <Content Include="assets\textures\Grass_Texture_1.bmp" />
+    <Content Include="assets\textures\Lava_Texture.bmp" />
+    <Content Include="assets\textures\MaskingTexture.bmp" />
+    <Content Include="assets\textures\Oringal_Textures_I_downloaded\1000_F_508276468_W6yeR3519RTZG4cvxfXbCwjHwovfuLHz.jpg" />
+    <Content Include="assets\textures\Oringal_Textures_I_downloaded\10440718-seamless-grass-texture-for-3d-or-2d-texturing.jpg" />
+    <Content Include="assets\textures\Oringal_Textures_I_downloaded\images.jpg" />
+    <Content Include="assets\textures\Oringal_Textures_I_downloaded\kim-pitcher-000.jpg" />
+    <Content Include="assets\textures\PLACEHOLDER.bmp" />
+    <Content Include="assets\textures\Seamless-Rust-Texture.bmp" />
+    <Content Include="assets\textures\Seamless-Rust-Texture.jpg" />
+    <Content Include="assets\textures\Stone_Texture_1.bmp" />
+    <Content Include="assets\textures\Stone_Texture_2.bmp" />
+    <Content Include="assets\textures\Sydney_Sweeney.bmp" />
+    <Content Include="assets\textures\Texture_01_A.png" />
+    <Content Include="assets\textures\Warehouse_Fiber.bmp" />
+    <Content Include="assets\textures\Warehouse_Fiber.png" />
+    <Content Include="assets\textures\Warehouse_WoodCrate2.bmp" />
+    <Content Include="assets\textures\Warehouse_WoodCrate2.png" />
+    <Content Include="assets\textures\Warehouse_WoodCrate_.bmp" />
+    <Content Include="assets\textures\Warehouse_WoodCrate_.png" />
+    <Content Include="assets\textures\Warehouse_WrappedPallet.bmp" />
+    <Content Include="assets\textures\Warehouse_WrappedPallet.png" />
+    <Content Include="assets\textures\water.bmp" />
+    <Content Include="assets\textures\water.png" />
+    <Content Include="cLightHelper\Isoshphere_flat_3div_xyz_n_rgba_uv.ply" />
+    <Content Include="cLightHelper\Isoshphere_flat_4div_xyz_n_rgba_uv.ply" />
+    <Content Include="my_scene.scene" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\scripts\" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
