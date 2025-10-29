@@ -7,4 +7,22 @@ _Above Image includes models NOT included with the engine due to licencing. More
 
 I plan to support other model formats since **_.ply_** is the only accepted format. The next thing I want to add is collision and reformat how light objects are handled to make scripting easier.
 
+### Basic Controls
+
+| Action | Key(s)                          |
+|---|---------------------------------|
+| Rotate Camera | `Hold Right Click + Move Mouse` |
+| Movement | `W, A, S, D, Q, E`              |
+| Camera Speed | `Scroll Wheel`                  |
+| Cycle Objects | `Shift + [ or ]`                |
+| Object Movement | `Shift + Movement`              |
+| Object Rotation | `ALT + Movement`                |
+| Highlight Object | `Shift + T`                     |
+| Duplicate Object | `Shift + M`                     |
+| Delete Object | `Shift + Backspace`             |
+| Cycle Lights | `Shift + [ or ]`                |
+| Light Movement | `CTRL + Movement`               |
+| Highlight Light | `CTRL + T`                      |
+
+
 Note: This repo is the development build, meaning it will contain a lot of random assets, textures, and scenes ment to assist development. Any release version will have these assets removed, so your own assets are required.
