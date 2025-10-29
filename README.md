@@ -25,4 +25,4 @@ I plan to support other model formats since **_.ply_** is the only accepted form
 | Highlight Light | `CTRL` + `T`                      |
 
 
-Note: This repo is the development build, meaning it will contain a lot of random assets, textures, and scenes ment to assist development. Any release version will have these assets removed, so your own assets are required.
+Note: This repo is the development build, meaning it will contain a lot of random assets, textures, and scenes meant to assist development. Any release version will have these assets removed, so your own assets are required.
